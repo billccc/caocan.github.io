@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="../../../../images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库,Oracle," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Oracle（二） DML、DDL、事务控制语句第二十四课备份与恢复:1—    backup scottexp2—    create user12create user liuchao identified by liuchao default tablespace users quota 10M on users;grant create session , create table , c">
+<meta name="keywords" content="数据库,Oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle（二） DML、DDL、事务控制语句">
+<meta property="og:url" content="https://caocan.github.io/2017/10/22/Oracle-DDL/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="Oracle（二） DML、DDL、事务控制语句第二十四课备份与恢复:1—    backup scottexp2—    create user12create user liuchao identified by liuchao default tablespace users quota 10M on users;grant create session , create table , c">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-10-22T07:46:18.284Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oracle（二） DML、DDL、事务控制语句">
+<meta name="twitter:description" content="Oracle（二） DML、DDL、事务控制语句第二十四课备份与恢复:1—    backup scottexp2—    create user12create user liuchao identified by liuchao default tablespace users quota 10M on users;grant create session , create table , c">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/10/22/Oracle-DDL/"/>
+
+
+
+
+
+  <title>Oracle（二） DML、DDL、事务控制语句 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Oracle（二） DML、DDL、事务控制语句</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-22T15:25:41+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Oracle（二）-DML、DDL、事务控制语句"><a href="#Oracle（二）-DML、DDL、事务控制语句" class="headerlink" title="Oracle（二） DML、DDL、事务控制语句"></a>Oracle（二） DML、DDL、事务控制语句</h1><h2 id="第二十四课"><a href="#第二十四课" class="headerlink" title="第二十四课"></a>第二十四课</h2><p>备份与恢复:<br>1—    <code>backup scott</code><br>exp<br>2—    <code>create user</code><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">user</span> liuchao <span class="keyword">identified</span> <span class="keyword">by</span> liuchao <span class="keyword">default</span> <span class="keyword">tablespace</span> <span class="keyword">users</span> <span class="keyword">quota</span> <span class="number">10</span>M <span class="keyword">on</span> <span class="keyword">users</span>;</div><div class="line"><span class="keyword">grant</span> <span class="keyword">create</span> <span class="keyword">session</span> , <span class="keyword">create</span> <span class="keyword">table</span> , <span class="keyword">create</span> <span class="keyword">view</span> <span class="keyword">to</span> liuchao;</div></pre></td></tr></table></figure></p>
+<p>3—    <code>import the data;</code><br><code>imp</code><br><a id="more"></a><br>DOS环境下:exp导出,imp导入<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--drop user yugang cascade; //删除YUGANG 用户</span></div><div class="line"><span class="comment">--cd \ </span></div><div class="line"><span class="comment">--cd temp </span></div><div class="line"><span class="comment">--delete *.* </span></div><div class="line"><span class="comment">--exp </span></div><div class="line"><span class="comment">--create user yugang indentified by yugang default tablespace users quota 10M on         users //创建用户</span></div><div class="line"><span class="comment">--grant create session,create table,create view to yugang //分配权限</span></div><div class="line"><span class="comment">--imp the data</span></div></pre></td></tr></table></figure></p>
+<p>第一次输入的用户名密码为:yugang/yugang<br>第二次输入的用户名密码为:导出数据的用户的用户名和密码 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--rollback //取消刚才的操作</span></div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp2 <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> emp; //复制emp</div></pre></td></tr></table></figure>
+<p>插入数据操作：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept2 <span class="keyword">values</span>(<span class="number">50</span> , <span class="string">'game'</span> , <span class="string">'bj'</span>);   //插入全部值</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept2 (deptno , dname) <span class="keyword">values</span> (<span class="number">60</span> , <span class="string">'game2'</span>);  //插入部分值</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept2 <span class="keyword">select</span> * <span class="keyword">from</span> dept;	//将一张表插入现在的表</div></pre></td></tr></table></figure></p>
+<h2 id="第二十五课-rownum"><a href="#第二十五课-rownum" class="headerlink" title="第二十五课:rownum"></a>第二十五课:rownum</h2><p>rownum是在Oracle中在表的后面加的一个尾字段,并且只能使用诸如rownum&lt;=n或rownum&lt;=n这样的形式,不能与&gt;或&gt;=相连接在一起</p>
+<p>Oracle里面有一个尾字段叫–&gt;rownum 它是按照1，2，3…进行排列的，它不显示<br>所以如果想求&gt;或者&gt;=的行数，可以给rownum起别名，就如下面这么做：<br><code>select ename from (select rownum r , ename from emp) where r &gt; 10;</code></p>
+<p>1.求薪水值最高的前5条记录.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> ename , sal <span class="keyword">from</span> (<span class="keyword">select</span> ename , sal <span class="keyword">from</span> emp <span class="keyword">order</span> <span class="keyword">by</span> sal <span class="keyword">desc</span>)<span class="keyword">where</span> <span class="keyword">rownum</span> &lt;=<span class="number">5</span>;</div></pre></td></tr></table></figure></p>
+<p>2.求薪水值最高的第6~10条记录.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> ename,sal <span class="keyword">from</span> </div><div class="line">( </div><div class="line"><span class="keyword">select</span> ename,sal,<span class="keyword">rownum</span> r <span class="keyword">from</span> </div><div class="line">(<span class="keyword">select</span> ename,sal <span class="keyword">from</span> emp <span class="keyword">order</span> <span class="keyword">by</span> sal <span class="keyword">desc</span>) </div><div class="line">) </div><div class="line"><span class="keyword">where</span> r &gt;=<span class="number">6</span> <span class="keyword">and</span> r &lt;= <span class="number">10</span>;</div></pre></td></tr></table></figure></p>
+<h2 id="第二十六课-homework-dml-transaction"><a href="#第二十六课-homework-dml-transaction" class="headerlink" title="第二十六课:homework_dml_transaction"></a>第二十六课:homework_dml_transaction</h2><p>SQL面试题<br>有三张表S、C、SC<br>S(SNO、SNAME)代表（学号、姓名）<br>C(CNO、CNAME、CTEACHER)代表（课号、课名、老师）<br>SC(SNO、CNO、SCGRADE)代表（学号、课号、成绩）<br>1.求出没选过郭富城老师的所有学生姓名<br>2.列出2门以上（含2门）不及格的学生姓名及平均成绩<br>3.既学过1号课程又学过2号课程的所有学生姓名 </p>
+<p>1.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> sname <span class="keyword">from</span> s <span class="keyword">join</span> sc <span class="keyword">on</span> (s.sno = sc.sno) <span class="keyword">join</span> c <span class="keyword">on</span> (c.cno = sc.cno) </div><div class="line"><span class="keyword">where</span> c.cteacher &lt;&gt; <span class="string">'郭富城'</span>;</div><div class="line">``` </div><div class="line"></div><div class="line">2.</div><div class="line">```sql</div><div class="line"><span class="keyword">select</span> sname <span class="keyword">from</span> s <span class="keyword">where</span> sno <span class="keyword">in</span> </div><div class="line">( </div><div class="line"><span class="keyword">select</span> sno <span class="keyword">from</span> sc <span class="keyword">where</span> scgrade &lt; <span class="number">60</span> <span class="keyword">group</span> <span class="keyword">by</span> sno <span class="keyword">having</span> <span class="keyword">count</span>(*) &gt;= <span class="number">2</span> </div><div class="line">)</div></pre></td></tr></table></figure></p>
+<p>3.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> sname <span class="keyword">from</span> s <span class="keyword">where</span> sno <span class="keyword">in</span> </div><div class="line">( </div><div class="line"><span class="keyword">select</span> sno <span class="keyword">from</span> sc <span class="keyword">where</span> cno=<span class="number">1</span> <span class="keyword">and</span> sno <span class="keyword">in</span> </div><div class="line">(<span class="keyword">select</span> <span class="keyword">distinct</span> sno <span class="keyword">from</span> sc <span class="keyword">where</span> cno=<span class="number">2</span>) </div><div class="line">)</div></pre></td></tr></table></figure></p>
+<p>update 更新表中的数据   把emp2这张表里，编号为10的，所有人的薪水提1倍<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">update</span> emp2 <span class="keyword">set</span> sal = sal*<span class="number">2</span>, ename = ename||<span class="string">'-'</span> <span class="keyword">where</span> depton = <span class="number">10</span>//修改数据</div><div class="line"><span class="keyword">delete</span> <span class="keyword">from</span> dept2 <span class="keyword">where</span> depton = <span class="number">10</span>;</div></pre></td></tr></table></figure></p>
+<p>四条语句讲完了：背过语法格式<br>DDL– 数据定义语言，建表，建视图，建其他一些东西。<br><strong>1.创建表– create table</strong><br><code>create table t (a varchar2(10));</code><br><strong>2.删除表 drop table</strong><br><code>drop table xx;</code><br>跳过此阶段，先讲事务控制语句<br><strong><em>事务transaction代表一组不可分割的操作，要么全部执行，要么全部不执行，<br>transaction起始于一条DML语句，结束于commit;语句，或者是DCL、DDL语句，在事务未提交前 </em></strong><br>可以通过rollback回滚事务，正常退出事务会自动提交，非正常退出事务会自动回滚。 </p>
+<h2 id="第二十七课：create-table"><a href="#第二十七课：create-table" class="headerlink" title="第二十七课：create table"></a>第二十七课：create table</h2><p>  为什么有变长字符串Varchar2还要有定长字符串Char呢? 因为存在效率问题，用Char效率高，但浪费空间，这就是拿空间换时间Hashtable也是拿空间换时,创建一张表，并往里插入一条数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> stu</div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">6</span>), </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>), </div><div class="line">sex <span class="built_in">number</span>(<span class="number">1</span>), </div><div class="line">age <span class="built_in">number</span>(<span class="number">3</span>), </div><div class="line">sdate <span class="built_in">date</span>, </div><div class="line">grade <span class="built_in">number</span>(<span class="number">2</span>) <span class="keyword">default</span> <span class="number">1</span>, </div><div class="line"><span class="keyword">class</span> <span class="built_in">number</span>(<span class="number">4</span>), </div><div class="line">email varchar2(<span class="number">50</span>) </div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> stu </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">6</span>), </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>, </div><div class="line">sex <span class="built_in">number</span>(<span class="number">1</span>), </div><div class="line">age <span class="built_in">number</span>(<span class="number">3</span>), </div><div class="line">sdate <span class="built_in">date</span>, </div><div class="line">grade <span class="built_in">number</span>(<span class="number">2</span>) <span class="keyword">default</span> <span class="number">1</span>, </div><div class="line"><span class="keyword">class</span> <span class="built_in">number</span>(<span class="number">4</span>), </div><div class="line">email varchar2(<span class="number">50</span>) </div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h2 id="第二十八-三十课"><a href="#第二十八-三十课" class="headerlink" title="第二十八~三十课"></a>第二十八~三十课</h2><p>五个约束条件：<strong>非空 唯一 主键 外键 check</strong><br><strong>主键：</strong>PRIMARY KEY 叫做：可以唯一标识整条记录的这样的一个东西<br>从语法上来说主键的约束可以理解为：非空 ，唯一 两个的组合<br>主键约束在逻辑意义上代表着单独的，每一条记录，看到主键就知道你是一条单独的不同的记录，是唯一的代表的记录<br>   我们可以用两个字段的组合作为主键</p>
+<p><strong>外键(最麻烦的约束)：</strong>建立于一张表的两个字段，或者两张表的两个字段<br><code>constraint stu_class_fk foreign key (class)references class (id)</code></p>
+<p><strong>外键关系：</strong>是建立在两个字段上，某一个字段会参考另外一个字段里面的值，如果另外一个字段里面没有这个值，你不能够把这个字段里面的值，设置成为其他的值。<br>被参考的字段必须是主键，被其他人参考的字段不能作为删除条件<br>主键约束和外键约束非常重要，老牢牢掌握其概念</p>
+<p>1.<strong>唯一约束</strong>–&gt;在这个字段里面所有的记录不能取重复的值，每个值必须是唯一的</p>
+<p>唯一约束后面 + unique ，当然也可以用constraint + 名字<br>字段级的约束：把约束条件+在字段名的后面<br>表级的约束：+在所有字段名的最后面</p>
+<p><code>constraint stu_name_email_uni unique(email,name)</code> 表示的是：这两个字段的组合不能重复</p>
+<p>2.<strong>constraint//非空约束</strong><br>约束条件本身也是一个对象，本身约束条件你个可以为它起一个名字<br>用<code>constraint stu_name_nn not null</code> –&gt;为约束条件not null起名字为：stu_name_nn<br>如果不给约束条件起名字，系统会默认的给约束条件起一个名字</p>
+<p>not null,unique(当某字段有unique约束时，可以插入空值，空值之间不重复)、主键、外键、        check约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> student </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">6</span>), </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>) <span class="keyword">constraint</span> stu_name_nn <span class="keyword">not</span> <span class="literal">null</span>, //（字段级约束）</div><div class="line">sex <span class="built_in">number</span>(<span class="number">1</span>), </div><div class="line">age <span class="built_in">number</span>(<span class="number">3</span>), </div><div class="line">sdate <span class="built_in">date</span>, </div><div class="line">grade <span class="built_in">number</span>(<span class="number">2</span>) <span class="keyword">default</span> <span class="number">1</span>, </div><div class="line"><span class="keyword">class</span> <span class="built_in">number</span>(<span class="number">4</span>), </div><div class="line">email varchar2(<span class="number">50</span>) <span class="keyword">unique</span> //<span class="keyword">unique</span>唯一约束 都为空可以</div><div class="line">) </div><div class="line">/</div></pre></td></tr></table></figure></p>
+<p>//名字和email的组合不能重复：<br>行级约束（放在字段后面）与表级约束（加在表后面）：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> student </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">6</span>), </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>) <span class="keyword">constraint</span> stu_name_nn <span class="keyword">not</span> <span class="literal">null</span>, </div><div class="line">sex <span class="built_in">number</span>(<span class="number">1</span>), </div><div class="line">age <span class="built_in">number</span>(<span class="number">3</span>), </div><div class="line">sdate <span class="built_in">date</span>, </div><div class="line">grade <span class="built_in">number</span>(<span class="number">2</span>) <span class="keyword">default</span> <span class="number">1</span>, </div><div class="line"><span class="keyword">class</span> <span class="built_in">number</span>(<span class="number">4</span>), </div><div class="line">email varchar2(<span class="number">50</span>), </div><div class="line"><span class="keyword">constraint</span> stu_email_name_uni <span class="keyword">unique</span>(<span class="keyword">name</span>,email) //<span class="keyword">name</span>,email的组合唯一约束（表级约束）</div><div class="line">) </div><div class="line">/</div></pre></td></tr></table></figure></p>
+<p>主键约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> student </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">6</span>) primary <span class="keyword">key</span>, </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>) <span class="keyword">constraint</span> stu_name_nn <span class="keyword">not</span> <span class="literal">null</span>, </div><div class="line">sex <span class="built_in">number</span>(<span class="number">1</span>), </div><div class="line">age <span class="built_in">number</span>(<span class="number">3</span>), </div><div class="line">sdate <span class="built_in">date</span>, </div><div class="line">grade <span class="built_in">number</span>(<span class="number">2</span>) <span class="keyword">default</span> <span class="number">1</span>, </div><div class="line"><span class="keyword">class</span> <span class="built_in">number</span>(<span class="number">4</span>), </div><div class="line">email varchar2(<span class="number">50</span>), </div><div class="line"><span class="keyword">constraint</span> stu_email_name_uni <span class="keyword">unique</span>(<span class="keyword">name</span>,email) </div><div class="line">) </div><div class="line">/ </div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> student </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">6</span>), </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>) <span class="keyword">constraint</span> stu_name_nn <span class="keyword">not</span> <span class="literal">null</span>, </div><div class="line">sex <span class="built_in">number</span>(<span class="number">1</span>), </div><div class="line">age <span class="built_in">number</span>(<span class="number">3</span>), </div><div class="line">sdate <span class="built_in">date</span>, </div><div class="line">grade <span class="built_in">number</span>(<span class="number">2</span>) <span class="keyword">default</span> <span class="number">1</span>, </div><div class="line"><span class="keyword">class</span> <span class="built_in">number</span>(<span class="number">4</span>), </div><div class="line">email varchar2(<span class="number">50</span>), </div><div class="line"><span class="keyword">constraint</span> stu_id_pk primary <span class="keyword">key</span>(<span class="keyword">id</span>), </div><div class="line"><span class="keyword">constraint</span> stu_email_name_uni <span class="keyword">unique</span>(<span class="keyword">name</span>,email) </div><div class="line">) </div><div class="line">/</div></pre></td></tr></table></figure></p>
+<p>外键约束<br>外键约束被参考的字段必须是主键。</p>
+<p>先建表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">class</span> </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">4</span>) primary <span class="keyword">key</span>, </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span> </div><div class="line">) </div><div class="line">/</div></pre></td></tr></table></figure></p>
+<p>第一种创建外键的方法：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> student </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">6</span>), </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>) <span class="keyword">constraint</span> stu_name_nn <span class="keyword">not</span> <span class="literal">null</span>, </div><div class="line">sex <span class="built_in">number</span>(<span class="number">1</span>), </div><div class="line">age <span class="built_in">number</span>(<span class="number">3</span>), </div><div class="line">sdate <span class="built_in">date</span>, </div><div class="line">grade <span class="built_in">number</span>(<span class="number">2</span>) <span class="keyword">default</span> <span class="number">1</span>, </div><div class="line"><span class="keyword">class</span> <span class="built_in">number</span>(<span class="number">4</span>) <span class="keyword">references</span> <span class="keyword">class</span>(<span class="keyword">id</span>), </div><div class="line">email varchar2(<span class="number">50</span>), </div><div class="line"><span class="keyword">constraint</span> stu_id_pk primary <span class="keyword">key</span>(<span class="keyword">id</span>), </div><div class="line"><span class="keyword">constraint</span> stu_email_name_uni <span class="keyword">unique</span>(<span class="keyword">name</span>,email) </div><div class="line">) </div><div class="line">/</div></pre></td></tr></table></figure></p>
+<p>第二种创建外键的方法：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> student </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>(<span class="number">6</span>), </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>) <span class="keyword">constraint</span> stu_name_nn <span class="keyword">not</span> <span class="literal">null</span>, </div><div class="line">sex <span class="built_in">number</span>(<span class="number">1</span>), </div><div class="line">age <span class="built_in">number</span>(<span class="number">3</span>), </div><div class="line">sdate <span class="built_in">date</span>, </div><div class="line">grade <span class="built_in">number</span>(<span class="number">2</span>) <span class="keyword">default</span> <span class="number">1</span>, </div><div class="line"><span class="keyword">class</span> <span class="built_in">number</span>(<span class="number">4</span>), </div><div class="line">email varchar2(<span class="number">50</span>), </div><div class="line"><span class="keyword">constraint</span> stu_id_pk primary <span class="keyword">key</span>(<span class="keyword">id</span>), </div><div class="line"><span class="keyword">constraint</span> stu_class_fk foreign <span class="keyword">key</span> (<span class="keyword">class</span>) <span class="keyword">references</span> <span class="keyword">class</span>(<span class="keyword">id</span>), </div><div class="line"><span class="keyword">constraint</span> stu_email_name_uni <span class="keyword">unique</span>(<span class="keyword">name</span>,email) </div><div class="line">) </div><div class="line">/</div></pre></td></tr></table></figure></p>
+<h2 id="第三十一课："><a href="#第三十一课：" class="headerlink" title="第三十一课："></a>第三十一课：</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> <span class="keyword">drop</span> <span class="keyword">table</span>      //修改表结构；</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">add</span>(addr varchar2(<span class="number">100</span>)); //添加结构</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">drop</span>(addr); //删除结构</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">modify</span>(addr varchar2(<span class="number">50</span>)); //修改</div><div class="line">若addr字段中有的记录长度大于50，则修改不成功。 </div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">drop</span> <span class="keyword">constraint</span> stu_class_fk; //去掉约束条件</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">add</span> <span class="keyword">constraint</span> stu_class_fk foreign <span class="keyword">key</span> (<span class="keyword">class</span>) </div><div class="line"><span class="keyword">references</span> <span class="keyword">class</span> (<span class="keyword">id</span>); //添加约束条件</div><div class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">class</span>;</div></pre></td></tr></table></figure>
+<p>第二范式的要求：当一张表里面有多个字段作为主键的时候，非主键的这些字段，不能依靠于部分主键<br>(只能依赖整个组合的主键，不能依赖部分) 叫做：不能存在部分依赖<br>第三范式的要求：不能存在传递依赖(除了主键之外的任何其他字段必须直接依赖于主键)</p>
+<h2 id="第三十二课：Oracle-dictionaries"><a href="#第三十二课：Oracle-dictionaries" class="headerlink" title="第三十二课：Oracle dictionaries"></a>第三十二课：Oracle dictionaries</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">desc user_tables; </div><div class="line"><span class="keyword">select</span> table_name <span class="keyword">from</span> user_tables; </div><div class="line"><span class="keyword">select</span> view_name <span class="keyword">from</span> user_views; </div><div class="line"><span class="keyword">select</span> constraint_name <span class="keyword">from</span> user_constraints; </div><div class="line"><span class="keyword">select</span> constraint_name,table_name <span class="keyword">from</span> user_constraints; </div><div class="line">desc dictionary; 	//显示目录字典表</div><div class="line"><span class="keyword">select</span> table_name <span class="keyword">from</span> dictionary <span class="keyword">where</span> table_name <span class="keyword">like</span> ‘<span class="keyword">user</span>%’;		//显示目录字典表中’user’开头的名字</div></pre></td></tr></table></figure>
+<h2 id="第三十三课：indexes-and-views"><a href="#第三十三课：indexes-and-views" class="headerlink" title="第三十三课：indexes_and_views"></a>第三十三课：indexes_and_views</h2><p>索引可以提高读数据的效率，但会降低修改、写数据的效率,索引还会占用一定的存储空间<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">index</span> idx_stu_email <span class="keyword">on</span> student(email); </div><div class="line"><span class="keyword">drop</span> <span class="keyword">index</span> idx_stu_email;</div></pre></td></tr></table></figure></p>
+<p>视图会带来一些维护的代价，比如表结构改了，那么视图也得跟着改变。视图还可以用来保<br>护私有数据。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> index_name <span class="keyword">from</span> user_indexes; </div><div class="line"><span class="keyword">select</span> view_name <span class="keyword">from</span> user_views; </div><div class="line"><span class="keyword">create</span> <span class="keyword">view</span> v$_stu <span class="keyword">as</span> <span class="keyword">select</span> <span class="keyword">id</span> , <span class="keyword">name</span> , age <span class="keyword">from</span> student;</div></pre></td></tr></table></figure></p>
+<p>视图其实就是一个子查询，可以用来更新数据，但是不经常这么用，目的是为了简化查询，保护私有数据。</p>
+<h2 id="第三十四课：sequences-and-review"><a href="#第三十四课：sequences-and-review" class="headerlink" title="第三十四课：sequences and review"></a>第三十四课：sequences and review</h2><p>序列可以自动增长，在sql server中有identity，mysql中有auto_increment<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> article </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>, </div><div class="line">title varchar2(<span class="number">1024</span>), </div><div class="line">cont <span class="keyword">long</span> </div><div class="line">) </div><div class="line">/</div></pre></td></tr></table></figure></p>
+<p>如何保证插入数据时id不重复？<br>select max(id) from article;这样做也不行，如果有多个线程同时访问数据，则可能会出现<br>数据不一致的现象，比方说第一个用户查询出最大id值是100，第二个用户也查询出最大id是<br>100，然后第二个用户新插入一条记录：id是101，然后第一个用户也插入了一条记录：id也是<br>101<br>可以用Oracle的sequence<br><code>create sequence seq_article_id;</code><br>多个表之问可以共用一个序列，但是一般情况下为每个字段分别建立一个序列<br>sequence有两个属性CurrVal、NextVal<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> seq.nextvalue <span class="keyword">from</span> dual; </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span>(seq.nextval,<span class="string">'y'</span>,<span class="string">'yy'</span>); </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span>(seq.nextval,<span class="string">'x'</span>,<span class="string">'xx'</span>); </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span>(seq.nextval,<span class="string">'z'</span>,<span class="string">'zz'</span>); </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span>(seq.nextval,<span class="string">'q'</span>,<span class="string">'qq'</span>);</div></pre></td></tr></table></figure></p>
+<p>删除序列：<br><code>drop sequence seq;</code></p>
+<h2 id="第三十五课：三范式"><a href="#第三十五课：三范式" class="headerlink" title="第三十五课：三范式"></a>第三十五课：三范式</h2><h4 id="第一范式："><a href="#第一范式：" class="headerlink" title="第一范式："></a>第一范式：</h4><p>1.每个表都要有主键<br>2.列不可分，比如：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> stu </div><div class="line">( </div><div class="line"><span class="keyword">id</span> <span class="built_in">number</span>, </div><div class="line"><span class="keyword">name</span> varchar2(<span class="number">20</span>), </div><div class="line">age <span class="built_in">number</span> </div><div class="line">) </div><div class="line">/    </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> stu <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'yu'</span>,<span class="number">21</span>); </div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> stu2 </div><div class="line">( </div><div class="line">inf <span class="keyword">long</span> </div><div class="line">) </div><div class="line">/ </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> stu2 <span class="keyword">values</span>(<span class="string">'1_yu_21'</span>);</div></pre></td></tr></table></figure></p>
+<p>虽然表stu2可以字符串解析后可以达到和表stu一样的效果，但是显然第一种方法更好，查询数<br>据更加方便，而表stu2违反了第一范式的列不可分原则。 </p>
+<h4 id="第二范式："><a href="#第二范式：" class="headerlink" title="第二范式："></a>第二范式：</h4><p>当有两个以上字段作主键时，非主键字段不能部分依赖于主键字段，如有一个需求，一名老师教多名学生，一名学生可以选多个老师的课。然后设计了一张表，有以下字段（老师编号、学生编号、老师姓名、学生姓名等），其中以老师编号和学生编号作联合主键，则些表就存在部分依赖，老师姓名部分依赖于老师编号，不满足第二范式，有数据冗余。要解决这个问题可以设计三张表：老师表，学生表，老师学生关系表。 </p>
+<h4 id="第三范式："><a href="#第三范式：" class="headerlink" title="第三范式："></a>第三范式：</h4><p>不能存在传递依赖，如有一张表有以下字段：（学号、姓名、班级号、班级名称、班级位置），其中学号为主键，则班级号依赖于学号，每个学生都有相应的班级号，但是班级名称、班级位置 是依赖于班级号，即它们通过班级号传递依赖于学号，不满足第三范式。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="../../../../tags/Oracle/" rel="tag"># Oracle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../14/Oracle-Select/" rel="next" title="Oracle（一） Select语句">
+                <i class="fa fa-chevron-left"></i> Oracle（一） Select语句
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../Oracle-PLSQL/" rel="prev" title="Oracle（三） PLSQL">
+                Oracle（三） PLSQL <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">记录，成长</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="../../../../archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="../../../../categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="../../../../tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Oracle（二）-DML、DDL、事务控制语句"><span class="nav-number">1.</span> <span class="nav-text">Oracle（二） DML、DDL、事务控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十四课"><span class="nav-number">1.1.</span> <span class="nav-text">第二十四课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十五课-rownum"><span class="nav-number">1.2.</span> <span class="nav-text">第二十五课:rownum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十六课-homework-dml-transaction"><span class="nav-number">1.3.</span> <span class="nav-text">第二十六课:homework_dml_transaction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十七课：create-table"><span class="nav-number">1.4.</span> <span class="nav-text">第二十七课：create table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十八-三十课"><span class="nav-number">1.5.</span> <span class="nav-text">第二十八~三十课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十一课："><span class="nav-number">1.6.</span> <span class="nav-text">第三十一课：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十二课：Oracle-dictionaries"><span class="nav-number">1.7.</span> <span class="nav-text">第三十二课：Oracle dictionaries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十三课：indexes-and-views"><span class="nav-number">1.8.</span> <span class="nav-text">第三十三课：indexes_and_views</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十四课：sequences-and-review"><span class="nav-number">1.9.</span> <span class="nav-text">第三十四课：sequences and review</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十五课：三范式"><span class="nav-number">1.10.</span> <span class="nav-text">第三十五课：三范式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一范式："><span class="nav-number">1.10.0.1.</span> <span class="nav-text">第一范式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二范式："><span class="nav-number">1.10.0.2.</span> <span class="nav-text">第二范式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三范式："><span class="nav-number">1.10.0.3.</span> <span class="nav-text">第三范式：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

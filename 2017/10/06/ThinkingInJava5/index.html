@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="../../../../images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java SE,Java编程思想," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="五、初始化与清理5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
+<meta name="keywords" content="Java SE,Java编程思想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想（五） 初始化与清理">
+<meta property="og:url" content="https://caocan.github.io/2017/10/06/ThinkingInJava5/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="五、初始化与清理5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://caocan.github.io/2017/10/06/ThinkingInJava5/1.png">
+<meta property="og:updated_time" content="2017-11-05T08:45:19.703Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java编程思想（五） 初始化与清理">
+<meta name="twitter:description" content="五、初始化与清理5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
+<meta name="twitter:image" content="https://caocan.github.io/2017/10/06/ThinkingInJava5/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/10/06/ThinkingInJava5/"/>
+
+
+
+
+
+  <title>Java编程思想（五） 初始化与清理 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java编程思想（五） 初始化与清理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-06T00:24:51+08:00">
+                2017-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/Java-SE/" itemprop="url" rel="index">
+                    <span itemprop="name">Java SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="五、初始化与清理"><a href="#五、初始化与清理" class="headerlink" title="五、初始化与清理"></a>五、初始化与清理</h1><h2 id="5-1-用构造器确保初始化"><a href="#5-1-用构造器确保初始化" class="headerlink" title="5.1 用构造器确保初始化"></a>5.1 用构造器确保初始化</h2><p>默认构造器（无参构造器）：不接受任何参数的构造器。</p>
+<h4 id="Ex2"><a href="#Ex2" class="headerlink" title="Ex2"></a>Ex2</h4><p>创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">E02_StringInitialization</span> </span>&#123;</div><div class="line">    String s1 = <span class="string">"Initialized at definition"</span>;</div><div class="line">    String s2;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">E02_StringInitialization</span><span class="params">(String s2i)</span> </span>&#123;</div><div class="line">        s2 = s2i;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</div><div class="line">        E02_StringInitialization si =</div><div class="line">                <span class="keyword">new</span> E02_StringInitialization(</div><div class="line">                        <span class="string">"Initialized at construction"</span>);</div><div class="line">        System.out.println(<span class="string">"si.s1 = "</span> + si.s1);</div><div class="line">        System.out.println(<span class="string">"si.s2 = "</span> + si.s2);</div><div class="line">    &#125;</div><div class="line">&#125; </div><div class="line"><span class="comment">/* Output:</span></div><div class="line"><span class="comment">si.s1 = Initialized at definition</span></div><div class="line"><span class="comment">si.s2 = Initialized at construction</span></div><div class="line"><span class="comment">*/</span><span class="comment">//:</span></div></pre></td></tr></table></figure></p>
+<p><strong>不同：</strong><br>s1的域在构造器初始化之前就已经被初始化了，s2的域这时候也被初始化为null，只不过在构造器中又被初始化了一次，即初始化2次。而且通过构造器初始化这种方式更加灵活。</p>
+<h2 id="5-2-方法重载"><a href="#5-2-方法重载" class="headerlink" title="5.2 方法重载"></a>5.2 方法重载</h2><p>区分重载的几个方法：</p>
+<ol>
+<li>参数列表不同</li>
+<li>参数顺序不同（不建议）</li>
+<li>返回值不同（行不通）</li>
+</ol>
+<h2 id="5-3-默认构造器"><a href="#5-3-默认构造器" class="headerlink" title="5.3 默认构造器"></a>5.3 默认构造器</h2><p>如果已经定义了一个构造器（无论是否有参数），编译器就不会帮你自动创建默认构造器。</p>
+<p>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bird</span></span>&#123;</div><div class="line">    Bird(<span class="keyword">int</span> i)&#123;&#125;</div><div class="line">    Bird(<span class="keyword">double</span>)&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Bird b = <span class="keyword">new</span> Bird();      <span class="comment">//会报错，因为已经提供了构造器，所以编译器就不会帮你自动创建默认构造器。</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="5-4-this关键字"><a href="#5-4-this关键字" class="headerlink" title="5.4 this关键字"></a>5.4 this关键字</h2><p>编译器会暗自把“所操作对象的引用”作为第一个参数传递给方法。this关键词只能在方法内部使用，表示对“调用方法的那个对象”的引用。this的用法和其他对象引用并无不同。</p>
+<p><strong>•    如果在方法内部调用同一类的另一个方法，不必使用this，直接调用即可。当方法需要返回当前对象的引用时才需要明确使用this，如需要返回当前对象时。<br>•    如果要将当前对象传递给外部的方法，this关键词就很有用。<br>•    可能为一个类写了多个构造器，想在一个构造其中调用另一个构造器，以避免重复代码。this关键字可以做到这一点。</strong></p>
+<p>尽管可以用this调用一个构造器，但不能调用两个。此外，必须将构造器置于最起始处，否则编译器会报错。</p>
+<p>除了构造器外，编译器禁止在其他任何地方调用构造器。</p>
+<p>static方法是属于类的，所以里面不能用this关键字。static方法的内部不能使用非静态方法，反过来倒是可以的。</p>
+<h2 id="5-5-清理：终结处理和垃圾回收"><a href="#5-5-清理：终结处理和垃圾回收" class="headerlink" title="5.5 清理：终结处理和垃圾回收"></a>5.5 清理：终结处理和垃圾回收</h2><p><strong>1.    对象可能不被垃圾回收</strong><br><strong>2.    垃圾回收并不等于“析构”</strong><br><strong>3.    垃圾回收只与内存有关系</strong></p>
+<p><strong><em>finalize()</em></strong></p>
+<p>Java中finalize()的作用一主要是清理那些对象(并非使用new，比如调用了native方法)获得了一块“特殊”的内存区域。Java有垃圾回收器负责回收无用对象占据的内存资源。但也有特殊情况：假定你的对象(并非使用new)获得了一块“特殊”的内存区域，由于垃圾回收器只知道释放那些经由new分配的内存，所以它不知道该如何释放该对象的这块“特殊”内存区域，为了应对这种情况，java允许在类中定义一个名为finalize()的方法。它的工作原理“假定”是这样的：一旦垃圾回收器准备好释放对象占用的存储空间，将首先调用其finalize()的方法。并且在下一次垃圾回收动作发生时，才会真正回收对象占用的内存。所以要是你打算用finalize()，就能在垃圾回收时刻做一些重要的清理工作。注意这里的finalize()并不是C++里的析构.在C++中，对象一定会被销毁，而在Java里的对象却并非总是被垃圾回收。</p>
+<p><strong>垃圾回收只与内存有关。</strong>也就是说，使用垃圾回收器的唯一原因是为了回收程序不再使用的内存。所以对于与垃圾回收有关的任何行为来说(尤其是finalize()方法)，它们也必须同内存及其回收有关。</p>
+<p>在C++中，所有对象都会被销毁，或者说，应该被销毁。但是在Java中，无论是“垃圾回收”还是“终结”，都不保证一定会发生。如果Java虚拟机（JVM）并未面临内存耗尽的情形，它是不会浪费时间去执行垃圾回收以恢复内存的。</p>
+<p>finalize()有一个有趣的用法，它并不依赖于每次都要对finalize()进行调用，这就是<strong>对象终结条件</strong>的验证。</p>
+<p>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span></span>&#123;</div><div class="line">    <span class="keyword">boolean</span> checkedOut = <span class="keyword">false</span>;</div><div class="line">    Book(<span class="keyword">boolean</span> checkedOut)&#123;</div><div class="line">        <span class="keyword">this</span>.checkedOut = checkedOut;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">checkIn</span><span class="params">()</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        checkedOut = <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(checkedOut)&#123;</div><div class="line">            System.out.println(<span class="string">"Error : checked out"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TerminationCondition</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Book novel = <span class="keyword">new</span> Book(<span class="keyword">true</span>);</div><div class="line">        novel.checkIn();</div><div class="line">        <span class="keyword">new</span> Book(<span class="keyword">true</span>);</div><div class="line">        System.gc();    <span class="comment">// 用于强制进行终结动作 </span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个例子的终结条件是：<br>所有的Book对象在被当做垃圾回收前都应该被签入（check in）。但在main()方法中，由于程序员的失误，有一本书没有被签入。要是没有finalize()来验证终结条件，就很难发现这个缺陷。</p>
+<h4 id="5-5-4-垃圾回收器如何工作"><a href="#5-5-4-垃圾回收器如何工作" class="headerlink" title="5.5.4 垃圾回收器如何工作"></a>5.5.4 垃圾回收器如何工作</h4><p>垃圾回收器如何工作:<br>举一个生活中的例子。你在一个屋子里生活一段时间之后会产生很多垃圾，使你必须清理。清理包括扔掉生活垃圾和自己几乎用不着的东西。<br>   垃圾回收器最简单的方法就是引用计数：当有引用连接至对象的时候，引用计数加一。垃圾回收器遍历全部的对象。当发现有计数为0的对象时就释放。但是每当对象循环调用时会出现应该被回收，但是计数不为0的现象。这就像你收拾屋子时总觉得这个东西还有用其实它对于你没有什么用那样。显然这种方式是不可用的。<br>实际上虚拟机采用的回收思想是;每一个活的对象都可以追溯到它存活的堆栈或者静态存储区的引用。因此从堆栈或者静态存储区开始遍历就可以找到所有活着的对象。在这种方式下采用了自适应的垃圾回收机制：<br><strong>1.停止–复制机制</strong>：先暂停程序的运行然后将活的对象从一个堆栈复制到另一个堆栈中，没有复制的都是垃圾将被回收。显然这种方式的缺点还是比较明显的，首先要暂停程序，另外在程序稳定之后几乎不产生垃圾的情况下仍旧会进行大量的复制。这是一种没有必要的浪费。<br><strong>2.标记–清扫</strong>：标记每一个活着的对象，在清理时不清理他们。但是这样做的缺点是存储空间不是相连成块的。<br>虚拟机通常都把这两种方式结合来用，在没有新的垃圾产生的时候就从停止–复制模式切换到标记–清扫模式。这样避免了二者的缺点。<br>在虚拟机中内存都以块的形式分配，在垃圾回收时停止–复制机制向已经废弃的块中拷贝新的对象，由于程序的进行，会出现更替，所以每个块都有自己的代数来记录它是否存活。每次回收之后都进行整理，这样垃圾回收就会对大量的短命的临时对象进行回收。<br>因此现行的垃圾回收应该被称呼为<strong><em>“自适应的，分代的，停止–复制，标记–清扫”</em></strong>式垃圾回收器。<br>有些时候我们可能会使用非new形成的内存，这时java中有一个方法为finalize()，每当垃圾回收器启动的时候，会首先调用这个方法，并且在下一次垃圾回收发生的时候才会真正回收对象。这个时候我们需要finalize()来验证终结条件并且调用system.gc()这个方法来进行终结动作。</p>
+<h2 id="5-6-成员初始化"><a href="#5-6-成员初始化" class="headerlink" title="5.6 成员初始化"></a>5.6 成员初始化</h2><p>Java尽力保证：所有变量在使用前都能得到适当的初始化。对于方法的局部变量，如果没有被初始化，就会以异常的方式来提醒。</p>
+<p>类的数据成员是基本类型时，就会有默认的初始值。</p>
+<p>在类里定义一个对象引用时，如果没有对它进行初始化，此引用就会得到一个特殊值null。</p>
+<h2 id="5-7-构造器初始化"><a href="#5-7-构造器初始化" class="headerlink" title="5.7 构造器初始化"></a>5.7 构造器初始化</h2><p><img src="1.png" alt=""></p>
+<h2 id="5-8-数组初始化"><a href="#5-8-数组初始化" class="headerlink" title="5.8 数组初始化"></a>5.8 数组初始化</h2><p><code>int[] a1;</code>这只是一个数组引用。</p>
+<ol>
+<li><p>第一种初始化方法<br>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Integer[] a = <span class="keyword">new</span> Integer[<span class="number">2</span>];<span class="comment">//对于非基本类型，此时只是创建了一个引用数组，必须对数组中的每个元素创建对象</span></div><div class="line">a[<span class="number">0</span>] = <span class="keyword">new</span> Integer(<span class="number">1</span>);</div><div class="line">a[<span class="number">1</span>] = <span class="keyword">new</span> Integer(<span class="number">2</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>第二种初始化方法<br>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Integer[] a = &#123;<span class="number">1</span>,<span class="number">2</span>,&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>第三种初始化方法<br>代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Integer[] a = <span class="keyword">new</span> Integer[]&#123;<span class="number">1</span>,<span class="number">2</span>,&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>第二、三种方法中最后一个逗号是可选的。在方法调用的内部都可以使用第三种方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Other.main(<span class="keyword">new</span> String[]&#123;<span class="string">"abc"</span>,<span class="string">"efg"</span>&#125;);</div></pre></td></tr></table></figure>
+<h4 id="5-8-1-可变参数列表"><a href="#5-8-1-可变参数列表" class="headerlink" title="5.8.1 可变参数列表"></a>5.8.1 可变参数列表</h4><p>Java SE5中开始提供可变参数列表。代码如下：<br><code>public void name(Object...args);</code></p>
+<p>可变参数：<br><strong>1.    参数个数或者类型未知</strong><br><strong>2.    必须位于参数列表末尾</strong></p>
+<p>当指定参数时，编译器实际上会为你去填充数组。可以直接将数组传递给可变参数列表。0个参数的可变参数列表也是可以的。</p>
+<p>当方法重载时，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">name</span><span class="params">(Integer... args)</span></span>&#123;&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">name</span><span class="params">(Long... args)</span></span>&#123;&#125;</div></pre></td></tr></table></figure></p>
+<p>上述代码重载了name方法，当使用name()编译器无法知道调用哪个方法，无法编译。<strong>你应该总是只在重载方法的一个版本上使用可变参数列表，或者根本不使用</strong></p>
+<h2 id="5-9-枚举类型"><a href="#5-9-枚举类型" class="headerlink" title="5.9 枚举类型"></a>5.9 枚举类型</h2><p>Java SE5中添加了enum关键字，详细的enum用法在19章将会提到。</p>
+<p><strong>•    toString()：获得某个enum实例的名字<br>•    ordinal()：获得某个enum实例的声明顺序<br>•    静态方法values()：用来按照enum常量的声明顺序，产生由这些常量值构成的数组。</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/Java-SE/" rel="tag"># Java SE</a>
+          
+            <a href="../../../../tags/Java编程思想/" rel="tag"># Java编程思想</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../02/ThinkingInJava4/" rel="next" title="Java编程思想（四） 控制执行流程">
+                <i class="fa fa-chevron-left"></i> Java编程思想（四） 控制执行流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../09/ThinkingInJava6/" rel="prev" title="Java编程思想（六） 访问控制权限">
+                Java编程思想（六） 访问控制权限 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">记录，成长</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="../../../../archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="../../../../categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="../../../../tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#五、初始化与清理"><span class="nav-number">1.</span> <span class="nav-text">五、初始化与清理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-用构造器确保初始化"><span class="nav-number">1.1.</span> <span class="nav-text">5.1 用构造器确保初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ex2"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Ex2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-方法重载"><span class="nav-number">1.2.</span> <span class="nav-text">5.2 方法重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-默认构造器"><span class="nav-number">1.3.</span> <span class="nav-text">5.3 默认构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-this关键字"><span class="nav-number">1.4.</span> <span class="nav-text">5.4 this关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-清理：终结处理和垃圾回收"><span class="nav-number">1.5.</span> <span class="nav-text">5.5 清理：终结处理和垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-4-垃圾回收器如何工作"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">5.5.4 垃圾回收器如何工作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-成员初始化"><span class="nav-number">1.6.</span> <span class="nav-text">5.6 成员初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-7-构造器初始化"><span class="nav-number">1.7.</span> <span class="nav-text">5.7 构造器初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-8-数组初始化"><span class="nav-number">1.8.</span> <span class="nav-text">5.8 数组初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-8-1-可变参数列表"><span class="nav-number">1.8.0.1.</span> <span class="nav-text">5.8.1 可变参数列表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-9-枚举类型"><span class="nav-number">1.9.</span> <span class="nav-text">5.9 枚举类型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

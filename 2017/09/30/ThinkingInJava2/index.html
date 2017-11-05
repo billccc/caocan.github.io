@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="../../../../images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java SE,Java编程思想," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="二、一切都是对象2.1 用引用操作对象尽管一切都看做对象，但是操纵的标识符实际上是对象的一个“引用”(reference)。可以将这个情形看做是遥控器（引用）来操纵电视机（对象）">
+<meta name="keywords" content="Java SE,Java编程思想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程思想（二） 一切都是对象">
+<meta property="og:url" content="https://caocan.github.io/2017/09/30/ThinkingInJava2/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="二、一切都是对象2.1 用引用操作对象尽管一切都看做对象，但是操纵的标识符实际上是对象的一个“引用”(reference)。可以将这个情形看做是遥控器（引用）来操纵电视机（对象）">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://caocan.github.io/2017/09/30/ThinkingInJava2/1.png">
+<meta property="og:updated_time" content="2017-11-05T08:44:46.171Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java编程思想（二） 一切都是对象">
+<meta name="twitter:description" content="二、一切都是对象2.1 用引用操作对象尽管一切都看做对象，但是操纵的标识符实际上是对象的一个“引用”(reference)。可以将这个情形看做是遥控器（引用）来操纵电视机（对象）">
+<meta name="twitter:image" content="https://caocan.github.io/2017/09/30/ThinkingInJava2/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/09/30/ThinkingInJava2/"/>
+
+
+
+
+
+  <title>Java编程思想（二） 一切都是对象 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java编程思想（二） 一切都是对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-30T17:48:59+08:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../categories/Java-SE/" itemprop="url" rel="index">
+                    <span itemprop="name">Java SE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="二、一切都是对象"><a href="#二、一切都是对象" class="headerlink" title="二、一切都是对象"></a>二、一切都是对象</h1><h2 id="2-1-用引用操作对象"><a href="#2-1-用引用操作对象" class="headerlink" title="2.1 用引用操作对象"></a>2.1 用引用操作对象</h2><p>尽管一切都看做对象，但是操纵的标识符实际上是对象的一个<strong><em>“引用”(reference)</em></strong>。可以将这个情形看做是遥控器（引用）来操纵电视机（对象）<br><a id="more"></a><br>一种安全的做法是，创建一个引用的同时就对其进行初始化。<br><code>String s = “hello”;</code></p>
+<h2 id="2-2-必须由你创建所有对象"><a href="#2-2-必须由你创建所有对象" class="headerlink" title="2.2 必须由你创建所有对象"></a>2.2 必须由你创建所有对象</h2><p><code>String s = new String(“hello”);</code><br>一旦创建了一个引用，就能与一个对象相关联。</p>
+<h4 id="2-2-1-存储到什么地方"><a href="#2-2-1-存储到什么地方" class="headerlink" title="2.2.1 存储到什么地方"></a>2.2.1 存储到什么地方</h4><p>程序运行时候有五个地方可以存储数据：</p>
+<p><strong>寄存器</strong>：处理器内部，最快的存储区，数量极其有限</p>
+<p><strong>堆栈</strong>：位于通用RAM，通过堆栈指针来分配和释放内存，速度仅次于寄存器。灵活性受限（必须知道存储其中的对象的确切生命周期）。对象引用存于此处。</p>
+<p><strong>堆</strong>：一种通用内存池，也位于RAM。灵活性大，分配与清理耗时，所有的Java对象存储于此。</p>
+<p><strong>常量存储</strong>：存放在程序内部，在嵌入式系统中，可以选择将其存放于ROM中。</p>
+<p><strong>非RAM存储</strong>：数据在程序没有运行时也可以存在，两个典型的例子就是<strong><em>流对象</em></strong>和<strong><em>持久化对象</em></strong></p>
+<h4 id="2-2-2-特例：基本类型"><a href="#2-2-2-特例：基本类型" class="headerlink" title="2.2.2 特例：基本类型"></a>2.2.2 特例：基本类型</h4><p>基本类型不需要new来创建对象，而是<strong><em>创建一个并非是引用的“自动”变量</em></strong>。这个变量直接存储值，并置于堆栈中。</p>
+<p>Java中，<strong><em>没有无符号数，基本类型占用空间的大小也不会像其它语言随机器硬件架构变化。</em></strong>&rarr;（更具有可移植性）</p>
+<p><img src="1.png" alt=""></p>
+<p>Java 每种基本类型都提供了包装器类型。同时提供了两个用于高精度计算的类：<strong><em>BigInteger（任意精度的整数）和BigDecimal（任意精度的定点数）。</em></strong></p>
+<h4 id="2-2-3-Java中的数组"><a href="#2-2-3-Java中的数组" class="headerlink" title="2.2.3 Java中的数组"></a>2.2.3 Java中的数组</h4><p>C和C++的数组就是内存块，访问很危险<br>Java则会确保数组会被初始化，而且不能再范围外访问。但是增加了检查开销。</p>
+<p>Java中创建数组对象时，实际上就是创建引用数组（数组对象是由java虚拟机创建的），且每个引用都会自动被初始化为一个特定值（null）。编译器会把基本类型数组的内存全部置零。</p>
+<h2 id="2-3-永远不需要销毁对象"><a href="#2-3-永远不需要销毁对象" class="headerlink" title="2.3 永远不需要销毁对象"></a>2.3 永远不需要销毁对象</h2><h4 id="2-3-1-作用域"><a href="#2-3-1-作用域" class="headerlink" title="2.3.1 作用域"></a>2.3.1 作用域</h4><p>以花括号为例，说明与C、C++的作用域区别：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> x = <span class="number">12</span>;</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">int</span> x = <span class="number">96</span>;	<span class="comment">//不合法，而在C、C++中外面花括号中的变量会被隐藏</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="2-3-2-对象的作用域"><a href="#2-3-2-对象的作用域" class="headerlink" title="2.3.2 对象的作用域"></a>2.3.2 对象的作用域</h4><p>Java使用new创建的对象可以存活于作用域之外<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    String s = <span class="keyword">new</span> String(<span class="string">"a string"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面例子中，引用s在作用域终点就消失了，s指向的String对象仍继续占用内存空间。</p>
+<p>Java有一个垃圾回收器，用于监视new创建的所有对象，并辨别不再被引用的对象。</p>
+<h2 id="2-4-创建新的数据类型：类"><a href="#2-4-创建新的数据类型：类" class="headerlink" title="2.4 创建新的数据类型：类"></a>2.4 创建新的数据类型：类</h2><p>在Java中，所做的全部工作就是：定义类、产生类对象、发送消息给类对象。类中有两种类型的元素：字段（或数据成员）和方法（或成员函数）。</p>
+<p><strong><em>当变量成为类的字段使用时，Java确保给定其默认值（内存中填0）</em></strong>，以确保其得到初始化（C++无此功能），对于局部变量，不做初始化，可能是任意值。</p>
+<h2 id="2-5-方法、参数和返回值"><a href="#2-5-方法、参数和返回值" class="headerlink" title="2.5 方法、参数和返回值"></a>2.5 方法、参数和返回值</h2><p><strong>方法：</strong>做某些事情的方式。基本组成包括：名称、参数、返回值和方法体。其中方法名和参数列表（参数类型及参数顺序），合起来称为“方法签名”，唯一标识出某个方法。</p>
+<p>Java中的方法只能作为类的一部分来进行创建。方法只能通过对象才能被调用。</p>
+<p>Java在参数列表中必须指定每个所传递对象的类型和名字。</p>
+<p>关于方法的参数传递，这是一个被争议的话题。</p>
+<p>•    先说说参数传递的几个术语：<br>&nbsp;&nbsp;&nbsp;&nbsp;值调用(call by vale):表示方法接收的是调用者传递的值。<br>&nbsp;&nbsp;&nbsp;&nbsp;引用调用(call by reference):表示方法接收的是调用者传递的变量地址。<br>&nbsp;&nbsp;&nbsp;&nbsp;一个方法可以修改传递引用所对应的变量值，而不能修改传递值调用所对应的变量值；</p>
+<p><strong><em>JAVA语言总是采用值调用</em></strong>，也就是说，JAVA方法得到的是所有参数值的一个拷贝，方法不能修改传递给他的任何参数变量的内容。<br>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> ch2;</div><div class="line"></div><div class="line"><span class="comment">/*JAVA方法得到的是所有参数值的一个拷贝，方法不能修改传递给他的任何参数变量的内容。*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Parameter</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> tmp = a;</div><div class="line">        a = b;</div><div class="line">        b = tmp;</div><div class="line">        System.out.println(<span class="string">"a: "</span>+a+<span class="string">" b: "</span>+b);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(StringAddress a, StringAddress b)</span></span>&#123;</div><div class="line">        StringAddress tmp = a;</div><div class="line">        a = b;</div><div class="line">        b = tmp;</div><div class="line">        System.out.println(<span class="string">"a: "</span>+a+<span class="string">" b: "</span>+b);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">(StringAddress a)</span></span>&#123;</div><div class="line">        a.setS(<span class="string">"hi"</span>);</div><div class="line">        System.out.println(<span class="string">"a: "</span>+a);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> x = <span class="number">1</span>,y=<span class="number">20</span>;</div><div class="line">        StringAddress sax = <span class="keyword">new</span> StringAddress(<span class="string">"hello"</span>),say = <span class="keyword">new</span> StringAddress(<span class="string">"world"</span>);</div><div class="line">        swap(x,y);</div><div class="line">        System.out.println(<span class="string">"x: "</span>+x+<span class="string">" y: "</span>+y);</div><div class="line">        swap(sax,say);</div><div class="line">        System.out.println(<span class="string">"sax: "</span>+sax+<span class="string">" say: "</span>+say);</div><div class="line">        change(sax);</div><div class="line">        System.out.println(<span class="string">"sax: "</span>+sax);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StringAddress</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String s;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StringAddress</span><span class="params">(String s)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.s = s;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.toString() + <span class="string">" "</span> + s;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setS</span><span class="params">(String s)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.s = s;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">a: 20 b: 1</span></div><div class="line"><span class="comment">x: 1 y: 20</span></div><div class="line"><span class="comment">a: ch2.StringAddress@1540e19d world b: ch2.StringAddress@677327b6 hello</span></div><div class="line"><span class="comment">sax: ch2.StringAddress@677327b6 hello say: ch2.StringAddress@1540e19d world</span></div><div class="line"><span class="comment">a: ch2.StringAddress@677327b6 hi</span></div><div class="line"><span class="comment">sax: ch2.StringAddress@677327b6 hi</span></div><div class="line"><span class="comment">*/</span></div></pre></td></tr></table></figure></p>
+<p>通过以上实例,可以看出基本类型参数传递的是变量值的拷贝，对象参数传递的是对象引用的拷贝,对象引用及其他的拷贝同时引用同一个对象。</p>
+<p>很多程序语言提供两种传递方式:值传递和引用传递(C++和Pascal)。有些程序员认为java语言对对象参数传递也是用的引用调用。实际上是理解错误，这种错误具有一定的普遍性。</p>
+<p>上例中swap方法并没有改变存储在变量sax和say中的对象引用。swap方法的参数a和b被初始化为两个对象引用的拷贝，这个方法交换的是这两个拷贝。在方法结束时，参数变量a和b被丢弃了。原来的变量sax和say仍然引用这个方法调用之前所引用的对象。<br>这个过程说明：java语言对对象采用的不是引用调用，实际上对象引用进行的是值传递。<br>最后总结一下在JAVA中，方法参数的使用情况：</p>
+<p>&nbsp;&nbsp;•一个方法不能修改一个基本数据类型的参数；<br>&nbsp;&nbsp;•一个方法可以改变一个对象参数的状态（属性）；<br>&nbsp;&nbsp;•一个方法不能实现让对象参数引用一个新对象；</p>
+<p>C++有值调用和引用调用。引用参数标有&amp;符号。例如，void swap(int&amp; a,int&amp; b)。引用即可以当做变量的一个别名，仅此而已。而Java的引用，如果理解为像指针一样存的是对象地址，传递时都会把它拷贝一份，这样可能会好理解些。</p>
+<h2 id="2-6-构建一个Java程序"><a href="#2-6-构建一个Java程序" class="headerlink" title="2.6 构建一个Java程序"></a>2.6 构建一个Java程序</h2><h4 id="2-6-1名字可见性"><a href="#2-6-1名字可见性" class="headerlink" title="2.6.1名字可见性"></a>2.6.1名字可见性</h4><p>为了解决命名冲突，Java程序员使用反写Internet域名来确保名字的独一无二。如：<code>net.mindview.utility.foibles</code></p>
+<h4 id="2-6-2-运用其他构件"><a href="#2-6-2-运用其他构件" class="headerlink" title="2.6.2 运用其他构件"></a>2.6.2 运用其他构件</h4><p>想使用其他文件定义好的类，可以使用import。</p>
+<h4 id="2-6-3-static关键字"><a href="#2-6-3-static关键字" class="headerlink" title="2.6.3 static关键字"></a>2.6.3 static关键字</h4><p>static解决的两个需求：<br>（1）    只想为某特定域分配单一的存储空间，而不去考虑究竟要创建多少对象。<br>（2）    即使没有创建对象，也能调用这个方法</p>
+<p>即使从未创建某个类的任何对象，也可以调用其static方法或访问static域。</p>
+<p><strong>对于static方法，不能简单地通过调用其它非static域或方法而没有指定某个命名对象，来直接访问非static域或方法。普通方法可以直接使用static域或方法。</strong></p>
+<p>使用类名是引用static变量的首选方法。<br>语法形式为<code>ClassName.method();</code></p>
+<h2 id="2-7-Java的第一个程序"><a href="#2-7-Java的第一个程序" class="headerlink" title="2.7 Java的第一个程序"></a>2.7 Java的第一个程序</h2><p>一个独立运行的程序，文件中必须存在某个类与该文件同名，并且那个类必须包含一个名为main()的方法（事实上Java允许文件名和文件中的类不同命，但是类不能是public的）。</p>
+<p>public static void main(String[] args){…}中args用来存储命令行参数。</p>
+<h2 id="2-8注释和嵌入式文档"><a href="#2-8注释和嵌入式文档" class="headerlink" title="2.8注释和嵌入式文档"></a>2.8注释和嵌入式文档</h2><p><strong>javadoc</strong></p>
+<ol>
+<li>只能为public和protected成员进行文档注释。</li>
+<li>不要在嵌入式html中使用标题标签&lt;h1&gt;&lt;hr&gt;等。因为javadoc会插入这类标签，避免冲突。</li>
+<li>一些标签示例<br>•    @see：引用其他类<br>该标签允许用户引用其他类的文档 @see classname<br>•    {@link package.class#member label}<br>该标签与@see相似，只是它用于行内<br>•    {@docRoot}<br>该标签产生到文档根目录的相对路径，用于文档树页面的显式超链接<br>•    {@inheritDoc}<br>该标签从当前这个类的最直接的基类中继承相关文档到当前的文档注释中<br>•    @version<br>•    @author<br>•    @since<br>该标签允许你指定程序代码最早的使用版本<br>•    @param<br>该标签用于方法文档中<br>•    @return<br>•    @throws<br>•    @deprecated<br>该标签用于指出一些旧特性已由改进的新特性所取代，建议用户不要再使用这些旧特性，因为在不久的将来它们很可能会被删除<h2 id="2-9-编码风格"><a href="#2-9-编码风格" class="headerlink" title="2.9 编码风格"></a>2.9 编码风格</h2><h5 id="驼峰风格："><a href="#驼峰风格：" class="headerlink" title="驼峰风格："></a>驼峰风格：</h5>类名的首字母大写；如果类名由几个单词构成，那么把它们并在一起，其中每个内部单词的首字母都采用大写形式。如：<code>AllTheColorsOfRainbow</code><br>几乎其他所有内容－－方法、字段（成员变量）以及对象引用名称等，公认的风格与类的风格一样，只是标识符的第一个字母采用小写。如：<code>allTheColorsOfRainbow</code></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../tags/Java-SE/" rel="tag"># Java SE</a>
+          
+            <a href="../../../../tags/Java编程思想/" rel="tag"># Java编程思想</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../../29/ThinkinginJava1/" rel="next" title="Java编程思想（一） 对象导论">
+                <i class="fa fa-chevron-left"></i> Java编程思想（一） 对象导论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../../10/02/ThinkingInJava3/" rel="prev" title="Java编程思想（三） 操作符">
+                Java编程思想（三） 操作符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">记录，成长</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="../../../../archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="../../../../categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="../../../../tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二、一切都是对象"><span class="nav-number">1.</span> <span class="nav-text">二、一切都是对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-用引用操作对象"><span class="nav-number">1.1.</span> <span class="nav-text">2.1 用引用操作对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-必须由你创建所有对象"><span class="nav-number">1.2.</span> <span class="nav-text">2.2 必须由你创建所有对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-存储到什么地方"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">2.2.1 存储到什么地方</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-特例：基本类型"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2.2.2 特例：基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-Java中的数组"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">2.2.3 Java中的数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-永远不需要销毁对象"><span class="nav-number">1.3.</span> <span class="nav-text">2.3 永远不需要销毁对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-作用域"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">2.3.1 作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-对象的作用域"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">2.3.2 对象的作用域</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-创建新的数据类型：类"><span class="nav-number">1.4.</span> <span class="nav-text">2.4 创建新的数据类型：类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-方法、参数和返回值"><span class="nav-number">1.5.</span> <span class="nav-text">2.5 方法、参数和返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-构建一个Java程序"><span class="nav-number">1.6.</span> <span class="nav-text">2.6 构建一个Java程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-1名字可见性"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">2.6.1名字可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-2-运用其他构件"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">2.6.2 运用其他构件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-3-static关键字"><span class="nav-number">1.6.0.3.</span> <span class="nav-text">2.6.3 static关键字</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-Java的第一个程序"><span class="nav-number">1.7.</span> <span class="nav-text">2.7 Java的第一个程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8注释和嵌入式文档"><span class="nav-number">1.8.</span> <span class="nav-text">2.8注释和嵌入式文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-9-编码风格"><span class="nav-number">1.9.</span> <span class="nav-text">2.9 编码风格</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#驼峰风格："><span class="nav-number">1.9.0.0.1.</span> <span class="nav-text">驼峰风格：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="../../../../js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="../../../../js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
