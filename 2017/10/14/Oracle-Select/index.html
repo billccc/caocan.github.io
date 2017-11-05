@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库,Oracle," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Oracle（一） Select语句第一课：口令超级管理员：sqlplus sys/bjsxt as sysdba普通管理员：system/manager普通用户：scott/tiger大数据用户：sh/sh 在cmd下敲：12sqlplus sys/bjsxt as sysdba //以sys超级管理员的权限去登录bjsxt 这个数据库alter user scott account unloc">
+<meta name="keywords" content="数据库,Oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle（一） Select语句">
+<meta property="og:url" content="http://yoursite.com/2017/10/14/Oracle-Select/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Oracle（一） Select语句第一课：口令超级管理员：sqlplus sys/bjsxt as sysdba普通管理员：system/manager普通用户：scott/tiger大数据用户：sh/sh 在cmd下敲：12sqlplus sys/bjsxt as sysdba //以sys超级管理员的权限去登录bjsxt 这个数据库alter user scott account unloc">
+<meta property="og:image" content="http://yoursite.com/2017/10/14/Oracle-Select/Oracle-Select/13.1.png">
+<meta property="og:updated_time" content="2017-10-14T14:30:45.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oracle（一） Select语句">
+<meta name="twitter:description" content="Oracle（一） Select语句第一课：口令超级管理员：sqlplus sys/bjsxt as sysdba普通管理员：system/manager普通用户：scott/tiger大数据用户：sh/sh 在cmd下敲：12sqlplus sys/bjsxt as sysdba //以sys超级管理员的权限去登录bjsxt 这个数据库alter user scott account unloc">
+<meta name="twitter:image" content="http://yoursite.com/2017/10/14/Oracle-Select/Oracle-Select/13.1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/14/Oracle-Select/"/>
+
+
+
+
+
+  <title>Oracle（一） Select语句 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/14/Oracle-Select/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Oracle（一） Select语句</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-14T21:34:29+08:00">
+                2017-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Oracle（一）-Select语句"><a href="#Oracle（一）-Select语句" class="headerlink" title="Oracle（一） Select语句"></a>Oracle（一） Select语句</h1><h2 id="第一课：口令"><a href="#第一课：口令" class="headerlink" title="第一课：口令"></a>第一课：口令</h2><p>超级管理员：<code>sqlplus sys/bjsxt as sysdba</code><br>普通管理员：<code>system/manager</code><br>普通用户：<code>scott/tiger</code><br>大数据用户：<code>sh/sh</code></p>
+<p>在cmd下敲：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sqlplus sys/bjsxt as sysdba //以sys超级管理员的权限去登录bjsxt 这个数据库</div><div class="line"><span class="keyword">alter</span> <span class="keyword">user</span> scott <span class="keyword">account</span> <span class="keyword">unlock</span>; //(解锁)用户已更改。</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="第二课：SQL语言"><a href="#第二课：SQL语言" class="headerlink" title="第二课：SQL语言"></a>第二课：SQL语言</h2><p>Sql语言是在数据库地下进行操作的专门的语言，sql语言本身是一种标准语言，它是一个<br>国际标准，它定义了套标准<code>SQL1922， SQL1999</code>，SQL在大多数数据库上通用，或许有轻微<br>的改变<br>包含四大语句：</p>
+<ol>
+<li><strong>查询语句</strong>       查询语句只有一种就是<strong><em>select</em></strong>语句</li>
+<li><strong>DML语句</strong>      DML语句包含<strong><em>Insert,Update,Delete</em></strong>等常用语句</li>
+<li><strong>DDL语句</strong>      DDL语句包含<strong><em>Create, Alter， Drop</em></strong>等常用语句</li>
+<li><strong>事务控制语句</strong>   包含<strong><em>Commit， Rollback</em></strong>等常用语句<br>还有一大类语句：叫<strong>DCL语句（Data Control Language）</strong>，主要用于权限的分配与回收，由于与开发关系不是十分密切，不做重点讲解<br>Select语句就是从表里把数据选出来<br>首先熟悉试验中的数据<br>第一条语句：<code>desc emp;</code> desc 表名; 列出 表头 == 字段 == 列<br>Varchar2  可变字符串支持国际化     NUMBER(7,2) 7位的数字，2位的小数<br>每行显示的宽度setlinesize 200;     显示的页数 setpagesize 30;</li>
+</ol>
+<h2 id="第三课：table-structures"><a href="#第三课：table-structures" class="headerlink" title="第三课：table_structures"></a>第三课：table_structures</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">desc 表名  //描述表</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> 表名  //查看表数据</div></pre></td></tr></table></figure>
+<h2 id="第四课：select语句"><a href="#第四课：select语句" class="headerlink" title="第四课：select语句"></a>第四课：select语句</h2><p><strong>1.含有别名的sql语句</strong><br>例子1：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> ename, sal&amp;#<span class="number">42</span>;12 annual_sal from emp;</div></pre></td></tr></table></figure></p>
+<p>例子2：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Select</span> ename, sal&amp;#<span class="number">12</span> “Annual_sal” <span class="keyword">from</span> emp; 如果想让别名强制大小写混合可以使用双引号</div></pre></td></tr></table></figure></p>
+<p>例子3：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Select</span> ename, sal&amp;#<span class="number">12</span> “Annual sal” <span class="keyword">from</span> emp; 如果想让别名中有空格也使用双引号</div></pre></td></tr></table></figure></p>
+<p><strong>2.</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">desc dual，<span class="keyword">select</span> <span class="number">2</span>*<span class="number">3</span> <span class="keyword">from</span> dual，dual是系统自带的一张空表，计算数据时可以使用该表</div></pre></td></tr></table></figure></p>
+<p><strong>3.任何含有空值的算术表达式的计算结果是空值</strong> </p>
+<p><strong>4.<code>select ename||sal from emp;   字符串连接符：||</code></strong></p>
+<p><strong>5.<code>select ename || &#39;abcdefg&#39; from emp;</code> </strong></p>
+<p><strong>6.<code>select ename || &#39;abcd&#39;&#39;efg&#39; from emp;当字符串中含有单引号时，可用两个单引号代表一个单引号</code></strong></p>
+<p><strong>7.<code>set linesize 200;--用于设定每行显示的宽度</code></strong></p>
+<p><strong>8.<code>set pagesize 30;--设置显示的页数</code> </strong></p>
+<p><strong>9.<code>select syadate from dual;//显示系统时间</code></strong></p>
+<h2 id="第五课：distinct"><a href="#第五课：distinct" class="headerlink" title="第五课：distinct"></a>第五课：distinct</h2><p>1.<code>select distinct deptno from emp; //把deptno值重复的不显示出来</code></p>
+<p>2.<code>select distinct deptno,job from emp; //把deptno,job都重复的都不显示出来；</code></p>
+<h2 id="第六课：where"><a href="#第六课：where" class="headerlink" title="第六课：where"></a>第六课：where</h2><p><strong>1.<code>select * from emp where empno = 10; //显示部门编号为10的所有员工的详细信息</code></strong></p>
+<p><strong>2.<code>select * from emp where empno &lt;&gt; 10;//&lt;&gt;是不等于</code></strong></p>
+<p><strong>3.<code>select * from emp where ename = &#39;KING&#39;; //显示名字为KING的员工的详细信息, 判断字符串是否相等时，字符串要用单引号引起来，单引号中字符串内容是要区分大小写的；比较的按字母顺序</code></strong></p>
+<p><strong>4.<code>select * from emp where comm is (not) null;  //为空值的表项查询</code></strong></p>
+<p><strong>5. AND， OR， NOT</strong><br><strong>例1：<code>Select ename, deptno, sal from emp wheredeptno = 10 and sal &gt; 1000;</code> 查询部门标号为10 并且薪水&gt;1000 的员工</strong></p>
+<p><strong>例2：<code>Select ename, deptno, job  from emp where deptno = 10 or job = ‘CLEARK;</code> 查询部门编号为10或者工作岗位为CLERK 的员工</strong></p>
+<p><strong>例3：<code>select * from emp where sal (not) between 800 and 1500;</code> //取出薪水位于800和1500(包含800和1500)之间的雇员名字和薪水</strong></p>
+<p><strong>6.In语句：用于塞选某一个值</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> ename (<span class="keyword">not</span>) <span class="keyword">in</span> (<span class="string">'smith'</span>,<span class="string">'philip'</span>,<span class="string">'jay'</span>);      //把名字为SMITH, ALLEN, KING 的雇员取出来</div><div class="line"><span class="keyword">Select</span> ename, sal <span class="keyword">from</span> emp <span class="keyword">where</span> sal <span class="keyword">in</span>(<span class="number">800</span>, <span class="number">1250</span>, <span class="number">1500</span>, <span class="number">2000</span>);  //把薪水是800，1250， 1500， 2000 的雇员信息取出来</div></pre></td></tr></table></figure></p>
+<p><strong>7.</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> hiredate &gt; <span class="string">'20-2 月 1820'</span>；  //<span class="number">20</span><span class="number">-2</span> 月 <span class="number">1820</span>后的时间, 如果想用自己定义的日期格式，可以使用to_char <span class="keyword">or</span> <span class="keyword">to_date</span>函数; Oracle默认的日期格式为：DD-MON-RR</div></pre></td></tr></table></figure></p>
+<p><strong>8.模糊查询</strong><br>使用like关键字，和通配符 %   表示0个或多个字符，&#95;表示1个字符, “?”为0个或1个<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> ename <span class="keyword">like</span> <span class="string">'_A%'</span>;          // 查询第二字母中含有 A 的雇员          </div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> ename <span class="keyword">like</span> <span class="string">'_\%a%'</span>;      //系统默认转义符是\,可以自己指定转义符 </div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> ename <span class="keyword">like</span> <span class="string">'_$%a%'</span> escape <span class="string">'$'</span>;</div></pre></td></tr></table></figure></p>
+<h2 id="第七课：order-by-使用order-by对数据进行排序"><a href="#第七课：order-by-使用order-by对数据进行排序" class="headerlink" title="第七课：order by 使用order by对数据进行排序"></a>第七课：order by 使用order by对数据进行排序</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept; </div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept <span class="keyword">order</span> <span class="keyword">by</span> dept <span class="keyword">desc</span>;    //(默认为asc) desc为降序排列，asc为升序 </div><div class="line"><span class="keyword">select</span> ename, sal, deptno <span class="keyword">from</span> emp <span class="keyword">where</span> sal &gt; <span class="number">2000</span> <span class="keyword">order</span> <span class="keyword">by</span> deptno <span class="keyword">asc</span>,ename <span class="keyword">desc</span>;</div></pre></td></tr></table></figure>
+<h2 id="第八课：sql-function"><a href="#第八课：sql-function" class="headerlink" title="第八课：sql_function"></a>第八课：sql_function</h2><p><strong>1.</strong><code>select ename,sal*12 annual_sal from emp where ename not like &#39;_A%&#39; and sal &gt; 1500  order by sal desc;</code></p>
+<p><strong>2.</strong><code>select lower(ename) from emp;    // Lower()函数 将字符串全部转换成小写,把ename 转换为小写值</code></p>
+<p><strong>3.</strong><code>select ename from emp where lower(ename) like &#39;_a%&#39;;      //把ename的值第二个字母为A或a输出</code></p>
+<p><strong>4.</strong><code>select substr(ename,2,3) from emp;       //从第二字符截，一共截三个字符。</code></p>
+<p><strong>5.</strong><code>select chr(65) from dual;                 //求一个与某个ASCII码值对应的字符,结果为A</code></p>
+<p><strong>6.</strong><code>select ascii(&#39;a&#39;) from dual;                //求一个字符的ASCII码值,结果为65</code></p>
+<p><strong>7.round()函数  对参数值进行四舍五入的操作</strong><br><strong>例子1：</strong> <code>Select round(23.652)from dual;       //对23.652进行四舍五入操作  24</code><br><strong>例子2：</strong> <code>Select round(23.652,2) from dual;      //对23.652四舍五入到小数点后2位  23.65</code><br><strong>例子3：</strong> <code>Select round(23.652,-1) from dual;     //用负数指定小数点前面几位,对23.652四舍五入到小数点前1位 20</code></p>
+<p><strong>&#42;8.to_char()   用于将数字或日期转换成特定的字符串，</strong><br>To_char()有两个参数：<br>第一个参数：需要进行转换的日期或数字<br>第二个参数：特定的转换格式，对于数字有一下几个格式可以指定：<br>9  代表数字，若果该位没有数字则不进行显示，但对于小数点后面的部分仍会强制显示<br>0  代表一位数字，如果该位没有数字则强制显示0</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> to_char(sal,<span class="string">'$99,999.9999'</span>) <span class="keyword">from</span> emp;  //to_char函数主要用于对日期和数字格式化 $16,000.0000</div><div class="line"><span class="keyword">select</span> to_char(sal,<span class="string">'$0000,000.0000'</span>) <span class="keyword">from</span> emp;   //结果$0016,000.0000</div><div class="line"><span class="keyword">select</span> to_char(sal,<span class="string">'L99,999.9999'</span>) <span class="keyword">from</span> emp;     //人民币符号，L代表本地符号。 </div><div class="line"><span class="keyword">select</span> birthdate <span class="keyword">from</span> emp;</div></pre></td></tr></table></figure>
+<p>显示为：BIRTHDATE<br>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;<br>22-3月-87<br>改为：<code>select to_char(birthdate,&#39;YYYY-MM-DD HH24:MI:SS&#39;) from emp; //24制的  没有24为12制的</code></p>
+<p>格式控制符                                含义<br>YYYY、YY —————————–  代表4位，2位数字的年份<br>MM      —————————–  用数字表示的月份<br>MON    —————————–   月份的缩写对中文月份来说就是全称<br>DD     —————————–    数字表示的日<br>DY     —————————–    星期的缩写，对中文的星期来说就是全称<br>HH24、HH12 —————————12小时或者24小时进制下的时间<br>MI    —————————–     分钟数<br>SS    —————————–     秒数</p>
+<p><strong>&#42;9.to_data函数</strong><br>将特定的字符串转换成日期格式，这个函数有两个参数:<br>第一参数：自定义的日期字符串<br>第二参数：指定这个字符串的格式<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select ename,birthdate from emp where birthdate &gt; to_date('1987-3-22 12:00:00','YYYY-MM-DD HH24:MI:SS');   //不能直接写birthdate&gt;'1987-2-22 11:22:33'会出现格式不匹配，因为表中格式为DD-MM月－YY</div></pre></td></tr></table></figure></p>
+<p><strong>10.</strong><code>Select * from emp where sal &gt; to_number(‘$1,200.00’,‘$9,999.99’);  //求薪水大于1200的员工信息</code></p>
+<p><strong>&#42;11.nvl()函数</strong><br>用来处理空值，这个函数有两个参数：<br>第一参数：字段名或表达式，如果这个参数值为null，就返回第二参数值，否则返回第一参数值<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> ename, sal*<span class="number">12</span>+nvl(comm,<span class="number">0</span>) <span class="keyword">from</span> emp   //这样防止comm为空时，sal*<span class="number">12</span>相加也为空的情况</div></pre></td></tr></table></figure></p>
+<h2 id="第九课：Group-function-组函数"><a href="#第九课：Group-function-组函数" class="headerlink" title="第九课：Group function 组函数"></a>第九课：Group function 组函数</h2><p>1.<code>select max(sal) from emp;                            //最大值</code></p>
+<p>2.<code>select min(sal) from emp;                             //最小值</code></p>
+<p>3.<code>select to_char(avg(sal), &#39;$999,999,999.99&#39;) from emp;   //平均值</code></p>
+<p>4.<code>select round(sum(sal),2) from emp;                    //求和</code></p>
+<p>5.<code>select count(*) from emp where sal &gt; 1500;           //求记录数</code></p>
+<p>6.<code>select count(comm) from emp;                       //Count()可以对单独字段使用，得到的是所有非空记录的数量</code></p>
+<p>7.<code>select count(distinct deptno) from emp;            //Count()可以和distinct一起使用，得到所有唯一值记录的数量</code></p>
+<h2 id="第十课：Group-by语句"><a href="#第十课：Group-by语句" class="headerlink" title="第十课：Group by语句"></a>第十课：Group by语句</h2><p>1.<code>select avg(sal) from emp group by deptno; //首先将现有数据按照部门进行分组，然后再计算每个组员工的平均薪水</code></p>
+<p>2.<code>select deptno,avg(sal) from emp group by deptno;</code></p>
+<p>3.<code>select deptno,job,max(sal) from emp group by deptno,job; //按照部门，和职位的最大薪水进行分组</code></p>
+<p>4.<code>求薪水值最高的人的名称select ename,max(sal) from emp;   //出错，因为max只能有一个值，但是等于max的值可能有好几个，不能匹配。</code></p>
+<p>可以写成<code>select ename from emp where sal=(select max(sal) from emp);</code><br>Group by 语句应注意，出现在select中的字段，如果没有出现在组函数中，必须出现在Group by语句中。 </p>
+<h2 id="第十一课：Having对分组结果筛选"><a href="#第十一课：Having对分组结果筛选" class="headerlink" title="第十一课：Having对分组结果筛选"></a>第十一课：Having对分组结果筛选</h2><p>1.where是对单条记录进行筛选,Having是对分组结果进行筛选<br><code>select avg(sal),deptno from emp group by deptno having avg(sal) &gt; 2000;</code></p>
+<p>2.查询工资大于2000的雇员,按照部门编号进行分组,分组后平均薪水大于1500,按工资倒序排列<br><code>select deptno,avg(sal) from emp where sal &gt; 2000 group by deptno having avg(sal) &gt;1500 order by avg(sal) desc; 
+///////select-where-group by- having-order by////////</code></p>
+<h2 id="第十二课-子查询"><a href="#第十二课-子查询" class="headerlink" title="第十二课:子查询"></a>第十二课:子查询</h2><p>1.select 语句中嵌套select 语句,求哪些人工资在平均工资之上.<br><code>select ename,sal from emp where sal &gt; (select avg(sal) from emp);</code></p>
+<p>2.查找每个部门挣钱最多的那个人的名字.<br><code>select ename, deptno from emp where sal in (select max(sal) from emp group by deptno);</code></p>
+<p>查询会多值.正确写法是: </p>
+<p>应把<code>select max(sal),deptno from emp group by deptno</code>当成一个表,给这个表起名叫t,然后将两张表连接起来就可以了。语句如下:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> ename,sal <span class="keyword">from</span> emp </div><div class="line"><span class="keyword">join</span> (<span class="keyword">select</span> <span class="keyword">max</span>(sal) max_sal,deptno <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) t </div><div class="line"><span class="keyword">on</span> (emp.sal = t.max_sal <span class="keyword">and</span> emp.deptno = t.deptno);</div></pre></td></tr></table></figure></p>
+<h2 id="第十三课-self-table-connection"><a href="#第十三课-self-table-connection" class="headerlink" title="第十三课:self_table_connection"></a>第十三课:self_table_connection</h2><p>自连接：为同一张表起不同的别名，然后当成两张表来用<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> e1.ename,e2.ename <span class="keyword">from</span> emp e1,emp e2 <span class="keyword">where</span> e1.mgr = e2.empno;  //求这个人的名字和他经理人的名字(自连接)</div></pre></td></tr></table></figure></p>
+<p><img src="Oracle-Select/13.1.png" alt="图片：13.1" title="图片：13.1"></p>
+<h2 id="第十四课-SQL1999-table-connection"><a href="#第十四课-SQL1999-table-connection" class="headerlink" title="第十四课:SQL1999_table_connection"></a>第十四课:SQL1999_table_connection</h2><p>1.<code>select ename,dname,grade from emp e,dept d,sqlgrade s where e.deptno=d.deptno and e.sal between s.losal and s.hisal and job &lt;&gt; &#39;CLERK&#39;;</code><br>这种写法没有把过滤条件和连接条件分开来,由于这个原因,sql1999标准推出来了.</p>
+<p>2.<code>select ename,dname from emp,dept;(旧标准)</code></p>
+<p><code>select ename,dname from emp cross join dept;(1999标准)</code></p>
+<p>3.等值连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> ename,dname <span class="keyword">from</span> emp,dept <span class="keyword">where</span> emp.deptno = dept.deptno;(旧) </div><div class="line"><span class="keyword">select</span> ename,dname <span class="keyword">from</span> emp <span class="keyword">join</span> dept <span class="keyword">on</span> (emp.deptno = dept.deptno);</div><div class="line"><span class="keyword">select</span> ename , dname <span class="keyword">from</span> emp <span class="keyword">join</span> dept <span class="keyword">using</span> (deptno);		//不推荐使用</div></pre></td></tr></table></figure>
+<p>4.非等值连接：</p>
+<p><code>select ename,grade from emp e join salgrade s on(s.sal between s.losal and s.hisal);</code></p>
+<p>5.<code>select ename,dname,grade from emp e join dept d on(e.deptno = d.deptno) join salgrade s on (e.sal between s.losal and s.hisal) where ename not like &#39;_A%&#39;;</code></p>
+<p>6.<code>select e1.ename,e2.ename from emp e1 join emp e2 on (e1.mgr = e2.deptno);</code></p>
+<p>7.<code>select e1.ename,e2.ename from emp e1 left (outer) join emp e2 on (e1.mgr = e2.empno);  //left outerjoin或者left join都可以！即为左连接。</code></p>
+<p>8.<code>select ename,dname from emp e right outer join dept d on (e.deptno = d.deptno);  //右连接</code></p>
+<p>9.<code>select ename,dname from emp e full join dept d on (e.deptno = d.deptno);         //全连接</code></p>
+<h2 id="第十六至二十三课-求部门平均薪水等级"><a href="#第十六至二十三课-求部门平均薪水等级" class="headerlink" title="第十六至二十三课:求部门平均薪水等级"></a>第十六至二十三课:求部门平均薪水等级</h2><p>1.A.求部门平均薪水的等级<br><code>select deptno,avg_sal,grade from (select deptno,avg(sal) avg_sal from emp group  by deptno) t join salgrade s on (t.avg_sal between s.losal and s.hisal);</code></p>
+<p>2.求部门平均的薪水等级<br><code>select deptno,avg(grade) from (select deptno,ename,grade from emp e join salgrade s on (emp.sal between s.losal and s.hisal)) t group by deptno;</code></p>
+<p>3.哪些人是经理<br><code>select ename2 from (select e1.ename ,e1.mgr mgr1,e2.ename ename2 from emp e1 join emp e2 on (e1.mgr = e2.empno)) t join emp on (t.mgr1 = emp.empno) 
+select ename from emp where empno in (select distinct mgr from emp)</code></p>
+<p>4.不准用组函数,求薪水的最高值<br><code>select distinct sal from emp where sal not in( select distinct e1.sal from emp e1 join emp e2 on (e1.sal &lt; e2.sal) ) ;</code></p>
+<p>5.求平均薪水最高的部门编号<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//方法1</div><div class="line"><span class="keyword">select</span> deptno,avg_sal <span class="keyword">from</span> ( </div><div class="line"><span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno </div><div class="line">) </div><div class="line"><span class="keyword">where</span> avg_sal = ( </div><div class="line"><span class="keyword">select</span> <span class="keyword">max</span>(avg_sal) <span class="keyword">from</span> ( </div><div class="line"><span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno </div><div class="line">) </div><div class="line">) ;</div><div class="line"></div><div class="line">//方法2</div><div class="line"><span class="keyword">select</span> deptno,avg_sal <span class="keyword">from</span> </div><div class="line">(<span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) </div><div class="line"><span class="keyword">where</span> avg_sal = </div><div class="line">(<span class="keyword">select</span> <span class="keyword">max</span>(<span class="keyword">avg</span>(sal))  <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) ;</div></pre></td></tr></table></figure></p>
+<p>6.求平均薪水最高的部门名称<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> dname <span class="keyword">from</span> dept <span class="keyword">where</span> deptno = </div><div class="line">( </div><div class="line"><span class="keyword">select</span> deptno <span class="keyword">from</span> </div><div class="line">(<span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) </div><div class="line"><span class="keyword">where</span> avg_sal = </div><div class="line">( </div><div class="line"><span class="keyword">select</span> <span class="keyword">max</span>(avg_sal) <span class="keyword">from</span> </div><div class="line">(<span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) </div><div class="line">) </div><div class="line">) ;</div></pre></td></tr></table></figure></p>
+<p>7.求平均薪水等级最低的部门的部门名称<br>错误写法:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">min</span>(avg_grade),deptno <span class="keyword">from</span> </div><div class="line">( </div><div class="line"><span class="keyword">select</span> deptno,<span class="keyword">avg</span>(grade) avg_grade </div><div class="line">( </div><div class="line"><span class="keyword">select</span> ename,deptno,grade <span class="keyword">from</span> emp e <span class="keyword">join</span> salgrade s <span class="keyword">on</span> (e.sal <span class="keyword">between</span> s.losal <span class="keyword">and</span> s.hisal) </div><div class="line">) <span class="keyword">group</span> <span class="keyword">by</span> deptno </div><div class="line">) <span class="keyword">group</span> <span class="keyword">by</span> deptno</div></pre></td></tr></table></figure></p>
+<p>正确写法:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> dname,t1.deptno,grade,avg_sal <span class="keyword">from</span> </div><div class="line">( </div><div class="line"><span class="keyword">select</span> deptno,avg_sal,grade <span class="keyword">from</span> </div><div class="line">(<span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) t    </div><div class="line"><span class="keyword">join</span> salgrade s <span class="keyword">on</span> (t.avg_sal <span class="keyword">between</span> s.losal <span class="keyword">and</span> s.hisal) </div><div class="line">) t1 <span class="keyword">join</span> dept <span class="keyword">on</span> (t1.deptno = dept.deptno) </div><div class="line"><span class="keyword">where</span> t1.grade = </div><div class="line">( </div><div class="line"><span class="keyword">select</span> <span class="keyword">min</span>(grade) <span class="keyword">from</span> </div><div class="line">( </div><div class="line"><span class="keyword">select</span> deptno,avg_sal,grade <span class="keyword">from</span> </div><div class="line">(<span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) t    </div><div class="line"><span class="keyword">join</span> salgrade s <span class="keyword">on</span> (t.avg_sal <span class="keyword">between</span> s.losal <span class="keyword">and</span> s.hisal) </div><div class="line">) </div><div class="line">) ;</div></pre></td></tr></table></figure></p>
+<p>错误写法：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> dname,t1.deptno,grade,avg_sal <span class="keyword">from</span> </div><div class="line">( </div><div class="line"><span class="keyword">select</span> deptno,avg_sal,grade <span class="keyword">from</span> </div><div class="line">(<span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) t    </div><div class="line"><span class="keyword">join</span> salgrade s <span class="keyword">on</span> (t.avg_sal <span class="keyword">between</span> s.losal <span class="keyword">and</span> s.hisal) </div><div class="line">) t1 <span class="keyword">join</span> dept <span class="keyword">on</span> (t1.deptno = dept.deptno) </div><div class="line"><span class="keyword">where</span> t1.grade = </div><div class="line">( </div><div class="line"><span class="keyword">select</span> <span class="keyword">min</span>(grade) <span class="keyword">from</span> </div><div class="line">( </div><div class="line">t1</div><div class="line">) </div><div class="line">) ;</div><div class="line">//报错：表或视图不存在。</div></pre></td></tr></table></figure></p>
+<p>8.<strong>视图:view就是一张虚表,一个子查询 </strong><br><code>conn sys/bjsxt as sysdba;</code></p>
+<p><code>grant create table,create view to scott;</code></p>
+<p><code>conn scott/tiger;</code><br>创建视图<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">view</span> v$_dept_avg_sal_info <span class="keyword">as</span> </div><div class="line"><span class="keyword">select</span> deptno,avg_sal,grade <span class="keyword">from</span> </div><div class="line">(<span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) avg_sal <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) t </div><div class="line"><span class="keyword">join</span> salgrade s <span class="keyword">on</span> (t.avg_sal <span class="keyword">between</span> s.losal <span class="keyword">and</span> s.hisal);</div></pre></td></tr></table></figure></p>
+<p>使用视图后可以简写<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> dname,t1.deptno,grade,avg_sal <span class="keyword">from</span> </div><div class="line">v$_dept_avg_sal_info t1 <span class="keyword">join</span> dept <span class="keyword">on</span> (t1.deptno = dept.deptno) </div><div class="line"><span class="keyword">where</span> t1.grade = </div><div class="line">( </div><div class="line"><span class="keyword">select</span> <span class="keyword">min</span>(grade) <span class="keyword">from</span> v$_dept_avg_sal_info </div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>9.求比普通员工最高薪水还要高的经理人的名称<br>先求普通员工的最高薪水<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">max</span>(sal) <span class="keyword">from</span> emp <span class="keyword">where</span> empno <span class="keyword">not</span> <span class="keyword">in</span> </div><div class="line">(<span class="keyword">select</span> <span class="keyword">distinct</span> mgr <span class="keyword">from</span> emp <span class="keyword">where</span> mgr <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>); </div><div class="line"></div><div class="line"><span class="keyword">select</span> ename <span class="keyword">from</span> emp <span class="keyword">where</span> empno <span class="keyword">in</span> </div><div class="line">(<span class="keyword">select</span> <span class="keyword">distinct</span> mgr <span class="keyword">from</span> emp <span class="keyword">where</span> mgr <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>) </div><div class="line"><span class="keyword">and</span> sal &gt; </div><div class="line">( </div><div class="line"><span class="keyword">select</span> <span class="keyword">max</span>(sal) <span class="keyword">from</span> emp <span class="keyword">where</span> empno <span class="keyword">not</span> <span class="keyword">in</span> </div><div class="line">(<span class="keyword">select</span> <span class="keyword">distinct</span> mgr <span class="keyword">from</span> emp <span class="keyword">where</span> mgr <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>)  </div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>思考题：</p>
+<ol>
+<li>求部门经理人中平均薪水最低的部门名称</li>
+<li>求薪水最高的前五名雇员</li>
+<li>求薪水最高的第6到第10名雇员（重点掌握）</li>
+<li>练习：求最后入职的5名员工</li>
+<li>面试题：比较效率<br>select &#42; from emp where deptno = 10 and ename like ‘%A%’; （效率比较高）<br>select &#42; from emp where ename like ‘%A%’ and deptno = 10;（Oracle可能会优化，直接把这条语句转换成上面那条，使效率提高）</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/Oracle/" rel="tag"># Oracle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/14/ThinkingInJava9/" rel="next" title="Java编程思想（九） 接口">
+                <i class="fa fa-chevron-left"></i> Java编程思想（九） 接口
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/22/Oracle-DDL/" rel="prev" title="Oracle（二） DML、DDL、事务控制语句">
+                Oracle（二） DML、DDL、事务控制语句 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Oracle（一）-Select语句"><span class="nav-number">1.</span> <span class="nav-text">Oracle（一） Select语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一课：口令"><span class="nav-number">1.1.</span> <span class="nav-text">第一课：口令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二课：SQL语言"><span class="nav-number">1.2.</span> <span class="nav-text">第二课：SQL语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三课：table-structures"><span class="nav-number">1.3.</span> <span class="nav-text">第三课：table_structures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四课：select语句"><span class="nav-number">1.4.</span> <span class="nav-text">第四课：select语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五课：distinct"><span class="nav-number">1.5.</span> <span class="nav-text">第五课：distinct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六课：where"><span class="nav-number">1.6.</span> <span class="nav-text">第六课：where</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七课：order-by-使用order-by对数据进行排序"><span class="nav-number">1.7.</span> <span class="nav-text">第七课：order by 使用order by对数据进行排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课：sql-function"><span class="nav-number">1.8.</span> <span class="nav-text">第八课：sql_function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课：Group-function-组函数"><span class="nav-number">1.9.</span> <span class="nav-text">第九课：Group function 组函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十课：Group-by语句"><span class="nav-number">1.10.</span> <span class="nav-text">第十课：Group by语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十一课：Having对分组结果筛选"><span class="nav-number">1.11.</span> <span class="nav-text">第十一课：Having对分组结果筛选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十二课-子查询"><span class="nav-number">1.12.</span> <span class="nav-text">第十二课:子查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十三课-self-table-connection"><span class="nav-number">1.13.</span> <span class="nav-text">第十三课:self_table_connection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十四课-SQL1999-table-connection"><span class="nav-number">1.14.</span> <span class="nav-text">第十四课:SQL1999_table_connection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十六至二十三课-求部门平均薪水等级"><span class="nav-number">1.15.</span> <span class="nav-text">第十六至二十三课:求部门平均薪水等级</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

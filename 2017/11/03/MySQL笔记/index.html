@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,数据库," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL笔记第一课 MySQL的安装安装教程：https://jingyan.baidu.com/article/cd4c2979033a17756f6e6047.html 我设置的root密码是：09129421 测试是否安装成功以管理员权限运行命令提示符，用net start mysql56启动MySQL服务。用net stop mysql56关闭MySQL服务。其中mysql56为Wind">
+<meta name="keywords" content="MySQL,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL笔记">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/MySQL笔记/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MySQL笔记第一课 MySQL的安装安装教程：https://jingyan.baidu.com/article/cd4c2979033a17756f6e6047.html 我设置的root密码是：09129421 测试是否安装成功以管理员权限运行命令提示符，用net start mysql56启动MySQL服务。用net stop mysql56关闭MySQL服务。其中mysql56为Wind">
+<meta property="og:updated_time" content="2017-11-03T05:40:10.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL笔记">
+<meta name="twitter:description" content="MySQL笔记第一课 MySQL的安装安装教程：https://jingyan.baidu.com/article/cd4c2979033a17756f6e6047.html 我设置的root密码是：09129421 测试是否安装成功以管理员权限运行命令提示符，用net start mysql56启动MySQL服务。用net stop mysql56关闭MySQL服务。其中mysql56为Wind">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/03/MySQL笔记/"/>
+
+
+
+
+
+  <title>MySQL笔记 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/03/MySQL笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-03T13:29:58+08:00">
+                2017-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MySQL笔记"><a href="#MySQL笔记" class="headerlink" title="MySQL笔记"></a>MySQL笔记</h1><h2 id="第一课-MySQL的安装"><a href="#第一课-MySQL的安装" class="headerlink" title="第一课 MySQL的安装"></a>第一课 MySQL的安装</h2><p>安装教程：<a href="https://jingyan.baidu.com/article/cd4c2979033a17756f6e6047.html" target="_blank" rel="external">https://jingyan.baidu.com/article/cd4c2979033a17756f6e6047.html</a></p>
+<p>我设置的root密码是：09129421</p>
+<p>测试是否安装成功<br>以管理员权限运行命令提示符，用net start mysql56启动MySQL服务。用net stop mysql56关闭MySQL服务。其中mysql56为Windows下MySQL的服务名。</p>
+<p>打开MySQL方式：<br>可以通过MySQL 5.7 Command Line Client客户端输入上面密码打开，也可以在用管理者权限打开cmd后键入<code>mysql -u root -p</code>并输入密码来打开。<br>之后就和<code>sql*plus</code>用法相似。</p>
+<a id="more"></a>
+<h2 id="第二课-mysql-started"><a href="#第二课-mysql-started" class="headerlink" title="第二课. mysql_started"></a>第二课. mysql_started</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--建立数据库：</span></div><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> mydata;</div><div class="line"><span class="comment">--使用这个数据库</span></div><div class="line"><span class="keyword">use</span> mydata;</div><div class="line"></div><div class="line"><span class="comment">--创建表dept</span></div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> dept</div><div class="line">(</div><div class="line">	deptno <span class="built_in">int</span> primary <span class="keyword">key</span>,</div><div class="line">	dname <span class="built_in">varchar</span>(<span class="number">14</span>),</div><div class="line">	loc <span class="built_in">varchar</span>(<span class="number">13</span>)</div><div class="line">);</div><div class="line"></div><div class="line"><span class="comment">--创建emp表</span></div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp</div><div class="line">(</div><div class="line">	empno <span class="built_in">int</span> primary <span class="keyword">key</span>,</div><div class="line">	ename <span class="built_in">varchar</span>(<span class="number">10</span>),</div><div class="line">	job <span class="built_in">varchar</span>(<span class="number">10</span>),</div><div class="line">	mgr <span class="built_in">int</span>,</div><div class="line">	hiredate datetime,</div><div class="line">	sal <span class="keyword">double</span>,</div><div class="line">	comm <span class="keyword">double</span>,</div><div class="line">	deptno <span class="built_in">int</span>,</div><div class="line">	foreign <span class="keyword">key</span> (deptno) <span class="keyword">references</span> dept(deptno)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>另外一种方式创建表：<br>可以将上面创建emp表的代码写入一个文件，起名叫mydata.sql，然后再mysql中执行该脚本文件：<br><code>\. c:\\mysql_script\\mydata.sql</code><br>如果已经建表，就不会再建。</p>
+<h2 id="第三课-page-seperation"><a href="#第三课-page-seperation" class="headerlink" title="第三课. page_seperation"></a>第三课. page_seperation</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--查看当前用户有多少个数据库：</span></div><div class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;</div><div class="line"><span class="comment">--查看当前用户有多少个表：</span></div><div class="line"><span class="keyword">show</span> <span class="keyword">tables</span>;</div><div class="line"><span class="comment">--查看一张表的信息</span></div><div class="line">desc dept;</div><div class="line"><span class="comment">--插入多条信息：</span></div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept <span class="keyword">values</span> (<span class="number">10</span>, <span class="string">'A'</span>, <span class="string">'A'</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept <span class="keyword">values</span> (<span class="number">20</span>, <span class="string">'B'</span>, <span class="string">'B'</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept <span class="keyword">values</span> (<span class="number">30</span>, <span class="string">'C'</span>, <span class="string">'C'</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept <span class="keyword">values</span> (<span class="number">40</span>, <span class="string">'D'</span>, <span class="string">'D'</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept <span class="keyword">values</span> (<span class="number">50</span>, <span class="string">'E'</span>, <span class="string">'E'</span>);</div><div class="line"><span class="comment">--提交</span></div><div class="line"><span class="keyword">commit</span>;</div><div class="line"><span class="comment">--将dept数据按deptno倒序排，从第三条开始，去后面两条。</span></div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept <span class="keyword">order</span> <span class="keyword">by</span> deptno <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">3</span>, <span class="number">2</span>;</div></pre></td></tr></table></figure>
+<h2 id="第四课-auto-increment"><a href="#第四课-auto-increment" class="headerlink" title="第四课. auto_increment"></a>第四课. auto_increment</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--先创建一个article表，在id后加上auto_increment，该字段就会自动递增：</span></div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> article</div><div class="line">(</div><div class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</div><div class="line">	title <span class="built_in">varchar</span>(<span class="number">255</span>)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>–显示一下<br><code>select * from article;</code></p>
+<p>–再插一条<br><code>insert into article values(null,&#39;b&#39;);</code></p>
+<p>–显示一下，id自动递增<br><code>select * from article;</code></p>
+<p>–在指定字段上插入数据<br><code>insert into article (title)values(&#39;c&#39;);</code></p>
+<h2 id="第五课-datetime"><a href="#第五课-datetime" class="headerlink" title="第五课. datetime"></a>第五课. datetime</h2><p>–查看当前时间：<br><code>select now();</code></p>
+<p>–修改时间格式<br><code>select date_format(now(),&#39;%Y-%m-%d %H:%i:%s&#39;);</code></p>
+<p>–向emp表中插入一条数据<br><code>insert into emp values (9999, &#39;test&#39;, &#39;clerk&#39;, 7369, &#39;1981-12-23 12:23:23&#39;, 8000, 80, 10);</code></p>
+<h2 id="第六课-mysql-jdbc"><a href="#第六课-mysql-jdbc" class="headerlink" title="第六课.mysql_jdbc"></a>第六课.mysql_jdbc</h2><p>下载好MySql到JDBC的驱动程序<br><a href="https://www.mysql.com--&gt;products--&gt;" target="_blank" rel="external">https://www.mysql.com--&gt;products--&gt;</a> MySQL Connectors–&gt; JDBC Driver for MySQL (Connector/J)</p>
+<p>在project中导入connector的jar包：<br><a href="http://blog.csdn.net/a153375250/article/details/50851049" target="_blank" rel="external">http://blog.csdn.net/a153375250/article/details/50851049</a></p>
+<p>编写从jdbc到mysql的连接查询代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMysqlConnection</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line">        ResultSet rs = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="comment">//添加jdbc到mysql的驱动</span></div><div class="line">            Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line"></div><div class="line">            <span class="comment">//连接数据库</span></div><div class="line">            conn =</div><div class="line">                    DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost/mydata?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"</span> ,</div><div class="line">                            <span class="string">"root"</span>,<span class="string">"09129421"</span>);</div><div class="line"></div><div class="line">            <span class="comment">//实例化数据库操作</span></div><div class="line">            stmt = conn.createStatement();</div><div class="line"></div><div class="line">            <span class="comment">//返回数据库查询结果</span></div><div class="line">            rs = stmt.executeQuery(<span class="string">"select * from dept"</span>);</div><div class="line"></div><div class="line">            <span class="comment">//将查询结果中的deptno的值依次打印</span></div><div class="line">            <span class="keyword">while</span>(rs.next())&#123;</div><div class="line">                System.out.println(rs.getString(<span class="string">"deptno"</span>));</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// Do something with the Connection</span></div><div class="line"></div><div class="line">        &#125;<span class="keyword">catch</span>(ClassNotFoundException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">catch</span> (SQLException ex) &#123;</div><div class="line">            <span class="comment">// handle any errors</span></div><div class="line">            System.out.println(<span class="string">"SQLException: "</span> + ex.getMessage());</div><div class="line">            System.out.println(<span class="string">"SQLState: "</span> + ex.getSQLState());</div><div class="line">            System.out.println(<span class="string">"VendorError: "</span> + ex.getErrorCode());</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="keyword">if</span>(rs != <span class="keyword">null</span>)</div><div class="line">                &#123;</div><div class="line">                    rs.close();</div><div class="line">                    rs = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)</div><div class="line">                &#123;</div><div class="line">                    stmt.close();</div><div class="line">                    stmt = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(conn != <span class="keyword">null</span>)</div><div class="line">                &#123;</div><div class="line">                    conn.close();</div><div class="line">                    conn = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;<span class="keyword">catch</span> (SQLException e)</div><div class="line">            &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="第八课-article-tree"><a href="#第八课-article-tree" class="headerlink" title="第八课.article_tree"></a>第八课.article_tree</h2><p>我们要在mysql下执行bbs.sql文件<br>该sql文件如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> bbs;</div><div class="line"></div><div class="line"><span class="keyword">use</span> bbs;</div><div class="line"></div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> article </div><div class="line">(</div><div class="line"><span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</div><div class="line">pid <span class="built_in">int</span>,</div><div class="line">rootid <span class="built_in">int</span>,</div><div class="line">title <span class="built_in">varchar</span>(<span class="number">255</span>),</div><div class="line">cont <span class="built_in">text</span>,</div><div class="line">pdate datetime,</div><div class="line">isleaf <span class="built_in">int</span> </div><div class="line">);</div><div class="line"></div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="string">'蚂蚁大战大象'</span>, <span class="string">'蚂蚁大战大象'</span>, <span class="keyword">now</span>(), <span class="number">1</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="string">'大象被打趴下了'</span>, <span class="string">'大象被打趴下了'</span>,<span class="keyword">now</span>(), <span class="number">1</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="string">'蚂蚁也不好过'</span>,<span class="string">'蚂蚁也不好过'</span>, <span class="keyword">now</span>(), <span class="number">0</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="string">'瞎说'</span>, <span class="string">'瞎说'</span>, <span class="keyword">now</span>(), <span class="number">1</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="string">'没有瞎说'</span>, <span class="string">'没有瞎说'</span>, <span class="keyword">now</span>(), <span class="number">0</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="string">'怎么可能'</span>, <span class="string">'怎么可能'</span>, <span class="keyword">now</span>(), <span class="number">1</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="string">'怎么没有可能'</span>, <span class="string">'怎么没有可能'</span>, <span class="keyword">now</span>(), <span class="number">0</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="string">'可能性是很大的'</span>, <span class="string">'可能性是很大的'</span>, <span class="keyword">now</span>(), <span class="number">0</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="string">'大象进医院了'</span>, <span class="string">'大象进医院了'</span>, <span class="keyword">now</span>(), <span class="number">1</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> article <span class="keyword">values</span> (<span class="literal">null</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="string">'护士是蚂蚁'</span>, <span class="string">'护士是蚂蚁'</span>, <span class="keyword">now</span>(), <span class="number">0</span>);</div></pre></td></tr></table></figure></p>
+<p>由于mysql编码问题，有时会出现因为乱码而无法插入数据的现象，解决办法如下：<br><code>C:\ProgramData\MySQL\MySQL Server 5.7</code>下，有可能ProgramData文件又能隐藏了，设置一下文件夹选项，然后再这个文件夹下面可以找到my.ini配置文件，将字符编码改为：<br><code>default-character-set=gbk</code>就可以了。</p>
+<h2 id="第九课-article-tree-2"><a href="#第九课-article-tree-2" class="headerlink" title="第九课.article_tree 2"></a>第九课.article_tree 2</h2><p>idea中连接数据库的详细教程：<a href="http://blog.csdn.net/qq_27093465/article/details/52872582" target="_blank" rel="external">http://blog.csdn.net/qq_27093465/article/details/52872582</a><br>可以将数据库的可视化界面调用出来。</p>
+<p>将上面第八课的bbs数据库的article表树状打印出来：<br>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArticleTree</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">new</span> ArticleTree().show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line">        ResultSet rs = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="comment">//添加jdbc到mysql的驱动</span></div><div class="line">            Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line"></div><div class="line">            <span class="comment">//连接数据库</span></div><div class="line">            conn = DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost/bbs?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"</span> ,</div><div class="line">                            <span class="string">"root"</span>,<span class="string">"09129421"</span>);</div><div class="line">            stmt = conn.createStatement();</div><div class="line">            rs =stmt.executeQuery(<span class="string">"select * from article where pid = 0"</span>);</div><div class="line">            <span class="keyword">while</span>(rs.next())&#123;</div><div class="line">                 System.out.println(rs.getString(<span class="string">"cont"</span>));</div><div class="line">                 tree(conn, rs.getInt(<span class="string">"id"</span>), <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;<span class="keyword">catch</span>(ClassNotFoundException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">catch</span>(SQLException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="keyword">if</span>(rs != <span class="keyword">null</span>)</div><div class="line">                &#123;</div><div class="line">                    rs.close();</div><div class="line">                    rs = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</div><div class="line">                    stmt.close();</div><div class="line">                    stmt = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</div><div class="line">                    conn.close();</div><div class="line">                    conn = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span>(SQLException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">tree</span><span class="params">(Connection conn, <span class="keyword">int</span> id, <span class="keyword">int</span> level)</span></span>&#123;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line">        ResultSet rs = <span class="keyword">null</span>;</div><div class="line">        StringBuffer strPre = <span class="keyword">new</span> StringBuffer(<span class="string">""</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; level; i++)&#123;</div><div class="line">            strPre.append(<span class="string">"    "</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            stmt = conn.createStatement();</div><div class="line">            String sql = <span class="string">"select * from article where pid = "</span> + id;</div><div class="line">            rs = stmt.executeQuery(sql);</div><div class="line">            <span class="keyword">while</span>(rs.next())&#123;</div><div class="line">                System.out.println(strPre +(rs.getString(<span class="string">"cont"</span>)));</div><div class="line">                <span class="keyword">if</span>(rs.getInt(<span class="string">"isleaf"</span>) != <span class="number">0</span>)</div><div class="line">                    tree(conn, rs.getInt(<span class="string">"id"</span>), level + <span class="number">1</span>);</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            strPre = <span class="keyword">new</span> StringBuffer(<span class="string">""</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">catch</span>(SQLException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="keyword">if</span>(rs != <span class="keyword">null</span>)</div><div class="line">                &#123;</div><div class="line">                    rs.close();</div><div class="line">                    rs = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</div><div class="line">                    stmt.close();</div><div class="line">                    stmt = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span>(SQLException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/03/leetcode647/" rel="next" title="LeetCode | 647.找出字符串回文子串的个数">
+                <i class="fa fa-chevron-left"></i> LeetCode | 647.找出字符串回文子串的个数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/03/gitnotes1/" rel="prev" title="Git笔记（一）">
+                Git笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL笔记"><span class="nav-number">1.</span> <span class="nav-text">MySQL笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一课-MySQL的安装"><span class="nav-number">1.1.</span> <span class="nav-text">第一课 MySQL的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二课-mysql-started"><span class="nav-number">1.2.</span> <span class="nav-text">第二课. mysql_started</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三课-page-seperation"><span class="nav-number">1.3.</span> <span class="nav-text">第三课. page_seperation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四课-auto-increment"><span class="nav-number">1.4.</span> <span class="nav-text">第四课. auto_increment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五课-datetime"><span class="nav-number">1.5.</span> <span class="nav-text">第五课. datetime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六课-mysql-jdbc"><span class="nav-number">1.6.</span> <span class="nav-text">第六课.mysql_jdbc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课-article-tree"><span class="nav-number">1.7.</span> <span class="nav-text">第八课.article_tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课-article-tree-2"><span class="nav-number">1.8.</span> <span class="nav-text">第九课.article_tree 2</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Git笔记（二）第八课.git如何存储数据 执行下面的命令：  生成一个.git文件夹，里面一个index文件就是暂存区.git/objects文件夹就是git的对象区。">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git笔记（二）">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/gitnotes2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Git笔记（二）第八课.git如何存储数据 执行下面的命令：  生成一个.git文件夹，里面一个index文件就是暂存区.git/objects文件夹就是git的对象区。">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-1.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-2.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-3.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-4.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-5.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-6.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-7.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-8.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-9.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/9-1.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-1.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-2.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-3.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-4.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-5.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-6.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-7.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-8.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/10-9.png">
+<meta property="og:updated_time" content="2017-11-03T06:32:26.531Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git笔记（二）">
+<meta name="twitter:description" content="Git笔记（二）第八课.git如何存储数据 执行下面的命令：  生成一个.git文件夹，里面一个index文件就是暂存区.git/objects文件夹就是git的对象区。">
+<meta name="twitter:image" content="http://yoursite.com/2017/11/03/gitnotes2/gitnotes2/8-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/03/gitnotes2/"/>
+
+
+
+
+
+  <title>Git笔记（二） | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/03/gitnotes2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git笔记（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-03T14:09:44+08:00">
+                2017-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Git笔记（二）"><a href="#Git笔记（二）" class="headerlink" title="Git笔记（二）"></a>Git笔记（二）</h1><h2 id="第八课-git如何存储数据"><a href="#第八课-git如何存储数据" class="headerlink" title="第八课.git如何存储数据"></a>第八课.git如何存储数据</h2><p><img src="gitnotes2/8-1.png" alt=""></p>
+<p>执行下面的命令：</p>
+<p><img src="gitnotes2/8-2.png" alt=""></p>
+<p>生成一个.git文件夹，里面一个index文件就是暂存区<br><code>.git/objects</code>文件夹就是git的对象区。<br><a id="more"></a><br>执行命令：<br><code>$ git ls-files -s</code><br>就可以得到暂存区内容：<br><code>100644 190a18037c64c43e6b11489df4bf0b9eb6d2c9bf 0       a.txt</code><br>查看哈希值对应的内容：<br><code>git cat-file -p 190a</code><br>就可以得到内容：<br>123<br>进行提交<br><code>git commit -m ‘创建文件a.txt’</code><br>生成新的对象：<br>生成commit和tree对象<br><img src="gitnotes2/8-3.png" alt=""></p>
+<p>之后再创建新的文件b.txt，再添加并提交，就可以得到新的对象：<br><img src="gitnotes2/8-4.png" alt=""></p>
+<p>总结：<br><img src="gitnotes2/8-5.png" alt=""></p>
+<p>每一个提交的索引：<br><img src="gitnotes2/8-6.png" alt=""></p>
+<p>一个提交的索引：<br><img src="gitnotes2/8-7.png" alt=""></p>
+<p><img src="gitnotes2/8-8.png" alt=""></p>
+<p>分支：跟踪文件版本</p>
+<p><img src="gitnotes2/8-9.png" alt=""></p>
+<h2 id="第九课-深入Git存储之文件格式"><a href="#第九课-深入Git存储之文件格式" class="headerlink" title="第九课. 深入Git存储之文件格式"></a>第九课. 深入Git存储之文件格式</h2><p><img src="gitnotes2/9-1.png" alt=""></p>
+<h2 id="第十课-git分支"><a href="#第十课-git分支" class="headerlink" title="第十课.git分支"></a>第十课.git分支</h2><p>查看历史提交记录：<br><code>git log</code><br><img src="gitnotes2/10-1.png" alt=""></p>
+<p>查看提交的哈希值：<br><code>git log –oneline</code><br><img src="gitnotes2/10-2.png" alt=""></p>
+<p>查看分支，当前只有一个分支：<br><img src="gitnotes2/10-3.png" alt=""></p>
+<p>查看分支中的内容：<br><img src="gitnotes2/10-4.png" alt=""></p>
+<p>由分支可以知道，内容哈希与第二次提交的哈希相同。</p>
+<p>新建开发分支：<br><code>git branch dev</code><br>查看当前分支：<br><code>git branch</code><br><img src="gitnotes2/10-5.png" alt=""></p>
+<p>切换到dev分支：<br><code>git checkout dev</code><br>查看一下当前有哪些分支：<br><img src="gitnotes2/10-6.png" alt=""></p>
+<p>查看一下两个分支指向的提交的hash值：<br><img src="gitnotes2/10-7.png" alt=""></p>
+<p>所以两个分支当前都指向相同的提交</p>
+<p>自动创建并切换到一个分支bug_11：<br><code>$ git checkout -b bug_11</code></p>
+<p>HEAD指向当前分支：<br><img src="gitnotes2/10-8.png" alt=""></p>
+<p>查看HEAD指向的分支，可以看到当前是在bug_11分支上。</p>
+<p>分支总结：<br><img src="gitnotes2/10-9.png" alt=""></p>
+<p>查看分支的另一个方法：<br><code>git log --oneline --decorate</code></p>
+<p>基于某一次提交的hash创建分支：<br><code>git branch dev commithash(分支的hash)</code><br>或者<br><code>git branch dev master</code></p>
+<p>空的提交：<br><code>git commit --allow-empty -m ‘功能1’</code></p>
+<p><code>git log --oneline</code>不能看到空的提交，要想看到空的提交，也就是所有提交，得执行：<br><code>git log --oneline all</code><br>顺便查看提交和分支：<br><code>git log --oneline all –decorate</code><br>图形化展示:<br><code>git log --oneline all –decorate –graph</code><br>给上面起别名：<br><code>git config alias.logg &quot;log --oneline --all --decorate --graph&quot;</code><br>利用别名展示：<br><code>git logg</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/03/gitnotes1/" rel="next" title="Git笔记（一）">
+                <i class="fa fa-chevron-left"></i> Git笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/03/gitnotes3/" rel="prev" title="Git笔记（三）">
+                Git笔记（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git笔记（二）"><span class="nav-number">1.</span> <span class="nav-text">Git笔记（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课-git如何存储数据"><span class="nav-number">1.1.</span> <span class="nav-text">第八课.git如何存储数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课-深入Git存储之文件格式"><span class="nav-number">1.2.</span> <span class="nav-text">第九课. 深入Git存储之文件格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十课-git分支"><span class="nav-number">1.3.</span> <span class="nav-text">第十课.git分支</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
