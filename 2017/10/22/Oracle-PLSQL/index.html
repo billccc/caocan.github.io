@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Oracle（三） PLSQL第三十八课：PL_SQL/输出Hello World!/1234set serveroutput on; begin 	dbms_output.put_line(&apos;Hello World!!&apos;); end;">
+<meta name="description" content="第三十八课：PL_SQL/输出Hello World!/1234set serveroutput on; begin 	dbms_output.put_line(&apos;Hello World!!&apos;); end;">
 <meta name="keywords" content="数据库,Oracle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle（三） PLSQL">
 <meta property="og:url" content="https://caocan.github.io/2017/10/22/Oracle-PLSQL/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="Oracle（三） PLSQL第三十八课：PL_SQL/输出Hello World!/1234set serveroutput on; begin 	dbms_output.put_line(&apos;Hello World!!&apos;); end;">
+<meta property="og:description" content="第三十八课：PL_SQL/输出Hello World!/1234set serveroutput on; begin 	dbms_output.put_line(&apos;Hello World!!&apos;); end;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-22T08:05:15.107Z">
+<meta property="og:updated_time" content="2017-11-06T02:14:28.293Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle（三） PLSQL">
-<meta name="twitter:description" content="Oracle（三） PLSQL第三十八课：PL_SQL/输出Hello World!/1234set serveroutput on; begin 	dbms_output.put_line(&apos;Hello World!!&apos;); end;">
+<meta name="twitter:description" content="第三十八课：PL_SQL/输出Hello World!/1234set serveroutput on; begin 	dbms_output.put_line(&apos;Hello World!!&apos;); end;">
 
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h1 id="Oracle（三）-PLSQL"><a href="#Oracle（三）-PLSQL" class="headerlink" title="Oracle（三） PLSQL"></a>Oracle（三） PLSQL</h1><h2 id="第三十八课：PL-SQL"><a href="#第三十八课：PL-SQL" class="headerlink" title="第三十八课：PL_SQL"></a>第三十八课：PL_SQL</h2><p>/<em>输出Hello World!</em>/<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span> serveroutput <span class="keyword">on</span>; </div><div class="line"><span class="keyword">begin</span> </div><div class="line">	dbms_output.put_line(<span class="string">'Hello World!!'</span>); </div><div class="line"><span class="keyword">end</span>;</div></pre></td></tr></table></figure></p>
+        <h2 id="第三十八课：PL-SQL"><a href="#第三十八课：PL-SQL" class="headerlink" title="第三十八课：PL_SQL"></a>第三十八课：PL_SQL</h2><p>/<em>输出Hello World!</em>/<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span> serveroutput <span class="keyword">on</span>; </div><div class="line"><span class="keyword">begin</span> </div><div class="line">	dbms_output.put_line(<span class="string">'Hello World!!'</span>); </div><div class="line"><span class="keyword">end</span>;</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">declare</span> </div><div class="line">	v_name varchar2(<span class="number">20</span>); </div><div class="line"><span class="keyword">begin</span> </div><div class="line">	v_name:=<span class="string">'xiaoyu'</span>; </div><div class="line">	dbms_output.put_line(v_name); </div><div class="line"><span class="keyword">end</span>; </div><div class="line"></div><div class="line"><span class="keyword">declare</span> </div><div class="line">	v_num <span class="built_in">number</span>:=<span class="number">0</span>; </div><div class="line"><span class="keyword">begin</span> </div><div class="line">	v_num:=<span class="number">2</span>/v_num; </div><div class="line">	dbms_output.put_line(v_num); </div><div class="line">exception </div><div class="line">	when others then 	//任何错误，都会不找并打印为error</div><div class="line">	dbms_output.put_line('error'); </div><div class="line"><span class="keyword">end</span>;</div></pre></td></tr></table></figure>
 <p>–变量声明的规则 </p>
@@ -577,7 +577,7 @@ create sequence seq_errorlog_id start with 1 increment by 1;
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -634,7 +634,7 @@ create sequence seq_errorlog_id start with 1 increment by 1;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Oracle（三）-PLSQL"><span class="nav-number">1.</span> <span class="nav-text">Oracle（三） PLSQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十八课：PL-SQL"><span class="nav-number">1.1.</span> <span class="nav-text">第三十八课：PL_SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十一课"><span class="nav-number">1.2.</span> <span class="nav-text">第四十一课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第47-48课：cursor（重点）"><span class="nav-number">1.3.</span> <span class="nav-text">第47~48课：cursor（重点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第49～50课：procedure"><span class="nav-number">1.4.</span> <span class="nav-text">第49～50课：procedure</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十八课：PL-SQL"><span class="nav-number">1.</span> <span class="nav-text">第三十八课：PL_SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十一课"><span class="nav-number">2.</span> <span class="nav-text">第四十一课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第47-48课：cursor（重点）"><span class="nav-number">3.</span> <span class="nav-text">第47~48课：cursor（重点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第49～50课：procedure"><span class="nav-number">4.</span> <span class="nav-text">第49～50课：procedure</span></a></li></ol></div>
             
 
           </div>

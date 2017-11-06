@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="五、初始化与清理5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
+<meta name="description" content="5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
 <meta name="keywords" content="Java SE,Java编程思想">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java编程思想（五） 初始化与清理">
 <meta property="og:url" content="https://caocan.github.io/2017/10/06/ThinkingInJava5/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="五、初始化与清理5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
+<meta property="og:description" content="5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://caocan.github.io/2017/10/06/ThinkingInJava5/1.png">
-<meta property="og:updated_time" content="2017-11-05T08:45:19.703Z">
+<meta property="og:updated_time" content="2017-11-06T02:15:29.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java编程思想（五） 初始化与清理">
-<meta name="twitter:description" content="五、初始化与清理5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
+<meta name="twitter:description" content="5.1 用构造器确保初始化默认构造器（无参构造器）：不接受任何参数的构造器。 Ex2创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？">
 <meta name="twitter:image" content="https://caocan.github.io/2017/10/06/ThinkingInJava5/1.png">
 
 
@@ -344,7 +344,7 @@
       
 
       
-        <h1 id="五、初始化与清理"><a href="#五、初始化与清理" class="headerlink" title="五、初始化与清理"></a>五、初始化与清理</h1><h2 id="5-1-用构造器确保初始化"><a href="#5-1-用构造器确保初始化" class="headerlink" title="5.1 用构造器确保初始化"></a>5.1 用构造器确保初始化</h2><p>默认构造器（无参构造器）：不接受任何参数的构造器。</p>
+        <h2 id="5-1-用构造器确保初始化"><a href="#5-1-用构造器确保初始化" class="headerlink" title="5.1 用构造器确保初始化"></a>5.1 用构造器确保初始化</h2><p>默认构造器（无参构造器）：不接受任何参数的构造器。</p>
 <h4 id="Ex2"><a href="#Ex2" class="headerlink" title="Ex2"></a>Ex2</h4><p>创建一个类,它包含一个在定义时就被初始化了的String域,以及另一个通过构造器初始化的String域。这两种方式有何差异？<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">E02_StringInitialization</span> </span>&#123;</div><div class="line">    String s1 = <span class="string">"Initialized at definition"</span>;</div><div class="line">    String s2;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">E02_StringInitialization</span><span class="params">(String s2i)</span> </span>&#123;</div><div class="line">        s2 = s2i;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</div><div class="line">        E02_StringInitialization si =</div><div class="line">                <span class="keyword">new</span> E02_StringInitialization(</div><div class="line">                        <span class="string">"Initialized at construction"</span>);</div><div class="line">        System.out.println(<span class="string">"si.s1 = "</span> + si.s1);</div><div class="line">        System.out.println(<span class="string">"si.s2 = "</span> + si.s2);</div><div class="line">    &#125;</div><div class="line">&#125; </div><div class="line"><span class="comment">/* Output:</span></div><div class="line"><span class="comment">si.s1 = Initialized at definition</span></div><div class="line"><span class="comment">si.s2 = Initialized at construction</span></div><div class="line"><span class="comment">*/</span><span class="comment">//:</span></div></pre></td></tr></table></figure></p>
 <p><strong>不同：</strong><br>s1的域在构造器初始化之前就已经被初始化了，s2的域这时候也被初始化为null，只不过在构造器中又被初始化了一次，即初始化2次。而且通过构造器初始化这种方式更加灵活。</p>
 <h2 id="5-2-方法重载"><a href="#5-2-方法重载" class="headerlink" title="5.2 方法重载"></a>5.2 方法重载</h2><p>区分重载的几个方法：</p>
@@ -516,7 +516,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -573,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#五、初始化与清理"><span class="nav-number">1.</span> <span class="nav-text">五、初始化与清理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-用构造器确保初始化"><span class="nav-number">1.1.</span> <span class="nav-text">5.1 用构造器确保初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ex2"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Ex2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-方法重载"><span class="nav-number">1.2.</span> <span class="nav-text">5.2 方法重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-默认构造器"><span class="nav-number">1.3.</span> <span class="nav-text">5.3 默认构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-this关键字"><span class="nav-number">1.4.</span> <span class="nav-text">5.4 this关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-清理：终结处理和垃圾回收"><span class="nav-number">1.5.</span> <span class="nav-text">5.5 清理：终结处理和垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-4-垃圾回收器如何工作"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">5.5.4 垃圾回收器如何工作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-成员初始化"><span class="nav-number">1.6.</span> <span class="nav-text">5.6 成员初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-7-构造器初始化"><span class="nav-number">1.7.</span> <span class="nav-text">5.7 构造器初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-8-数组初始化"><span class="nav-number">1.8.</span> <span class="nav-text">5.8 数组初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-8-1-可变参数列表"><span class="nav-number">1.8.0.1.</span> <span class="nav-text">5.8.1 可变参数列表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-9-枚举类型"><span class="nav-number">1.9.</span> <span class="nav-text">5.9 枚举类型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-用构造器确保初始化"><span class="nav-number">1.</span> <span class="nav-text">5.1 用构造器确保初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ex2"><span class="nav-number">1.0.1.</span> <span class="nav-text">Ex2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-方法重载"><span class="nav-number">2.</span> <span class="nav-text">5.2 方法重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-默认构造器"><span class="nav-number">3.</span> <span class="nav-text">5.3 默认构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-this关键字"><span class="nav-number">4.</span> <span class="nav-text">5.4 this关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-清理：终结处理和垃圾回收"><span class="nav-number">5.</span> <span class="nav-text">5.5 清理：终结处理和垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-4-垃圾回收器如何工作"><span class="nav-number">5.0.1.</span> <span class="nav-text">5.5.4 垃圾回收器如何工作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-成员初始化"><span class="nav-number">6.</span> <span class="nav-text">5.6 成员初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-7-构造器初始化"><span class="nav-number">7.</span> <span class="nav-text">5.7 构造器初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-8-数组初始化"><span class="nav-number">8.</span> <span class="nav-text">5.8 数组初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-8-1-可变参数列表"><span class="nav-number">8.0.1.</span> <span class="nav-text">5.8.1 可变参数列表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-9-枚举类型"><span class="nav-number">9.</span> <span class="nav-text">5.9 枚举类型</span></a></li></ol></div>
             
 
           </div>

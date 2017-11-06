@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="Git笔记（二）第八课.git如何存储数据 执行下面的命令：  生成一个.git文件夹，里面一个index文件就是暂存区.git/objects文件夹就是git的对象区。">
+<meta name="description" content="本篇为git笔记的第二篇">
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git笔记（二）">
 <meta property="og:url" content="https://caocan.github.io/2017/11/03/gitnotes2/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="Git笔记（二）第八课.git如何存储数据 执行下面的命令：  生成一个.git文件夹，里面一个index文件就是暂存区.git/objects文件夹就是git的对象区。">
+<meta property="og:description" content="本篇为git笔记的第二篇">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes2/8-1.png">
 <meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes2/8-2.png">
@@ -106,10 +106,10 @@
 <meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes2/10-7.png">
 <meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes2/10-8.png">
 <meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes2/10-9.png">
-<meta property="og:updated_time" content="2017-11-05T08:40:04.188Z">
+<meta property="og:updated_time" content="2017-11-06T02:09:47.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git笔记（二）">
-<meta name="twitter:description" content="Git笔记（二）第八课.git如何存储数据 执行下面的命令：  生成一个.git文件夹，里面一个index文件就是暂存区.git/objects文件夹就是git的对象区。">
+<meta name="twitter:description" content="本篇为git笔记的第二篇">
 <meta name="twitter:image" content="https://caocan.github.io/2017/11/03/gitnotes2/8-1.png">
 
 
@@ -362,10 +362,12 @@
       
 
       
-        <h1 id="Git笔记（二）"><a href="#Git笔记（二）" class="headerlink" title="Git笔记（二）"></a>Git笔记（二）</h1><h2 id="第八课-git如何存储数据"><a href="#第八课-git如何存储数据" class="headerlink" title="第八课.git如何存储数据"></a>第八课.git如何存储数据</h2><p><img src="8-1.png" alt=""></p>
+        <p>本篇为git笔记的第二篇<br><a id="more"></a></p>
+<h2 id="第八课-git如何存储数据"><a href="#第八课-git如何存储数据" class="headerlink" title="第八课.git如何存储数据"></a>第八课.git如何存储数据</h2><p><img src="8-1.png" alt=""></p>
 <p>执行下面的命令：</p>
 <p><img src="8-2.png" alt=""></p>
-<p>生成一个.git文件夹，里面一个index文件就是暂存区<br><code>.git/objects</code>文件夹就是git的对象区。<br><a id="more"></a><br>执行命令：<br><code>$ git ls-files -s</code><br>就可以得到暂存区内容：<br><code>100644 190a18037c64c43e6b11489df4bf0b9eb6d2c9bf 0       a.txt</code><br>查看哈希值对应的内容：<br><code>git cat-file -p 190a</code><br>就可以得到内容：<br>123<br>进行提交<br><code>git commit -m ‘创建文件a.txt’</code><br>生成新的对象：<br>生成commit和tree对象<br><img src="8-3.png" alt=""></p>
+<p>生成一个.git文件夹，里面一个index文件就是暂存区<br><code>.git/objects</code>文件夹就是git的对象区。</p>
+<p>执行命令：<br><code>$ git ls-files -s</code><br>就可以得到暂存区内容：<br><code>100644 190a18037c64c43e6b11489df4bf0b9eb6d2c9bf 0       a.txt</code><br>查看哈希值对应的内容：<br><code>git cat-file -p 190a</code><br>就可以得到内容：<br>123<br>进行提交<br><code>git commit -m ‘创建文件a.txt’</code><br>生成新的对象：<br>生成commit和tree对象<br><img src="8-3.png" alt=""></p>
 <p>之后再创建新的文件b.txt，再添加并提交，就可以得到新的对象：<br><img src="8-4.png" alt=""></p>
 <p>总结：<br><img src="8-5.png" alt=""></p>
 <p>每一个提交的索引：<br><img src="8-6.png" alt=""></p>
@@ -510,7 +512,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -567,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git笔记（二）"><span class="nav-number">1.</span> <span class="nav-text">Git笔记（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课-git如何存储数据"><span class="nav-number">1.1.</span> <span class="nav-text">第八课.git如何存储数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课-深入Git存储之文件格式"><span class="nav-number">1.2.</span> <span class="nav-text">第九课. 深入Git存储之文件格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十课-git分支"><span class="nav-number">1.3.</span> <span class="nav-text">第十课.git分支</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课-git如何存储数据"><span class="nav-number">1.</span> <span class="nav-text">第八课.git如何存储数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课-深入Git存储之文件格式"><span class="nav-number">2.</span> <span class="nav-text">第九课. 深入Git存储之文件格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十课-git分支"><span class="nav-number">3.</span> <span class="nav-text">第十课.git分支</span></a></li></ol></div>
             
 
           </div>

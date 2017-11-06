@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="十、内部类内部类主要有四种：静态内部类，普通内部类，局部内部类，匿名内部类。内部类不能和外部类同名。静态内部类不依赖于外部类实例而创建，不能访问外部类的普通成员变量和方法，只能访问静态成员变量和方法。普通内部类和外部类实例绑定，可以访问外部类的任一成员和方法，不能定义静态成员和方法，但是可以有static final 成员变量。局部内部类和局部变量一样，不能被public、protected、pr">
+<meta name="description" content="内部类主要有四种：静态内部类，普通内部类，局部内部类，匿名内部类。内部类不能和外部类同名。静态内部类不依赖于外部类实例而创建，不能访问外部类的普通成员变量和方法，只能访问静态成员变量和方法。普通内部类和外部类实例绑定，可以访问外部类的任一成员和方法，不能定义静态成员和方法，但是可以有static final 成员变量。局部内部类和局部变量一样，不能被public、protected、private">
 <meta name="keywords" content="Java SE,Java编程思想">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java编程思想（十） 内部类">
 <meta property="og:url" content="https://caocan.github.io/2017/10/22/ThinkingInJava10/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="十、内部类内部类主要有四种：静态内部类，普通内部类，局部内部类，匿名内部类。内部类不能和外部类同名。静态内部类不依赖于外部类实例而创建，不能访问外部类的普通成员变量和方法，只能访问静态成员变量和方法。普通内部类和外部类实例绑定，可以访问外部类的任一成员和方法，不能定义静态成员和方法，但是可以有static final 成员变量。局部内部类和局部变量一样，不能被public、protected、pr">
+<meta property="og:description" content="内部类主要有四种：静态内部类，普通内部类，局部内部类，匿名内部类。内部类不能和外部类同名。静态内部类不依赖于外部类实例而创建，不能访问外部类的普通成员变量和方法，只能访问静态成员变量和方法。普通内部类和外部类实例绑定，可以访问外部类的任一成员和方法，不能定义静态成员和方法，但是可以有static final 成员变量。局部内部类和局部变量一样，不能被public、protected、private">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-22T08:20:33.799Z">
+<meta property="og:updated_time" content="2017-11-06T02:16:08.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java编程思想（十） 内部类">
-<meta name="twitter:description" content="十、内部类内部类主要有四种：静态内部类，普通内部类，局部内部类，匿名内部类。内部类不能和外部类同名。静态内部类不依赖于外部类实例而创建，不能访问外部类的普通成员变量和方法，只能访问静态成员变量和方法。普通内部类和外部类实例绑定，可以访问外部类的任一成员和方法，不能定义静态成员和方法，但是可以有static final 成员变量。局部内部类和局部变量一样，不能被public、protected、pr">
+<meta name="twitter:description" content="内部类主要有四种：静态内部类，普通内部类，局部内部类，匿名内部类。内部类不能和外部类同名。静态内部类不依赖于外部类实例而创建，不能访问外部类的普通成员变量和方法，只能访问静态成员变量和方法。普通内部类和外部类实例绑定，可以访问外部类的任一成员和方法，不能定义静态成员和方法，但是可以有static final 成员变量。局部内部类和局部变量一样，不能被public、protected、private">
 
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h1 id="十、内部类"><a href="#十、内部类" class="headerlink" title="十、内部类"></a>十、内部类</h1><p>内部类主要有四种：<strong>静态内部类，普通内部类，局部内部类，匿名内部类</strong>。内部类不能和外部类同名。<br><strong>静态内部类不依赖于外部类实例而创建</strong>，不能访问外部类的普通成员变量和方法，只能访问静态成员变量和方法。<br><strong>普通内部类和外部类实例绑定</strong>，可以访问外部类的任一成员和方法，<strong>不能定义静态成员和方法，但是可以有static final 成员变量。</strong><br>局部内部类和局部变量一样，不能被public、protected、private、static修饰，<strong>只能访问定义为final类型的局部变量，</strong>也可以访问外部类成员。<br><a id="more"></a></p>
+        <p>内部类主要有四种：<strong>静态内部类，普通内部类，局部内部类，匿名内部类</strong>。内部类不能和外部类同名。<br><strong>静态内部类不依赖于外部类实例而创建</strong>，不能访问外部类的普通成员变量和方法，只能访问静态成员变量和方法。<br><strong>普通内部类和外部类实例绑定</strong>，可以访问外部类的任一成员和方法，<strong>不能定义静态成员和方法，但是可以有static final 成员变量。</strong><br>局部内部类和局部变量一样，不能被public、protected、private、static修饰，<strong>只能访问定义为final类型的局部变量，</strong>也可以访问外部类成员。<br><a id="more"></a></p>
 <h2 id="10-1-创建内部类"><a href="#10-1-创建内部类" class="headerlink" title="10.1 创建内部类"></a>10.1 创建内部类</h2><p>典型用法：外部类通过方法返回内部类的引用。<br>想从外部类的非静态方法之外的任意位置创建某个内部类的对象，就得用OuterClassName.InnerClassName的形式定义内部类对象。</p>
 <p><strong>注意，非static内部类只能在外部类的非静态方法中直接生成对象；在外部类静态方法和其它类中，必须先生成外部类对象实例，然后外部类对象.new。
 </strong></p>
@@ -526,7 +526,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#十、内部类"><span class="nav-number">1.</span> <span class="nav-text">十、内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-1-创建内部类"><span class="nav-number">1.1.</span> <span class="nav-text">10.1 创建内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-链接到外部类"><span class="nav-number">1.2.</span> <span class="nav-text">10.2 链接到外部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-3-使用-this和-mew"><span class="nav-number">1.3.</span> <span class="nav-text">10.3 使用.this和.mew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-4-内部类与向上转型"><span class="nav-number">1.4.</span> <span class="nav-text">10.4 内部类与向上转型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-5-在方法和作用域内的内部类"><span class="nav-number">1.5.</span> <span class="nav-text">10.5 在方法和作用域内的内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-6-匿名内部类"><span class="nav-number">1.6.</span> <span class="nav-text">10.6 匿名内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-7-嵌套类"><span class="nav-number">1.7.</span> <span class="nav-text">10.7 嵌套类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-8-为什么需要内部类"><span class="nav-number">1.8.</span> <span class="nav-text">10.8 为什么需要内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#10-8-1-闭包与回调"><span class="nav-number">1.8.0.1.</span> <span class="nav-text">10.8.1 闭包与回调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-8-2-内部类与控制框架"><span class="nav-number">1.8.0.2.</span> <span class="nav-text">10.8.2 内部类与控制框架</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-9-内部类的继承"><span class="nav-number">1.9.</span> <span class="nav-text">10.9 内部类的继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-10-内部类可以被覆盖吗"><span class="nav-number">1.10.</span> <span class="nav-text">10.10 内部类可以被覆盖吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-11-局部内部类"><span class="nav-number">1.11.</span> <span class="nav-text">10.11 局部内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-12-内部类标识符"><span class="nav-number">1.12.</span> <span class="nav-text">10.12 内部类标识符</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-1-创建内部类"><span class="nav-number">1.</span> <span class="nav-text">10.1 创建内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-链接到外部类"><span class="nav-number">2.</span> <span class="nav-text">10.2 链接到外部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-3-使用-this和-mew"><span class="nav-number">3.</span> <span class="nav-text">10.3 使用.this和.mew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-4-内部类与向上转型"><span class="nav-number">4.</span> <span class="nav-text">10.4 内部类与向上转型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-5-在方法和作用域内的内部类"><span class="nav-number">5.</span> <span class="nav-text">10.5 在方法和作用域内的内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-6-匿名内部类"><span class="nav-number">6.</span> <span class="nav-text">10.6 匿名内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-7-嵌套类"><span class="nav-number">7.</span> <span class="nav-text">10.7 嵌套类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-8-为什么需要内部类"><span class="nav-number">8.</span> <span class="nav-text">10.8 为什么需要内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#10-8-1-闭包与回调"><span class="nav-number">8.0.1.</span> <span class="nav-text">10.8.1 闭包与回调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-8-2-内部类与控制框架"><span class="nav-number">8.0.2.</span> <span class="nav-text">10.8.2 内部类与控制框架</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-9-内部类的继承"><span class="nav-number">9.</span> <span class="nav-text">10.9 内部类的继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-10-内部类可以被覆盖吗"><span class="nav-number">10.</span> <span class="nav-text">10.10 内部类可以被覆盖吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-11-局部内部类"><span class="nav-number">11.</span> <span class="nav-text">10.11 局部内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-12-内部类标识符"><span class="nav-number">12.</span> <span class="nav-text">10.12 内部类标识符</span></a></li></ol></div>
             
 
           </div>

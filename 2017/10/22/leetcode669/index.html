@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="LeetCode | 669.裁剪二叉搜索树原题地址：https://leetcode.com/problems/trim-a-binary-search-tree/description/ 思路：第一种是循环+递归方法做裁剪： 1.如果root是null，就直接返回null；2.如果root值位于L和R之间，那么要求解的左子树就是将根的左子树带入递归算法得出的裁剪节点，求解的右子树就是根的右子树">
+<meta name="description" content="原题地址：https://leetcode.com/problems/trim-a-binary-search-tree/description/ 思路：第一种是循环+递归方法做裁剪： 1.如果root是null，就直接返回null；2.如果root值位于L和R之间，那么要求解的左子树就是将根的左子树带入递归算法得出的裁剪节点，求解的右子树就是根的右子树带入递归算法得出的裁剪节点；3.如果root">
 <meta name="keywords" content="leetcode,递归,树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode | 669.裁剪二叉搜索树">
 <meta property="og:url" content="https://caocan.github.io/2017/10/22/leetcode669/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="LeetCode | 669.裁剪二叉搜索树原题地址：https://leetcode.com/problems/trim-a-binary-search-tree/description/ 思路：第一种是循环+递归方法做裁剪： 1.如果root是null，就直接返回null；2.如果root值位于L和R之间，那么要求解的左子树就是将根的左子树带入递归算法得出的裁剪节点，求解的右子树就是根的右子树">
+<meta property="og:description" content="原题地址：https://leetcode.com/problems/trim-a-binary-search-tree/description/ 思路：第一种是循环+递归方法做裁剪： 1.如果root是null，就直接返回null；2.如果root值位于L和R之间，那么要求解的左子树就是将根的左子树带入递归算法得出的裁剪节点，求解的右子树就是根的右子树带入递归算法得出的裁剪节点；3.如果root">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-22T14:46:18.033Z">
+<meta property="og:updated_time" content="2017-11-06T02:13:57.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode | 669.裁剪二叉搜索树">
-<meta name="twitter:description" content="LeetCode | 669.裁剪二叉搜索树原题地址：https://leetcode.com/problems/trim-a-binary-search-tree/description/ 思路：第一种是循环+递归方法做裁剪： 1.如果root是null，就直接返回null；2.如果root值位于L和R之间，那么要求解的左子树就是将根的左子树带入递归算法得出的裁剪节点，求解的右子树就是根的右子树">
+<meta name="twitter:description" content="原题地址：https://leetcode.com/problems/trim-a-binary-search-tree/description/ 思路：第一种是循环+递归方法做裁剪： 1.如果root是null，就直接返回null；2.如果root值位于L和R之间，那么要求解的左子树就是将根的左子树带入递归算法得出的裁剪节点，求解的右子树就是根的右子树带入递归算法得出的裁剪节点；3.如果root">
 
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h1 id="LeetCode-669-裁剪二叉搜索树"><a href="#LeetCode-669-裁剪二叉搜索树" class="headerlink" title="LeetCode | 669.裁剪二叉搜索树"></a>LeetCode | 669.裁剪二叉搜索树</h1><p>原题地址：<a href="https://leetcode.com/problems/trim-a-binary-search-tree/description/" target="_blank" rel="external">https://leetcode.com/problems/trim-a-binary-search-tree/description/</a></p>
+        <p>原题地址：<a href="https://leetcode.com/problems/trim-a-binary-search-tree/description/" target="_blank" rel="external">https://leetcode.com/problems/trim-a-binary-search-tree/description/</a></p>
 <p>思路：<br>第一种是循环+递归方法做裁剪：</p>
 <p>1.如果root是null，就直接返回null；<br>2.如果root值位于L和R之间，那么要求解的左子树就是将根的左子树带入递归算法得出的裁剪节点，求解的右子树就是根的右子树带入递归算法得出的裁剪节点；<br>3.如果root值不位于L和R之间，那么就让根一直查找到位于L和R的区间，再重复2的求解过程。<br><a id="more"></a><br>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> TreeNode <span class="title">trimBST</span><span class="params">(TreeNode root, <span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;  </div><div class="line">    <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;  </div><div class="line">        <span class="keyword">return</span> root;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">if</span>(root.val&gt;=L&amp;&amp;root.val&lt;=R)&#123;  </div><div class="line">        root.left=trimBST(root.left, L, R);  </div><div class="line">        root.right=trimBST(root.right, L, R);  </div><div class="line">        <span class="keyword">return</span> root;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(root.val&lt;L)&#123;<span class="comment">//root和root左边的部分肯定要被trim掉  </span></div><div class="line">        <span class="keyword">while</span> (root.val &lt; L) &#123;  </div><div class="line">            root = root.right;  </div><div class="line">            <span class="comment">// 保证 root.val&gt;=l  </span></div><div class="line">            <span class="keyword">while</span> (root != <span class="keyword">null</span> &amp;&amp; root.val &lt; L) &#123;  </div><div class="line">                root = root.right;  </div><div class="line">            &#125;  </div><div class="line">            <span class="comment">// 保证 l&lt;=root.val&lt;=R  </span></div><div class="line">            <span class="keyword">while</span> (root != <span class="keyword">null</span> &amp;&amp; root.val &gt; R) &#123;  </div><div class="line">                root = root.left;  </div><div class="line">            &#125;  </div><div class="line">            <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;  </div><div class="line">                <span class="keyword">return</span> root;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        root.left=trimBST(root.left, L, R);  </div><div class="line">        root.right=trimBST(root.right, L, R);  </div><div class="line">        <span class="keyword">return</span> root;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">else</span>&#123;<span class="comment">//root.val&gt;R  </span></div><div class="line">        <span class="keyword">while</span> (root.val &gt; R) &#123;  </div><div class="line">            root = root.left;  </div><div class="line">            <span class="comment">// 保证 root.val&lt;=R  </span></div><div class="line">            <span class="keyword">while</span> (root != <span class="keyword">null</span> &amp;&amp; root.val &gt; R) &#123;  </div><div class="line">                root = root.left;  </div><div class="line">            &#125;  </div><div class="line">            <span class="comment">// 保证 l&lt;=root.val&lt;=R  </span></div><div class="line">            <span class="keyword">while</span> (root != <span class="keyword">null</span> &amp;&amp; root.val &lt; L) &#123;  </div><div class="line">                root = root.right;  </div><div class="line">            &#125;  </div><div class="line">            <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;  </div><div class="line">                <span class="keyword">return</span> root;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        root.left=trimBST(root.left, L, R);  </div><div class="line">        root.right=trimBST(root.right, L, R);  </div><div class="line">        <span class="keyword">return</span> root;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>另外更简单的使用递归去做：</p>
@@ -446,17 +446,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -471,7 +462,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -518,22 +509,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-669-裁剪二叉搜索树"><span class="nav-number">1.</span> <span class="nav-text">LeetCode | 669.裁剪二叉搜索树</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

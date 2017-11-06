@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Java 8 默认方法（Default Methods）Java 8 引入了新的语言特性——默认方法（Default Methods）。 Default methods enable new functionality to be added to the interfaces of libraries and ensure binary compatibility with code writt">
+<meta name="description" content="Java 8 引入了新的语言特性——默认方法（Default Methods）。 Default methods enable new functionality to be added to the interfaces of libraries and ensure binary compatibility with code written for older versions of tho">
 <meta name="keywords" content="Java SE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 8 默认方法（Default Methods）">
 <meta property="og:url" content="https://caocan.github.io/2017/10/14/JavaSE8defaultMethod/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="Java 8 默认方法（Default Methods）Java 8 引入了新的语言特性——默认方法（Default Methods）。 Default methods enable new functionality to be added to the interfaces of libraries and ensure binary compatibility with code writt">
+<meta property="og:description" content="Java 8 引入了新的语言特性——默认方法（Default Methods）。 Default methods enable new functionality to be added to the interfaces of libraries and ensure binary compatibility with code written for older versions of tho">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-14T13:03:49.899Z">
+<meta property="og:updated_time" content="2017-11-06T02:12:56.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 8 默认方法（Default Methods）">
-<meta name="twitter:description" content="Java 8 默认方法（Default Methods）Java 8 引入了新的语言特性——默认方法（Default Methods）。 Default methods enable new functionality to be added to the interfaces of libraries and ensure binary compatibility with code writt">
+<meta name="twitter:description" content="Java 8 引入了新的语言特性——默认方法（Default Methods）。 Default methods enable new functionality to be added to the interfaces of libraries and ensure binary compatibility with code written for older versions of tho">
 
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h1 id="Java-8-默认方法（Default-Methods）"><a href="#Java-8-默认方法（Default-Methods）" class="headerlink" title="Java 8 默认方法（Default Methods）"></a>Java 8 默认方法（Default Methods）</h1><p>Java 8 引入了新的语言特性——默认方法（Default Methods）。</p>
+        <p>Java 8 引入了新的语言特性——默认方法（Default Methods）。</p>
 <p><em><a href="http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html" title="Default methods" target="_blank" rel="external">Default methods</a> enable new functionality to be added to the interfaces of libraries and ensure binary compatibility with code written for older versions of those interfaces.</em><br><em>默认方法允许您添加新的功能到现有库的接口中，并能确保与采用旧版本接口编写的代码的二进制兼容性。</em><br><a id="more"></a><br>默认方法是在接口中的方法签名前加上了 <code>default</code>关键字的实现方法。<br>一个简单的例子<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">InterfaceA</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"InterfaceA foo"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span> <span class="keyword">implements</span> <span class="title">InterfaceA</span> </span>&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> ClassA().foo(); <span class="comment">// 打印：“InterfaceA foo”</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>ClassA 类并没有实现 InterfaceA 接口中的 foo 方法，InterfaceA 接口中提供了 foo 方法的默认实现，因此可以直接调用 ClassA 类的 foo 方法。</p>
 <h2 id="为什么要有默认方法"><a href="#为什么要有默认方法" class="headerlink" title="为什么要有默认方法"></a>为什么要有默认方法</h2><p>在 java 8 之前，接口与其实现类之间的 耦合度 太高了（tightly coupled），当需要为一个接口添加方法时，所有的实现类都必须随之修改。默认方法解决了这个问题，它可以为接口添加新的方法，而不会破坏已有的接口的实现。这在 lambda 表达式作为 java 8 语言的重要特性而出现之际，为升级旧接口且保持向后兼容（backward compatibility）提供了途径。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">String[] array = <span class="keyword">new</span> String[] &#123;</div><div class="line">        <span class="string">"hello"</span>,</div><div class="line">        <span class="string">", "</span>,</div><div class="line">        <span class="string">"world"</span>,</div><div class="line">&#125;;</div><div class="line">List&lt;String&gt; list = Arrays.asList(array);</div><div class="line">list.forEach(System.out::println); <span class="comment">// 这是 jdk 1.8 新增的接口默认方法</span></div></pre></td></tr></table></figure></p>
@@ -491,7 +491,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -548,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-8-默认方法（Default-Methods）"><span class="nav-number">1.</span> <span class="nav-text">Java 8 默认方法（Default Methods）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要有默认方法"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要有默认方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认方法的继承"><span class="nav-number">1.2.</span> <span class="nav-text">默认方法的继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认方法的多继承"><span class="nav-number">1.3.</span> <span class="nav-text">默认方法的多继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口继承行为发生冲突时的解决规则"><span class="nav-number">1.4.</span> <span class="nav-text">接口继承行为发生冲突时的解决规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口与抽象类"><span class="nav-number">1.5.</span> <span class="nav-text">接口与抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口静态方法"><span class="nav-number">1.6.</span> <span class="nav-text">接口静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他注意点"><span class="nav-number">1.7.</span> <span class="nav-text">其他注意点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要有默认方法"><span class="nav-number">1.</span> <span class="nav-text">为什么要有默认方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认方法的继承"><span class="nav-number">2.</span> <span class="nav-text">默认方法的继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认方法的多继承"><span class="nav-number">3.</span> <span class="nav-text">默认方法的多继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口继承行为发生冲突时的解决规则"><span class="nav-number">4.</span> <span class="nav-text">接口继承行为发生冲突时的解决规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口与抽象类"><span class="nav-number">5.</span> <span class="nav-text">接口与抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口静态方法"><span class="nav-number">6.</span> <span class="nav-text">接口静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他注意点"><span class="nav-number">7.</span> <span class="nav-text">其他注意点</span></a></li></ol></div>
             
 
           </div>
