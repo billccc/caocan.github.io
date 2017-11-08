@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="leetcode,字典树,HashMap," />
 
 
 
@@ -79,29 +79,20 @@
 
 
 
-<meta name="description" content="本篇为git笔记的第一篇">
-<meta name="keywords" content="Git">
+<meta name="description" content="题目描述：https://leetcode.com/problems/map-sum-pairs/description/ 方法一：方法一比较暴力一些，就是创建一个存放键值对的HashMap，其中键就是我们插入的字符串，值就是这个字符串对应的权重。当要求一个前缀在HashMap中所有包括他的字符串对应value的总和时候，只需要遍历这个哈希表，查看每一个字符串是否以这个前缀开头，如果是的话把对应的">
+<meta name="keywords" content="leetcode,字典树,HashMap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git笔记（一）">
-<meta property="og:url" content="https://caocan.github.io/2017/11/03/gitnotes1/index.html">
+<meta property="og:title" content="LeetCode | 677.找前缀总和（Map Sum Pairs）">
+<meta property="og:url" content="https://caocan.github.io/2017/11/07/leetcode677/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="本篇为git笔记的第一篇">
+<meta property="og:description" content="题目描述：https://leetcode.com/problems/map-sum-pairs/description/ 方法一：方法一比较暴力一些，就是创建一个存放键值对的HashMap，其中键就是我们插入的字符串，值就是这个字符串对应的权重。当要求一个前缀在HashMap中所有包括他的字符串对应value的总和时候，只需要遍历这个哈希表，查看每一个字符串是否以这个前缀开头，如果是的话把对应的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/4-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/4-2.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/4-3.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/6-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/6-2.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/7-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/7-2.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/7-3.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/7-4.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes1/7-5.png">
-<meta property="og:updated_time" content="2017-11-06T02:09:19.806Z">
+<meta property="og:image" content="https://caocan.github.io/2017/11/07/leetcode677/1.jpg">
+<meta property="og:updated_time" content="2017-11-08T03:39:20.366Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git笔记（一）">
-<meta name="twitter:description" content="本篇为git笔记的第一篇">
-<meta name="twitter:image" content="https://caocan.github.io/2017/11/03/gitnotes1/4-1.png">
+<meta name="twitter:title" content="LeetCode | 677.找前缀总和（Map Sum Pairs）">
+<meta name="twitter:description" content="题目描述：https://leetcode.com/problems/map-sum-pairs/description/ 方法一：方法一比较暴力一些，就是创建一个存放键值对的HashMap，其中键就是我们插入的字符串，值就是这个字符串对应的权重。当要求一个前缀在HashMap中所有包括他的字符串对应value的总和时候，只需要遍历这个哈希表，查看每一个字符串是否以这个前缀开头，如果是的话把对应的">
+<meta name="twitter:image" content="https://caocan.github.io/2017/11/07/leetcode677/1.jpg">
 
 
 
@@ -131,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://caocan.github.io/2017/11/03/gitnotes1/"/>
+  <link rel="canonical" href="https://caocan.github.io/2017/11/07/leetcode677/"/>
 
 
 
 
 
-  <title>Git笔记（一） | 曹のBlog</title>
+  <title>LeetCode | 677.找前缀总和（Map Sum Pairs） | 曹のBlog</title>
   
 
 
@@ -298,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/03/gitnotes1/">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/07/leetcode677/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="曹灿">
@@ -315,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Git笔记（一）</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode | 677.找前缀总和（Map Sum Pairs）</h1>
         
 
         <div class="post-meta">
@@ -327,8 +318,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T13:44:14+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-07T22:42:04+08:00">
+                2017-11-07
               </time>
             
 
@@ -350,8 +341,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -387,27 +378,13 @@
       
 
       
-        <p>本篇为git笔记的第一篇<br><a id="more"></a></p>
-<h2 id="第四课：github账号创建-仓库创建"><a href="#第四课：github账号创建-仓库创建" class="headerlink" title="第四课：github账号创建-仓库创建"></a>第四课：github账号创建-仓库创建</h2><p>创建好账号，然后在自己账号下点New repository：<br><img src="4-1.png" alt=""></p>
-<p>填写仓库名字并创建：<br><img src="4-2.png" alt=""></p>
-<p>填写ReadMe(Markdown格式)<br><img src="4-3.png" alt=""></p>
-<p>可以利用gitpage创建个人主页：<br>命名规则：<br>仓库名/仓库名.github.io<br>在里面添加index.html就可以。<br>输入：仓库名.github.io即可打开主页（参见之前的个人blog搭建过程）</p>
-<h2 id="第五课：git配置简单"><a href="#第五课：git配置简单" class="headerlink" title="第五课：git配置简单"></a>第五课：git配置简单</h2><p>右键文件夹，git bash here，对用户名和邮箱进行输入即可：<br>$ git config –global user.name XX<br>$ git config –global user.email YY@sina.cn</p>
-<h2 id="第六课：git大致工作流程"><a href="#第六课：git大致工作流程" class="headerlink" title="第六课：git大致工作流程"></a>第六课：git大致工作流程</h2><p>在文件夹下克隆一个项目：<br>右键git bash，然后 <code>git clone https://github.com/caocan/test.git</code></p>
-<p>这样一个项目就被复制到你想要的文件夹下了，而且这个文件夹下有了一个隐藏的.git文件夹。<br>切换到已经克隆好的项目下，新建一个a.txt文件，<br>再在git下执行<code>git add a.txt</code>，这样就将a.txt添加到了暂存区了。<br>执行<code>git commit</code><br>就可以添加注释并提交了<br><img src="6-1.png" alt=""></p>
-<p>上面的提交只是提交到了本地的仓库.git，如果想提交到远端，需要执行：<br><code>git push</code><br>（如果没有创建仓库需要输入用户名和邮箱）<br>这样就提交成功了。</p>
-<p>如果远端仓库被更新，只需要在本题执行<code>git pull</code>，就可以将最新的项目仓库更新。<br>上面的工作流程讲解：<br><img src="6-2.png" alt=""></p>
-<h2 id="第七课-git文件状态"><a href="#第七课-git文件状态" class="headerlink" title="第七课.git文件状态"></a>第七课.git文件状态</h2><p>在一个新文件夹下创建仓库：<br>右键<code>git bash here</code>–&gt;<code>git init test</code><br>在test文件夹下有一个本地仓库.git</p>
-<p><code>cd test</code><br>在test文件夹下新建一个init文件：<br><code>touch init</code><br>看一下文件状态：<br><code>git status</code><br><img src="7-1.png" alt=""><br>可以看到init文件是未跟踪文件</p>
-<p>添加文件<br><code>git add .</code><br>再次查看文件状态：<br><code>git status</code><br><img src="7-2.png" alt=""><br>由上面的状态可知，我们已经将文件添加到暂存区了，但是还没有提交（commit）</p>
-<p>再次提交到本地仓库：<br><code>git commit -m ‘创建init’</code></p>
-<p>查看状态：<br><code>git status</code><br><img src="7-3.png" alt=""></p>
-<p>工作目录已经清空，都已经提交到本地仓库了</p>
-<p>编辑init文件：<br><code>vi init--&gt;o--&gt;111--&gt;esc--&gt;shift+zz</code></p>
-<p>查看状态：<br><code>git status</code><br><img src="7-4.png" alt=""></p>
-<p>上面的意思是：在工作目录中修改了，还没有添加到暂存区。添加工作目录的所有文件：<br>git add .<br>再对文件进行修改<br><code>vi init--&gt; o--&gt;222--&gt;esc--&gt;shift+zz</code><br>再查看：<br><code>git status</code><br>可以看到工作区的需要添加暂存区，而已经在暂存区的需要被提交到本地仓库</p>
-<p>查看差别的三个命令：<br><code>git diff</code>：是查看工作目录与暂存区的差别的。<br><code>git diff --cached</code>：是查看暂存区与本地仓库的差别的。<br><code>git diff HEAD</code>：是查看工作目录和本地仓库的差别的。（你一定没有忘记，HEAD代表的是最近的一次commit的信息）</p>
-<p>流程图<br><img src="7-5.png" alt=""></p>
+        <p>题目描述：<br><a href="https://leetcode.com/problems/map-sum-pairs/description/" target="_blank" rel="external">https://leetcode.com/problems/map-sum-pairs/description/</a></p>
+<h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><p>方法一比较暴力一些，就是创建一个存放键值对的HashMap，其中键就是我们插入的字符串，值就是这个字符串对应的权重。当要求一个前缀在HashMap中所有包括他的字符串对应value的总和时候，只需要遍历这个哈希表，查看每一个字符串是否以这个前缀开头，如果是的话把对应的值加上去就可以了。<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MapSum</span> </span>&#123;</div><div class="line">    </div><div class="line">    HashMap&lt;String, Integer&gt; hm;</div><div class="line"></div><div class="line">    <span class="comment">/** Initialize your data structure here. */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MapSum</span><span class="params">()</span> </span>&#123;</div><div class="line">        hm = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String key, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">        hm.put(key, val);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(String prefix)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        Set&lt;String&gt; keys = hm.keySet();</div><div class="line">        Iterator it = keys.iterator();</div><div class="line">        String temp;</div><div class="line">        <span class="keyword">while</span>(it.hasNext())&#123;</div><div class="line">            temp = (String)it.next();</div><div class="line">            <span class="keyword">if</span>(temp.startsWith(prefix))&#123;</div><div class="line">                res += (<span class="keyword">int</span>)hm.get(temp);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Your MapSum object will be instantiated and called as such:</span></div><div class="line"><span class="comment"> * MapSum obj = new MapSum();</span></div><div class="line"><span class="comment"> * obj.insert(key,val);</span></div><div class="line"><span class="comment"> * int param_2 = obj.sum(prefix);</span></div><div class="line"><span class="comment"> */</span></div></pre></td></tr></table></figure></p>
+<h2 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h2><p>本方法以及设计到一点字典树（前缀树）的思想，就是每当插入一个单词key，都会现在我们原先的HashMap中查看这个单词有没有。<br>要是没有，就将设置delta = val - map[key]，也就是val，并构造一个Trie，将key从头到尾遍历，并将构造出的前缀的子字符串的score与delta相加，并再次赋给score。<br>要是有这个字符串，也是求一个差值：delta = val - map[key],然后将在这个树中的所有节点的score都和delta相加，就达到更新的效果。</p>
+<p>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MapSum</span> </span>&#123;</div><div class="line">    </div><div class="line">    HashMap&lt;String, Integer&gt; hm;</div><div class="line">    <span class="comment">//用于存取字典树</span></div><div class="line">    HashMap&lt;String, Integer&gt; score;</div><div class="line"></div><div class="line">    <span class="comment">/** Initialize your data structure here. */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MapSum</span><span class="params">()</span> </span>&#123;</div><div class="line">        hm = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</div><div class="line">        score = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String key, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">        <span class="comment">//先求差值,如果没有这个键值对，就返回0</span></div><div class="line">        <span class="keyword">int</span> delta = val - hm.getOrDefault(key, <span class="number">0</span>);</div><div class="line">        hm.put(key, val);</div><div class="line">        <span class="comment">//先构造一个空串</span></div><div class="line">        String prefix = <span class="string">""</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : key.toCharArray())&#123;</div><div class="line">            prefix += c;</div><div class="line">            score.put(prefix, score.getOrDefault(prefix, <span class="number">0</span>) + delta); </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(String prefix)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> score.getOrDefault(prefix, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Your MapSum object will be instantiated and called as such:</span></div><div class="line"><span class="comment"> * MapSum obj = new MapSum();</span></div><div class="line"><span class="comment"> * obj.insert(key,val);</span></div><div class="line"><span class="comment"> * int param_2 = obj.sum(prefix);</span></div><div class="line"><span class="comment"> */</span></div></pre></td></tr></table></figure></p>
+<h2 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h2><p>方法三就是利用字典树的数据结构，对prefix中每一个字母的频次进行存取。思路和上面的相同，只不过数据结构变了。Trie树的结构如下：<br><img src="1.jpg" alt=""></p>
+<p>在上图中，最左的一支代表”to”单词。</p>
+<p>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MapSum</span> </span>&#123;</div><div class="line">    </div><div class="line">    HashMap&lt;String, Integer&gt; hm;</div><div class="line">    </div><div class="line">    <span class="comment">//字典树根节点</span></div><div class="line">    TrieNode root;</div><div class="line"></div><div class="line">    <span class="comment">/** Initialize your data structure here. */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MapSum</span><span class="params">()</span> </span>&#123;</div><div class="line">        hm = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</div><div class="line">        root = <span class="keyword">new</span> TrieNode();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String key, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">        <span class="comment">//先求差值,如果没有这个键值对，就返回0</span></div><div class="line">        <span class="keyword">int</span> delta = val - hm.getOrDefault(key, <span class="number">0</span>);</div><div class="line">        hm.put(key, val);</div><div class="line">        </div><div class="line">        TrieNode cur = root;</div><div class="line">        cur.score += delta;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : key.toCharArray())&#123;</div><div class="line">            <span class="comment">//如果孩子节点没有这个字母，就增加一个</span></div><div class="line">            cur.children.putIfAbsent(c, <span class="keyword">new</span> TrieNode());</div><div class="line">            <span class="comment">//获取这个字母的节点</span></div><div class="line">            cur = cur.children.get(c);</div><div class="line">            <span class="comment">//增加delta</span></div><div class="line">            cur.score += delta;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(String prefix)</span> </span>&#123;</div><div class="line">        TrieNode cur = root;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : prefix.toCharArray())&#123;</div><div class="line">            <span class="keyword">if</span>(cur.children.get(c) == <span class="keyword">null</span>)</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            <span class="comment">//指针下移</span></div><div class="line">            cur = cur.children.get(c);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> cur.score;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//前缀树节点</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span></span>&#123;</div><div class="line">    </div><div class="line">    Map&lt;Character, TrieNode&gt; children = <span class="keyword">new</span> HashMap();</div><div class="line">    <span class="keyword">int</span> score;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Your MapSum object will be instantiated and called as such:</span></div><div class="line"><span class="comment"> * MapSum obj = new MapSum();</span></div><div class="line"><span class="comment"> * obj.insert(key,val);</span></div><div class="line"><span class="comment"> * int param_2 = obj.sum(prefix);</span></div><div class="line"><span class="comment"> */</span></div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -425,7 +402,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+            <a href="/tags/字典树/" rel="tag"># 字典树</a>
+          
+            <a href="/tags/HashMap/" rel="tag"># HashMap</a>
           
         </div>
       
@@ -438,8 +419,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/03/MySQL笔记/" rel="next" title="MySQL笔记">
-                <i class="fa fa-chevron-left"></i> MySQL笔记
+              <a href="/2017/11/05/leetcode553/" rel="next" title="LeetCode | 553.最佳括号分配">
+                <i class="fa fa-chevron-left"></i> LeetCode | 553.最佳括号分配
               </a>
             
           </div>
@@ -447,10 +428,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/03/gitnotes2/" rel="prev" title="Git笔记（二）">
-                Git笔记（二） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四课：github账号创建-仓库创建"><span class="nav-number">1.</span> <span class="nav-text">第四课：github账号创建-仓库创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五课：git配置简单"><span class="nav-number">2.</span> <span class="nav-text">第五课：git配置简单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六课：git大致工作流程"><span class="nav-number">3.</span> <span class="nav-text">第六课：git大致工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七课-git文件状态"><span class="nav-number">4.</span> <span class="nav-text">第七课.git文件状态</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一："><span class="nav-number">1.</span> <span class="nav-text">方法一：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二："><span class="nav-number">2.</span> <span class="nav-text">方法二：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法三："><span class="nav-number">3.</span> <span class="nav-text">方法三：</span></a></li></ol></div>
             
 
           </div>
