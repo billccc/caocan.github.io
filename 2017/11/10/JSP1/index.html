@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Tomcat,J2EE," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="亦狂亦侠亦温文">
-<meta property="og:type" content="website">
-<meta property="og:title" content="曹のBlog">
-<meta property="og:url" content="https://caocan.github.io/tags/前端/index.html">
+<meta name="description" content="本篇介绍的是Tomcat的一些基本配置和用法，以及Web App的初步介绍。">
+<meta name="keywords" content="Tomcat,J2EE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jsp&amp;Servlet笔记（一）Tomcat初步">
+<meta property="og:url" content="https://caocan.github.io/2017/11/10/JSP1/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="亦狂亦侠亦温文">
+<meta property="og:description" content="本篇介绍的是Tomcat的一些基本配置和用法，以及Web App的初步介绍。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-10T14:05:52.507Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="曹のBlog">
-<meta name="twitter:description" content="亦狂亦侠亦温文">
+<meta name="twitter:title" content="Jsp&amp;Servlet笔记（一）Tomcat初步">
+<meta name="twitter:description" content="本篇介绍的是Tomcat的一些基本配置和用法，以及Web App的初步介绍。">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://caocan.github.io/tags/前端/"/>
+  <link rel="canonical" href="https://caocan.github.io/2017/11/10/JSP1/"/>
 
 
 
 
 
-  <title>标签: 前端 | 曹のBlog</title>
+  <title>Jsp&Servlet笔记（一）Tomcat初步 | 曹のBlog</title>
   
 
 
@@ -143,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -271,54 +273,232 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>前端<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/10/JSP1/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/08/20/evergames/" itemprop="url">
-              
-                <span itemprop="name">暑假期间改过的一些网页小游戏代码</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Jsp&Servlet笔记（一）Tomcat初步</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-20T21:35:26+08:00"
-              content="2017-08-20" >
-          08-20
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T21:48:46+08:00">
+                2017-11-10
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Jsp/" itemprop="url" rel="index">
+                    <span itemprop="name">Jsp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇介绍的是Tomcat的一些基本配置和用法，以及Web App的初步介绍。<br><a id="more"></a></p>
+<h2 id="第一课-tomcat初步1"><a href="#第一课-tomcat初步1" class="headerlink" title="第一课.tomcat初步1"></a>第一课.tomcat初步1</h2><p><strong>常用的Web服务器：</strong></p>
+<ul>
+<li>IIS</li>
+<li>Apache(C写的)</li>
+<li>Tomcat（Java写的）</li>
+</ul>
+<p>Linux下用Apache比较多</p>
+<p><strong>常用的动态网页技术：</strong></p>
+<ul>
+<li>CGI (Common GateWay Interface)</li>
+<li>API常用的由（NSAPI,ISAPI）</li>
+<li>ASP(Active Server Page)</li>
+<li>PHP(Personal Home Page)</li>
+<li>Jsp/Servlet(Java Server Page)</li>
+</ul>
+<p><strong>Servlet简介</strong></p>
+<ul>
+<li>Servlet是服务器小程序</li>
+<li>用来完成B/S架构下,客户端请求的相应处理</li>
+<li>平台独立，性能优良，能以线程方式运行</li>
+<li>Servlet API为Servlet提供了统一的编程接口</li>
+<li>Servlet一般在容器中运行</li>
+</ul>
+<p>常见的Servlet容器：<br>    Tomcat</p>
+<p><strong>Tomcat下载：</strong><br>地址：<br><a href="http://tomcat.apache.org/" target="_blank" rel="external">http://tomcat.apache.org/</a><br>找Download，然后找到最新版本，下载64-bit Windows zip<br>下载后解压到D盘根目录<br>改名为tomcat加版本号</p>
+<p><strong>Tomacat运行：</strong><br>打开cmd，切换到tomcat目录下的bin目录<br>键入<code>startup</code><br>就可以开启tomcat<br>键入<code>shutdown</code>，就关闭了tomcat</p>
+<p>或者可以键入<code>catalina start</code><br>也可以开启tomcat<br>因为catalina.bat是tamcat中实际起作用的部分，tamcat中startup和shutdown真正调用的是catalina.bat</p>
+<p>停止就键入<code>catalina stop</code></p>
+<h2 id="第二课-tomcat初步2"><a href="#第二课-tomcat初步2" class="headerlink" title="第二课.tomcat初步2"></a>第二课.tomcat初步2</h2><p>在tomcat已经启动后<br>输入网址：<br><code>127.0.0.1：8080</code><br>就可以访问tomcat主页了。</p>
+<h2 id="第三课-tomcat初步3"><a href="#第三课-tomcat初步3" class="headerlink" title="第三课.tomcat初步3"></a>第三课.tomcat初步3</h2><p><strong>Tomcat的目录结构</strong></p>
+<ul>
+<li>bin/        二进制可执行文件和脚本</li>
+<li>common/        Catalina本身和web应用可加载的类目录</li>
+<li>conf/        配置文件目录</li>
+<li>logs/        日志目录</li>
+<li>server/        服务器所需的类库目录</li>
+<li>shared/        web app共享的类库</li>
+<li>webapps/    Web应用所存放的目录applications</li>
+<li>work/        Tomcat的工作目录（存放jsp产生的class文件）</li>
+<li>temp/        存放临时产生的文件</li>
+</ul>
+<blockquote>
+<p>conf/server.xml<br>    服务器的主配置文件<br>conf/web.xml<br>    定义所有Web应用的配置<br>    （缺省的Servlet定义和MIME类型定义）<br>conf/tomcat-user.xml<br>    定义了tomcat用户的信息（用于权限与安全）</p>
+</blockquote>
+<p>如果想要<strong><em>修改端口</em></strong>，可以在<strong>server.xml</strong>中对端口进行修改。<br>对应代码为：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- A "Connector" represents an endpoint by which requests are received</span></div><div class="line"><span class="comment">         and responses are returned. Documentation at :</span></div><div class="line"><span class="comment">         Java HTTP Connector: /docs/config/http.html</span></div><div class="line"><span class="comment">         Java AJP  Connector: /docs/config/ajp.html</span></div><div class="line"><span class="comment">         APR (HTTP/AJP) Connector: /docs/apr.html</span></div><div class="line"><span class="comment">         Define a non-SSL/TLS HTTP/1.1 Connector on port 8080</span></div><div class="line"><span class="comment">    --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8888"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></div><div class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></div><div class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">"8443"</span> &gt;</span><span class="tag">&lt;/<span class="name">Connector</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后将tomcat关闭，再重新启动。键入<code>localhost:8888</code>就可以访问tomcat主页了</p>
+<h2 id="第四课-tomcat初步4"><a href="#第四课-tomcat初步4" class="headerlink" title="第四课.tomcat初步4"></a>第四课.tomcat初步4</h2><p>在打开的tomcat主页点击 <strong><em>manager app</em></strong>这一项，会提示你输入用户名和密码。这时输入用户名tomcat，密码tomcat，发现会提示错误。<br>这时我们需要在conf/user进行设置，设置前先对这个文件进行备份</p>
+<p>将代码进行修改，增加角色，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"manager-gui"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"admin-gui"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"admin-script"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">username</span>=<span class="string">"tomcat"</span> <span class="attr">password</span>=<span class="string">"s3cret"</span> <span class="attr">roles</span>=<span class="string">"manager-gui,admin-gui,admin-script"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>然后重启tomcat<br>再进入<code>127.0.0.1:8888</code>，点击manager app这一项，输入账号<code>tomcat</code>，密码<code>s3cret</code>，就可以进入管理界面了。</p>
+<h2 id="第五课-开发webapp初步"><a href="#第五课-开发webapp初步" class="headerlink" title="第五课. 开发webapp初步"></a>第五课. 开发webapp初步</h2><p>在idea中配置一个web app如下文所示：<br><a href="http://simonic512.github.io/2015/11/13/Intellij-IDEA-14-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%BC%80%E5%8F%91-servlet-%E5%85%A5%E9%97%A8/" target="_blank" rel="external">http://simonic512.github.io/2015/11/13/Intellij-IDEA-14-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%BC%80%E5%8F%91-servlet-%E5%85%A5%E9%97%A8/</a></p>
+<h2 id="第六课-HTTP协议和Web-app初步"><a href="#第六课-HTTP协议和Web-app初步" class="headerlink" title="第六课. HTTP协议和Web app初步"></a>第六课. HTTP协议和Web app初步</h2><p>HTTP测试：<br>启动tomcat，编写下面代码并运行：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> java.net.Socket;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        Socket s = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">8888</span>);</div><div class="line">        PrintWriter pw = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> OutputStreamWriter(s.getOutputStream()));</div><div class="line">        pw.println(<span class="string">"GET / HTTP/1.1"</span>);</div><div class="line">        pw.println(<span class="string">"Host: localhost"</span>);</div><div class="line">        pw.println(<span class="string">"Content-Type: text/html"</span>);</div><div class="line">        pw.println();</div><div class="line">        pw.flush();</div><div class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(s.getInputStream()));</div><div class="line">        String str = <span class="string">""</span>;</div><div class="line">        <span class="keyword">while</span>((str = br.readLine()) != <span class="keyword">null</span>)&#123;</div><div class="line">            System.out.println(str);</div><div class="line">        &#125;</div><div class="line">        br.close();</div><div class="line">        pw.close();</div><div class="line">        s.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>结果会返回tomcat主页的html并在控台打印出来</p>
+<p>如果将<code>GET /</code>改为<code>GET /aaa</code>，再运行就会出现如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 404 </div><div class="line">Content-Type: text/html;charset=utf-8</div><div class="line">Content-Language: en</div><div class="line">Content-Length: 1072</div></pre></td></tr></table></figure>
+<p><strong>Web Application的概念</strong><br>Web Application Name<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEB-INF<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;web.xml<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该web app的配置文件<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lib<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该web app用到的库文件<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;classes<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存放编译好的servlet<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;META-INF<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存放该web app的上下文信息，符合J2EE标准</p>
+<p>Web Application可以直接放在webapp下面<br>也可以通过配置文件指定到其他目录 <host>里面<br><code>&lt;Context path=“/虚拟路径名“ docBase=”目录位置&quot; debug=&quot;0&quot; reloadable=&quot;true&quot;/&gt;</code></host></p>
+<p>可以直接在tomcat下的webapps目录增加一个test目录，在test目录下创建WEB-INF目录，在里面创建web.xml，并且把下面代码粘过来：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span></div><div class="line"><span class="tag">           <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line"><span class="tag">           <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee</span></span></div><div class="line"><span class="tag"><span class="string">		  http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"</span></span></div><div class="line"><span class="tag">           <span class="attr">version</span>=<span class="string">"3.1"</span>&gt;</span></div><div class="line">		   </div><div class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>接下来可以在test目录下创建一个index.html，在里面书写一些html代码，直接键入<code>127.0.0.1:8888/test</code>就可以访问这个目录了。</p>
+<p>或者可以在test下创建admin目录，在admin下创建index.html，然后键入<code>127.0.0.1:8888/test/admin</code>就可以访问这个页面了。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+            <a href="/tags/J2EE/" rel="tag"># J2EE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/07/leetcode677/" rel="next" title="LeetCode | 677.找前缀总和（Map Sum Pairs）">
+                <i class="fa fa-chevron-left"></i> LeetCode | 677.找前缀总和（Map Sum Pairs）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -326,6 +506,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -346,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -409,6 +607,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一课-tomcat初步1"><span class="nav-number">1.</span> <span class="nav-text">第一课.tomcat初步1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二课-tomcat初步2"><span class="nav-number">2.</span> <span class="nav-text">第二课.tomcat初步2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三课-tomcat初步3"><span class="nav-number">3.</span> <span class="nav-text">第三课.tomcat初步3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四课-tomcat初步4"><span class="nav-number">4.</span> <span class="nav-text">第四课.tomcat初步4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五课-开发webapp初步"><span class="nav-number">5.</span> <span class="nav-text">第五课. 开发webapp初步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六课-HTTP协议和Web-app初步"><span class="nav-number">6.</span> <span class="nav-text">第六课. HTTP协议和Web app初步</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -542,6 +756,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -570,6 +788,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

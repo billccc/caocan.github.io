@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Jsp&Servlet笔记（一）Tomcat初步]]></title>
+    <url>%2F2017%2F11%2F10%2FJSP1%2F</url>
+    <content type="text"><![CDATA[本篇介绍的是Tomcat的一些基本配置和用法，以及Web App的初步介绍。 第一课.tomcat初步1常用的Web服务器： IIS Apache(C写的) Tomcat（Java写的） Linux下用Apache比较多 常用的动态网页技术： CGI (Common GateWay Interface) API常用的由（NSAPI,ISAPI） ASP(Active Server Page) PHP(Personal Home Page) Jsp/Servlet(Java Server Page) Servlet简介 Servlet是服务器小程序 用来完成B/S架构下,客户端请求的相应处理 平台独立，性能优良，能以线程方式运行 Servlet API为Servlet提供了统一的编程接口 Servlet一般在容器中运行 常见的Servlet容器： Tomcat Tomcat下载：地址：http://tomcat.apache.org/找Download，然后找到最新版本，下载64-bit Windows zip下载后解压到D盘根目录改名为tomcat加版本号 Tomacat运行：打开cmd，切换到tomcat目录下的bin目录键入startup就可以开启tomcat键入shutdown，就关闭了tomcat 或者可以键入catalina start也可以开启tomcat因为catalina.bat是tamcat中实际起作用的部分，tamcat中startup和shutdown真正调用的是catalina.bat 停止就键入catalina stop 第二课.tomcat初步2在tomcat已经启动后输入网址：127.0.0.1：8080就可以访问tomcat主页了。 第三课.tomcat初步3Tomcat的目录结构 bin/ 二进制可执行文件和脚本 common/ Catalina本身和web应用可加载的类目录 conf/ 配置文件目录 logs/ 日志目录 server/ 服务器所需的类库目录 shared/ web app共享的类库 webapps/ Web应用所存放的目录applications work/ Tomcat的工作目录（存放jsp产生的class文件） temp/ 存放临时产生的文件 conf/server.xml 服务器的主配置文件conf/web.xml 定义所有Web应用的配置 （缺省的Servlet定义和MIME类型定义）conf/tomcat-user.xml 定义了tomcat用户的信息（用于权限与安全） 如果想要修改端口，可以在server.xml中对端口进行修改。对应代码为：12345678910&lt;!-- A "Connector" represents an endpoint by which requests are received and responses are returned. Documentation at : Java HTTP Connector: /docs/config/http.html Java AJP Connector: /docs/config/ajp.html APR (HTTP/AJP) Connector: /docs/apr.html Define a non-SSL/TLS HTTP/1.1 Connector on port 8080 --&gt; &lt;Connector port="8888" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" &gt;&lt;/Connector&gt; 然后将tomcat关闭，再重新启动。键入localhost:8888就可以访问tomcat主页了 第四课.tomcat初步4在打开的tomcat主页点击 manager app这一项，会提示你输入用户名和密码。这时输入用户名tomcat，密码tomcat，发现会提示错误。这时我们需要在conf/user进行设置，设置前先对这个文件进行备份 将代码进行修改，增加角色，代码如下： 1234&lt;role rolename="manager-gui"/&gt;&lt;role rolename="admin-gui"/&gt;&lt;role rolename="admin-script"/&gt;&lt;user username="tomcat" password="s3cret" roles="manager-gui,admin-gui,admin-script"/&gt; 然后重启tomcat再进入127.0.0.1:8888，点击manager app这一项，输入账号tomcat，密码s3cret，就可以进入管理界面了。 第五课. 开发webapp初步在idea中配置一个web app如下文所示：http://simonic512.github.io/2015/11/13/Intellij-IDEA-14-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%BC%80%E5%8F%91-servlet-%E5%85%A5%E9%97%A8/ 第六课. HTTP协议和Web app初步HTTP测试：启动tomcat，编写下面代码并运行：12345678910111213141516171819202122import java.io.*;import java.net.Socket;public class Test &#123; public static void main(String[] args) throws IOException &#123; Socket s = new Socket("127.0.0.1", 8888); PrintWriter pw = new PrintWriter(new OutputStreamWriter(s.getOutputStream())); pw.println("GET / HTTP/1.1"); pw.println("Host: localhost"); pw.println("Content-Type: text/html"); pw.println(); pw.flush(); BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream())); String str = ""; while((str = br.readLine()) != null)&#123; System.out.println(str); &#125; br.close(); pw.close(); s.close(); &#125;&#125; 结果会返回tomcat主页的html并在控台打印出来 如果将GET /改为GET /aaa，再运行就会出现如下错误： 1234HTTP/1.1 404 Content-Type: text/html;charset=utf-8Content-Language: enContent-Length: 1072 Web Application的概念Web Application Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEB-INF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;web.xml&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该web app的配置文件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lib&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该web app用到的库文件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;classes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存放编译好的servlet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;META-INF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存放该web app的上下文信息，符合J2EE标准 Web Application可以直接放在webapp下面也可以通过配置文件指定到其他目录 里面&lt;Context path=“/虚拟路径名“ docBase=”目录位置&quot; debug=&quot;0&quot; reloadable=&quot;true&quot;/&gt; 可以直接在tomcat下的webapps目录增加一个test目录，在test目录下创建WEB-INF目录，在里面创建web.xml，并且把下面代码粘过来： 12345678&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd" version="3.1"&gt; &lt;/web-app&gt; 接下来可以在test目录下创建一个index.html，在里面书写一些html代码，直接键入127.0.0.1:8888/test就可以访问这个目录了。 或者可以在test下创建admin目录，在admin下创建index.html，然后键入127.0.0.1:8888/test/admin就可以访问这个页面了。]]></content>
+      <categories>
+        <category>Jsp</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+        <tag>J2EE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 677.找前缀总和（Map Sum Pairs）]]></title>
     <url>%2F2017%2F11%2F07%2Fleetcode677%2F</url>
     <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/map-sum-pairs/description/ 方法一：方法一比较暴力一些，就是创建一个存放键值对的HashMap，其中键就是我们插入的字符串，值就是这个字符串对应的权重。当要求一个前缀在HashMap中所有包括他的字符串对应value的总和时候，只需要遍历这个哈希表，查看每一个字符串是否以这个前缀开头，如果是的话把对应的值加上去就可以了。1234567891011121314151617181920212223242526272829303132333435class MapSum &#123; HashMap&lt;String, Integer&gt; hm; /** Initialize your data structure here. */ public MapSum() &#123; hm = new HashMap&lt;String, Integer&gt;(); &#125; public void insert(String key, int val) &#123; hm.put(key, val); &#125; public int sum(String prefix) &#123; int res = 0; Set&lt;String&gt; keys = hm.keySet(); Iterator it = keys.iterator(); String temp; while(it.hasNext())&#123; temp = (String)it.next(); if(temp.startsWith(prefix))&#123; res += (int)hm.get(temp); &#125; &#125; return res; &#125;&#125;/** * Your MapSum object will be instantiated and called as such: * MapSum obj = new MapSum(); * obj.insert(key,val); * int param_2 = obj.sum(prefix); */ 方法二：本方法以及设计到一点字典树（前缀树）的思想，就是每当插入一个单词key，都会现在我们原先的HashMap中查看这个单词有没有。要是没有，就将设置delta = val - map[key]，也就是val，并构造一个Trie，将key从头到尾遍历，并将构造出的前缀的子字符串的score与delta相加，并再次赋给score。要是有这个字符串，也是求一个差值：delta = val - map[key],然后将在这个树中的所有节点的score都和delta相加，就达到更新的效果。 代码：1234567891011121314151617181920212223242526272829303132333435class MapSum &#123; HashMap&lt;String, Integer&gt; hm; //用于存取字典树 HashMap&lt;String, Integer&gt; score; /** Initialize your data structure here. */ public MapSum() &#123; hm = new HashMap&lt;String, Integer&gt;(); score = new HashMap&lt;String, Integer&gt;(); &#125; public void insert(String key, int val) &#123; //先求差值,如果没有这个键值对，就返回0 int delta = val - hm.getOrDefault(key, 0); hm.put(key, val); //先构造一个空串 String prefix = ""; for(char c : key.toCharArray())&#123; prefix += c; score.put(prefix, score.getOrDefault(prefix, 0) + delta); &#125; &#125; public int sum(String prefix) &#123; return score.getOrDefault(prefix, 0); &#125;&#125;/** * Your MapSum object will be instantiated and called as such: * MapSum obj = new MapSum(); * obj.insert(key,val); * int param_2 = obj.sum(prefix); */ 方法三：方法三就是利用字典树的数据结构，对prefix中每一个字母的频次进行存取。思路和上面的相同，只不过数据结构变了。Trie树的结构如下： 在上图中，最左的一支代表”to”单词。 代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657class MapSum &#123; HashMap&lt;String, Integer&gt; hm; //字典树根节点 TrieNode root; /** Initialize your data structure here. */ public MapSum() &#123; hm = new HashMap&lt;String, Integer&gt;(); root = new TrieNode(); &#125; public void insert(String key, int val) &#123; //先求差值,如果没有这个键值对，就返回0 int delta = val - hm.getOrDefault(key, 0); hm.put(key, val); TrieNode cur = root; cur.score += delta; for(char c : key.toCharArray())&#123; //如果孩子节点没有这个字母，就增加一个 cur.children.putIfAbsent(c, new TrieNode()); //获取这个字母的节点 cur = cur.children.get(c); //增加delta cur.score += delta; &#125; &#125; public int sum(String prefix) &#123; TrieNode cur = root; for(char c : prefix.toCharArray())&#123; if(cur.children.get(c) == null) return 0; //指针下移 cur = cur.children.get(c); &#125; return cur.score; &#125;&#125;//前缀树节点class TrieNode&#123; Map&lt;Character, TrieNode&gt; children = new HashMap(); int score;&#125;/** * Your MapSum object will be instantiated and called as such: * MapSum obj = new MapSum(); * obj.insert(key,val); * int param_2 = obj.sum(prefix); */]]></content>
@@ -138,8 +150,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -150,8 +162,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -198,8 +210,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -221,8 +233,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -233,8 +245,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -245,8 +257,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -257,8 +269,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -269,8 +281,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -281,8 +293,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -293,8 +305,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
@@ -305,8 +317,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java SE</tag>
         <tag>Java编程思想</tag>
+        <tag>Java SE</tag>
       </tags>
   </entry>
   <entry>
