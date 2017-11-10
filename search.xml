@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Servlet初步]]></title>
+    <url>%2F2017%2F11%2F10%2FJSP2%2F</url>
+    <content type="text"><![CDATA[本篇介绍的是Servlet的一些基本原理和用法。 第七课. servlet_1创建一个Project，起名叫TestServlet，在这个工程中添加servlet-api.jar包： 在src下创建Test.java和HelloWorldServlet.java 第八课. servlet_2 GenericServlet是所有Servlet的鼻祖 用于HTTP的Servlet编程都通过继承 javax.servlet.http.HttpServlet 实现 请求处理方法：(分别对应http协议的7种请求） doGet 响应Get请求，常用 doPost 响应Post请求，常用 doPut 用于http1.1协议 doDelete 用于http1.1协议 doHead 仅响应Get请求的头部。 doOptions 用于http1.1协议 doTrace 用于http1.1协议 测试代码（HelloWorldServlet.java）：1234567891011121314import javax.servlet.ServletException;import javax.servlet.http.HttpServlet;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import java.io.IOException;public class HelloWorldServlet extends HttpServlet&#123; @Override protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; //只要别人访问我的方法，我就打印doGet System.out.println("doGet"); &#125;&#125; 其中，request封装了客户端给servlet的请求，response封装了servlet给客户端的响应。 第九课. servlet_3servlet是被容器调用，即被tomcat调用 为了让他在被tomcat调用，我们需要在WEB-INF下创建classes目录，然后把我们刚刚写好的HelloWorldServlet进行编译，把编译后的.class文件放到WEB-INF/classes目录下，然后在WEB-INF目录外的web.xml中进行相应的配置，配置如下： 12345678910111213&lt;!--servlet可以随便起，不过servlet-class必须是放在WEB-INF下 的classes目录中的servlet编译好的.class文件--&gt; &lt;servlet&gt; &lt;servlet-name&gt;HW&lt;/servlet-name&gt; &lt;servlet-class&gt;HelloWorldServlet&lt;/servlet-class&gt; &lt;/servlet&gt; &lt;!--servlet-name必须和上面一致，url-pattern是指在url中敲什 么内容才会调用servlet,url永远以斜杠开头--&gt; &lt;servlet-mapping&gt; &lt;servlet-name&gt;HW&lt;/servlet-name&gt; &lt;url-pattern&gt;/HelloWorldServlet&lt;/url-pattern&gt; &lt;/servlet-mapping&gt; 调用过程是：url/url-pattern --&gt;server-name(HW)--&gt;server-class(HelloWorldServlet)，就完成了从url到servlet的调用。servlet就用doGet方法对客户端进行响应。 访问http://localhost:8888/test/HelloWorldServlet可以在tomcat后台看到doGet字样，表示成功。 我们再对客户端做一些响应处理，修改java文件：123456789101112131415import javax.servlet.ServletException; import javax.servlet.http.HttpServlet; import javax.servlet.http.HttpServletRequest; import javax.servlet.http.HttpServletResponse; import java.io.IOException;public class HelloWorldServlet extends HttpServlet&#123; @Override protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; //只要别人访问我的方法，我就打印doGet System.out.println("doGet"); response.getWriter().write("&lt;a href='http://www.baidu.com'&gt;go&lt;/a&gt;"); &#125;&#125; 重新编译，将生成的.class文件覆盖之前的WEB-INF/classes下的.class，然后再重启tomcat，在地址框重新输入：http://localhost:8888/test/HelloWorldServlet可以在前台页面发现go这样的超链接，点击就进入百度网页。 第十课. servlet_4测试servlet生命周期代码（TestLifeCycleServlet.java）：123456789101112131415161718192021222324252627import javax.servlet.http.HttpServlet;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import java.io.IOException;public class TestLifeCycleServlet extends HttpServlet &#123; public TestLifeCycleServlet()&#123; System.out.println("constructed"); &#125; @Override public void destroy() &#123; System.out.println("destroy"); &#125; @Override public void init(ServletConfig config) throws ServletException &#123; System.out.println("init"); &#125; @Override protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; System.out.println("doGet"); &#125;&#125; 最后在tomcat中输出是： constructed init 访问网址时输出： doGet tomcat关闭时输出： destroy Servlet生命全过程： 加载 ClassLoader 实例化 new 初始化 init(ServletConfig) 处理请求 service doGet doPost 退出服务 destroy() 只有一个对象 API中的过程：12345678init()//只执行一次， 第一次初始化的时候public void init(ServletConfig config) throws ServletException service()public void service(ServletRequest req, ServletResponse res) throws ServletException, java.io.IOException destroy()//webapp 退出的时候public void destroy() 在123public void init(ServletConfig config) throws ServletException &#123; System.out.println("init");&#125; 中，ServletConfig保存了对Servlet的配置 第十一课. servlet_5在tomcat的webapps/test目录下，加入ThreeParams.htm文件：1234567891011121314151617181920212223242526272829&lt;form id="forml" name="forml" method="get" action="servlet/ThreeParams"&gt; &lt;table width="343" border="1"&gt; &lt;tr&gt; &lt;td width="92"&gt;param1&lt;/td&gt; &lt;td width="94"&gt; &lt;input type="text" name="param1" id="param1" /&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;param2&lt;/td&gt; &lt;td&gt;&lt;label&gt; &lt;input type="text" name="param2" id="param2" /&gt; &lt;/label&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;param3&lt;/td&gt; &lt;td&gt; &lt;input type="text" name="param3" id="param3" /&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;/td&gt; &lt;td&gt;&lt;label&gt; &lt;input type="submit" value="提交" /&gt; &lt;/label&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/form&gt; 启动tomcat服务器，在地址栏输入：http://127.0.0.1:8888/test/ThreeParams.htm就会进入这个文件的显示网页。然后点击提交，由于action=&quot;servlet/ThreeParams&quot;，所以地址在就转变为：http://127.0.0.1:8888/test/servlet/ThreeParams?param1=&amp;param2=&amp;param3= 然而发现，这个时候出现404错误。那么怎么解决这个问题呢？ 现将在idea中的src下添加ThreeParams.java文件，该文件为： 123456789101112131415161718192021222324252627282930313233343536import javax.servlet.*;import javax.servlet.http.*;import java.io.*;public class ThreeParams extends HttpServlet&#123; private static final long serialVersionUID = 1L; @Override protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; response.setContentType("text/html;charset=GBK"); //解决post方式提交内容的乱码 //一定要写在存取第一个参数之前 request.setCharacterEncoding("GBK"); //解决get方式乱码问题：--&gt;URIEncoding="GBK" //拿到request中的参数对应的值 PrintWriter out = response.getWriter(); out.println(request.getParameter("param1")); out.println("&lt;br&gt;"); out.println(request.getParameter("param2")); out.println("&lt;br&gt;"); out.println(request.getParameter("param3")); out.println("&lt;br&gt;"); System.out.println("in doGet"); &#125; @Override protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; System.out.println("in doPost"); doGet(request, response); &#125;&#125; 对这个java文件进行编译，得到了ThreeParams.class文件，将这个二进制文件拷贝到tomcat下的test/WEB-INF/classes目录下，并且在web.xml中对这个.class进行配置： 123456789&lt;servlet&gt; &lt;servlet-name&gt;ThreeParams&lt;/servlet-name&gt; &lt;servlet-class&gt;ThreeParams&lt;/servlet-class&gt;&lt;/servlet&gt;&lt;servlet-mapping&gt; &lt;servlet-name&gt;ThreeParams&lt;/servlet-name&gt; &lt;url-pattern&gt;/servlet/ThreeParams&lt;/url-pattern&gt;&lt;/servlet-mapping&gt; 一定要注意上面的url-patter是/servlet/ThreeParams，因为之前表格提交后指向的路径前面有一个/servlet 然后reload一下tomcat，再重新刷新之前的页面，在表格中填入三个参数，就可以得到这三个参数在页面中的显示了。 doGet方法处理html中action的GET请求，而doPost方法则是处理html中action的POST的请求。我们这里选择调用在doPost方法中调用doGet方法，并打印一句话来表示doPost已经执行： 第十二课. 通过request读取所有参数在tomcat的webapps/test目录下，加入ShowParameters.htm文件： 1234567891011121314151617181920212223242526272829303132333435363738394041&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;&lt;HTML&gt;&lt;HEAD&gt; &lt;TITLE&gt;A Sample FORM using POST&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY BGCOLOR="#FDF5E6"&gt;&lt;H1 ALIGN="CENTER"&gt;A Sample FORM using POST&lt;/H1&gt;&lt;FORM ACTION="servlet/ShowParameters" METHOD="get"&gt; Item Number: &lt;INPUT TYPE="TEXT" NAME="itemNum"&gt;&lt;BR&gt; Quantity: &lt;INPUT TYPE="TEXT" NAME="quantity"&gt;&lt;BR&gt; Price Each: &lt;INPUT TYPE="TEXT" NAME="price" VALUE="$"&gt;&lt;BR&gt; &lt;HR&gt; First Name: &lt;INPUT TYPE="TEXT" NAME="firstName"&gt;&lt;BR&gt; Last Name: &lt;INPUT TYPE="TEXT" NAME="lastName"&gt;&lt;BR&gt; Middle Initial: &lt;INPUT TYPE="TEXT" NAME="initial"&gt;&lt;BR&gt; Shipping Address: &lt;TEXTAREA NAME="address" ROWS=3 COLS=40&gt;&lt;/TEXTAREA&gt;&lt;BR&gt; Credit Card:&lt;BR&gt; &amp;nbsp;&amp;nbsp;&lt;INPUT TYPE="RADIO" NAME="cardType" VALUE="Visa"&gt;Visa&lt;BR&gt; &amp;nbsp;&amp;nbsp;&lt;INPUT TYPE="RADIO" NAME="cardType" VALUE="Master Card"&gt;Master Card&lt;BR&gt; &amp;nbsp;&amp;nbsp;&lt;INPUT TYPE="RADIO" NAME="cardType" VALUE="Amex"&gt;American Express&lt;BR&gt; &amp;nbsp;&amp;nbsp;&lt;INPUT TYPE="RADIO" NAME="cardType" VALUE="Discover"&gt;Discover&lt;BR&gt; &amp;nbsp;&amp;nbsp;&lt;INPUT TYPE="RADIO" NAME="cardType" VALUE="Java SmartCard"&gt;Java SmartCard&lt;BR&gt; Credit Card Number: &lt;INPUT TYPE="PASSWORD" NAME="cardNum"&gt;&lt;BR&gt; Repeat Credit Card Number: &lt;INPUT TYPE="PASSWORD" NAME="cardNum"&gt;&lt;BR&gt;&lt;BR&gt; &lt;CENTER&gt; &lt;INPUT TYPE="SUBMIT" VALUE="Submit Order"&gt; &lt;/CENTER&gt;&lt;/FORM&gt;&lt;/BODY&gt;&lt;/HTML&gt; 然后在src目录下添加ShowParameters.java ：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950import java.io.*;import javax.servlet.*;import javax.servlet.http.*;import java.util.*;//获取所有的参数public class ShowParameters extends HttpServlet &#123; public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; response.setContentType("text/html;charset=gb2312"); PrintWriter out = response.getWriter(); String title = "Reading All Request Parameters"; out.println("&lt;html&gt;&lt;head&gt;&lt;title&gt;读取所有参数&lt;/title&gt;&lt;/head&gt;" + "&lt;BODY BGCOLOR='#FDF5E6'&gt;\n" + "&lt;H1 ALIGN=CENTER&gt;" + title + "&lt;/H1&gt;\n" + "&lt;TABLE BORDER=1 ALIGN=CENTER&gt;\n" + "&lt;TR BGCOLOR=\"#FFAD00\"&gt;\n" + "&lt;TH&gt;Parameter Name&lt;TH&gt;Parameter Value(s)"); //取到request里面所有的参数 Enumeration paramNames = request.getParameterNames(); //对参数一次遍历，相当于迭代器 while (paramNames.hasMoreElements()) &#123; String paramName = (String) paramNames.nextElement(); out.print("&lt;TR&gt;&lt;TD&gt;" + paramName + "\n&lt;TD&gt;"); String[] paramValues = request.getParameterValues(paramName); if (paramValues.length == 1) &#123; String paramValue = paramValues[0]; //如果没有值，打印No Value if (paramValue.length() == 0) out.println("&lt;I&gt;No Value&lt;/I&gt;"); else out.println(paramValue); &#125; else &#123; //依次打印参数值 out.println("&lt;UL&gt;"); for (int i = 0; i &lt; paramValues.length; i++) &#123; out.println("&lt;LI&gt;" + paramValues[i]); &#125; out.println("&lt;/UL&gt;"); &#125; &#125; out.println("&lt;/TABLE&gt;\n&lt;/BODY&gt;&lt;/HTML&gt;"); &#125; public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; doGet(request, response); &#125;&#125; 将编译后的ShowParameters.class放到test/WEB-INF/classes下面，在web.xml进行配置：123456789&lt;servlet&gt; &lt;servlet-name&gt;ShowParameters&lt;/servlet-name&gt; &lt;servlet-class&gt;ShowParameters&lt;/servlet-class&gt; &lt;/servlet&gt; &lt;servlet-mapping&gt; &lt;servlet-name&gt;ShowParameters&lt;/servlet-name&gt; &lt;url-pattern&gt;/servlet/ShowParameters&lt;/url-pattern&gt; &lt;/servlet-mapping&gt; 再次重启tomcat，访问地址：http://127.0.0.1:8888/test/ShowParametersForm.htm可以得到如下页面： 提交之后就转变到servlet处理后的页面： 由于ShowParameters.java中对参数读取采取的是：Enumeration paramNames = request.getParameterNames();而枚举类已经比较过时，所以现在转换为采用map的读取方式，key是参数名，是String类型，value是参数值，是一个String数组，这样就可以采取迭代器方式进行读取。 程序为ShowParametersMap.java： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647import java.io.*;import javax.servlet.*;import javax.servlet.http.*;import java.util.*;//获取所有的参数public class ShowParametersMap extends HttpServlet &#123; public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; response.setContentType("text/html;charset=gb2312"); PrintWriter out = response.getWriter(); String title = "Reading All Request Parameters"; out.println("&lt;html&gt;&lt;head&gt;&lt;title&gt;读取所有参数&lt;/title&gt;&lt;/head&gt;" + "&lt;BODY BGCOLOR='#FDF5E6'&gt;\n" + "&lt;H1 ALIGN=CENTER&gt;" + title + "&lt;/H1&gt;\n" + "&lt;TABLE BORDER=1 ALIGN=CENTER&gt;\n" + "&lt;TR BGCOLOR=\"#FFAD00\"&gt;\n" + "&lt;TH&gt;Parameter Name&lt;TH&gt;Parameter Value(s)"); Map&lt;String, String[]&gt; paramMap = request.getParameterMap(); Set&lt;Map.Entry&lt;String, String[]&gt;&gt; entries = paramMap.entrySet(); for(Iterator&lt;Map.Entry&lt;String, String[]&gt;&gt; it = entries.iterator(); it.hasNext(); ) &#123; Map.Entry&lt;String, String[]&gt; entry = it.next(); String paramName = entry.getKey(); out.print("&lt;TR&gt;&lt;TD&gt;" + paramName + "\n&lt;TD&gt;"); String[] paramValues = entry.getValue(); if (paramValues.length == 1) &#123; String paramValue = paramValues[0]; if (paramValue.length() == 0) out.println("&lt;I&gt;No Value&lt;/I&gt;"); else out.println(paramValue); &#125; else &#123; out.println("&lt;UL&gt;"); for (int i = 0; i &lt; paramValues.length; i++) &#123; out.println("&lt;LI&gt;" + paramValues[i]); &#125; out.println("&lt;/UL&gt;"); &#125; &#125; out.println("&lt;/TABLE&gt;\n&lt;/BODY&gt;&lt;/HTML&gt;"); &#125; public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123; doGet(request, response); &#125;&#125;]]></content>
+      <categories>
+        <category>Jsp</category>
+      </categories>
+      <tags>
+        <tag>J2EE</tag>
+        <tag>Servlet</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Jsp&Servlet笔记（一）Tomcat初步]]></title>
     <url>%2F2017%2F11%2F10%2FJSP1%2F</url>
     <content type="text"><![CDATA[本篇介绍的是Tomcat的一些基本配置和用法，以及Web App的初步介绍。 第一课.tomcat初步1常用的Web服务器： IIS Apache(C写的) Tomcat（Java写的） Linux下用Apache比较多 常用的动态网页技术： CGI (Common GateWay Interface) API常用的由（NSAPI,ISAPI） ASP(Active Server Page) PHP(Personal Home Page) Jsp/Servlet(Java Server Page) Servlet简介 Servlet是服务器小程序 用来完成B/S架构下,客户端请求的相应处理 平台独立，性能优良，能以线程方式运行 Servlet API为Servlet提供了统一的编程接口 Servlet一般在容器中运行 常见的Servlet容器： Tomcat Tomcat下载：地址：http://tomcat.apache.org/找Download，然后找到最新版本，下载64-bit Windows zip下载后解压到D盘根目录改名为tomcat加版本号 Tomacat运行：打开cmd，切换到tomcat目录下的bin目录键入startup就可以开启tomcat键入shutdown，就关闭了tomcat 或者可以键入catalina start也可以开启tomcat因为catalina.bat是tamcat中实际起作用的部分，tamcat中startup和shutdown真正调用的是catalina.bat 停止就键入catalina stop 第二课.tomcat初步2在tomcat已经启动后输入网址：127.0.0.1：8080就可以访问tomcat主页了。 第三课.tomcat初步3Tomcat的目录结构 bin/ 二进制可执行文件和脚本 common/ Catalina本身和web应用可加载的类目录 conf/ 配置文件目录 logs/ 日志目录 server/ 服务器所需的类库目录 shared/ web app共享的类库 webapps/ Web应用所存放的目录applications work/ Tomcat的工作目录（存放jsp产生的class文件） temp/ 存放临时产生的文件 conf/server.xml 服务器的主配置文件conf/web.xml 定义所有Web应用的配置 （缺省的Servlet定义和MIME类型定义）conf/tomcat-user.xml 定义了tomcat用户的信息（用于权限与安全） 如果想要修改端口，可以在server.xml中对端口进行修改。对应代码为：12345678910&lt;!-- A "Connector" represents an endpoint by which requests are received and responses are returned. Documentation at : Java HTTP Connector: /docs/config/http.html Java AJP Connector: /docs/config/ajp.html APR (HTTP/AJP) Connector: /docs/apr.html Define a non-SSL/TLS HTTP/1.1 Connector on port 8080 --&gt; &lt;Connector port="8888" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" &gt;&lt;/Connector&gt; 然后将tomcat关闭，再重新启动。键入localhost:8888就可以访问tomcat主页了 第四课.tomcat初步4在打开的tomcat主页点击 manager app这一项，会提示你输入用户名和密码。这时输入用户名tomcat，密码tomcat，发现会提示错误。这时我们需要在conf/user进行设置，设置前先对这个文件进行备份 将代码进行修改，增加角色，代码如下： 1234&lt;role rolename="manager-gui"/&gt;&lt;role rolename="admin-gui"/&gt;&lt;role rolename="admin-script"/&gt;&lt;user username="tomcat" password="s3cret" roles="manager-gui,admin-gui,admin-script"/&gt; 然后重启tomcat再进入127.0.0.1:8888，点击manager app这一项，输入账号tomcat，密码s3cret，就可以进入管理界面了。 第五课. 开发webapp初步在idea中配置一个web app如下文所示：http://simonic512.github.io/2015/11/13/Intellij-IDEA-14-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%BC%80%E5%8F%91-servlet-%E5%85%A5%E9%97%A8/ 第六课. HTTP协议和Web app初步HTTP测试：启动tomcat，编写下面代码并运行：12345678910111213141516171819202122import java.io.*;import java.net.Socket;public class Test &#123; public static void main(String[] args) throws IOException &#123; Socket s = new Socket("127.0.0.1", 8888); PrintWriter pw = new PrintWriter(new OutputStreamWriter(s.getOutputStream())); pw.println("GET / HTTP/1.1"); pw.println("Host: localhost"); pw.println("Content-Type: text/html"); pw.println(); pw.flush(); BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream())); String str = ""; while((str = br.readLine()) != null)&#123; System.out.println(str); &#125; br.close(); pw.close(); s.close(); &#125;&#125; 结果会返回tomcat主页的html并在控台打印出来 如果将GET /改为GET /aaa，再运行就会出现如下错误： 1234HTTP/1.1 404 Content-Type: text/html;charset=utf-8Content-Language: enContent-Length: 1072 Web Application的概念Web Application Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEB-INF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;web.xml&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该web app的配置文件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lib&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该web app用到的库文件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;classes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存放编译好的servlet&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;META-INF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存放该web app的上下文信息，符合J2EE标准 Web Application可以直接放在webapp下面也可以通过配置文件指定到其他目录 里面&lt;Context path=“/虚拟路径名“ docBase=”目录位置&quot; debug=&quot;0&quot; reloadable=&quot;true&quot;/&gt; 可以直接在tomcat下的webapps目录增加一个test目录，在test目录下创建WEB-INF目录，在里面创建web.xml，并且把下面代码粘过来： 12345678&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd" version="3.1"&gt; &lt;/web-app&gt; 接下来可以在test目录下创建一个index.html，在里面书写一些html代码，直接键入127.0.0.1:8888/test就可以访问这个目录了。 或者可以在test下创建admin目录，在admin下创建index.html，然后键入127.0.0.1:8888/test/admin就可以访问这个页面了。]]></content>
@@ -150,8 +162,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -162,8 +174,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -210,8 +222,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -233,8 +245,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -245,8 +257,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -257,8 +269,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -269,8 +281,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -281,8 +293,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -293,8 +305,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -305,8 +317,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -317,8 +329,8 @@
         <category>Java SE</category>
       </categories>
       <tags>
-        <tag>Java编程思想</tag>
         <tag>Java SE</tag>
+        <tag>Java编程思想</tag>
       </tags>
   </entry>
   <entry>

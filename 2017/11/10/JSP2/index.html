@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="J2EE,Servlet," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本篇介绍的是Servlet的一些基本原理和用法。">
+<meta name="keywords" content="J2EE,Servlet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet初步">
+<meta property="og:url" content="https://caocan.github.io/2017/11/10/JSP2/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本篇介绍的是Servlet的一些基本原理和用法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/11/10/JSP2/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/10/JSP2/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/10/JSP2/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/10/JSP2/4.png">
+<meta property="og:updated_time" content="2017-11-10T14:31:19.222Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Servlet初步">
+<meta name="twitter:description" content="本篇介绍的是Servlet的一些基本原理和用法。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/11/10/JSP2/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/11/10/JSP2/"/>
+
+
+
+
+
+  <title>Servlet初步 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/10/JSP2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Servlet初步</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T22:14:15+08:00">
+                2017-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Jsp/" itemprop="url" rel="index">
+                    <span itemprop="name">Jsp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇介绍的是Servlet的一些基本原理和用法。<br><a id="more"></a></p>
+<h2 id="第七课-servlet-1"><a href="#第七课-servlet-1" class="headerlink" title="第七课. servlet_1"></a>第七课. servlet_1</h2><p>创建一个Project，起名叫TestServlet，在这个工程中添加servlet-api.jar包：<br><img src="1.png" alt=""></p>
+<p>在src下创建Test.java和HelloWorldServlet.java</p>
+<h2 id="第八课-servlet-2"><a href="#第八课-servlet-2" class="headerlink" title="第八课. servlet_2"></a>第八课. servlet_2</h2><ul>
+<li>GenericServlet是所有Servlet的鼻祖</li>
+<li>用于HTTP的Servlet编程都通过继承 javax.servlet.http.HttpServlet 实现</li>
+</ul>
+<p>请求处理方法：(分别对应http协议的7种请求）</p>
+<ol>
+<li>doGet        响应Get请求，常用</li>
+<li>doPost        响应Post请求，常用</li>
+<li>doPut        用于http1.1协议</li>
+<li>doDelete    用于http1.1协议</li>
+<li>doHead                仅响应Get请求的头部。</li>
+<li>doOptions    用于http1.1协议</li>
+<li>doTrace    用于http1.1协议</li>
+</ol>
+<p>测试代码（HelloWorldServlet.java）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        <span class="comment">//只要别人访问我的方法，我就打印doGet</span></div><div class="line">        System.out.println(<span class="string">"doGet"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中，request封装了客户端给servlet的请求，response封装了servlet给客户端的响应。</p>
+<h2 id="第九课-servlet-3"><a href="#第九课-servlet-3" class="headerlink" title="第九课. servlet_3"></a>第九课. servlet_3</h2><p>servlet是被容器调用，即被tomcat调用</p>
+<p>为了让他在被tomcat调用，我们需要在WEB-INF下创建classes目录，然后把我们刚刚写好的HelloWorldServlet进行编译，把编译后的.class文件放到WEB-INF/classes目录下，然后在WEB-INF目录外的web.xml中进行相应的配置，配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--servlet可以随便起，不过servlet-class必须是放在WEB-INF下</span></div><div class="line"><span class="comment">    的classes目录中的servlet编译好的.class文件--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HW<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>HelloWorldServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line">	</div><div class="line">	<span class="comment">&lt;!--servlet-name必须和上面一致，url-pattern是指在url中敲什</span></div><div class="line"><span class="comment">	么内容才会调用servlet,url永远以斜杠开头--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HW<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/HelloWorldServlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>调用过程是：<br><code>url/url-pattern --&gt;server-name(HW)--&gt;server-class(HelloWorldServlet)</code>，就完成了从url到servlet的调用。servlet就用doGet方法对客户端进行响应。</p>
+<p>访问<code>http://localhost:8888/test/HelloWorldServlet</code><br>可以在tomcat后台看到<strong><em>doGet</em></strong>字样，表示成功。</p>
+<p>我们再对客户端做一些响应处理，修改java文件：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line">        <span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line">        <span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line">        <span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line">        <span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        <span class="comment">//只要别人访问我的方法，我就打印doGet</span></div><div class="line">        System.out.println(<span class="string">"doGet"</span>);</div><div class="line">        response.getWriter().write(<span class="string">"&lt;a href='http://www.baidu.com'&gt;go&lt;/a&gt;"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>重新编译，将生成的.class文件覆盖之前的<code>WEB-INF/classes</code>下的.class，然后再重启tomcat，在地址框重新输入：<br><code>http://localhost:8888/test/HelloWorldServlet</code><br>可以在前台页面发现go这样的超链接，点击就进入百度网页。</p>
+<h2 id="第十课-servlet-4"><a href="#第十课-servlet-4" class="headerlink" title="第十课. servlet_4"></a>第十课. servlet_4</h2><p>测试servlet生命周期代码（TestLifeCycleServlet.java）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLifeCycleServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestLifeCycleServlet</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"constructed"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"destroy"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException </span>&#123;</div><div class="line">        System.out.println(<span class="string">"init"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        System.out.println(<span class="string">"doGet"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最后在tomcat中输出是：</p>
+<pre><code>constructed
+init
+访问网址时输出：
+doGet
+tomcat关闭时输出：
+destroy
+</code></pre><p>Servlet生命全过程：</p>
+<pre><code>加载 ClassLoader 
+实例化 new 
+初始化 init(ServletConfig)
+处理请求 service doGet doPost
+退出服务 destroy()
+</code></pre><p>只有一个对象</p>
+<p>API中的过程：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">init()<span class="comment">//只执行一次， 第一次初始化的时候</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException</span></div><div class="line"><span class="function"> </span></div><div class="line"><span class="function"><span class="title">service</span><span class="params">()</span></span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest req, ServletResponse res)</span> <span class="keyword">throws</span> ServletException, java.io.IOException</span></div><div class="line"><span class="function"> </span></div><div class="line"><span class="function"><span class="title">destroy</span><span class="params">()</span><span class="comment">//webapp 退出的时候</span></span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span></div></pre></td></tr></table></figure></p>
+<p>在<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException </span>&#123;</div><div class="line">    System.out.println(<span class="string">"init"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>中，ServletConfig保存了对Servlet的配置</p>
+<h2 id="第十一课-servlet-5"><a href="#第十一课-servlet-5" class="headerlink" title="第十一课. servlet_5"></a>第十一课. servlet_5</h2><p>在tomcat的webapps/test目录下，加入ThreeParams.htm文件：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"forml"</span> <span class="attr">name</span>=<span class="string">"forml"</span> <span class="attr">method</span>=<span class="string">"get"</span> <span class="attr">action</span>=<span class="string">"servlet/ThreeParams"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">table</span> <span class="attr">width</span>=<span class="string">"343"</span> <span class="attr">border</span>=<span class="string">"1"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"92"</span>&gt;</span>param1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"94"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"param1"</span> <span class="attr">id</span>=<span class="string">"param1"</span> /&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span>param2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"param2"</span> <span class="attr">id</span>=<span class="string">"param2"</span> /&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span>param3<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"param3"</span> <span class="attr">id</span>=<span class="string">"param3"</span> /&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span> <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span> /&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line">	</div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>启动tomcat服务器，在地址栏输入：<br><code>http://127.0.0.1:8888/test/ThreeParams.htm</code><br>就会进入这个文件的显示网页。然后点击提交，由于<code>action=&quot;servlet/ThreeParams&quot;</code>，所以地址在就转变为：<br><code>http://127.0.0.1:8888/test/servlet/ThreeParams?param1=&amp;param2=&amp;param3=</code></p>
+<p>然而发现，这个时候出现<strong>404</strong>错误。那么怎么解决这个问题呢？</p>
+<p>现将在idea中的src下添加ThreeParams.java文件，该文件为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.*;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreeParams</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">		response.setContentType(<span class="string">"text/html;charset=GBK"</span>);</div><div class="line">		<span class="comment">//解决post方式提交内容的乱码</span></div><div class="line">		<span class="comment">//一定要写在存取第一个参数之前</span></div><div class="line">		request.setCharacterEncoding(<span class="string">"GBK"</span>);</div><div class="line">		</div><div class="line">		<span class="comment">//解决get方式乱码问题：--&gt;URIEncoding="GBK"</span></div><div class="line"></div><div class="line">		<span class="comment">//拿到request中的参数对应的值</span></div><div class="line">		PrintWriter out = response.getWriter();</div><div class="line">		out.println(request.getParameter(<span class="string">"param1"</span>));</div><div class="line">		out.println(<span class="string">"&lt;br&gt;"</span>);</div><div class="line">		out.println(request.getParameter(<span class="string">"param2"</span>));</div><div class="line">		out.println(<span class="string">"&lt;br&gt;"</span>);</div><div class="line">		out.println(request.getParameter(<span class="string">"param3"</span>));</div><div class="line">		out.println(<span class="string">"&lt;br&gt;"</span>);</div><div class="line">		System.out.println(<span class="string">"in doGet"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">		</div><div class="line">		System.out.println(<span class="string">"in doPost"</span>);</div><div class="line">		doGet(request, response);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对这个java文件进行编译，得到了<code>ThreeParams.class</code>文件，将这个二进制文件拷贝到tomcat下的<code>test/WEB-INF/classes</code>目录下，并且在web.xml中对这个.class进行配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ThreeParams<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>ThreeParams<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ThreeParams<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/servlet/ThreeParams<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>一定要注意上面的url-patter是<code>/servlet/ThreeParams</code>，因为之前表格提交后指向的路径前面有一个<code>/servlet</code></p>
+<p>然后reload一下tomcat，再重新刷新之前的页面，在表格中填入三个参数，就可以得到这三个参数在页面中的显示了。</p>
+<p>doGet方法处理html中action的GET请求，而doPost方法则是处理html中action的POST的请求。我们这里选择调用在doPost方法中调用doGet方法，并打印一句话来表示doPost已经执行：<br><img src="2.png" alt=""></p>
+<h2 id="第十二课-通过request读取所有参数"><a href="#第十二课-通过request读取所有参数" class="headerlink" title="第十二课.  通过request读取所有参数"></a>第十二课.  通过request读取所有参数</h2><p>在tomcat的<code>webapps/test</code>目录下，加入ShowParameters.htm文件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>A Sample FORM using POST<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">BODY</span> <span class="attr">BGCOLOR</span>=<span class="string">"#FDF5E6"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">H1</span> <span class="attr">ALIGN</span>=<span class="string">"CENTER"</span>&gt;</span>A Sample FORM using POST<span class="tag">&lt;/<span class="name">H1</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">FORM</span> <span class="attr">ACTION</span>=<span class="string">"servlet/ShowParameters"</span> </span></div><div class="line"><span class="tag">      <span class="attr">METHOD</span>=<span class="string">"get"</span>&gt;</span></div><div class="line">  Item Number: <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"TEXT"</span> <span class="attr">NAME</span>=<span class="string">"itemNum"</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  Quantity: <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"TEXT"</span> <span class="attr">NAME</span>=<span class="string">"quantity"</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  Price Each: <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"TEXT"</span> <span class="attr">NAME</span>=<span class="string">"price"</span> <span class="attr">VALUE</span>=<span class="string">"$"</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">HR</span>&gt;</span></div><div class="line">  First Name: <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"TEXT"</span> <span class="attr">NAME</span>=<span class="string">"firstName"</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  Last Name: <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"TEXT"</span> <span class="attr">NAME</span>=<span class="string">"lastName"</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  Middle Initial: <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"TEXT"</span> <span class="attr">NAME</span>=<span class="string">"initial"</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  Shipping Address:</div><div class="line">  <span class="tag">&lt;<span class="name">TEXTAREA</span> <span class="attr">NAME</span>=<span class="string">"address"</span> <span class="attr">ROWS</span>=<span class="string">3</span> <span class="attr">COLS</span>=<span class="string">40</span>&gt;</span><span class="tag">&lt;/<span class="name">TEXTAREA</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  Credit Card:<span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  &amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"RADIO"</span> <span class="attr">NAME</span>=<span class="string">"cardType"</span></span></div><div class="line"><span class="tag">                     <span class="attr">VALUE</span>=<span class="string">"Visa"</span>&gt;</span>Visa<span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  &amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"RADIO"</span> <span class="attr">NAME</span>=<span class="string">"cardType"</span></span></div><div class="line"><span class="tag">                     <span class="attr">VALUE</span>=<span class="string">"Master Card"</span>&gt;</span>Master Card<span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  &amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"RADIO"</span> <span class="attr">NAME</span>=<span class="string">"cardType"</span></span></div><div class="line"><span class="tag">                     <span class="attr">VALUE</span>=<span class="string">"Amex"</span>&gt;</span>American Express<span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  &amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"RADIO"</span> <span class="attr">NAME</span>=<span class="string">"cardType"</span></span></div><div class="line"><span class="tag">                     <span class="attr">VALUE</span>=<span class="string">"Discover"</span>&gt;</span>Discover<span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  &amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"RADIO"</span> <span class="attr">NAME</span>=<span class="string">"cardType"</span></span></div><div class="line"><span class="tag">                     <span class="attr">VALUE</span>=<span class="string">"Java SmartCard"</span>&gt;</span>Java SmartCard<span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  Credit Card Number: </div><div class="line">  <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"PASSWORD"</span> <span class="attr">NAME</span>=<span class="string">"cardNum"</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  Repeat Credit Card Number:</div><div class="line">  <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"PASSWORD"</span> <span class="attr">NAME</span>=<span class="string">"cardNum"</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span><span class="tag">&lt;<span class="name">BR</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">CENTER</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">"SUBMIT"</span> <span class="attr">VALUE</span>=<span class="string">"Submit Order"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">CENTER</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">FORM</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后在src目录下添加ShowParameters.java ：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.*;</div><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="comment">//获取所有的参数</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShowParameters</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line"><span class="function">         <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">      response.setContentType(<span class="string">"text/html;charset=gb2312"</span>);</div><div class="line">      PrintWriter out = response.getWriter();</div><div class="line">      String title = <span class="string">"Reading All Request Parameters"</span>;</div><div class="line">      out.println(<span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;读取所有参数&lt;/title&gt;&lt;/head&gt;"</span></div><div class="line">            + <span class="string">"&lt;BODY BGCOLOR='#FDF5E6'&gt;\n"</span> + <span class="string">"&lt;H1 ALIGN=CENTER&gt;"</span> + title</div><div class="line">            + <span class="string">"&lt;/H1&gt;\n"</span> + <span class="string">"&lt;TABLE BORDER=1 ALIGN=CENTER&gt;\n"</span></div><div class="line">            + <span class="string">"&lt;TR BGCOLOR=\"#FFAD00\"&gt;\n"</span></div><div class="line">            + <span class="string">"&lt;TH&gt;Parameter Name&lt;TH&gt;Parameter Value(s)"</span>);</div><div class="line">      <span class="comment">//取到request里面所有的参数</span></div><div class="line">      Enumeration paramNames = request.getParameterNames();</div><div class="line"></div><div class="line">      <span class="comment">//对参数一次遍历，相当于迭代器</span></div><div class="line">      <span class="keyword">while</span> (paramNames.hasMoreElements()) &#123;</div><div class="line">         String paramName = (String) paramNames.nextElement();</div><div class="line">         out.print(<span class="string">"&lt;TR&gt;&lt;TD&gt;"</span> + paramName + <span class="string">"\n&lt;TD&gt;"</span>);</div><div class="line">         String[] paramValues = request.getParameterValues(paramName);</div><div class="line">         <span class="keyword">if</span> (paramValues.length == <span class="number">1</span>) &#123;</div><div class="line">            String paramValue = paramValues[<span class="number">0</span>];</div><div class="line">            <span class="comment">//如果没有值，打印No Value</span></div><div class="line">            <span class="keyword">if</span> (paramValue.length() == <span class="number">0</span>)</div><div class="line">               out.println(<span class="string">"&lt;I&gt;No Value&lt;/I&gt;"</span>);</div><div class="line">            <span class="keyword">else</span></div><div class="line">               out.println(paramValue);</div><div class="line">         &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">//依次打印参数值</span></div><div class="line">            out.println(<span class="string">"&lt;UL&gt;"</span>);</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; paramValues.length; i++) &#123;</div><div class="line">               out.println(<span class="string">"&lt;LI&gt;"</span> + paramValues[i]);</div><div class="line">            &#125;</div><div class="line">            out.println(<span class="string">"&lt;/UL&gt;"</span>);</div><div class="line">         &#125;</div><div class="line">      &#125;</div><div class="line">      out.println(<span class="string">"&lt;/TABLE&gt;\n&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line"><span class="function">         <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">      doGet(request, response);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>将编译后的ShowParameters.class放到test/WEB-INF/classes下面，在web.xml进行配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ShowParameters<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>ShowParameters<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line">	</div><div class="line">	<span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ShowParameters<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/servlet/ShowParameters<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>再次重启tomcat，访问地址：<br><code>http://127.0.0.1:8888/test/ShowParametersForm.htm</code><br>可以得到如下页面：</p>
+<p><img src="3.png" alt=""></p>
+<p>提交之后就转变到servlet处理后的页面：<br><img src="4.png" alt=""></p>
+<p>由于ShowParameters.java中对参数读取采取的是：<br><code>Enumeration paramNames = request.getParameterNames();</code><br>而枚举类已经比较过时，所以现在转换为采用map的读取方式，key是参数名，是String类型，value是参数值，是一个String数组，这样就可以采取迭代器方式进行读取。</p>
+<p>程序为ShowParametersMap.java：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.*;</div><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="comment">//获取所有的参数</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShowParametersMap</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line"><span class="function">         <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">      response.setContentType(<span class="string">"text/html;charset=gb2312"</span>);</div><div class="line">      PrintWriter out = response.getWriter();</div><div class="line">      String title = <span class="string">"Reading All Request Parameters"</span>;</div><div class="line">      out.println(<span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;读取所有参数&lt;/title&gt;&lt;/head&gt;"</span></div><div class="line">            + <span class="string">"&lt;BODY BGCOLOR='#FDF5E6'&gt;\n"</span> + <span class="string">"&lt;H1 ALIGN=CENTER&gt;"</span> + title</div><div class="line">            + <span class="string">"&lt;/H1&gt;\n"</span> + <span class="string">"&lt;TABLE BORDER=1 ALIGN=CENTER&gt;\n"</span></div><div class="line">            + <span class="string">"&lt;TR BGCOLOR=\"#FFAD00\"&gt;\n"</span></div><div class="line">            + <span class="string">"&lt;TH&gt;Parameter Name&lt;TH&gt;Parameter Value(s)"</span>);</div><div class="line">      Map&lt;String, String[]&gt; paramMap = request.getParameterMap();</div><div class="line">      Set&lt;Map.Entry&lt;String, String[]&gt;&gt; entries = paramMap.entrySet(); </div><div class="line">      <span class="keyword">for</span>(Iterator&lt;Map.Entry&lt;String, String[]&gt;&gt; it = entries.iterator(); it.hasNext(); ) &#123;</div><div class="line">         Map.Entry&lt;String, String[]&gt; entry = it.next();</div><div class="line">         String paramName = entry.getKey();</div><div class="line">         out.print(<span class="string">"&lt;TR&gt;&lt;TD&gt;"</span> + paramName + <span class="string">"\n&lt;TD&gt;"</span>);</div><div class="line">         String[] paramValues = entry.getValue();</div><div class="line">         <span class="keyword">if</span> (paramValues.length == <span class="number">1</span>) &#123;</div><div class="line">            String paramValue = paramValues[<span class="number">0</span>];</div><div class="line">            <span class="keyword">if</span> (paramValue.length() == <span class="number">0</span>)</div><div class="line">               out.println(<span class="string">"&lt;I&gt;No Value&lt;/I&gt;"</span>);</div><div class="line">            <span class="keyword">else</span></div><div class="line">               out.println(paramValue);</div><div class="line">         &#125; <span class="keyword">else</span> &#123;</div><div class="line">            out.println(<span class="string">"&lt;UL&gt;"</span>);</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; paramValues.length; i++) &#123;</div><div class="line">               out.println(<span class="string">"&lt;LI&gt;"</span> + paramValues[i]);</div><div class="line">            &#125;</div><div class="line">            out.println(<span class="string">"&lt;/UL&gt;"</span>);</div><div class="line">         &#125;</div><div class="line">      &#125;</div><div class="line">      out.println(<span class="string">"&lt;/TABLE&gt;\n&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line"><span class="function">         <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">      doGet(request, response);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/J2EE/" rel="tag"># J2EE</a>
+          
+            <a href="/tags/Servlet/" rel="tag"># Servlet</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/10/JSP1/" rel="next" title="Jsp&Servlet笔记（一）Tomcat初步">
+                <i class="fa fa-chevron-left"></i> Jsp&Servlet笔记（一）Tomcat初步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第七课-servlet-1"><span class="nav-number">1.</span> <span class="nav-text">第七课. servlet_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课-servlet-2"><span class="nav-number">2.</span> <span class="nav-text">第八课. servlet_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课-servlet-3"><span class="nav-number">3.</span> <span class="nav-text">第九课. servlet_3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十课-servlet-4"><span class="nav-number">4.</span> <span class="nav-text">第十课. servlet_4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十一课-servlet-5"><span class="nav-number">5.</span> <span class="nav-text">第十一课. servlet_5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十二课-通过request读取所有参数"><span class="nav-number">6.</span> <span class="nav-text">第十二课.  通过request读取所有参数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
