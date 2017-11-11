@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode | 258.Add Digits（数位相加）]]></title>
+    <url>%2F2017%2F11%2F11%2Fleetcode258%2F</url>
+    <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/add-digits/description/ 这道题最简单的办法，就是将所有位置上的数加起来，判断是不是大于9，如果是，再循环一次，直到小于等于9，返回。AC代码如下：1234567891011121314class Solution &#123; public int addDigits(int num) &#123; int sum = 0; while(num &gt; 9)&#123; while(num &gt; 0)&#123; sum += num % 10; num = num/10; &#125; num = sum; sum = 0; &#125; return num; &#125;&#125; 这道题其实还有更简单的办法，因为这道题其实是一道数学题。即数字根（Digital root）,公式为： AC代码为：123456789class Solution &#123;public: int floor(int x) &#123; return (x - 1) / 9; &#125; int addDigits(int num) &#123; return num - 9 * floor(num); &#125;&#125;;]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>数学题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 677.Beautiful Arrangement II(优雅排序2)]]></title>
     <url>%2F2017%2F11%2F11%2Fleetcode667%2F</url>
     <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/beautiful-arrangement-ii/description/ 一开始想到的是用回溯法来构造不同的序列，然后对这个序列进行判断，看看是否满足规则。这里用到了全排列的递归思想： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970class Solution &#123; private ArrayList&lt;ArrayList&lt;Integer&gt;&gt; permutations(int[] nums) &#123; //ans用于存放全排列后的所有数组 ArrayList&lt;ArrayList&lt;Integer&gt;&gt; ans = new ArrayList&lt;ArrayList&lt;Integer&gt;&gt;(); //从0开始进行排列 permute(ans, nums, 0); return ans; &#125; private void permute(ArrayList&lt;ArrayList&lt;Integer&gt;&gt; ans, int[] nums, int start) &#123; //如果已经到了数组的最后一个元素，前面的元素已经排好，输出。 if (start &gt;= nums.length) &#123; ArrayList&lt;Integer&gt; cur = new ArrayList&lt;Integer&gt;(); for (int x : nums) cur.add(x); ans.add(cur); &#125; else &#123; //把第一个元素分别与后面的元素进行交换，递归的调用其子数组进行排序 for (int i = start; i &lt; nums.length; i++) &#123; swap(nums, start, i); permute(ans, nums, start+1); swap(nums, start, i); //子数组排序返回后要将第一个元素交换回来。 //如果不交换回来会出错，比如说第一次1、2交换，第一个位置为2，子数组排序返回后如果不将1、2 //交换回来第二次交换的时候就会将2、3交换，因此必须将1、2交换使1还是在第一个位置 &#125; &#125; &#125; //两个数的交换 private void swap(int[] nums, int i, int j) &#123; int temp = nums[i]; nums[i] = nums[j]; nums[j] = temp; &#125; private int numUniqueDiffs(ArrayList&lt;Integer&gt; arr) &#123; boolean[] seen = new boolean[arr.size()]; int ans = 0; for (int i = 0; i &lt; arr.size() - 1; i++) &#123; int delta = Math.abs(arr.get(i) - arr.get(i+1)); if (!seen[delta]) &#123; ans++; seen[delta] = true; &#125; &#125; return ans; &#125; public int[] constructArray(int n, int k) &#123; int[] nums = new int[n]; //先创建一个升序排列的递增序列 for (int i = 0; i &lt; n; i++) &#123; nums[i] = i+1; &#125; //将nums进行全排列，然后依次判断每一个排列 for (ArrayList&lt;Integer&gt; cand : permutations(nums)) &#123; //判断是符合标准的 if (numUniqueDiffs(cand) == k) &#123; int[] ans = new int[n]; int i = 0; for (int x : cand) ans[i++] = x; return ans; &#125; &#125; return null; &#125;&#125; 后来发现这个方法太暴力，就开始发掘其中的规律。发现这个题是一个很简单的规律题首先我们确定的一点：元素差最多的个数是n-1个，这个n-1的构成也很容易发现，较大的数和较小的数交替形成的序列就满足要求。例如，我们假设n= 6，k = 5，那么这个序列就是 6 1 5 2 4 3 形成的k个元素差为： 5 4 3 2 1 （反向也是可以的 即 1 6 2 5 3 4）若k不等于n-1，我们只需要按上述规律形成满足k-1的序列，剩余序列按递减序即可（剩余的差值都为1）。 AC代码为：123456789101112131415161718192021222324class Solution &#123; public int[] constructArray(int n, int k) &#123; int[] res = new int[n]; int cur = 1; int sign = 1; res[0] = 1; int pos = 1; for(int i = k; i &gt; 0; i--)&#123; res[pos] = res[pos - 1] + sign* i; sign = sign * (-1); pos ++; &#125; for( ; pos &lt; n; pos ++)&#123; res[pos] = pos + 1; &#125; return res; &#125; &#125;]]></content>
@@ -20,8 +32,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
@@ -32,8 +44,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>J2EE</tag>
         <tag>Tomcat</tag>
+        <tag>J2EE</tag>
       </tags>
   </entry>
   <entry>
@@ -113,8 +125,8 @@
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>MySQL</tag>
         <tag>数据库</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -198,8 +210,8 @@
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>数据库</tag>
         <tag>Oracle</tag>
+        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
@@ -210,8 +222,8 @@
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>数据库</tag>
         <tag>Oracle</tag>
+        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
@@ -222,8 +234,8 @@
         <category>数据库</category>
       </categories>
       <tags>
-        <tag>数据库</tag>
         <tag>Oracle</tag>
+        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
