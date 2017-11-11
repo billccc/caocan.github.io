@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="leetcode,全排列," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="亦狂亦侠亦温文">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://caocan.github.io/tags/index.html">
+<meta name="description" content="题目描述：https://leetcode.com/problems/beautiful-arrangement-ii/description/ 一开始想到的是用回溯法来构造不同的序列，然后对这个序列进行判断，看看是否满足规则。这里用到了全排列的递归思想：">
+<meta name="keywords" content="leetcode,全排列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode | 677.Beautiful Arrangement II(优雅排序2)">
+<meta property="og:url" content="https://caocan.github.io/2017/11/11/leetcode667/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="亦狂亦侠亦温文">
+<meta property="og:description" content="题目描述：https://leetcode.com/problems/beautiful-arrangement-ii/description/ 一开始想到的是用回溯法来构造不同的序列，然后对这个序列进行判断，看看是否满足规则。这里用到了全排列的递归思想：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-05T11:50:38.511Z">
+<meta property="og:image" content="https://caocan.github.io/2017/11/11/leetcode667/1.jpg">
+<meta property="og:updated_time" content="2017-11-11T09:58:31.301Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="亦狂亦侠亦温文">
+<meta name="twitter:title" content="LeetCode | 677.Beautiful Arrangement II(优雅排序2)">
+<meta name="twitter:description" content="题目描述：https://leetcode.com/problems/beautiful-arrangement-ii/description/ 一开始想到的是用回溯法来构造不同的序列，然后对这个序列进行判断，看看是否满足规则。这里用到了全排列的递归思想：">
+<meta name="twitter:image" content="https://caocan.github.io/2017/11/11/leetcode667/1.jpg">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://caocan.github.io/tags/"/>
+  <link rel="canonical" href="https://caocan.github.io/2017/11/11/leetcode667/"/>
 
 
 
 
 
-  <title>tags | 曹のBlog</title>
+  <title>LeetCode | 677.Beautiful Arrangement II(优雅排序2) | 曹のBlog</title>
   
 
 
@@ -274,40 +277,172 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/11/leetcode667/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 21 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Git/" style="font-size: 21px; color: #6f6f6f">Git</a> <a href="/tags/HashMap/" style="font-size: 12px; color: #ccc">HashMap</a> <a href="/tags/J2EE/" style="font-size: 15px; color: #adadad">J2EE</a> <a href="/tags/Java-SE/" style="font-size: 30px; color: #111">Java SE</a> <a href="/tags/Java编程思想/" style="font-size: 27px; color: #303030">Java编程思想</a> <a href="/tags/MySQL/" style="font-size: 12px; color: #ccc">MySQL</a> <a href="/tags/Oracle/" style="font-size: 18px; color: #8e8e8e">Oracle</a> <a href="/tags/Servlet/" style="font-size: 12px; color: #ccc">Servlet</a> <a href="/tags/Tomcat/" style="font-size: 12px; color: #ccc">Tomcat</a> <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/tags/leetcode/" style="font-size: 24px; color: #4f4f4f">leetcode</a> <a href="/tags/全排列/" style="font-size: 12px; color: #ccc">全排列</a> <a href="/tags/前端/" style="font-size: 12px; color: #ccc">前端</a> <a href="/tags/字典树/" style="font-size: 12px; color: #ccc">字典树</a> <a href="/tags/字符串/" style="font-size: 12px; color: #ccc">字符串</a> <a href="/tags/数学建模/" style="font-size: 12px; color: #ccc">数学建模</a> <a href="/tags/数据库/" style="font-size: 21px; color: #6f6f6f">数据库</a> <a href="/tags/树/" style="font-size: 12px; color: #ccc">树</a> <a href="/tags/贪心算法/" style="font-size: 12px; color: #ccc">贪心算法</a> <a href="/tags/递归/" style="font-size: 15px; color: #adadad">递归</a> <a href="/tags/集合/" style="font-size: 12px; color: #ccc">集合</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">LeetCode | 677.Beautiful Arrangement II(优雅排序2)</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-11T17:10:29+08:00">
+                2017-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>题目描述：<br><a href="https://leetcode.com/problems/beautiful-arrangement-ii/description/" target="_blank" rel="external">https://leetcode.com/problems/beautiful-arrangement-ii/description/</a></p>
+<p>一开始想到的是用回溯法来构造不同的序列，然后对这个序列进行判断，看看是否满足规则。这里用到了全排列的递归思想：<br><a id="more"></a><br><img src="1.jpg" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; permutations(<span class="keyword">int</span>[] nums) &#123;</div><div class="line">        <span class="comment">//ans用于存放全排列后的所有数组</span></div><div class="line">        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();</div><div class="line">        <span class="comment">//从0开始进行排列</span></div><div class="line">        permute(ans, nums, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">permute</span><span class="params">(ArrayList&lt;ArrayList&lt;Integer&gt;&gt; ans, <span class="keyword">int</span>[] nums, <span class="keyword">int</span> start)</span> </span>&#123;</div><div class="line">        <span class="comment">//如果已经到了数组的最后一个元素，前面的元素已经排好，输出。</span></div><div class="line">        <span class="keyword">if</span> (start &gt;= nums.length) &#123;</div><div class="line">            ArrayList&lt;Integer&gt; cur = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x : nums) cur.add(x);</div><div class="line">            ans.add(cur);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">//把第一个元素分别与后面的元素进行交换，递归的调用其子数组进行排序</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt; nums.length; i++) &#123;</div><div class="line">                swap(nums, start, i);</div><div class="line">                permute(ans, nums, start+<span class="number">1</span>);</div><div class="line">                swap(nums, start, i);</div><div class="line">                <span class="comment">//子数组排序返回后要将第一个元素交换回来。  </span></div><div class="line">                <span class="comment">//如果不交换回来会出错，比如说第一次1、2交换，第一个位置为2，子数组排序返回后如果不将1、2</span></div><div class="line">                <span class="comment">//交换回来第二次交换的时候就会将2、3交换，因此必须将1、2交换使1还是在第一个位置 </span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//两个数的交换</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> temp = nums[i];</div><div class="line">        nums[i] = nums[j];</div><div class="line">        nums[j] = temp;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">numUniqueDiffs</span><span class="params">(ArrayList&lt;Integer&gt; arr)</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span>[] seen = <span class="keyword">new</span> <span class="keyword">boolean</span>[arr.size()];</div><div class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.size() - <span class="number">1</span>; i++) &#123;</div><div class="line">            <span class="keyword">int</span> delta = Math.abs(arr.get(i) - arr.get(i+<span class="number">1</span>));</div><div class="line">            <span class="keyword">if</span> (!seen[delta]) &#123;</div><div class="line">                ans++;</div><div class="line">                seen[delta] = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] constructArray(<span class="keyword">int</span> n, <span class="keyword">int</span> k) &#123;</div><div class="line">        <span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[n];</div><div class="line">        <span class="comment">//先创建一个升序排列的递增序列</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            nums[i] = i+<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//将nums进行全排列，然后依次判断每一个排列</span></div><div class="line">        <span class="keyword">for</span> (ArrayList&lt;Integer&gt; cand : permutations(nums)) &#123;</div><div class="line">            </div><div class="line">            <span class="comment">//判断是符合标准的</span></div><div class="line">            <span class="keyword">if</span> (numUniqueDiffs(cand) == k) &#123;</div><div class="line">                <span class="keyword">int</span>[] ans = <span class="keyword">new</span> <span class="keyword">int</span>[n];</div><div class="line">                <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> x : cand) ans[i++] = x;</div><div class="line">                <span class="keyword">return</span> ans;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>后来发现这个方法太暴力，就开始发掘其中的规律。发现这个题是一个很简单的规律题首先我们确定的一点：元素差最多的个数是n-1个，这个n-1的构成也很容易发现，较大的数和较小的数交替形成的序列就满足要求。例如，我们假设n= 6，k = 5，那么这个序列就是 6 1 5 2 4 3 形成的k个元素差为： 5 4 3 2 1 （反向也是可以的 即 1 6 2 5 3 4）若k不等于n-1，我们只需要按上述规律形成满足k-1的序列，剩余序列按递减序即可（剩余的差值都为1）。</p>
+<p>AC代码为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] constructArray(<span class="keyword">int</span> n, <span class="keyword">int</span> k) &#123;</div><div class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n];</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> cur = <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> sign = <span class="number">1</span>;</div><div class="line"></div><div class="line">        res[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> pos = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = k; i &gt; <span class="number">0</span>; i--)&#123;</div><div class="line">            res[pos] = res[pos - <span class="number">1</span>] + sign* i;</div><div class="line">            sign = sign * (-<span class="number">1</span>);</div><div class="line">            pos ++;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>( ; pos &lt; n; pos ++)&#123;</div><div class="line">            res[pos] = pos + <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+            <a href="/tags/全排列/" rel="tag"># 全排列</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/10/JSP2/" rel="next" title="Jsp&Servlet笔记（二）Servlet初步">
+                <i class="fa fa-chevron-left"></i> Jsp&Servlet笔记（二）Servlet初步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
