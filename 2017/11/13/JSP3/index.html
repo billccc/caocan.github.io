@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Servlet,J2EE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本篇介绍的是关于Cookie，Session,Application和Java Bean的一些原理和使用方法。">
+<meta name="keywords" content="Servlet,J2EE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jsp&amp;Servlet笔记（二）Cookie，Session,Application和Java Bean">
+<meta property="og:url" content="https://caocan.github.io/2017/11/13/JSP3/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本篇介绍的是关于Cookie，Session,Application和Java Bean的一些原理和使用方法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/16.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/17.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/13/JSP3/18.png">
+<meta property="og:updated_time" content="2017-11-13T08:25:26.577Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jsp&amp;Servlet笔记（二）Cookie，Session,Application和Java Bean">
+<meta name="twitter:description" content="本篇介绍的是关于Cookie，Session,Application和Java Bean的一些原理和使用方法。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/11/13/JSP3/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/11/13/JSP3/"/>
+
+
+
+
+
+  <title>Jsp&Servlet笔记（二）Cookie，Session,Application和Java Bean | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/13/JSP3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jsp&Servlet笔记（二）Cookie，Session,Application和Java Bean</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T15:54:10+08:00">
+                2017-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Jsp/" itemprop="url" rel="index">
+                    <span itemprop="name">Jsp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇介绍的是关于Cookie，Session,Application和Java Bean的一些原理和使用方法。<br><a id="more"></a></p>
+<h2 id="第十三课-Cookie-1"><a href="#第十三课-Cookie-1" class="headerlink" title="第十三课 Cookie_1"></a>第十三课 Cookie_1</h2><p>HTTP是无状态的<br>有状态：Server知道Client以前在我这儿做过什么事儿</p>
+<p>处理Cookie</p>
+<ul>
+<li>Http协议的无连接性要求出现一种保存C/S间状态的机制</li>
+<li>Cookie：保存到客户端的一个文本文件，与特定客户相关</li>
+<li>Cookie以“名-值”对的形式保存数据</li>
+<li>创建Cookie：new Cookie(name,value)</li>
+<li>可以使用Cookie 的setXXX方法来设定一些相应的值<blockquote>
+<ul>
+<li>setName(String name)/getName()</li>
+<li>setValue(String value)/getValue()</li>
+<li>setMaxAge(int age)/getMaxAge()</li>
+<li>利用HttpServletResponse的addCookie(Cookie)方法将它设置到客户端</li>
+<li>利用HttpServletRequest的getCookies()方法来读取客户端的所有Cookie，返回一个Cookie数组</li>
+</ul>
+</blockquote>
+</li>
+<li>设置Cookie<blockquote>
+<ul>
+<li>SetCookies.java</li>
+</ul>
+</blockquote>
+</li>
+<li>读取Cookie<blockquote>
+<ul>
+<li>ShowCookies.java</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>1:服务器可以向客户端写内容<br>2:只能是文本内容<br>3:客户端可以阻止服务器写入<br>4:只能拿自己webapp写入的东西<br>5:Cookie分为两种</p>
+<blockquote>
+<p>属于窗口/子窗口（放在内存中的）<br>属于文本(有生命周期的）</p>
+</blockquote>
+<p>6:一个servlet/jsp设置的cookies能够被同一个路径下面或者子路径下面的<br>servlet/jsp读到 (路径 = URL)<br>(路径 != 真实文件路径)</p>
+<h2 id="第十四课-Cookie-2"><a href="#第十四课-Cookie-2" class="headerlink" title="第十四课 Cookie_2"></a>第十四课 Cookie_2</h2><p>SetCookies.java：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.*;</div><div class="line"></div><div class="line"><span class="comment">//设置Cookie</span></div><div class="line"></div><div class="line"><span class="comment">//1:服务器可以向客户端写内容</span></div><div class="line"><span class="comment">//2:只能是文本内容</span></div><div class="line"><span class="comment">//3:客户端可以阻止服务器写入</span></div><div class="line"><span class="comment">//4:只能拿自己webapp写入的东西</span></div><div class="line"><span class="comment">//5:Cookie分为两种,第一种：属于窗口/子窗口（放在内存中的），第二种：属于文本(有生命周期的）</span></div><div class="line"><span class="comment">//6:一个servlet/jsp设置的cookies能够被同一个路径下面或者子路径下面的servlet/jsp读到 (路径 = URL)(路径 != 真实文件路径)</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SetCookies</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line"><span class="function">         <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</div><div class="line">         <span class="comment">// Default maxAge is -1, indicating cookie applies only to current browsing session.</span></div><div class="line">         Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"Session-Cookie-"</span> + i, <span class="string">"Cookie-Value-S"</span> + i);</div><div class="line">         response.addCookie(cookie);</div><div class="line"></div><div class="line">         cookie = <span class="keyword">new</span> Cookie(<span class="string">"Persistent-Cookie-"</span> + i, <span class="string">"Cookie-Value-P"</span> + i);</div><div class="line">         <span class="comment">// Cookie is valid for an hour, regardless of whether user quits browser, reboots computer, or whatever.</span></div><div class="line">         cookie.setMaxAge(<span class="number">3600</span>);</div><div class="line">         response.addCookie(cookie);</div><div class="line">      &#125;</div><div class="line">      response.setContentType(<span class="string">"text/html;charset=gb2312"</span>);</div><div class="line">      PrintWriter out = response.getWriter();</div><div class="line">      out.println(<span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;设置Cookie&lt;/title&gt;&lt;/head&gt;"</span></div><div class="line">            + <span class="string">"&lt;BODY&gt;\n"</span> </div><div class="line">            + <span class="string">"&lt;H1 ALIGN=\"CENTER\"&gt;"</span></div><div class="line">            + <span class="string">"设置Cookie"</span> + <span class="string">"&lt;/H1&gt;\n"</span></div><div class="line">            + <span class="string">"6个Cookie\n"</span></div><div class="line">            + <span class="string">"&lt;A HREF=\"ShowCookies\"&gt;\n"</span></div><div class="line">            + <span class="string">"查看&lt;/A&gt;.\n"</span></div><div class="line">            + <span class="string">"&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ShowCookies.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// Source code recreated from a .class file by IntelliJ IDEA</span></div><div class="line"><span class="comment">// (powered by Fernflower decompiler)</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintWriter;</div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShowCookies</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ShowCookies</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        response.setContentType(<span class="string">"text/html;charset=gb2312"</span>);</div><div class="line">        PrintWriter out = response.getWriter();</div><div class="line">        String title = <span class="string">"Active Cookies"</span>;</div><div class="line">        out.println(<span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;获取客户端Cookie&lt;/title&gt;&lt;/head&gt;&lt;BODY BGCOLOR=\"#FDF5E6\"&gt;\n&lt;H1 ALIGN=\"CENTER\"&gt;"</span> + title + <span class="string">"&lt;/H1&gt;\n&lt;TABLE BORDER=1 ALIGN=\"CENTER\"&gt;\n&lt;TR BGCOLOR=\"#FFAD00\"&gt;\n  &lt;TH&gt;Cookie Name\n  &lt;TH&gt;Cookie Value"</span>);</div><div class="line">        Cookie[] cookies = request.getCookies();</div><div class="line">        <span class="keyword">if</span> (cookies != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cookies.length; ++i) &#123;</div><div class="line">                Cookie cookie = cookies[i];</div><div class="line">                out.println(<span class="string">"&lt;TR&gt;\n  &lt;TD&gt;"</span> + cookie.getName() + <span class="string">"&lt;/TD&gt;\n  &lt;TD&gt;"</span> + cookie.getValue() + <span class="string">"&lt;/TD&gt;&lt;/TR&gt;\n"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        out.println(<span class="string">"&lt;/TABLE&gt;&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>访问设置cookie的页面：<br><img src="1.png" alt=""></p>
+<p>点击超链接，显示出现在的cookie：<br><img src="2.png" alt=""></p>
+<p>然后我们到浏览器查看cookie，发现这六个cookie都是存在的：<br><img src="3.png" alt=""></p>
+<h2 id="第十五课-Cookie-3"><a href="#第十五课-Cookie-3" class="headerlink" title="第十五课 Cookie_3"></a>第十五课 Cookie_3</h2><p>做一个实验，将浏览器中cookie清理干净，将web.xml中的<br><code>&lt;url-pattern&gt;/servlet/ShowCookies&lt;/url-pattern&gt;</code><br>改为：<br><code>&lt;url-pattern&gt;/ ShowCookies&lt;/url-pattern&gt;</code></p>
+<p>tomcat重新reload之后，先访问<br><a href="http://127.0.0.1:8888/test/servlet/SetCookies" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/SetCookies</a></p>
+<p>再访问<br><a href="http://127.0.0.1:8888/test/ShowCookies" target="_blank" rel="external">http://127.0.0.1:8888/test/ShowCookies</a></p>
+<p>发现页面中没有任何cookie被显示出来</p>
+<p>再做第二个实验：</p>
+<p>将浏览器中cookie清理干净，将web.xml中的<br><code>&lt;url-pattern&gt;/ ShowCookies&lt;/url-pattern&gt;</code><br>改回<br><code>&lt;url-pattern&gt;/servlet/ShowCookies&lt;/url-pattern&gt;</code></p>
+<p>将<br><code>&lt;url-pattern&gt;/servlet /SetCookies&lt;/url-pattern&gt;</code><br>改为<br><code>&lt;url-pattern&gt;/SetCookies&lt;/url-pattern&gt;</code></p>
+<p>等tomcat重新reload之后，先访问<br><a href="http://127.0.0.1:8888/test/SetCookies" target="_blank" rel="external">http://127.0.0.1:8888/test/SetCookies</a><br>再访问：<br><a href="http://127.0.0.1:8888/test/servlet/ShowCookies" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/ShowCookies</a></p>
+<p>发现六个cookie都被显示出来。</p>
+<p>结论：<br>一个servlet/jsp设置的cookies能够被<br>同一个路径下面或者子路径下面的<br>servlet/jsp读到 (路径 = URL)<br>(路径 != 真实文件路径)</p>
+<h2 id="第十六课-Session-1"><a href="#第十六课-Session-1" class="headerlink" title="第十六课. Session_1"></a>第十六课. Session_1</h2><p>Session：在某段时间一连串客户端与服务器端的“交易”</p>
+<p>一、</p>
+<p>我们通过程序SessionInfoServlet.java来演示Session：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.*;</div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 用于演示Servlet API中的Session管理机制</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionInfoServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span></div><div class="line"><span class="class"></span>&#123;</div><div class="line">  <span class="comment">/**</span></div><div class="line"><span class="comment">   * Builds an HTML document containing session information and</span></div><div class="line"><span class="comment">   * returns it to the client.</span></div><div class="line"><span class="comment">   */</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request,</span></span></div><div class="line"><span class="function"><span class="params">    HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException,</span></div><div class="line"><span class="function">    IOException</span></div><div class="line"><span class="function">  </span>&#123;</div><div class="line">    <span class="comment">//get current session or, if necessary, create a new one</span></div><div class="line">    HttpSession mySession = request.getSession(<span class="keyword">true</span>);</div><div class="line"></div><div class="line">    <span class="comment">//MIME type to return is HTML</span></div><div class="line">    response.setContentType(<span class="string">"text/html"</span>);</div><div class="line"></div><div class="line">    <span class="comment">//get a handle to the output stream</span></div><div class="line">    PrintWriter out = response.getWriter();</div><div class="line"></div><div class="line">    <span class="comment">//generate HTML document</span></div><div class="line">    out.println(<span class="string">"&lt;HTML&gt;"</span>);</div><div class="line">    out.println(<span class="string">"&lt;HEAD&gt;"</span>);</div><div class="line">    out.println(<span class="string">"&lt;TITLE&gt;Session Info Servlet&lt;/TITLE&gt;"</span>);</div><div class="line">    out.println(<span class="string">"&lt;/HEAD&gt;"</span>);</div><div class="line">    out.println(<span class="string">"&lt;BODY&gt;"</span>);</div><div class="line">    out.println(<span class="string">"&lt;H3&gt;Session Information&lt;/H3&gt;"</span>);</div><div class="line">    out.println(<span class="string">"New Session: "</span> + mySession.isNew());</div><div class="line">    out.println(<span class="string">"&lt;BR&gt;Session ID: "</span> + mySession.getId());</div><div class="line">    out.println(<span class="string">"&lt;BR&gt;Session Creation Time: "</span> +</div><div class="line">      <span class="keyword">new</span> java.util.Date(mySession.getCreationTime()));</div><div class="line">    out.println(<span class="string">"&lt;BR&gt;Session Last Accessed Time: "</span> +</div><div class="line">      <span class="keyword">new</span> java.util.Date(mySession.getLastAccessedTime()));</div><div class="line"></div><div class="line">    out.println(<span class="string">"&lt;H3&gt;Request Information&lt;/H3&gt;"</span>);</div><div class="line">    out.println(<span class="string">"Session ID from Request: "</span> +</div><div class="line">      request.getRequestedSessionId());</div><div class="line">    out.println(<span class="string">"&lt;BR&gt;Session ID via Cookie: "</span> +</div><div class="line">      request.isRequestedSessionIdFromCookie());</div><div class="line">    out.println(<span class="string">"&lt;BR&gt;Session ID via rewritten URL: "</span> +</div><div class="line">      request.isRequestedSessionIdFromURL());</div><div class="line">    out.println(<span class="string">"&lt;BR&gt;Valid Session ID: "</span> +</div><div class="line">      request.isRequestedSessionIdValid());</div><div class="line"></div><div class="line">    out.println(<span class="string">"&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</div><div class="line"></div><div class="line">    out.close(); <span class="comment">//close output stream</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line"><span class="comment">   * Returns a brief description of this servlet.</span></div><div class="line"><span class="comment">   *</span></div><div class="line"><span class="comment">   * <span class="doctag">@return</span> Brief description of servlet</span></div><div class="line"><span class="comment">   */</span></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getServletInfo</span><span class="params">()</span></span></div><div class="line"><span class="function">  </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"Servlet returns session information."</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>配置web.xml文件：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>SessionInfoServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>SessionInfoServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>SessionInfoServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/servlet/SessionInfoServlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行<br><a href="http://127.0.0.1:8888/test/servlet/SessionInfoServlet" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/SessionInfoServlet</a></p>
+<p>得到<br><img src="4.png" alt=""></p>
+<p>再运行：<br><a href="http://127.0.0.1:8888/test/servlet/ShowCookies" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/ShowCookies</a></p>
+<p>可以看到：<br><img src="5.png" alt=""></p>
+<p>发现和上面的Session ID是相同的。</p>
+<p>结论：如果浏览器支持Cookie, 创建Session的时候会把SessionID保存在Cookie里</p>
+<p>二、<br>设置浏览器，阻止存取cookie<br><img src="6.png" alt=""><br>运行<br><a href="http://127.0.0.1:8888/test/servlet/SessionInfoServlet" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/SessionInfoServlet</a><br><img src="7.png" alt=""></p>
+<p>发现每次刷新后，Session ID都在变化，因为cookie没有存取。</p>
+<h2 id="第十七课-Session-2"><a href="#第十七课-Session-2" class="headerlink" title="第十七课. Session_2"></a>第十七课. Session_2</h2><p>上面就是因为把cookie禁掉以后产生的Session ID变化效果，那怎么样解决这个问题呢？</p>
+<p>如果不支持Cookie, 必须自己编程使用URL重写的方式实现Session，用到的方法是：<br>response.encodeURL()<br>    1.转码<br>    2.URL后面加上SessionID</p>
+<p>代码实现就是在上面的SessionInfoServlet.java中进行修改，就是将<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">out.println(<span class="string">"&lt;BR&gt;Valid Session ID: "</span> + request.isRequestedSessionIdValid());</div><div class="line"></div><div class="line">out.println(<span class="string">"&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</div></pre></td></tr></table></figure></p>
+<p>改为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">out.println(<span class="string">"&lt;BR&gt;Valid Session ID: "</span> + request.isRequestedSessionIdValid());</div><div class="line">out.println(<span class="string">"&lt;br&gt;&lt;a href="</span> + response.encodeURL(<span class="string">"SessionInfoServlet"</span>) + <span class="string">"&gt;refresh&lt;/a&gt;"</span>);</div><div class="line">out.println(<span class="string">"&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</div></pre></td></tr></table></figure>
+<p>这样在每次浏览器进行刷新的时候，URL后面都会跟上一串固定的SessionID:<br><img src="8.png" alt=""></p>
+<h2 id="第十八课-Session-3"><a href="#第十八课-Session-3" class="headerlink" title="第十八课. Session_3"></a>第十八课. Session_3</h2><p>tomcat目录下的conf目录有一个web.xml，可以在里面对session过期时间进行设置，可以看到我们这里的过期时间是30分钟<br><img src="9.png" alt=""></p>
+<p>管理Session的一些常用方法：</p>
+<ul>
+<li>getRequestedSessionId()：返回随客户端请求到来的会话ID。可能与当前的会话ID相同，也可能不同。</li>
+<li>getSession(boolean isNew)：如果会话已经存在，则返回一个HttpSession，如果不存在并且isNew为true，则会新建一个HttpSession</li>
+<li>isRequestedSessionIdFromCookie()：当前的Session ID如果是从Cookie获得，为true</li>
+<li>isRequestedSessionIdFromURL():当前Session ID如果是由URL获得，为true</li>
+<li>isRequestedSessionIdValid()：如果客户端的会话ID代表的是有效会话，则返回true。否则（比如，会话过期或根本不存在），返回false</li>
+</ul>
+<h2 id="第十九课-Session-4"><a href="#第十九课-Session-4" class="headerlink" title="第十九课. Session_4"></a>第十九课. Session_4</h2><p>跟踪Session代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.*;</div><div class="line"><span class="keyword">import</span> java.net.*;</div><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="comment">//Session追踪</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShowSession</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line"><span class="function">         <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">      response.setContentType(<span class="string">"text/html"</span>);</div><div class="line">      PrintWriter out = response.getWriter();</div><div class="line">      String title = <span class="string">"Session Tracking Example"</span>;</div><div class="line">      HttpSession session = request.getSession(<span class="keyword">true</span>);</div><div class="line">      String heading;</div><div class="line">      <span class="comment">// Use getAttribute instead of getValue in version 2.2.</span></div><div class="line">      Integer accessCount = (Integer) session.getAttribute(<span class="string">"accessCount"</span>);</div><div class="line">      <span class="keyword">if</span> (accessCount == <span class="keyword">null</span>) &#123;</div><div class="line">         accessCount = <span class="keyword">new</span> Integer(<span class="number">0</span>);</div><div class="line">         heading = <span class="string">"Welcome, Newcomer"</span>;</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">         heading = <span class="string">"Welcome Back"</span>;</div><div class="line">         accessCount = <span class="keyword">new</span> Integer(accessCount.intValue() + <span class="number">1</span>);</div><div class="line">      &#125;</div><div class="line">      <span class="comment">// Use setAttribute instead of putValue in version 2.2.</span></div><div class="line">      session.setAttribute(<span class="string">"accessCount"</span>, accessCount);</div><div class="line"></div><div class="line">      out.println(<span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;Session追踪&lt;/title&gt;&lt;/head&gt;"</span></div><div class="line">            + <span class="string">"&lt;BODY BGCOLOR=\"#FDF5E6\"&gt;\n"</span> + <span class="string">"&lt;H1 ALIGN=\"CENTER\"&gt;"</span></div><div class="line">            + heading + <span class="string">"&lt;/H1&gt;\n"</span></div><div class="line">            + <span class="string">"&lt;H2&gt;Information on Your Session:&lt;/H2&gt;\n"</span></div><div class="line">            + <span class="string">"&lt;TABLE BORDER=1 ALIGN=\"CENTER\"&gt;\n"</span></div><div class="line">            + <span class="string">"&lt;TR BGCOLOR=\"#FFAD00\"&gt;\n"</span> + <span class="string">"  &lt;TH&gt;Info Type&lt;TH&gt;Value\n"</span></div><div class="line">            + <span class="string">"&lt;TR&gt;\n"</span> + <span class="string">"  &lt;TD&gt;ID\n"</span> + <span class="string">"  &lt;TD&gt;"</span> + session.getId() + <span class="string">"\n"</span></div><div class="line">            + <span class="string">"&lt;TR&gt;\n"</span> + <span class="string">"  &lt;TD&gt;Creation Time\n"</span> + <span class="string">"  &lt;TD&gt;"</span></div><div class="line">            + <span class="keyword">new</span> Date(session.getCreationTime()) + <span class="string">"\n"</span> + <span class="string">"&lt;TR&gt;\n"</span></div><div class="line">            + <span class="string">"  &lt;TD&gt;Time of Last Access\n"</span> + <span class="string">"  &lt;TD&gt;"</span></div><div class="line">            + <span class="keyword">new</span> Date(session.getLastAccessedTime()) + <span class="string">"\n"</span> + <span class="string">"&lt;TR&gt;\n"</span></div><div class="line">            + <span class="string">"  &lt;TD&gt;Number of Previous Accesses\n"</span> + <span class="string">"  &lt;TD&gt;"</span></div><div class="line">            + accessCount + <span class="string">"\n"</span> + <span class="string">"&lt;/TABLE&gt;\n"</span> + <span class="string">"&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</div><div class="line"></div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="comment">/** Handle GET and POST requests identically. */</span></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line"><span class="function">         <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">      doGet(request, response);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>HttpSession的常用方法<blockquote>
+<ul>
+<li>getAttributeNames()/getAttribute()</li>
+<li>getCreateTime()</li>
+<li>getId()</li>
+<li>getMaxInactiveInterval()</li>
+<li>invalidate()</li>
+<li>isNew()</li>
+<li>setAttribute()</li>
+<li>setMaxInactivateInterval()</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>Session不像Cookie拥有路径访问的问题</p>
+<ul>
+<li>同一个application下的servlet/jsp可以共享同一个session，前提是同一个客户端窗口</li>
+</ul>
+<p>证明这个结论，做实验：</p>
+<p>修改web.xml，将<br><code>&lt;url-pattern&gt;/servlet/ShowSession&lt;/url-pattern&gt;</code><br>改为：<br><code>&lt;url-pattern&gt;/ShowSession&lt;/url-pattern&gt;</code></p>
+<p>然后访问：<br><a href="http://127.0.0.1:8888/test/servlet/SessionInfoServlet" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/SessionInfoServlet</a><br>得到页面：<br><img src="10.png" alt=""></p>
+<p>再访问：<br><a href="http://127.0.0.1:8888/test/ShowSession" target="_blank" rel="external">http://127.0.0.1:8888/test/ShowSession</a><br>显示页面：<br><img src="11.png" alt=""></p>
+<p>发现和前面的Session ID是相同的，证明了Session不存在路径问题。</p>
+<h2 id="第二十课-Application"><a href="#第二十课-Application" class="headerlink" title="第二十课. Application"></a>第二十课. Application</h2><p>Session是针对于一个客户端的特定的内存区域，而application是针对所有客户端都可以访问的内存区域</p>
+<p>每个web application的运行环境，称作一个context(上下文), servlet context是servlet运行时的上下文环境，也就是当前运行的整个webapp，比如我们之前写的webapp/test。</p>
+<p>测试Application的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.http.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> java.util.Date;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestServletContext</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request,</span></span></div><div class="line"><span class="function"><span class="params">         HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">      response.setContentType(<span class="string">"text/html;charset=gb2312"</span>);</div><div class="line">      PrintWriter out = response.getWriter();</div><div class="line"></div><div class="line">      <span class="comment">//拿到ServletContext，也就是属于所有客户端的上下文</span></div><div class="line">      ServletContext application = <span class="keyword">this</span>.getServletContext();</div><div class="line">      </div><div class="line">      </div><div class="line">      Integer accessCount = (Integer) application.getAttribute(<span class="string">"accessCount"</span>);</div><div class="line">      <span class="comment">//设置访问次数</span></div><div class="line">      <span class="keyword">if</span> (accessCount == <span class="keyword">null</span>) &#123;</div><div class="line">         accessCount = <span class="keyword">new</span> Integer(<span class="number">0</span>);</div><div class="line">         </div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">         </div><div class="line">         accessCount = <span class="keyword">new</span> Integer(accessCount.intValue() + <span class="number">1</span>);</div><div class="line">      &#125;</div><div class="line">      <span class="comment">// Use setAttribute instead of putValue in version 2.2.</span></div><div class="line">      application.setAttribute(<span class="string">"accessCount"</span>, accessCount);</div><div class="line"></div><div class="line">      out.println(<span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;Session追踪&lt;/title&gt;&lt;/head&gt;"</span></div><div class="line">            + <span class="string">"&lt;BODY BGCOLOR=\"#FDF5E6\"&gt;\n"</span> + <span class="string">"&lt;H1 ALIGN=\"CENTER\"&gt;"</span></div><div class="line">            + accessCount + <span class="string">"\n"</span> + <span class="string">"&lt;/TABLE&gt;\n"</span> + <span class="string">"&lt;/BODY&gt;&lt;/HTML&gt;"</span></div><div class="line">            + <span class="string">"&lt;/H1&gt;\n"</span>);</div><div class="line">            </div><div class="line"></div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>修改对应配置，访问：<br><a href="http://127.0.0.1:8888/test/TestServletContext" target="_blank" rel="external">http://127.0.0.1:8888/test/TestServletContext</a></p>
+<p>发现当前页码显示0<br>现在关闭这个浏览器，换一个浏览器，再访问相同网址，发现页面显示的访问次数加了1，说明application是整个web app所共享的，有点类似于静态变量。</p>
+<p>总结一下application：</p>
+<ul>
+<li>用于保存整个WebApplication的生命周期内都可以访问的数据</li>
+<li>在API中表现为ServletContext</li>
+<li>通过HttpServlet的getServletContext方法可以拿到</li>
+<li>通过ServletContext的 get / setAttribute方法取得/设置相关属性</li>
+<li>TestServletContext.java</li>
+</ul>
+<p>Servlet类本身位于包中，例如：<br>com.bjsxt.servlet.HelloWorldServlet，我们需要在classes将这个.class的完整目录创建出来：<br><img src="12.png" alt=""></p>
+<p>对应的配置文件中需要改为：<br><img src="13.png" alt=""></p>
+<h2 id="第二十一课-数据库处理"><a href="#第二十一课-数据库处理" class="headerlink" title="第二十一课. 数据库处理"></a>第二十一课. 数据库处理</h2><p>数据库处理以及在Servlet中使用Bean</p>
+<ul>
+<li>广义javabean = 普通java类</li>
+<li>狭义javabean = 符合Sun JavaBean标准的类</li>
+<li>在Servlet中使用Bean和在通常程序中使用Bean类似<blockquote>
+<ul>
+<li>属性名称第一个字母必须小写，一般private，<br>比如：private productId</li>
+<li>一般具有getters and setters</li>
+<li>要具有一个参数为空的构造方法</li>
+<li>但Bean不应具有GUI表现</li>
+<li>一般是用来实现某一业务逻辑或取得特定结果</li>
+</ul>
+</blockquote>
+</li>
+<li>示例:<blockquote>
+<ul>
+<li>连接数据库<br>–    ShowRs.java<br>–    ShowRsUseBean.java</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>首先我们来看一下连接Servlet数据库的操作，ShowRs.java代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// Source code recreated from a .class file by IntelliJ IDEA</span></div><div class="line"><span class="comment">// (powered by Fernflower decompiler)</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintWriter;</div><div class="line"><span class="keyword">import</span> java.sql.Connection;</div><div class="line"><span class="keyword">import</span> java.sql.DriverManager;</div><div class="line"><span class="keyword">import</span> java.sql.ResultSet;</div><div class="line"><span class="keyword">import</span> java.sql.SQLException;</div><div class="line"><span class="keyword">import</span> java.sql.Statement;</div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShowRs</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ShowRs</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line">        ResultSet rs = <span class="keyword">null</span>;</div><div class="line">        response.setContentType(<span class="string">"text/html"</span>);</div><div class="line">        response.setCharacterEncoding(<span class="string">"gb2312"</span>);</div><div class="line">        PrintWriter out = response.getWriter();</div><div class="line">        out.println(<span class="string">"&lt;table border=1&gt;"</span>);</div><div class="line">        out.println(<span class="string">"&lt;tr&gt;&lt;td&gt;Content:&lt;/td&gt;&lt;/tr&gt;"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line">            conn = DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost/mydata?user=root&amp;password=09129421"</span>);</div><div class="line">            stmt = conn.createStatement();</div><div class="line">            rs = stmt.executeQuery(<span class="string">"select * from article"</span>);</div><div class="line"></div><div class="line">            <span class="keyword">while</span>(rs.next()) &#123;</div><div class="line">                out.println(<span class="string">"&lt;tr&gt;"</span>);</div><div class="line">                out.println(<span class="string">"&lt;td&gt;"</span> + rs.getString(<span class="string">"title"</span>) + <span class="string">"&lt;/td&gt;"</span>);</div><div class="line">                out.println(<span class="string">"&lt;/tr&gt;"</span>);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            out.println(<span class="string">"&lt;/table&gt;"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException var18) &#123;</div><div class="line">            var18.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException var19) &#123;</div><div class="line">            var19.printStackTrace();</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (rs != <span class="keyword">null</span>) &#123;</div><div class="line">                    rs.close();</div><div class="line">                    rs = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (stmt != <span class="keyword">null</span>) &#123;</div><div class="line">                    stmt.close();</div><div class="line">                    stmt = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</div><div class="line">                    conn.close();</div><div class="line">                    conn = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span> (SQLException var17) &#123;</div><div class="line">                var17.printStackTrace();</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>将这个文件的.class拷贝到classes目录下，在web.xml进行配置，访问：<br><a href="http://127.0.0.1:8888/test/servlet/ShowRs" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/ShowRs</a><br>发现里面没有任何数据显示。<br>这时怀疑是不是数据库没有数据，于是执行命令行操作：<br><code>mysql -u root -p</code><br>进行mysql，输入我们的密码，执行<br><code>use mydata</code><br>切换到我们的数据库，<br>进行查询操作：<br><code>select * from article;</code><br>发现显示里有数据：<br><img src="14.png" alt=""></p>
+<p>这时我们再查看tomcat后台，发现报错：<br><img src="15.png" alt=""></p>
+<p>这时考虑要不要把mysql的连接驱动jar包导入到项目，思考后发现不可以，因为我们的servlet运行在tomcat上，所以我们的解决办法就是在WEB-INF下创建一个lib目录，然后把我们的connector驱动jar包放到lib目录下：<br><img src="16.png" alt=""></p>
+<p>重启tomcat，再次访问<br><a href="http://127.0.0.1:8888/test/servlet/ShowRs" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/ShowRs</a><br>发现Servlet成功将数据库中的数据取出来并显示在前端页面上：<br><img src="17.png" alt=""><br>大功告成！</p>
+<h2 id="第二十三课-UseBean"><a href="#第二十三课-UseBean" class="headerlink" title="第二十三课. UseBean"></a>第二十三课. UseBean</h2><p>DB.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DB</span> </span>&#123;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConn</span><span class="params">()</span> </span>&#123;</div><div class="line">      Connection conn = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">         Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line">         conn = DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost/mydata?user=root&amp;password=09129421"</span>);</div><div class="line">      &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      <span class="keyword">return</span> conn;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Statement <span class="title">getStatement</span><span class="params">(Connection conn)</span> </span>&#123;</div><div class="line">      Statement stmt = <span class="keyword">null</span>; </div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">         <span class="keyword">if</span>(conn != <span class="keyword">null</span>) &#123;</div><div class="line">            stmt = conn.createStatement();</div><div class="line">         &#125;</div><div class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> stmt;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"><span class="comment">// public static ResultSet getResultSet(Connection conn, String sql)&#123;</span></div><div class="line"><span class="comment">//    Statement stmt = getStatement(conn);</span></div><div class="line"><span class="comment">//    ResultSet rs = getResultSet(stmt, sql);</span></div><div class="line"><span class="comment">//    close(stmt);</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//    return rs;</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ResultSet <span class="title">getResultSet</span><span class="params">(Statement stmt, String sql)</span> </span>&#123;</div><div class="line">      ResultSet rs = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">         <span class="keyword">if</span>(stmt != <span class="keyword">null</span>) &#123;</div><div class="line">            rs = stmt.executeQuery(sql);</div><div class="line">         &#125;</div><div class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> rs;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Connection conn)</span> </span>&#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">         <span class="keyword">if</span>(conn != <span class="keyword">null</span>) &#123;</div><div class="line">            conn.close();</div><div class="line">            conn = <span class="keyword">null</span>;</div><div class="line">         &#125;</div><div class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Statement stmt)</span> </span>&#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">         <span class="keyword">if</span>(stmt != <span class="keyword">null</span>) &#123;</div><div class="line">            stmt.close();</div><div class="line">            stmt = <span class="keyword">null</span>;</div><div class="line">         &#125;</div><div class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(ResultSet rs)</span> </span>&#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">         <span class="keyword">if</span>(rs != <span class="keyword">null</span>) &#123;</div><div class="line">            rs.close();</div><div class="line">            rs = <span class="keyword">null</span>;</div><div class="line">         &#125;</div><div class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ShowRsUseBean.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.*;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.*;</div><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShowRsUseBean</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request,</span></span></div><div class="line"><span class="function"><span class="params">         HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line"></div><div class="line">      response.setContentType(<span class="string">"text/html"</span>);</div><div class="line">      response.setCharacterEncoding(<span class="string">"gb2312"</span>);</div><div class="line">      PrintWriter out = response.getWriter();</div><div class="line"></div><div class="line">      out.println(<span class="string">"&lt;table border=1&gt;"</span>);</div><div class="line">      out.println(<span class="string">"&lt;tr&gt;&lt;td&gt;Content:&lt;/td&gt;&lt;/tr&gt;"</span>);</div><div class="line"></div><div class="line">      Connection conn = DB.getConn();</div><div class="line"></div><div class="line"></div><div class="line">      Statement stmt = DB.getStatement(conn);</div><div class="line">      ResultSet rs = DB.getResultSet(stmt, <span class="string">"select * from article"</span>);</div><div class="line"><span class="comment">//    String sql = "select * from t";</span></div><div class="line"><span class="comment">//    ResultSet rs = DB.getResultSet(stmt, sql);</span></div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">         <span class="keyword">while</span> (rs.next()) &#123;</div><div class="line">            out.println(<span class="string">"&lt;tr&gt;"</span>);</div><div class="line">            out.println(<span class="string">"&lt;td&gt;"</span> + rs.getString(<span class="string">"title"</span>) + <span class="string">"&lt;/td&gt;"</span>);</div><div class="line">            out.println(<span class="string">"&lt;/tr&gt;"</span>);</div><div class="line">         &#125;</div><div class="line">         out.println(<span class="string">"&lt;/table&gt;"</span>);</div><div class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">      &#125; <span class="keyword">finally</span> &#123;</div><div class="line"></div><div class="line">         DB.close(rs);</div><div class="line">         DB.close(stmt);</div><div class="line">         DB.close(conn);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>将这两个java文件生成的.class复制到tomcat的classes目录下，然后进行配置部署，访问地址：<br><a href="http://127.0.0.1:8888/test/servlet/ShowRsUseBean" target="_blank" rel="external">http://127.0.0.1:8888/test/servlet/ShowRsUseBean</a><br>就可以成功读取数据库的内容并显示在前端页面了：<br><img src="18.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Servlet/" rel="tag"># Servlet</a>
+          
+            <a href="/tags/J2EE/" rel="tag"># J2EE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/12/leetcode448/" rel="next" title="LeetCode | 448.Find All Numbers Disappeared in an Array(找没有的数)">
+                <i class="fa fa-chevron-left"></i> LeetCode | 448.Find All Numbers Disappeared in an Array(找没有的数)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第十三课-Cookie-1"><span class="nav-number">1.</span> <span class="nav-text">第十三课 Cookie_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十四课-Cookie-2"><span class="nav-number">2.</span> <span class="nav-text">第十四课 Cookie_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十五课-Cookie-3"><span class="nav-number">3.</span> <span class="nav-text">第十五课 Cookie_3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十六课-Session-1"><span class="nav-number">4.</span> <span class="nav-text">第十六课. Session_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十七课-Session-2"><span class="nav-number">5.</span> <span class="nav-text">第十七课. Session_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十八课-Session-3"><span class="nav-number">6.</span> <span class="nav-text">第十八课. Session_3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十九课-Session-4"><span class="nav-number">7.</span> <span class="nav-text">第十九课. Session_4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十课-Application"><span class="nav-number">8.</span> <span class="nav-text">第二十课. Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十一课-数据库处理"><span class="nav-number">9.</span> <span class="nav-text">第二十一课. 数据库处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十三课-UseBean"><span class="nav-number">10.</span> <span class="nav-text">第二十三课. UseBean</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
