@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Servlet,J2EE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍jsp的语法">
+<meta name="keywords" content="Servlet,J2EE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jsp&amp;Servlet笔记（四）JSP（一）">
+<meta property="og:url" content="https://caocan.github.io/2017/11/18/JSP4/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍jsp的语法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/16.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/17.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/18.png">
+<meta property="og:updated_time" content="2017-11-18T16:33:59.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jsp&amp;Servlet笔记（四）JSP（一）">
+<meta name="twitter:description" content="本文主要介绍jsp的语法">
+<meta name="twitter:image" content="https://caocan.github.io/2017/11/18/JSP4/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/11/18/JSP4/"/>
+
+
+
+
+
+  <title>Jsp&Servlet笔记（四）JSP（一） | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/18/JSP4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jsp&Servlet笔记（四）JSP（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T22:37:18+08:00">
+                2017-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Jsp/" itemprop="url" rel="index">
+                    <span itemprop="name">Jsp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍jsp的语法<br><a id="more"></a></p>
+<h2 id="第二十四课-JSP-HelloWorld"><a href="#第二十四课-JSP-HelloWorld" class="headerlink" title="第二十四课. JSP_HelloWorld"></a>第二十四课. JSP_HelloWorld</h2><h5 id="JSP简介"><a href="#JSP简介" class="headerlink" title="JSP简介"></a>JSP简介</h5><ul>
+<li>JSP—Java Server Pages</li>
+<li>拥有servlet的特性与优点(本身就是一个servlet)</li>
+<li>直接在HTML中内嵌JSP代码</li>
+<li>JSP程序由JSP Engine先将它转换成Servlet代码，接着将它编译成类文件载入执行<br>只有当客户端第一次请求JSP时，才需要将其转换、编译</li>
+<li>优点:<ol>
+<li>优良的性能<br>优于CGI，PHP，ASP</li>
+<li>平台无关性<br>操作系统无关，Web服务器无关</li>
+<li>可扩展性<br>tag的扩展机制，简化页面开发</li>
+</ol>
+</li>
+</ul>
+<p>JSP极大简化了servlet操作，我们写一个JSP文件HelloWorld.jsp：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;&lt;/head&gt;</div><div class="line">	&lt;body&gt;</div><div class="line">		&lt;%</div><div class="line">			out.println(<span class="string">"HelloWorld!"</span>);</div><div class="line">			out.println(<span class="keyword">new</span> java.util.Date());</div><div class="line">		%&gt;</div><div class="line">	&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>将这个jsp文件放在<code>tomcat9.0.1\webapps\test</code>路径下，直接启动tomcat就可以对这个jsp进行访问了。输入地址：<br><a href="http://127.0.0.1:8888/test/HelloWorld.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/HelloWorld.jsp</a><br>我们看到如下显示：<br><img src="1.png" alt=""></p>
+<p>这样，调试时候只需要改jsp文件就可以了，相当便利。<br>tomcat下有一个文件夹work，存放jsp编译之后的.class文件和.java文件：<br><img src="2.png" alt=""></p>
+<h5 id="JSP编程-基本语法"><a href="#JSP编程-基本语法" class="headerlink" title="JSP编程-基本语法"></a>JSP编程-基本语法</h5><p>JSP传统语法</p>
+<ul>
+<li>Declaration–声明</li>
+<li>Scriptlet–小程序段</li>
+<li>Expression–表达式</li>
+<li>Comment–注释</li>
+<li>Directives–指令</li>
+<li>Action动作指令</li>
+<li>内置对象<br>JSTL<br>JSF</li>
+</ul>
+<h2 id="第二十五课-JSP基本语法-1"><a href="#第二十五课-JSP基本语法-1" class="headerlink" title="第二十五课. JSP基本语法_1"></a>第二十五课. JSP基本语法_1</h2><h5 id="Declaration–声明"><a href="#Declaration–声明" class="headerlink" title="Declaration–声明"></a>Declaration–声明</h5><p>基本语法：<br><code>&lt;%!  %&gt;</code><br>说明：在此声明的变量、方法都会被保留成唯一的一份，直到JSP程序停止执行<br>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;%!</div><div class="line"><span class="keyword">int</span> i;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">()</span></span>&#123;… …&#125;</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
+<p>代码（AccessCounts.jsp）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>JSP Declarations<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">META</span> <span class="attr">NAME</span>=<span class="string">"author"</span> <span class="attr">CONTENT</span>=<span class="string">"Marty Hall"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">META</span> <span class="attr">NAME</span>=<span class="string">"keywords"</span></span></div><div class="line"><span class="tag">      <span class="attr">CONTENT</span>=<span class="string">"JSP,declarations,JavaServer,Pages,servlets"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">META</span> <span class="attr">NAME</span>=<span class="string">"description"</span></span></div><div class="line"><span class="tag">      <span class="attr">CONTENT</span>=<span class="string">"A quick example of JSP declarations."</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">H1</span>&gt;</span>JSP Declarations<span class="tag">&lt;/<span class="name">H1</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%!</span> </span></div><div class="line"><span class="tag">	<span class="attr">int</span> <span class="attr">accessCount</span> = <span class="string">0;</span> </span></div><div class="line"><span class="tag">%&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag">	<span class="attr">int</span> <span class="attr">accessCount2</span> = <span class="string">0;</span> </span></div><div class="line"><span class="tag">%&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">H2</span>&gt;</span>Accesses to page since server reboot: </div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%=</span> ++<span class="attr">accessCount</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%=</span> ++<span class="attr">accessCount2</span> %&gt;</span><span class="tag">&lt;/<span class="name">H2</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>将这个jsp放在test目录下，访问网址：<br><a href="http://127.0.0.1:8888/test/AccessCounts.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/AccessCounts.jsp</a><br>不断刷新后得到页面是：<br><img src="3.png" alt=""></p>
+<p>发现上面的数字每刷新一次就加1；而下面的数字总是1。<br>这是由于&lt;%!后的变量为类的成员变量，类只初始化一次，所以accessCount每次都会在上次页面基础上加1；而&lt;% 后的变量为局部变量，所以没刷新一次都会从0加到1。<br>验证这个结论的办法就是去查看tomcat的work目录下生成的.java文件。</p>
+<p>发现一个问题，就是在页面刷新特别快的时候，类成员变量accessCount会回1，原因可能有两个：<br>第一个就是tomcat在将jsp转成servlet的对象时，可能做了一个池，里面放了好几个，第一个服务不过来的时候就调第二个，这时accessCount的值有好几个<br>第二个就是就是刷新的时候，可能上一个值修改完还没来得及reload，我们就又刷新了一次，这时刚好上一次进行了reload，所以值就修改回去了。</p>
+<p>第二种情况可能性较大。</p>
+<p>可以在<code>&lt;%!   %&gt;</code>中声明方法，相当于类中方法。</p>
+<h5 id="Scriptlet–小程序段"><a href="#Scriptlet–小程序段" class="headerlink" title="Scriptlet–小程序段"></a>Scriptlet–小程序段</h5><p>基本语法：<br><code>&lt;%程序代码区%&gt;</code><br>可以放入任何的Java程序代码<br>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>,i++)</div><div class="line">&#123;</div><div class="line">	… …</div><div class="line">&#125;</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
+<p>注释格式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;%--… …--%&gt;</div><div class="line">&lt;%<span class="comment">//… …%&gt;</span></div><div class="line">&lt;%<span class="comment">/*… …*/</span>%&gt;</div></pre></td></tr></table></figure></p>
+<p>代码（BGColor.jsp）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>Color Testing<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--</span></div><div class="line"><span class="comment">html注释</span></div><div class="line"><span class="comment">--&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%--</span></span></div><div class="line"><span class="tag">注释<span class="attr">1</span></span></div><div class="line"><span class="tag"><span class="attr">aaaaaaa</span></span></div><div class="line"><span class="tag"><span class="attr">--</span>%&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag">//注释<span class="attr">2</span></span></div><div class="line"><span class="tag">/*</span></div><div class="line"><span class="tag">注释<span class="attr">3</span></span></div><div class="line"><span class="tag"><span class="attr">aaaaa</span></span></div><div class="line"><span class="tag">*/</span></div><div class="line"><span class="tag"><span class="attr">String</span> <span class="attr">bgColor</span> = <span class="string">request.getParameter(</span>"<span class="attr">bgColor</span>");</span></div><div class="line"><span class="tag"><span class="attr">boolean</span> <span class="attr">hasExplicitColor</span>;</span></div><div class="line"><span class="tag"><span class="attr">if</span> (<span class="attr">bgColor</span> != <span class="string">null)</span> &#123;</span></div><div class="line"><span class="tag">  <span class="attr">hasExplicitColor</span> = <span class="string">true;</span></span></div><div class="line"><span class="tag">&#125; <span class="attr">else</span> &#123;</span></div><div class="line"><span class="tag">  <span class="attr">hasExplicitColor</span> = <span class="string">false;</span></span></div><div class="line"><span class="tag">  <span class="attr">bgColor</span> = <span class="string">"WHITE"</span>;</span></div><div class="line"><span class="tag">&#125;</span></div><div class="line"><span class="tag">%&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">BODY</span> <span class="attr">BGCOLOR</span>=<span class="string">"&lt;%= bgColor %&gt;"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">H2</span> <span class="attr">ALIGN</span>=<span class="string">"CENTER"</span>&gt;</span>Color Testing<span class="tag">&lt;/<span class="name">H2</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag"><span class="attr">if</span> (<span class="attr">hasExplicitColor</span>) &#123;</span></div><div class="line"><span class="tag">  <span class="attr">out.println</span>("<span class="attr">You</span> <span class="attr">supplied</span> <span class="attr">an</span> <span class="attr">explicit</span> <span class="attr">background</span> <span class="attr">color</span> <span class="attr">of</span> " +</span></div><div class="line"><span class="tag">              <span class="attr">bgColor</span> + "<span class="attr">.</span>");</span></div><div class="line"><span class="tag">&#125; <span class="attr">else</span> &#123;</span></div><div class="line"><span class="tag">  <span class="attr">out.println</span>("<span class="attr">Using</span> <span class="attr">default</span> <span class="attr">background</span> <span class="attr">color</span> <span class="attr">of</span> <span class="attr">WHITE.</span> " +</span></div><div class="line"><span class="tag">              "<span class="attr">Supply</span> <span class="attr">the</span> <span class="attr">bgColor</span> <span class="attr">request</span> <span class="attr">attribute</span> <span class="attr">to</span> <span class="attr">try</span> " +</span></div><div class="line"><span class="tag">              "<span class="attr">a</span> <span class="attr">standard</span> <span class="attr">color</span>, <span class="attr">an</span> <span class="attr">RRGGBB</span> <span class="attr">value</span>, <span class="attr">or</span> <span class="attr">to</span> <span class="attr">see</span> " +</span></div><div class="line"><span class="tag">              "<span class="attr">if</span> <span class="attr">your</span> <span class="attr">browser</span> <span class="attr">supports</span> <span class="attr">X11</span> <span class="attr">color</span> <span class="attr">names.</span>");</span></div><div class="line"><span class="tag">&#125;</span></div><div class="line"><span class="tag">%&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>访问网址：<br><a href="http://127.0.0.1:8888/test/BGColor.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/BGColor.jsp</a></p>
+<p>发现背景色是白色的：<br><img src="4.png" alt=""></p>
+<p>当传入参数以后，背景变色：</p>
+<p><img src="5.png" alt=""></p>
+<h5 id="Expression–表达式"><a href="#Expression–表达式" class="headerlink" title="Expression–表达式"></a>Expression–表达式</h5><ul>
+<li>基本语法：<blockquote>
+<ul>
+<li>&lt;%=… …%&gt;</li>
+</ul>
+</blockquote>
+</li>
+<li>=后面必须是字符串变量或者可以被转换成字符串的表达式</li>
+<li>不需要以;结束</li>
+<li>只有一行</li>
+<li>例：<blockquote>
+<ul>
+<li>&lt;%=“hello world”%&gt;</li>
+<li>&lt;%=i+1%&gt;</li>
+<li>&lt;%=request.getParameter(“name”)%&gt;</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>例子（Expressions.jsp）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- </span></div><div class="line"><span class="comment">Example of JSP Expressions. </span></div><div class="line"><span class="comment">   </span></div><div class="line"><span class="comment">--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>JSP Expressions<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">META</span> <span class="attr">NAME</span>=<span class="string">"author"</span> <span class="attr">CONTENT</span>=<span class="string">"Marty Hall"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">META</span> <span class="attr">NAME</span>=<span class="string">"keywords"</span></span></div><div class="line"><span class="tag">      <span class="attr">CONTENT</span>=<span class="string">"JSP,expressions,JavaServer,Pages,servlets"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">META</span> <span class="attr">NAME</span>=<span class="string">"description"</span></span></div><div class="line"><span class="tag">      <span class="attr">CONTENT</span>=<span class="string">"A quick example of JSP expressions."</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">H2</span>&gt;</span>JSP Expressions<span class="tag">&lt;/<span class="name">H2</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">UL</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">LI</span>&gt;</span>Current time: <span class="tag">&lt;<span class="name">%=</span> <span class="attr">new</span> <span class="attr">java.util.Date</span>() %&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">LI</span>&gt;</span>Your hostname: <span class="tag">&lt;<span class="name">%=</span> <span class="attr">request.getRemoteHost</span>() %&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">LI</span>&gt;</span>Your session ID: <span class="tag">&lt;<span class="name">%=</span> <span class="attr">session.getId</span>() %&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">LI</span>&gt;</span>The <span class="tag">&lt;<span class="name">CODE</span>&gt;</span>testParam<span class="tag">&lt;/<span class="name">CODE</span>&gt;</span> form parameter:</div><div class="line">      <span class="tag">&lt;<span class="name">%=</span> <span class="attr">request.getParameter</span>("<span class="attr">testParam</span>") %&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">UL</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>访问地址得到：<br><img src="6.png" alt=""></p>
+<p>发现testParam是空的，这时候传入一个参数：<br><img src="7.png" alt=""></p>
+<p>发现testParam将参数显示出来。</p>
+<h2 id="第二十六课-page-directive"><a href="#第二十六课-page-directive" class="headerlink" title="第二十六课. page_directive"></a>第二十六课. page_directive</h2><h5 id="Directive–编译指令"><a href="#Directive–编译指令" class="headerlink" title="Directive–编译指令"></a>Directive–编译指令</h5><p>Directive(编译指令)相当于在编译期间的命令<br>格式：<br><code>&lt;%@Directive 属性=“属性值”%&gt;</code><br>常见的Directive：</p>
+<ul>
+<li>page</li>
+<li>include</li>
+<li>taglib</li>
+</ul>
+<p>Directive-page</p>
+<ul>
+<li>指明与JSP Container 的沟通方式</li>
+<li>基本格式：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@page</span> <span class="attr">language</span>=<span class="string">“script</span> <span class="attr">language</span>”|</span></div><div class="line"><span class="tag">			<span class="attr">extends</span>=<span class="string">“className”|</span></span></div><div class="line"><span class="tag">			<span class="attr">import</span>=<span class="string">“importList”|</span></span></div><div class="line"><span class="tag">			<span class="attr">buffer</span>=<span class="string">“none|kb</span> <span class="attr">size</span>”|   <span class="attr">--none:</span>不缓冲，默认<span class="attr">8k</span></span></div><div class="line"><span class="tag">			<span class="attr">session</span>=<span class="string">“true|false”|</span>   <span class="attr">--</span>是否可以使用<span class="attr">session</span>，默认<span class="attr">true</span></span></div><div class="line"><span class="tag">			<span class="attr">autoFlush</span>=<span class="string">“true|false”</span>  <span class="attr">--</span>缓冲器是否自动清除，默认<span class="attr">true</span></span></div><div class="line"><span class="tag">			<span class="attr">isThreadSafe</span>=<span class="string">“true|false”|</span>  <span class="attr">--</span>默认<span class="attr">false</span>(永远不要设成<span class="attr">true</span>)</span></div><div class="line"><span class="tag">			<span class="attr">info</span>=<span class="string">“infoText”|</span>    <span class="attr">--</span>任何字符</span></div><div class="line"><span class="tag">			<span class="attr">errorPage</span>=<span class="string">“errorPageUrl”|</span></span></div><div class="line"><span class="tag">			<span class="attr">isErrorPage</span>=<span class="string">“true|false”|</span></span></div><div class="line"><span class="tag">			<span class="attr">contentType</span>=<span class="string">“contentTyepInfo”|</span></span></div><div class="line"><span class="tag">			<span class="attr">pageEncoding</span>=<span class="string">“gb2312”</span></span></div><div class="line"><span class="tag">%&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>例子：<br>TestDirective.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@page</span> <span class="attr">import</span>=<span class="string">"java.util.*"</span> <span class="attr">session</span>=<span class="string">"false"</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=gb2312"</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%=</span> <span class="attr">new</span> <span class="attr">Date</span>() %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag">	<span class="attr">out.println</span>("你好!");</span></div><div class="line"><span class="tag">%&gt;</span></div></pre></td></tr></table></figure></p>
+<p>我们做一个测试，写一个TestErr.jsp的文件：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@page</span> <span class="attr">errorPage</span>=<span class="string">"ErrPage.jsp"</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag"><span class="attr">String</span> <span class="attr">s</span>=<span class="string">"123Plus"</span>;</span></div><div class="line"><span class="tag"><span class="attr">int</span> <span class="attr">i</span>=<span class="string">Integer.parseInt(s);</span></span></div><div class="line"><span class="tag"><span class="attr">out.println</span>("<span class="attr">s</span>=<span class="string">" + s + "</span>  <span class="attr">i</span>=<span class="string">" + i);</span></span></div><div class="line"><span class="tag"><span class="string">%&gt;</span></span></div></pre></td></tr></table></figure></p>
+<p>当我们把第一句<code>&lt;%@page errorPage=&quot;ErrPage.jsp&quot;%&gt;</code>删掉以后，访问<a href="http://127.0.0.1:8888/test/TestErr.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/TestErr.jsp</a><br>发现会报错：</p>
+<p><img src="8.png" alt=""><br>所以我们为了界面的友好，还是讲发生错误的页面指向了一个新页面，所以加上：<br><code>&lt;%@page errorPage=&quot;ErrPage.jsp&quot;%&gt;</code><br>并编写ErrPage.jsp文件：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%--</span> ********* <span class="attr">ErrPage.jsp</span> ********** <span class="attr">--</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=gb2312"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">isErrorPage</span>=<span class="string">"true"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">BODY</span> <span class="attr">TEXT</span>=<span class="string">"red"</span>&gt;</span></div><div class="line"></div><div class="line">错误信息：<span class="tag">&lt;<span class="name">%=</span> <span class="attr">exception.getMessage</span>() %&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>重新访问：<br><a href="http://127.0.0.1:8888/test/TestErr.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/TestErr.jsp</a><br>页面显示为重新定向过的页面：<br><img src="9.png" alt=""></p>
+<p>第二十七课. page_include</p>
+<p>Directive–include</p>
+<ul>
+<li>将指定的JSP程序或者HTML文件包含进来</li>
+<li>格式：<blockquote>
+<ul>
+<li>&lt;%@include file=“fileURL%&gt;</li>
+</ul>
+</blockquote>
+</li>
+<li>JSP Engine会在JSP程序的转换时期先把file属性设定的文件包含进来，然后开始执行转换及编译的工作。(原封不动的把文件的代码copy到该位置,然后进行转换和编译,只生成一个java和class)</li>
+<li>限制:<blockquote>
+<ul>
+<li>不能向fileURL中传递参数</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>不能abc.jsp?user=aaa</p>
+<p>我们来测试一下这个功能：</p>
+<p>我们写一个TestBar.jsp：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=gb2312"</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span> <span class="comment">&lt;!-- *************** TestBar.jsp ***************** --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TITLE</span>&gt;</span>TestBar.jsp<span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TABLE</span> <span class="attr">WIDTH</span>=<span class="string">"100%"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TR</span>&gt;</span><span class="tag">&lt;<span class="name">TD</span>&gt;</span><span class="tag">&lt;<span class="name">%@</span> <span class="attr">include</span> <span class="attr">file</span>=<span class="string">"TitleBar.jsp"</span> %&gt;</span><span class="tag">&lt;/<span class="name">TD</span>&gt;</span><span class="tag">&lt;/<span class="name">TR</span>&gt;</span></div><div class="line">&lt;TR&gt;&lt;TD&gt;&lt;% out.println("&lt;P&gt;这是用户显示区&lt;/P&gt;"); %&gt;&lt;/TD&gt;&lt;/TR&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">TABLE</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>可以看到里面include了一个TitleBar.jsp，也就是在编译期间将TitleBar.jsp文件内容原封不动地传递进来。TitleBar.jsp内容如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=gb2312"</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TABLE</span>&gt;</span> <span class="comment">&lt;!-- ********** TitleBar.jsp ************** --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TR</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TD</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">TD</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TD</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">out.println</span>("<span class="attr">Hi:</span> " + <span class="attr">request.getParameter</span>("<span class="attr">user</span>"));%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%=new</span> <span class="attr">java.util.Date</span>()%&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">TD</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">TR</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">TABLE</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后访问地址：<br><img src="10.png" alt=""></p>
+<p>发现用户值为null。当我们将用户值传入时，界面才会予以显示：<br><img src="11.png" alt=""></p>
+<p>在<strong>编译指令</strong>中不能往里传参数，所以不能这么写：<br><code>&lt;TR&gt;&lt;TD&gt;&lt;%@ include file=&quot;TitleBar.jsp?user=ab&quot; %&gt;&lt;/TD&gt;&lt;/TR&gt;</code></p>
+<h2 id="第二十八课-jsp-include"><a href="#第二十八课-jsp-include" class="headerlink" title="第二十八课. jsp_include"></a>第二十八课. jsp_include</h2><h5 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h5><ul>
+<li>Action(动作指令)在运行期间的命令</li>
+<li>常见的:<blockquote>
+<ul>
+<li>jsp:useBean</li>
+<li><ul>
+<li>jsp:setProperty</li>
+</ul>
+</li>
+<li><ul>
+<li>jsp:getProperty</li>
+</ul>
+</li>
+<li>jsp:include</li>
+<li>jsp:forward</li>
+<li><ul>
+<li>jsp:param</li>
+</ul>
+</li>
+<li>jsp:plugin</li>
+<li><ul>
+<li>嵌入applet</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h5 id="jsp-include-jsp-param"><a href="#jsp-include-jsp-param" class="headerlink" title="jsp:include/jsp:param"></a>jsp:include/jsp:param</h5><ul>
+<li>用于动态包含JSP程序或HTML文件等</li>
+<li>除非这个指令会被执行到，否则它是不会被Tomcat等JSP Engine编译。</li>
+<li><p>格式：</p>
+<blockquote>
+<ul>
+<li><jsp:include page="“URLSpec”" flush="“true”/"></jsp:include></li>
+<li><jsp:include page="“URLSpec”" flush="“true”"><jsp:param name="“ParamName”" value="“paramValue”/">
+</jsp:param></jsp:include></li>
+</ul>
+</blockquote>
+</li>
+<li><p></p>
+</li>
+<li>jsp:param用来设定include文件时的参数和对应的值</li>
+<li>例如:<blockquote>
+<ul>
+<li>date.jsp/include.jsp</li>
+<li>Compute.html/Compute.jsp/divide.jsp/multiply.jsp</li>
+</ul>
+</blockquote>
+</li>
+<li>和编译指令include的区别<blockquote>
+<ul>
+<li>include编译指令是在JSP程序的转换时期就将file属性所指定的程序内容嵌入，然后再编译执行；而include指令在转换时期是不会被编译的，只有在客户端请求时期如果被执行到才会被动态的编译载入</li>
+<li>Include不能带参数, 而<jsp:include>可以<br>动态包含的文件和被包含文件用的是同一个request对象</jsp:include></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>我们来看一下上面说的例子：<br>先看include.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span> include test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"white"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">"red"</span>&gt;</span></div><div class="line">The current date and time are </div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">include</span> <span class="attr">file</span>=<span class="string">"date.jsp"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">jsp:include</span> <span class="attr">page</span>=<span class="string">"date.jsp"</span> <span class="attr">flush</span>=<span class="string">"true"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">font</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>上面包含了两次date.jsp，一次通过静态方式，一次通过动态方式。<br>再看一下date.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">import</span>=<span class="string">"java.util.*"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%=</span> (<span class="attr">new</span> <span class="attr">Date</span>())<span class="attr">.toLocaleString</span>() %&gt;</span></div></pre></td></tr></table></figure></p>
+<p>即通过date.jsp获取当前时间，并转换成自己本地的字符串。</p>
+<p>运行一下：</p>
+<p><img src="12.png" alt=""></p>
+<p>发现显示了两次这个时间。</p>
+<p>接下来看第二个例子，关于计算器的例子。<br>先看Compute.html：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Compute<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=gb2312"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"#FFFFFF"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"Compute.jsp"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>选择要做的运算</div><div class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"compute"</span> <span class="attr">value</span>=<span class="string">"division"</span> <span class="attr">checked</span>&gt;</span></div><div class="line">      除法</div><div class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"compute"</span> <span class="attr">value</span>=<span class="string">"multiplication"</span>&gt;</span></div><div class="line">      乘法<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>被除数（被乘数）</div><div class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"value1"</span>&gt;</span></div><div class="line">      除数（乘数）</div><div class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"value2"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">"Submit"</span> <span class="attr">value</span>=<span class="string">"计算结果"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>可以看到表单提交后执行动作，处理程序是Compute.jsp</p>
+<p>再看Compute.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag">	<span class="attr">String</span> <span class="attr">value1</span> = <span class="string">request.getParameter(</span>"<span class="attr">value1</span>");</span></div><div class="line"><span class="tag">	<span class="attr">String</span> <span class="attr">value2</span> = <span class="string">request.getParameter(</span>"<span class="attr">value2</span>");</span></div><div class="line"><span class="tag">%&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span>( <span class="attr">request.getParameter</span>("<span class="attr">compute</span>")<span class="attr">.equals</span>("<span class="attr">division</span>") ) &#123; %&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">jsp:include</span> <span class="attr">page</span>=<span class="string">"divide.jsp"</span> <span class="attr">flush</span>=<span class="string">"true"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"v1"</span> <span class="attr">value</span>=<span class="string">"&lt;%=value1%&gt;"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"v2"</span> <span class="attr">value</span>=<span class="string">"&lt;%=value2%&gt;"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">jsp:include</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> &#125; <span class="attr">else</span> &#123; %&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">%@</span> <span class="attr">include</span> <span class="attr">file</span>=<span class="string">"multiply.jsp"</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></div></pre></td></tr></table></figure></p>
+<p>上面的代码中，先用两个字符串value1和value2将html中输入的两个数字进行赋值，然后通过<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span>( <span class="attr">request.getParameter</span>("<span class="attr">compute</span>")<span class="attr">.equals</span>("<span class="attr">division</span>") ) &#123; %&gt;</span></div><div class="line">一句来对算数操作进行判断。如果是除法，执行：</div><div class="line">	<span class="tag">&lt;<span class="name">jsp:include</span> <span class="attr">page</span>=<span class="string">"divide.jsp"</span> <span class="attr">flush</span>=<span class="string">"true"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"v1"</span> <span class="attr">value</span>=<span class="string">"&lt;%=value1%&gt;"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"v2"</span> <span class="attr">value</span>=<span class="string">"&lt;%=value2%&gt;"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">jsp:include</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>否则就是乘法，执行：<br><code>&lt;%@ include file=&quot;multiply.jsp&quot;%&gt;</code></p>
+<p>看一下除法的jsp文件，也就是divide.jsp:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Divide<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=gb2312"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"#FFFFFF"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> </span></div><div class="line"><span class="tag">	<span class="attr">try</span>&#123;</span></div><div class="line"><span class="tag">		<span class="attr">float</span> <span class="attr">dividend</span> = <span class="string">Float.parseFloat(</span> <span class="attr">request.getParameter</span>( "<span class="attr">value1</span>" ) );</span></div><div class="line"><span class="tag">   		<span class="attr">float</span> <span class="attr">divisor</span> = <span class="string">Float.parseFloat(</span> <span class="attr">request.getParameter</span>( "<span class="attr">value2</span>" ) );</span></div><div class="line"><span class="tag">   		<span class="attr">double</span> <span class="attr">result</span>=<span class="string">dividend/divisor;</span></span></div><div class="line"><span class="tag">   		%&gt;</span></div><div class="line">   		<span class="tag">&lt;<span class="name">%=</span> <span class="attr">result</span>%&gt;</span></div><div class="line">   		<span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag">   		//<span class="attr">out.println</span>( <span class="attr">dividend</span> + " / " + <span class="attr">divisor</span> + " = <span class="string">" + result );</span></span></div><div class="line"><span class="tag"><span class="string">   	&#125;</span></span></div><div class="line"><span class="tag"><span class="string">   	catch( Exception ex )&#123;</span></span></div><div class="line"><span class="tag"><span class="string">   		out.println( "</span>不合法的被除数或除数！" );</span></div><div class="line"><span class="tag">   	&#125;</span></div><div class="line"><span class="tag">%&gt;</span>   </div><div class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">center</span>&gt;</span>	</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>上面代码的value1也可以用v1，是可以跑通的。</p>
+<p>再看乘法的jsp(multiply.jsp)：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Devide<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=gb2312"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"#FFFFFF"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> </span></div><div class="line"><span class="tag">	<span class="attr">try</span>&#123;</span></div><div class="line"><span class="tag">	//<span class="attr">System.out.println</span>(<span class="attr">request.getParameter</span>("<span class="attr">v1</span>"));</span></div><div class="line"><span class="tag">			<span class="attr">float</span> <span class="attr">multiplicand</span> = <span class="string">Float.parseFloat(</span> <span class="attr">request.getParameter</span>( "<span class="attr">value1</span>" ) );</span></div><div class="line"><span class="tag">   		<span class="attr">float</span> <span class="attr">multiplicator</span> = <span class="string">Float.parseFloat(</span> <span class="attr">request.getParameter</span>( "<span class="attr">value2</span>" ) );</span></div><div class="line"><span class="tag">   		<span class="attr">double</span> <span class="attr">result</span>=<span class="string">multiplicand*multiplicator;</span></span></div><div class="line"><span class="tag">   		<span class="attr">out.println</span>( <span class="attr">multiplicand</span> + " * " + <span class="attr">multiplicator</span> + " = <span class="string">" + result );</span></span></div><div class="line"><span class="tag"><span class="string">   	&#125;</span></span></div><div class="line"><span class="tag"><span class="string">   	catch( Exception ex )&#123;</span></span></div><div class="line"><span class="tag"><span class="string">   		out.println( "</span>不合法的被乘数或乘数！" );</span></div><div class="line"><span class="tag">   	&#125;</span></div><div class="line"><span class="tag">%&gt;</span>   </div><div class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">center</span>&gt;</span>	</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>要是把乘法代码中的value1改成v1，就会报错。因为v1是除法代码中的局部变量。</p>
+<h2 id="第二十九课-sp-forward-sendredirect"><a href="#第二十九课-sp-forward-sendredirect" class="headerlink" title="第二十九课. sp_forward_sendredirect"></a>第二十九课. sp_forward_sendredirect</h2><p>用于将一个jsp的内容传送到page所指定的JSP程序或者Servlet中处理(URL)<br>格式：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">jsp:forward</span> <span class="attr">page</span>=<span class="string">“urlSpec”</span> <span class="attr">flush</span>=<span class="string">“true”/</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">jsp:forward</span> <span class="attr">page</span>=<span class="string">“urlSpec”</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">“paramName”</span> <span class="attr">value</span>=<span class="string">“paramValue”/</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">jsp:forward</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><code>&lt;jsp:param&gt;</code>用于指定参数和其对应的值<br>例如:<br>test.jsp<br>forward.jsp / forforward.jsp<br>forward1.jsp / forforward1.jsp(with parameters)<br>Forward的页面和forward到的页面用的是同一个request<br>与此相对应的是<br>response.sendRedirect</p>
+<p>先看一下forward.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>forward example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">red</span>&gt;</span></div><div class="line">welcome to here!</div><div class="line"><span class="tag">&lt;<span class="name">jsp:forward</span> <span class="attr">page</span>=<span class="string">"forforward.jsp"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这个页面背景色是是红色。上面的代码执行的动作是，在执行forward.jsp时，页面会原封不动地跳转到forforward.jsp页面。</p>
+<p>看一下forforward.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>forforward.jsp<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">blue</span>&gt;</span></div><div class="line">here is the forforward page</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>上面页面背景色是蓝色。<br>我们尝试访问以下forward.jsp：<br><img src="13.png" alt=""></p>
+<p>发现路径仍然是在forward.jsp，但是显示的却是蓝色的forforward.jsp</p>
+<p>再看第二个例子（forward1/forforward1）：<br>先看forward1.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>forward example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">red</span>&gt;</span></div><div class="line">welcome to here!</div><div class="line"><span class="tag">&lt;<span class="name">jsp:forward</span> <span class="attr">page</span>=<span class="string">"forforward1.jsp"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"m"</span> /&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"oldName"</span> <span class="attr">value</span>=<span class="string">'&lt;%=request.getParameter("name")%&gt;'</span> /&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"roles"</span> <span class="attr">value</span>=<span class="string">"manager"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">jsp:forward</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>上面相当于做到<code>forforward1.jsp?name=m&amp;oldname=…</code></p>
+<p>再看一下forforward1.jsp:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>forforward1.jsp<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">blue</span>&gt;</span></div><div class="line">here is the forforward1 page</div><div class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%=request.getParameter("name")%</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%=request.getParameter("oldName")%</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%=request.getParameter("roles")%</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%=request.getParameter("ccc")%</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>我们尝试访问forward1.jsp：<br><img src="14.png" alt=""></p>
+<p>可以看到值都是null，现在给参数传值：<br><img src="15.png" alt=""></p>
+<p>发现参数成功显示。</p>
+<p>再看第三个例子(test.jsp和forforward.jsp)：<br>先看test.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag">	<span class="attr">response.sendRedirect</span>("<span class="attr">forforward1.jsp</span>");</span></div><div class="line"><span class="tag">	<span class="attr">System.out.println</span>("<span class="attr">ddd</span>");</span></div><div class="line"><span class="tag">%&gt;</span></div></pre></td></tr></table></figure></p>
+<p>当我们输入地址:<br><a href="http://127.0.0.1:8888/test/forward/test.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/forward/test.jsp</a><br>访问发现页面地址直接跳转到了<br><a href="http://127.0.0.1:8888/test/forward/forforward1.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/forward/forforward1.jsp</a></p>
+<p><img src="16.png" alt=""></p>
+<p>所以这里有一点结论：</p>
+<p><jsp:forward>与response.sendRedirect的区别</jsp:forward></p>
+<ul>
+<li><jsp:forward><blockquote>
+<ul>
+<li>使用同一个request</li>
+<li>forward后的语句不会继续发送给客户端</li>
+<li>速度快</li>
+<li>服务器内部转换，</li>
+<li>可以传参数</li>
+</ul>
+</blockquote>
+</jsp:forward></li>
+<li>response.sendRedirect<blockquote>
+<ul>
+<li>是不同的request</li>
+<li>send后的语句会继续执行，除非return</li>
+<li>速度慢</li>
+<li>需要到客户端的往返，可以转到任何页面</li>
+<li>可以传参数，直接写在url后面</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><img src="17.png" alt=""></p>
+<p>上面的是使用<jsp:forward>，使用的是相同的request；<br>下面的是使用response.sendRedirect，使用的是不同的request</jsp:forward></p>
+<p>跳转后的页面也可以传参数：<br><img src="18.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Servlet/" rel="tag"># Servlet</a>
+          
+            <a href="/tags/J2EE/" rel="tag"># J2EE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/13/JSP3/" rel="next" title="Jsp&Servlet笔记（三）Cookie，Session,Application和Java Bean">
+                <i class="fa fa-chevron-left"></i> Jsp&Servlet笔记（三）Cookie，Session,Application和Java Bean
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十四课-JSP-HelloWorld"><span class="nav-number">1.</span> <span class="nav-text">第二十四课. JSP_HelloWorld</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JSP简介"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">JSP简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSP编程-基本语法"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">JSP编程-基本语法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十五课-JSP基本语法-1"><span class="nav-number">2.</span> <span class="nav-text">第二十五课. JSP基本语法_1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Declaration–声明"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">Declaration–声明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Scriptlet–小程序段"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">Scriptlet–小程序段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Expression–表达式"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">Expression–表达式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十六课-page-directive"><span class="nav-number">3.</span> <span class="nav-text">第二十六课. page_directive</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Directive–编译指令"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">Directive–编译指令</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十八课-jsp-include"><span class="nav-number">4.</span> <span class="nav-text">第二十八课. jsp_include</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Action"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">Action</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#jsp-include-jsp-param"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">jsp:include/jsp:param</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十九课-sp-forward-sendredirect"><span class="nav-number">5.</span> <span class="nav-text">第二十九课. sp_forward_sendredirect</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
