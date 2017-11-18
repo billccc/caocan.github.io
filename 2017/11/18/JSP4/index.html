@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/16.png">
 <meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/17.png">
 <meta property="og:image" content="https://caocan.github.io/2017/11/18/JSP4/18.png">
-<meta property="og:updated_time" content="2017-11-18T16:33:59.946Z">
+<meta property="og:updated_time" content="2017-11-18T16:40:03.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jsp&amp;Servlet笔记（四）JSP（一）">
 <meta name="twitter:description" content="本文主要介绍jsp的语法">
@@ -475,8 +475,7 @@
 <p>当我们把第一句<code>&lt;%@page errorPage=&quot;ErrPage.jsp&quot;%&gt;</code>删掉以后，访问<a href="http://127.0.0.1:8888/test/TestErr.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/TestErr.jsp</a><br>发现会报错：</p>
 <p><img src="8.png" alt=""><br>所以我们为了界面的友好，还是讲发生错误的页面指向了一个新页面，所以加上：<br><code>&lt;%@page errorPage=&quot;ErrPage.jsp&quot;%&gt;</code><br>并编写ErrPage.jsp文件：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%--</span> ********* <span class="attr">ErrPage.jsp</span> ********** <span class="attr">--</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=gb2312"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">isErrorPage</span>=<span class="string">"true"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">BODY</span> <span class="attr">TEXT</span>=<span class="string">"red"</span>&gt;</span></div><div class="line"></div><div class="line">错误信息：<span class="tag">&lt;<span class="name">%=</span> <span class="attr">exception.getMessage</span>() %&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>重新访问：<br><a href="http://127.0.0.1:8888/test/TestErr.jsp" target="_blank" rel="external">http://127.0.0.1:8888/test/TestErr.jsp</a><br>页面显示为重新定向过的页面：<br><img src="9.png" alt=""></p>
-<p>第二十七课. page_include</p>
-<p>Directive–include</p>
+<h2 id="第二十七课-page-include"><a href="#第二十七课-page-include" class="headerlink" title="第二十七课. page_include"></a>第二十七课. page_include</h2><p>Directive–include</p>
 <ul>
 <li>将指定的JSP程序或者HTML文件包含进来</li>
 <li>格式：<blockquote>
@@ -662,6 +661,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/11/19/JSP5/" rel="prev" title="Jsp&Servlet笔记（五）JSP（二）">
+                Jsp&Servlet笔记（五）JSP（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -742,7 +745,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -799,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十四课-JSP-HelloWorld"><span class="nav-number">1.</span> <span class="nav-text">第二十四课. JSP_HelloWorld</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JSP简介"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">JSP简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSP编程-基本语法"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">JSP编程-基本语法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十五课-JSP基本语法-1"><span class="nav-number">2.</span> <span class="nav-text">第二十五课. JSP基本语法_1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Declaration–声明"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">Declaration–声明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Scriptlet–小程序段"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">Scriptlet–小程序段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Expression–表达式"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">Expression–表达式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十六课-page-directive"><span class="nav-number">3.</span> <span class="nav-text">第二十六课. page_directive</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Directive–编译指令"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">Directive–编译指令</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十八课-jsp-include"><span class="nav-number">4.</span> <span class="nav-text">第二十八课. jsp_include</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Action"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">Action</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#jsp-include-jsp-param"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">jsp:include/jsp:param</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十九课-sp-forward-sendredirect"><span class="nav-number">5.</span> <span class="nav-text">第二十九课. sp_forward_sendredirect</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十四课-JSP-HelloWorld"><span class="nav-number">1.</span> <span class="nav-text">第二十四课. JSP_HelloWorld</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JSP简介"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">JSP简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSP编程-基本语法"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">JSP编程-基本语法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十五课-JSP基本语法-1"><span class="nav-number">2.</span> <span class="nav-text">第二十五课. JSP基本语法_1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Declaration–声明"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">Declaration–声明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Scriptlet–小程序段"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">Scriptlet–小程序段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Expression–表达式"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">Expression–表达式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十六课-page-directive"><span class="nav-number">3.</span> <span class="nav-text">第二十六课. page_directive</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Directive–编译指令"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">Directive–编译指令</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十七课-page-include"><span class="nav-number">4.</span> <span class="nav-text">第二十七课. page_include</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十八课-jsp-include"><span class="nav-number">5.</span> <span class="nav-text">第二十八课. jsp_include</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Action"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">Action</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#jsp-include-jsp-param"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">jsp:include/jsp:param</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十九课-sp-forward-sendredirect"><span class="nav-number">6.</span> <span class="nav-text">第二十九课. sp_forward_sendredirect</span></a></li></ol></div>
             
 
           </div>
