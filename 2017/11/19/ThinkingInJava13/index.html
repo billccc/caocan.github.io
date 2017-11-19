@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="接口和内部类为我们提供了一种将接口与实现分离更加结构化的方法。 抽象类是类与接口之间的一种中庸之道。 9.1 抽象类和抽象方法Java提供了一个叫做抽象方法的机制，类似于C++中的纯虚函数，这种方法仅有声明而没有方法体：abstract void f();">
+<meta name="description" content="可以证明，字符串操作是计算机程序设计中最常见的行为。">
 <meta name="keywords" content="Java SE,Java编程思想">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java编程思想（九） 接口">
-<meta property="og:url" content="https://caocan.github.io/2017/10/14/ThinkingInJava9/index.html">
+<meta property="og:title" content="Java编程思想（十三） 字符串">
+<meta property="og:url" content="https://caocan.github.io/2017/11/19/ThinkingInJava13/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="接口和内部类为我们提供了一种将接口与实现分离更加结构化的方法。 抽象类是类与接口之间的一种中庸之道。 9.1 抽象类和抽象方法Java提供了一个叫做抽象方法的机制，类似于C++中的纯虚函数，这种方法仅有声明而没有方法体：abstract void f();">
+<meta property="og:description" content="可以证明，字符串操作是计算机程序设计中最常见的行为。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-06T02:16:01.344Z">
+<meta property="og:updated_time" content="2017-11-19T12:21:13.768Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java编程思想（九） 接口">
-<meta name="twitter:description" content="接口和内部类为我们提供了一种将接口与实现分离更加结构化的方法。 抽象类是类与接口之间的一种中庸之道。 9.1 抽象类和抽象方法Java提供了一个叫做抽象方法的机制，类似于C++中的纯虚函数，这种方法仅有声明而没有方法体：abstract void f();">
+<meta name="twitter:title" content="Java编程思想（十三） 字符串">
+<meta name="twitter:description" content="可以证明，字符串操作是计算机程序设计中最常见的行为。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://caocan.github.io/2017/10/14/ThinkingInJava9/"/>
+  <link rel="canonical" href="https://caocan.github.io/2017/11/19/ThinkingInJava13/"/>
 
 
 
 
 
-  <title>Java编程思想（九） 接口 | 曹のBlog</title>
+  <title>Java编程思想（十三） 字符串 | 曹のBlog</title>
   
 
 
@@ -287,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/10/14/ThinkingInJava9/">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/19/ThinkingInJava13/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="曹灿">
@@ -304,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java编程思想（九） 接口</h1>
+          <h1 class="post-title" itemprop="name headline">Java编程思想（十三） 字符串</h1>
         
 
         <div class="post-meta">
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-14T21:15:15+08:00">
-                2017-10-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-19T19:23:00+08:00">
+                2017-11-19
               </time>
             
 
@@ -376,35 +376,496 @@
       
 
       
-        <p>接口和内部类为我们提供了一种将接口与实现分离更加结构化的方法。</p>
-<p>抽象类是类与接口之间的一种中庸之道。</p>
-<h2 id="9-1-抽象类和抽象方法"><a href="#9-1-抽象类和抽象方法" class="headerlink" title="9.1 抽象类和抽象方法"></a>9.1 抽象类和抽象方法</h2><p>Java提供了一个叫做抽象方法的机制，类似于C++中的纯虚函数，这种方法仅有声明而没有方法体：<br>abstract void f();<br><a id="more"></a><br>抽象类的特点：</p>
+        <p>可以证明，字符串操作是计算机程序设计中最常见的行为。<br><a id="more"></a></p>
+<h2 id="13-1-不可变String"><a href="#13-1-不可变String" class="headerlink" title="13.1 不可变String"></a>13.1 不可变String</h2><p>String对象是不可变的。查看JDK文档你就会发现，String类中每一个看起来会修改String值的方法，实际上都是创建了一个全新的String对象，以包含修改后的字符串内容。而最初的String对象则丝毫未动。内部有final char[] values，没有方法修改其内容</p>
+<h2 id="13-2-重载“-”与StringBuilder"><a href="#13-2-重载“-”与StringBuilder" class="headerlink" title="13.2 重载“+”与StringBuilder"></a>13.2 重载“+”与StringBuilder</h2><p>不可变性会带来一定的效率问题。为String对象重载的“+”操作符就是一个例子（“+”和“+=”是Java中仅有的两个重载过的操作符，而Java并不允许程序员重载任何操作符）。通过反编译代码(javap -c [类名])，我们可以发现它真正的工作情况：编译器自动引入了java.lang.StringBuilder类。虽然我们在源代码中并没有使用StringBuilder类，但是编译器却自作主张地使用了它，因为它更高效。调用StringBuilder的append()方法实现字符串的加操作，最后调用toString()生成结果。</p>
+<p>现在，也许你会觉得可以随意使用String对象，反正编译器会为你自动优化性能。可是在这之前，让我们更深入地看看编译器能为我们优化到什么程度。通过循环分别通过追加创建一个字符串，反编译源码，我们可以看到：<strong>利用String创建时，编译器通过StringBuilder优化了字符串的创建，但是由于循环的存在，导致每次循环编译器都会创建一个StringBuilder对象；</strong>相比之下，利用StringBuilder创建字符串则只创建了一个StringBuilder对象，反编译的汇编指令也比前一个简洁的多。<strong>因此，当你为一个类编写toString()方法时，若字符串操作比较简单，那就可以信赖编译器，它会为你合理地构造最终的字符串结果。但是，如果你要在toString方法中使用循环，那么最好自己创建一个StringBuilder对象，用它来构造最终结果。如果拿不准该用哪种方式，随时可以用javap来分析你的程序。</strong></p>
+<p>StringBuilder是在Java SE5引入的，在这之前Java用的是StringBuffer。后者是线程安全的，因此开销会大些，所以在Java SE5/6中，字符串操作应该还会更快一些。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        String str = <span class="string">"a"</span>  + <span class="string">"b"</span> + <span class="string">"c"</span>;<span class="comment">// 1</span></div><div class="line">        String a = <span class="string">"a"</span>;</div><div class="line">        String b = <span class="string">"b"</span>;</div><div class="line">        String c = <span class="string">"c"</span>;</div><div class="line">        String abc = a + b + c; <span class="comment">//2</span></div><div class="line">        String abc1 = <span class="keyword">new</span> String(<span class="string">"a"</span>) + <span class="keyword">new</span> String(<span class="string">"b"</span>) + <span class="keyword">new</span> String(<span class="string">"c"</span>); <span class="comment">//3</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于1，编译器将做优化，str直接指向常量”abc”，而2、3则会使用StringBuilder的append方法优化。</p>
+<h2 id="13-3-无意识的递归"><a href="#13-3-无意识的递归" class="headerlink" title="13.3 无意识的递归"></a>13.3 无意识的递归</h2><p>Java中的每个类从根本上都是继承自Object，标准容器类自然也不例外。因此容器类都有toString()方法，并且重写了该方法，使得它生成的String结果能够表达容器自身，以及容器所包含的对象。如果你希望toString()方法打印出对象的内存地址，也许你会考虑使用关键字this。但是，你会得到一串非常长的异常。这是因为编译器会将this转换成String，怎么转换呢，调用的就是toString()方法，发生了递归调用。<strong>因此，如果你真的想要打印出对象的内存地址，应该调用Object.toString()方法，而不是返回this。</strong></p>
+<h2 id="13-4-String上的操作"><a href="#13-4-String上的操作" class="headerlink" title="13.4 String上的操作"></a>13.4 String上的操作</h2><p>String类有很多方法，在此不一一列举。可以参考文章：<br><a href="http://www.runoob.com/java/java-string.html" target="_blank" rel="external">http://www.runoob.com/java/java-string.html</a><br>在此，我们要注意一点，当需要改变字符串的内容时，String类的方法都会返回一个新的String对象。同时，如果内容没有发生改变，String的方法只是返回指向原对象的引用而已。</p>
+<h2 id="13-5-格式化输出"><a href="#13-5-格式化输出" class="headerlink" title="13.5 格式化输出"></a>13.5 格式化输出</h2><h4 id="13-5-2-System-out-format"><a href="#13-5-2-System-out-format" class="headerlink" title="13.5.2 System.out.format();"></a>13.5.2 System.out.format();</h4><p>Java SE5引入的format方法可用于PrintSteam或PrintWriter对象，其中包括System.out对象。format()方法模仿自C的printf()。如果你比较怀旧的话，也可以使用printf()；</p>
+<h4 id="13-5-3-Formatter类"><a href="#13-5-3-Formatter类" class="headerlink" title="13.5.3 Formatter类"></a>13.5.3 Formatter类</h4><p>当你创建一个formatter对象的时候，需要向其构造器传递一些信息，告诉它最终的结果将向哪里输出。</p>
+<h4 id="13-5-4-格式化说明符"><a href="#13-5-4-格式化说明符" class="headerlink" title="13.5.4 格式化说明符"></a>13.5.4 格式化说明符</h4><p>在插入数据时，如果想要控制空格与对齐，你需要更精细复杂的更是修饰符。以下是其抽象的语法：</p>
+<p><code>%[argument_index$][flags][width][.precision]conversion</code></p>
 <ol>
-<li>如果一个类包含一个或多个抽象方法，则必须被限定为抽象类。（反过来，如果一个类被定义为abstract的，不一定要有抽象方法）</li>
-<li>不能实例化抽象类。</li>
-<li>继承抽象类，如果没有实现所有的抽象方法，那么还是抽象类。</li>
+<li>可选的 argument_index 是一个十进制整数，用于表明参数在参数列表中的位置。第一个参数由 “1$” 引用，第二个参数由 “2$” 引用，依此类推。</li>
+<li>可选 flags 是修改输出格式的字符集。有效标志集取决于转换类型。在默认的情况下，数据是右对齐的，不过可以通过使用“-”编制来改变对齐方向。</li>
+<li>可选 width 是一个非负十进制整数，表明要向输出中写入的最少字符数。必要时添加空格以达到指定长度。</li>
+<li>可选 precision 是一个非负十进制整数，通常用来限制字符数。特定行为取决于转换类型。与width相对应用来指定最大尺寸。precision的意义也不同。在将precision应用于String时，它表示打印String时输出字符串的最大数量。而在将precision应用于浮点数时，它表示小数部分要显示出来的位数（默认是6位小数），如果小数位过多则舍入，太少则在尾补零。由于整数没有小数部分，所以precision无法应用于整数。</li>
+<li>所需 conversion 是一个表明应该如何格式化参数的字符。给定参数的有效转换集取决于参数的数据类型。</li>
 </ol>
-<h2 id="9-2-接口"><a href="#9-2-接口" class="headerlink" title="9.2 接口"></a>9.2 接口</h2><p>接口被用来建立类与类之间的协议（某些面向对象编程语言使用关键字protocol来完成这个功能）</p>
-<p>interface产生一个完全抽象的类，允许创建者确定方法名、参数列表和返回类型。但只提供形式，不提供实现。（Java SE8提供了<a href="https://caocan.github.io/2017/10/14/JavaSE8defaultMethod/" title="default">default</a>关键字，可以定义默认的方法，该方法提供实现）。</p>
-<p>接口可以有域，但这些域被隐式的声明为static 和final</p>
-<p>可以在接口中显示的把方法声明为public，<strong><em>默认就是public，而且必须是public，方法不能是static和final的。</em></strong></p>
-<h2 id="9-3-完全解耦"><a href="#9-3-完全解耦" class="headerlink" title="9.3 完全解耦"></a>9.3 完全解耦</h2><p>创建一个能够根据所传递的参数对象的不同而具有不同行为的方法，被称为<strong>策略设计模式</strong>。这类方法包含所要执行的算法中固定不变的部分，而“策略”包含变化的部分。策略就是传递进去的参数对象，包含要执行的代码，可以根据传递的参数的对象产生不同的行为。</p>
-<p>复用代码的第一种方式就是客户端程序员遵循该接口来编写他们的类；<br>第二种方式：如果无法修改使用的类，则可以使用<strong>适配器设计模式</strong>。</p>
-<h2 id="9-4-多重继承"><a href="#9-4-多重继承" class="headerlink" title="9.4 多重继承"></a>9.4 多重继承</h2><p>接口可以实现多重继承，implements可以接多个接口，用逗号分开即可。</p>
-<p>接口使用的核心原因：能向上转型为多个基类型（以及由此带来的灵活性）；与抽象基类相同，防止客户端程序员创建该类的对象。</p>
-<p>应该使用接口还是抽象类：如果要创建不带任何方法定义和成员变量的基类，那么就应该选择接口而不是抽象类。事实上，如果知道某事物应该成为一个基类，那么第一选择应该是使它成为一个接口。</p>
-<h2 id="9-5-通过继承来扩展接口"><a href="#9-5-通过继承来扩展接口" class="headerlink" title="9.5 通过继承来扩展接口"></a>9.5 通过继承来扩展接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Monster</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">menace</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">DangerousMonster</span> <span class="keyword">extends</span> <span class="title">Monster</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Vampire</span> <span class="keyword">extends</span> <span class="title">DangerousMonster</span> , <span class="title">Monster</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">drinkBlood</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在上面的例子中，在Vampire中使用的语法仅适用于接口继承。一般情况下，只可以将extends用于单一类，但是可以引用多个基类接口。就像所看到的那样，只需用逗号将接口名一一分割开即可。</p>
-<h4 id="9-5-1-组合接口时的名字冲突"><a href="#9-5-1-组合接口时的名字冲突" class="headerlink" title="9.5.1 组合接口时的名字冲突"></a>9.5.1 组合接口时的名字冲突</h4><p>在打算组合不同接口中使用相同的方法名通常会造成代码可读性的混乱，应该尽量避免这种情况。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">I1</span></span>&#123;<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>;&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">I2</span></span>&#123;<span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> i)</span></span>;&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">I3</span></span>&#123;<span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">()</span></span>;&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">C2</span> <span class="keyword">implements</span> <span class="title">I1</span>,<span class="title">I2</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//class C5 extends C implements I1 &#123;&#125;       //出错</span></div><div class="line"><span class="comment">//interface I4 extends I1 , I3 &#123;&#125;           //出错</span></div></pre></td></tr></table></figure>
-<h2 id="9-6-适配接口"><a href="#9-6-适配接口" class="headerlink" title="9.6 适配接口"></a>9.6 适配接口</h2><p>让方法接受接口类型，是一种让任何类都可以对该方法进行适配的方式。这就是使用接口而不是类的强大之处。</p>
-<h2 id="9-7-接口中的域"><a href="#9-7-接口中的域" class="headerlink" title="9.7 接口中的域"></a>9.7 接口中的域</h2><p>放入接口中的任何域都自动是static和final的，所以接口就成为了一种很便捷的创建常量组的工具（Java SE5出现了enum）。<strong>接口中的域是public的。</strong></p>
-<h4 id="9-7-1-初始化接口中的域"><a href="#9-7-1-初始化接口中的域" class="headerlink" title="9.7.1 初始化接口中的域"></a>9.7.1 初始化接口中的域</h4><p>接口中定义的域不能是“空final”，但是可以被非常量表达式初始化。</p>
-<p>如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RandVals</span></span>&#123;</div><div class="line">    Random RAND = <span class="keyword">new</span> Random(<span class="number">47</span>);</div><div class="line">    <span class="keyword">int</span> RANDOM_INT = RAND.nextInt(<span class="number">10</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这个例子中，域不是接口的一部分，值存于静态存储区域内。</p>
-<h2 id="9-8-嵌套接口"><a href="#9-8-嵌套接口" class="headerlink" title="9.8 嵌套接口"></a>9.8 嵌套接口</h2><p>接口中成员默认就是public的，接口嵌套在接口中只能是public的。类中嵌套接口或类可以是4种访问权限。<br>当实现某个接口时，并不需要实现嵌套在其内部的任何接口。而且，private接口不能在定义它的类之外被发现，返回private接口仅可以被定义它的类的方法使用。</p>
-<h2 id="9-9-接口与工厂"><a href="#9-9-接口与工厂" class="headerlink" title="9.9 接口与工厂"></a>9.9 接口与工厂</h2><p>生成遵循某个接口的对象的典型方式就是工厂方法设计模式。通过工厂方法模式，我们的代码将完全与接口的实现分离，这就使得我们可以透明地将某个实现替换为另一个实现。</p>
-<p>优先选择类而不是接口，从类开始，如果接口的需要性变得非常明确，那么就进行重构。接口是一种重要的工具，但他们容易被滥用。</p>
+<h4 id="13-5-5-Formatter转换"><a href="#13-5-5-Formatter转换" class="headerlink" title="13.5.5 Formatter转换"></a>13.5.5 Formatter转换</h4><p>类似于C语言中printf()的那些特殊的占位符，如%d，表示整数型。</p>
+<h4 id="13-5-6-String-format"><a href="#13-5-6-String-format" class="headerlink" title="13.5.6 String.format()"></a>13.5.6 String.format()</h4><p>Java SE5也参考了C中的sprintf()方法，以生成格式化的String对象。String.format()是一个static方法，它接受与Formatter.format()方法一样的参数，但是返回一个String对象。当你只需要使用format()方法一次时，String.format()用起来很方便。其实，在String.format()内部，它也是创建了一个Formatter对象，然后将你传入的参数转给该Formatter。不过，与其自己做这些事情，不如使用便捷的String.format()方法，何况这样的代码更清晰易读。</p>
+<h2 id="13-6-正则表达式"><a href="#13-6-正则表达式" class="headerlink" title="13.6 正则表达式"></a>13.6 正则表达式</h2><p>Java中，<code>\\</code>的意思是“我要插入一个正则表达式的反斜线，以后的字符具有特殊的意义”，如果想插入普通的反斜线，则应该是<code>\\\\</code></p>
+<p><strong>字符</strong></p>
+<table>
+<thead>
+<tr>
+<th>构造</th>
+<th>匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>字符 x</td>
+</tr>
+<tr>
+<td>\</td>
+<td>两个反斜线表示反斜线字符</td>
+</tr>
+<tr>
+<td>\xhh</td>
+<td>带有十六进制值 0x 的字符 hh</td>
+</tr>
+<tr>
+<td>\uhhhh</td>
+<td>带有十六进制值 0x 的字符 hhhh</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表符 (‘\u0009’)</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>新行（换行）符 (‘\u000A’)</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车符 (‘\u000D’)</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页符 (‘\u000C’)</td>
+</tr>
+<tr>
+<td>\a</td>
+<td>报警 (bell) 符 (‘\u0007’)</td>
+</tr>
+<tr>
+<td>\e</td>
+<td>转义符 (‘\u001B’)</td>
+</tr>
+<tr>
+<td>\cx</td>
+<td>对应于 x 的控制符</td>
+</tr>
+</tbody>
+</table>
+<p><strong>字符类</strong></p>
+<table>
+<thead>
+<tr>
+<th>构造</th>
+<th>匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[abc]</td>
+<td>a、b 或 c（简单类）</td>
+</tr>
+<tr>
+<td>[^abc]</td>
+<td>任何字符，除了 a、b 或 c（否定）</td>
+</tr>
+<tr>
+<td>[a-zA-Z]</td>
+<td>a 到 z 或 A 到 Z，两头的字母包括在内（范围）</td>
+</tr>
+<tr>
+<td>[a-d[m-p]]</td>
+<td>a 到 d 或 m 到 p：[a-dm-p]（并集）</td>
+</tr>
+<tr>
+<td>[a-z&amp;&amp;[def]]</td>
+<td>d、e 或 f（交集）</td>
+</tr>
+<tr>
+<td>[a-z&amp;&amp;[^bc]]</td>
+<td>a 到 z，除了 b 和 c：[ad-z]（减去）</td>
+</tr>
+<tr>
+<td>[a-z&amp;&amp;[^m-p]]</td>
+<td>a 到 z，而非 m 到 p：[a-lq-z]（减去）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>预定义字符类</strong></p>
+<table>
+<thead>
+<tr>
+<th>构造</th>
+<th>匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>任何字符（与行结束符可能匹配也可能不匹配）</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>数字：[0-9]</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>非数字： [^0-9]</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>空白字符：[ \t\n\x0B\f\r]</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>非空白字符：[^\s]</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>单词字符：[a-zA-Z_0-9]</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>非单词字符：[^\w]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>POSIX字符类（仅 US-ASCII）</strong></p>
+<table>
+<thead>
+<tr>
+<th>构造</th>
+<th>匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\p{Lower}</td>
+<td>小写字母字符：[a-z]</td>
+</tr>
+<tr>
+<td>\p{Upper}</td>
+<td>大写字母字符：[A-Z]</td>
+</tr>
+<tr>
+<td>\p{ASCII}</td>
+<td>所有 ASCII：[\x00-\x7F]</td>
+</tr>
+<tr>
+<td>\p{Alpha}</td>
+<td>字母字符：[\p{Lower}\p{Upper}]</td>
+</tr>
+<tr>
+<td>\p{Digit}</td>
+<td>十进制数字：[0-9]</td>
+</tr>
+<tr>
+<td>\p{Alnum}</td>
+<td>字母数字字符：[\p{Alpha}\p{Digit}]</td>
+</tr>
+<tr>
+<td>\p{Punct}</td>
+<td>标点符号：!”#$%&amp;’()*+,-./:;?@[]^_`{}~以及竖线和反斜线</td>
+</tr>
+<tr>
+<td>\p{Graph}</td>
+<td>可见字符：[\p{Alnum}\p{Punct}]</td>
+</tr>
+<tr>
+<td>\p{Print}</td>
+<td>可打印字符：[\p{Graph}\x20]</td>
+</tr>
+<tr>
+<td>\p{Blank}</td>
+<td>空格或制表符：[ \t]</td>
+</tr>
+<tr>
+<td>\p{Cntrl}</td>
+<td>控制字符：[\x00-\x1F\x7F]</td>
+</tr>
+<tr>
+<td>\p{XDigit}</td>
+<td>十六进制数字：[0-9a-fA-F]</td>
+</tr>
+<tr>
+<td>\p{Space}</td>
+<td>空白字符：[ \t\n\x0B\f\r]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>边界匹配器</strong></p>
+<table>
+<thead>
+<tr>
+<th>构造</th>
+<th>匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>行的开头</td>
+</tr>
+<tr>
+<td>$</td>
+<td>行的结尾</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>单词边界</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>非单词边界</td>
+</tr>
+<tr>
+<td>\A</td>
+<td>输入的开头</td>
+</tr>
+<tr>
+<td>\G</td>
+<td>上一个匹配的结尾</td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>输入的结尾，仅用于最后的结束符（如果有的话）</td>
+</tr>
+<tr>
+<td>\z</td>
+<td>输入的结尾</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数量词</strong></p>
+<table>
+<thead>
+<tr>
+<th>贪婪型</th>
+<th>勉强型</th>
+<th>占有型</th>
+<th>匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X?</td>
+<td>X??</td>
+<td>X?+</td>
+<td>X，一次或一次也没有</td>
+</tr>
+<tr>
+<td>X*</td>
+<td>X*?</td>
+<td>X*+</td>
+<td>X，零次或多次</td>
+</tr>
+<tr>
+<td>X+</td>
+<td>X+?</td>
+<td>X++</td>
+<td>X，一次或多次</td>
+</tr>
+<tr>
+<td>X{n}</td>
+<td>X{n}?</td>
+<td>X{n}+</td>
+<td>X，恰好 n 次</td>
+</tr>
+<tr>
+<td>X{n,}</td>
+<td>X{n,}?</td>
+<td>X{n,}+</td>
+<td>X，至少 n 次</td>
+</tr>
+<tr>
+<td>X{n,m}</td>
+<td>X{n,m}?</td>
+<td>X{n,m}+</td>
+<td>X，至少 n 次，但是不超过 m 次</td>
+</tr>
+</tbody>
+</table>
+<p>占有型只有Java中才有</p>
+<p>逻辑运算符</p>
+<ul>
+<li>XY : X 后跟 Y</li>
+<li>X|Y : X 或 Y</li>
+<li>(X) : X，作为捕获组</li>
+</ul>
+<p>典型的调用顺序是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Pattern p = Pattern.compile(<span class="string">"a*b"</span>);</div><div class="line">Matcher m = p.matcher(<span class="string">"aaaaab"</span>);</div><div class="line"><span class="keyword">boolean</span> b = m.matches();</div></pre></td></tr></table></figure>
+<p><strong>Pattern常用方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法声明</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>static Pattern compile(String regex)</td>
+<td>将给定的正则表达式编译到模式中。</td>
+</tr>
+<tr>
+<td>static Pattern compile(String regex, int flags)</td>
+<td>将给定的正则表达式编译到具有给定标志的模式中。</td>
+</tr>
+<tr>
+<td>Matcher matcher(CharSequence input)</td>
+<td>创建匹配给定输入与此模式的匹配器。</td>
+</tr>
+<tr>
+<td>static boolean matches(String regex, CharSequence input)</td>
+<td>编译给定正则表达式并尝试将给定输入与其匹配。</td>
+</tr>
+<tr>
+<td>String[] split(CharSequence input)</td>
+<td>围绕此模式的匹配拆分给定输入序列。</td>
+</tr>
+<tr>
+<td>String[] split(CharSequence input, int limit)</td>
+<td>围绕此模式的匹配拆分给定输入序列。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pattern标记</strong></p>
+<table>
+<thead>
+<tr>
+<th>标记</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>static int CANON_EQ</td>
+<td>启用规范等价。当且仅当完全规范分解相匹配时，就认为它们是匹配的，指定此标记a\u030A就会匹配?</td>
+</tr>
+<tr>
+<td>static int CASE_INSENSITIVE(?i)</td>
+<td>启用不区分大小写的匹配。</td>
+</tr>
+<tr>
+<td>static int COMMENTS(?x)</td>
+<td>模式中允许空白和注释。空白和以#开始的注释都会被忽略</td>
+</tr>
+<tr>
+<td>static int DOTALL(?s)</td>
+<td>启用 dotall 模式。.可以匹配任何字符，包括行结束符。默认情况下，此表达式不匹配行结束符。</td>
+</tr>
+<tr>
+<td>static int LITERAL</td>
+<td>启用模式的字面值解析。指定此标志后，输入序列中的元字符或转义序列不具有任何特殊意义。</td>
+</tr>
+<tr>
+<td>static int MULTILINE(?m)</td>
+<td>启用多行模式。仅分别在行结束符前后匹配，或者在输入序列的结尾处匹配。默认情况下，这些表达式仅在整个输入序列的开头和结尾处匹配。</td>
+</tr>
+<tr>
+<td>static int UNICODE_CASE(?u)</td>
+<td>启用 Unicode 感知的大小写折叠。</td>
+</tr>
+<tr>
+<td>static int UNIX_LINES(?d)</td>
+<td>启用 Unix 行模式。在此模式中，.、^ 和 $ 的行为中仅识别 ‘\n’ 行结束符。</td>
+</tr>
+</tbody>
+</table>
+<p>Pattern.CASE_INSENSITIVE、Pattern.MULTILINE、Pattern.COMMENTS这三个标记特别有用。compile(String regex, int flags) 中的标记flags还可以用或(|)来组合。</p>
+<p><strong>Matcher常用方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法声明</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean matches()</td>
+<td>尝试将整个区域与模式匹配。</td>
+</tr>
+<tr>
+<td>boolean lookingAt()</td>
+<td>尝试将从区域开头开始的输入序列与该模式匹配。</td>
+</tr>
+<tr>
+<td>boolean find()</td>
+<td>尝试查找与该模式匹配的输入序列的下一个子序列。</td>
+</tr>
+<tr>
+<td>boolean find(int start)</td>
+<td>重置此匹配器，然后从指定索引开始的下一个子序列尝试查找匹配该模式。</td>
+</tr>
+<tr>
+<td>int groupCount()</td>
+<td>返回此匹配器模式中的捕获组数。不包括0组</td>
+</tr>
+<tr>
+<td>String group()</td>
+<td>返回由以前匹配操作所匹配的输入子序列。相当于group(0)</td>
+</tr>
+<tr>
+<td>String group(int group)</td>
+<td>返回在以前匹配操作期间由给定组捕获的输入子序列。</td>
+</tr>
+<tr>
+<td>int start()</td>
+<td>返回以前匹配的初始索引。相当于start(0)</td>
+</tr>
+<tr>
+<td>int start(int group)</td>
+<td>返回在以前的匹配操作期间，由给定组所捕获的子序列的初始索引。</td>
+</tr>
+<tr>
+<td>int end()</td>
+<td>返回最后匹配字符之后的偏移量。相当于end(0)</td>
+</tr>
+<tr>
+<td>int end(int group)</td>
+<td>返回在以前的匹配操作期间，由给定组所捕获子序列的最后字符之后的偏移量。</td>
+</tr>
+<tr>
+<td>String replaceFirst(String replacement)</td>
+<td>替换模式与给定替换字符串匹配的输入序列的第一个子序列。</td>
+</tr>
+<tr>
+<td>String replaceAll(String replacement)</td>
+<td>替换模式与给定替换字符串相匹配的输入序列的每个子序列。</td>
+</tr>
+<tr>
+<td>Matcher appendReplacement(StringBuffer sb, String replacement)</td>
+<td>从添加位置（一般为0，append开头的其它方法会改变这个值）到start()-1字符串添加到缓存；添加替换字符串到缓存区；将添加位置设置为end()</td>
+</tr>
+<tr>
+<td>StringBuffer appendTail(StringBuffer sb)</td>
+<td>从添加位置开始添加到缓冲区。可以在一次或多次调用 appendReplacement 方法后调用它来复制剩余的输入序列。</td>
+</tr>
+<tr>
+<td>Matcher reset()</td>
+<td>重置匹配器到当前字符序列的起始位置</td>
+</tr>
+<tr>
+<td>Matcher reset(CharSequence input)</td>
+<td>重置此具有新输入序列的匹配器。</td>
+</tr>
+</tbody>
+</table>
+<p>组是用括号划分的正则表达式，可以根据组的编号来引用某个组，组号为0表示整个表达式，组号1表示第一个括号括起来的组。<code>A(B(C))D</code> 组0是ABCD，组1是BC，组2是C。groupCount() 返回的组数不包括0组。只有三种是匹配操作：matches(),lookingAt(),find()，这三个方法如果匹配成功，会改变下一次匹配的起始索引。</p>
+<h2 id="13-7-扫描输入"><a href="#13-7-扫描输入" class="headerlink" title="13.7 扫描输入"></a>13.7 扫描输入</h2><p>Java SE5新增了Scanner类。Scanner的构造器可以接受任何类型的输入对象，如File对象，InputStream，String对象。所有基本类型（除char外）包括BigDecimal和BigInteger，Scanner类都有next和hasnext方法。</p>
+<ul>
+<li>Scanner定界符</li>
+</ul>
+<p>在默认情况下，Scanner更具空白字符对输入进行分词，但是你可以用正则表达式指定自己所需的定界符。scanner.useDelimiter(“\s<em>,\s</em>“);//使用逗号作为界定符</p>
+<ul>
+<li>用正则表达式扫描</li>
+</ul>
+<p>除了能够扫描基本类型之外，你还可以使用自定义的正则表达式进行扫描，这在扫描复杂数据是非常有用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line"><span class="keyword">int</span> i = sc.nextInt();</div></pre></td></tr></table></figure>
+<h2 id="13-8-StringTokenizer"><a href="#13-8-StringTokenizer" class="headerlink" title="13.8 StringTokenizer"></a>13.8 StringTokenizer</h2><p>基本上，我们可以放心的说，StringTokenizer已经可以废弃不用了。</p>
 
       
     </div>
@@ -437,8 +898,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/14/JavaSE8defaultMethod/" rel="next" title="Java 8 默认方法（Default Methods）">
-                <i class="fa fa-chevron-left"></i> Java 8 默认方法（Default Methods）
+              <a href="/2017/11/19/JSP5/" rel="next" title="Jsp&Servlet笔记（五）JSP（二）">
+                <i class="fa fa-chevron-left"></i> Jsp&Servlet笔记（五）JSP（二）
               </a>
             
           </div>
@@ -446,10 +907,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/14/Oracle-Select/" rel="prev" title="Oracle（一） Select语句">
-                Oracle（一） Select语句 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -588,7 +1045,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1-抽象类和抽象方法"><span class="nav-number">1.</span> <span class="nav-text">9.1 抽象类和抽象方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-接口"><span class="nav-number">2.</span> <span class="nav-text">9.2 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-完全解耦"><span class="nav-number">3.</span> <span class="nav-text">9.3 完全解耦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-4-多重继承"><span class="nav-number">4.</span> <span class="nav-text">9.4 多重继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-5-通过继承来扩展接口"><span class="nav-number">5.</span> <span class="nav-text">9.5 通过继承来扩展接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-5-1-组合接口时的名字冲突"><span class="nav-number">5.0.1.</span> <span class="nav-text">9.5.1 组合接口时的名字冲突</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-6-适配接口"><span class="nav-number">6.</span> <span class="nav-text">9.6 适配接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-7-接口中的域"><span class="nav-number">7.</span> <span class="nav-text">9.7 接口中的域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-7-1-初始化接口中的域"><span class="nav-number">7.0.1.</span> <span class="nav-text">9.7.1 初始化接口中的域</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-8-嵌套接口"><span class="nav-number">8.</span> <span class="nav-text">9.8 嵌套接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-9-接口与工厂"><span class="nav-number">9.</span> <span class="nav-text">9.9 接口与工厂</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-1-不可变String"><span class="nav-number">1.</span> <span class="nav-text">13.1 不可变String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-2-重载“-”与StringBuilder"><span class="nav-number">2.</span> <span class="nav-text">13.2 重载“+”与StringBuilder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-无意识的递归"><span class="nav-number">3.</span> <span class="nav-text">13.3 无意识的递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-4-String上的操作"><span class="nav-number">4.</span> <span class="nav-text">13.4 String上的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-5-格式化输出"><span class="nav-number">5.</span> <span class="nav-text">13.5 格式化输出</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-2-System-out-format"><span class="nav-number">5.0.1.</span> <span class="nav-text">13.5.2 System.out.format();</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-3-Formatter类"><span class="nav-number">5.0.2.</span> <span class="nav-text">13.5.3 Formatter类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-4-格式化说明符"><span class="nav-number">5.0.3.</span> <span class="nav-text">13.5.4 格式化说明符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-5-Formatter转换"><span class="nav-number">5.0.4.</span> <span class="nav-text">13.5.5 Formatter转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-6-String-format"><span class="nav-number">5.0.5.</span> <span class="nav-text">13.5.6 String.format()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-6-正则表达式"><span class="nav-number">6.</span> <span class="nav-text">13.6 正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-7-扫描输入"><span class="nav-number">7.</span> <span class="nav-text">13.7 扫描输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-8-StringTokenizer"><span class="nav-number">8.</span> <span class="nav-text">13.8 StringTokenizer</span></a></li></ol></div>
             
 
           </div>
