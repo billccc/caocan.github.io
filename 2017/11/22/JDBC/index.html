@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JDBC,数据库," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍JDBC的使用方法，几个比较经典的连接Oracle数据库的例子。">
+<meta name="keywords" content="JDBC,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDBC常用的连接Oracle的程序">
+<meta property="og:url" content="https://caocan.github.io/2017/11/22/JDBC/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍JDBC的使用方法，几个比较经典的连接Oracle数据库的例子。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/11/22/JDBC/14.png">
+<meta property="og:updated_time" content="2017-11-22T09:31:42.282Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JDBC常用的连接Oracle的程序">
+<meta name="twitter:description" content="本文主要介绍JDBC的使用方法，几个比较经典的连接Oracle数据库的例子。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/11/22/JDBC/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/11/22/JDBC/"/>
+
+
+
+
+
+  <title>JDBC常用的连接Oracle的程序 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/22/JDBC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JDBC常用的连接Oracle的程序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-22T17:10:36+08:00">
+                2017-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍JDBC的使用方法，几个比较经典的连接Oracle数据库的例子。</p>
+<a id="more"></a>
+<h2 id="第五课-JDBC初步-1"><a href="#第五课-JDBC初步-1" class="headerlink" title="第五课. JDBC初步_1"></a>第五课. JDBC初步_1</h2><p>内容概要：</p>
+<ol>
+<li>Java Database Connectivity</li>
+<li>JDBC简介</li>
+<li>SQL语言回顾</li>
+<li>JDBC基础编程</li>
+<li>JDBC高级编程</li>
+<li>DataSource and RowSet</li>
+</ol>
+<p>最早的数据库编程：<br><img src="1.png" alt=""></p>
+<p>缺点：不能跨数据库平台。</p>
+<p>解决方法：<br><img src="2.png" alt=""></p>
+<p>将数据库系统分层，这样就可以实现跨数据库平台了<br>我们的JDBC：<br><img src="3.png" alt=""></p>
+<p>SQL语言回顾：<br><strong>Select</strong></p>
+<ul>
+<li>Select * from T where ……</li>
+</ul>
+<p><strong>Insert</strong></p>
+<ul>
+<li>Insert into T values(……)</li>
+</ul>
+<p><strong>Create</strong></p>
+<ul>
+<li>Create table T(……)</li>
+</ul>
+<p><strong>Delete</strong></p>
+<ul>
+<li>Delete from T where ……</li>
+</ul>
+<p><strong>Update</strong></p>
+<ul>
+<li>Update T set t1=… and t2=… where t3=…</li>
+</ul>
+<p><strong>Drop</strong></p>
+<ul>
+<li>Drop table T</li>
+</ul>
+<p>JDBC编程步骤（完全固定的）</p>
+<ol>
+<li>Load thd Driver<br>(1)    Class.forName()|Class.forName().newInstance()|new DriverName()<br>(2)    实例化时自动向DriverManager注册，不需要显示调用DriverManager.registerDriver方法</li>
+<li>Connect to the DataBase</li>
+<li>DriverManager.getConnection()</li>
+<li>Execute the SQL<br>(1)    Connection.CreateStatement()<br>(2)    Statement.executeQuery()<br>(3)    Statement.excuteUpdate()</li>
+<li>Retrive the result data<br>(1)    循环取得结果 while(rs.next())</li>
+<li>Show the result data<br>(1)将数据库中的各种类型转换为Java中的类型(getXXX)方法</li>
+<li>Close<br>(1)    close the resultset  / close the statement  / close the connection</li>
+</ol>
+<p>来看一个例子：<br>首先我们在idea下创建一个JDBC工程，存放将来所有的关于JDBC的程序。再创建一个TestJDBC的module，在里面创建一个TestJDBC的class。<br>之后我们要连接oracle，所以在oracle的安装目录下找到JDBC的驱动:<br><code>D:\app\korson\product\11.2.0\dbhome_1\oui\jlib</code><br>在这个目录下找到classes12.jar，这么就是我们要找的JDBC驱动</p>
+<p>在我们的module配置里加入这个jar包：<br><img src="4.png" alt=""></p>
+<p>最好的方式是将classes12.jar放在自己工程下面，不要放在系统class path下面，防止和其他项目合并时产生jar包冲突。</p>
+<p>我们在写代码之前，需要知道我们数据库的ip地址，端口号，用户名，密码。<br>我们这里的ip地址是127.0.0.1，端口号是1521。因为在<code>netstat -ano</code>下显示的127.0.0.1:1521被监听，而一般127.0.0.1是只有本地地址可以访问，0.0.0.0是外网可以访问的。<br><img src="5.png" alt=""></p>
+<p>我们的代码是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestJDBC</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">//第一种向DriverManager注册的方式</span></div><div class="line">        Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">        <span class="comment">//第二种向DriverManager注册的方式</span></div><div class="line">        <span class="comment">//new oracle.jdbc.driver.OracleDriver();</span></div><div class="line"></div><div class="line">        Connection conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样就连接上了名为orcl的数据库了。</p>
+<h2 id="第六课-JDBC初步-2"><a href="#第六课-JDBC初步-2" class="headerlink" title="第六课. JDBC初步_2"></a>第六课. JDBC初步_2</h2><p>继续完善上面的代码，写出一个完整的数据库操作程序：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestJDBC</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">//第一种向DriverManager注册的方式</span></div><div class="line">        Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">        <span class="comment">//第二种向DriverManager注册的方式</span></div><div class="line">        <span class="comment">//new oracle.jdbc.driver.OracleDriver();</span></div><div class="line"></div><div class="line">        <span class="comment">//连接数据库</span></div><div class="line">        Connection conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line"></div><div class="line">        <span class="comment">//创建一条Statement</span></div><div class="line">        Statement stmt = conn.createStatement();</div><div class="line">        <span class="comment">//执行查询，结果集就像一个游标,指在结果集的最顶端</span></div><div class="line">        ResultSet rs = stmt.executeQuery(<span class="string">"select * from dept"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">while</span>(rs.next())&#123;</div><div class="line">            <span class="comment">//把结果的"deptno"值当字符串拿出来</span></div><div class="line">            System.out.println(rs.getString(<span class="string">"deptno"</span>));</div><div class="line">            <span class="comment">//把结果的"deptno"值当int拿出来</span></div><div class="line">            System.out.println(rs.getInt(<span class="string">"deptno"</span>));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//后打开的先关闭</span></div><div class="line">        rs.close();</div><div class="line">        stmt.close();</div><div class="line">        conn.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>该程序的执行结果是从数据库的dept表中取出deptno字段进行打印，最后将各种管道关闭，后打开的先关闭。</p>
+<h2 id="第七课-JDBC初步-3"><a href="#第七课-JDBC初步-3" class="headerlink" title="第七课. JDBC初步_3"></a>第七课. JDBC初步_3</h2><p>上面的代码有很多问题，比如数据库操作出现异常时不能正常关闭，比如rs、stmt、conn为空时会关闭等，所以加入健全的异常处理机制：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestJDBC</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line">        ResultSet rs = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">        <span class="comment">//第一种向DriverManager注册的方式</span></div><div class="line">        Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">        <span class="comment">//第二种向DriverManager注册的方式</span></div><div class="line">        <span class="comment">//new oracle.jdbc.driver.OracleDriver();</span></div><div class="line"></div><div class="line">        <span class="comment">//连接数据库</span></div><div class="line">        conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line"></div><div class="line">        <span class="comment">//创建一条Statement</span></div><div class="line">        stmt = conn.createStatement();</div><div class="line">        <span class="comment">//执行查询，结果集就像一个游标,指在结果集的最顶端</span></div><div class="line">        rs = stmt.executeQuery(<span class="string">"select * from dept"</span>);</div><div class="line"></div><div class="line"></div><div class="line">            <span class="keyword">while</span>(rs.next())&#123;</div><div class="line">                <span class="comment">//把结果的"deptno"值当字符串拿出来</span></div><div class="line">                System.out.println(rs.getString(<span class="string">"deptno"</span>));</div><div class="line">                <span class="comment">//把结果的"deptno"值当int拿出来</span></div><div class="line">                System.out.println(rs.getInt(<span class="string">"deptno"</span>));</div><div class="line">            &#125;</div><div class="line">        &#125;<span class="keyword">catch</span> (ClassNotFoundException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="comment">//后打开的先关闭</span></div><div class="line">                <span class="keyword">if</span>(rs != <span class="keyword">null</span>) &#123;</div><div class="line">                    rs.close();</div><div class="line">                    rs = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</div><div class="line">                    stmt.close();</div><div class="line">                    stmt = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</div><div class="line">                    conn.close();</div><div class="line">                    conn = <span class="keyword">null</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="第八课-JDBC处理DML语句-1"><a href="#第八课-JDBC处理DML语句-1" class="headerlink" title="第八课. JDBC处理DML语句_1"></a>第八课. JDBC处理DML语句_1</h2><p>先创建一个dept2表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> dept2</div><div class="line">(</div><div class="line">  DEPTNO <span class="built_in">NUMBER</span>(<span class="number">2</span>),</div><div class="line">  DNAME VARCHAR2(<span class="number">14</span>),</div><div class="line">  LOC VARCHAR2(<span class="number">13</span>)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>再用java代码对表进行插入数据操作：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDML</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</div><div class="line"></div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">            conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line">            stmt = conn.createStatement();</div><div class="line">            <span class="comment">//将一条数据插入数据库中的dept2表</span></div><div class="line">            String sql = <span class="string">"insert into dept2 values (98, 'GAME', 'BJ')"</span>;</div><div class="line">            stmt.executeUpdate(sql);</div><div class="line"></div><div class="line">        &#125;<span class="keyword">catch</span> (ClassNotFoundException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (stmt != <span class="keyword">null</span>)&#123; stmt.close(); stmt = <span class="keyword">null</span>;&#125;</div><div class="line">                <span class="keyword">if</span> (conn != <span class="keyword">null</span>)&#123; conn.close(); conn = <span class="keyword">null</span>;&#125;</div><div class="line">            &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们在sql&#42;plus下验证数据是否插入：<br><img src="6.png" alt=""></p>
+<p>可以看到数据被成功插入了。</p>
+<p>上面的操作比较繁琐，我们想，我们的IDE能不能集成一个看数据库内容的插件呢？<br>答案是肯定的。在我们的idea的View按钮上，就有可以查看数据库的一项：<br><img src="7.png" alt=""></p>
+<p>找到我们的oracle项：<br><img src="8.png" alt=""></p>
+<p>然后对我们要查看的数据库稍加配置：<br><img src="9.png" alt=""></p>
+<p>对Driver进行添加：<br><img src="10.png" alt=""></p>
+<p>之后就可以查看我们的数据库并进行SQL操作了~</p>
+<h2 id="第九课-JDBC处理DML语句-2"><a href="#第九课-JDBC处理DML语句-2" class="headerlink" title="第九课. JDBC处理DML语句_2"></a>第九课. JDBC处理DML语句_2</h2><p>通过在主函数中输入三个参数，完成一条插入语句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 输入三个参数，进行数据库一条语句的插入</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDML2</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//必须是三个参数，如果不是，就退出</span></div><div class="line">        <span class="keyword">if</span>(args.length != <span class="number">3</span>)&#123;</div><div class="line">            System.out.println(<span class="string">"Parameter Error! Please Input Again!"</span>);</div><div class="line">            System.exit(-<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> deptno = <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            deptno = Integer.parseInt(args[<span class="number">0</span>]);</div><div class="line">        &#125;<span class="keyword">catch</span> (NumberFormatException e)&#123;</div><div class="line">            System.out.println(<span class="string">"Parameter Error!Deptno should be Number Format!"</span>);</div><div class="line">            System.exit(-<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        String dname = args[<span class="number">1</span>];</div><div class="line">        String loc = args[<span class="number">2</span>];</div><div class="line"></div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">            conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line">            stmt = conn.createStatement();</div><div class="line">            <span class="comment">//将一条数据插入数据库中的dept2表</span></div><div class="line">            String sql = <span class="string">"insert into dept2 values ("</span> + deptno + <span class="string">",'"</span> + dname + <span class="string">"','"</span> + loc + <span class="string">"')"</span>;</div><div class="line">            System.out.println(sql);</div><div class="line">            stmt.executeUpdate(sql);</div><div class="line"></div><div class="line">        &#125;<span class="keyword">catch</span> (ClassNotFoundException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (stmt != <span class="keyword">null</span>)&#123; stmt.close(); stmt = <span class="keyword">null</span>;&#125;</div><div class="line">                <span class="keyword">if</span> (conn != <span class="keyword">null</span>)&#123; conn.close(); conn = <span class="keyword">null</span>;&#125;</div><div class="line">            &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一定要注意插入语句的写法：<br><code>String sql = &quot;insert into dept2 values (&quot; + deptno + &quot;,&#39;&quot; + dname + &quot;&#39;,&#39;&quot; + loc + &quot;&#39;)&quot;;</code><br>其中由于dname和loc都是字符串，需要加单引号。</p>
+<h2 id="第十课-JDBC处理PreparedStatement"><a href="#第十课-JDBC处理PreparedStatement" class="headerlink" title="第十课. JDBC处理PreparedStatement"></a>第十课. JDBC处理PreparedStatement</h2><p>上面的操作过于繁琐，因为我们写一条sql语句时，还需要考虑是不是字符串，要不要加单引号。</p>
+<p>引入一个接口：PreparedStatement<br>其实它的基类就是Statement。它的灵活性更强一些，可以灵活指定SQL语句中的变量。</p>
+<p>对上一节的代码进行改进：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 输入三个参数，进行数据库一条语句的插入</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDML2</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//必须是三个参数，如果不是，就退出</span></div><div class="line">        <span class="keyword">if</span>(args.length != <span class="number">3</span>)&#123;</div><div class="line">            System.out.println(<span class="string">"Parameter Error! Please Input Again!"</span>);</div><div class="line">            System.exit(-<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> deptno = <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            deptno = Integer.parseInt(args[<span class="number">0</span>]);</div><div class="line">        &#125;<span class="keyword">catch</span> (NumberFormatException e)&#123;</div><div class="line">            System.out.println(<span class="string">"Parameter Error!Deptno should be Number Format!"</span>);</div><div class="line">            System.exit(-<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        String dname = args[<span class="number">1</span>];</div><div class="line">        String loc = args[<span class="number">2</span>];</div><div class="line"></div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">            conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line">            stmt = conn.createStatement();</div><div class="line">            <span class="comment">//将一条数据插入数据库中的dept2表</span></div><div class="line">            String sql = <span class="string">"insert into dept2 values ("</span> + deptno + <span class="string">",'"</span> + dname + <span class="string">"','"</span> + loc + <span class="string">"')"</span>;</div><div class="line">            System.out.println(sql);</div><div class="line">            stmt.executeUpdate(sql);</div><div class="line"></div><div class="line">        &#125;<span class="keyword">catch</span> (ClassNotFoundException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (stmt != <span class="keyword">null</span>)&#123; stmt.close(); stmt = <span class="keyword">null</span>;&#125;</div><div class="line">                <span class="keyword">if</span> (conn != <span class="keyword">null</span>)&#123; conn.close(); conn = <span class="keyword">null</span>;&#125;</div><div class="line">            &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="第十一课-JDBC处理存储过程"><a href="#第十一课-JDBC处理存储过程" class="headerlink" title="第十一课. JDBC处理存储过程"></a>第十一课. JDBC处理存储过程</h2><p>创建一个PLSQL过程：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">SQL&gt; create or replace procedure p</div><div class="line">    (v_a in number, v_b number, v_ret out number, v_temp in out number)</div><div class="line">    is</div><div class="line">  </div><div class="line">    <span class="keyword">begin</span></div><div class="line">       <span class="keyword">if</span> (v_a &gt; v_b) <span class="keyword">then</span></div><div class="line">           v_ret := v_a;</div><div class="line">       else</div><div class="line">           v_ret := v_b;</div><div class="line">      <span class="keyword">end</span> <span class="keyword">if</span>;</div><div class="line">      v_temp := v_temp + 1;</div><div class="line">   <span class="keyword">end</span>;</div><div class="line">   /</div></pre></td></tr></table></figure></p>
+<p>对于Java怎么调用一个存储过程，下面这个代码掌握就足够了！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestProc</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">        Connection conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line"><span class="comment">//调用存储过程</span></div><div class="line">        CallableStatement cstmt = conn.prepareCall(<span class="string">"&#123;call p(?, ?, ?, ?)&#125;"</span>);</div><div class="line">        <span class="comment">//告诉程序，第三第四个占位符是输出参数</span></div><div class="line">        cstmt.registerOutParameter(<span class="number">3</span>, Types.INTEGER);</div><div class="line">        cstmt.registerOutParameter(<span class="number">4</span>, Types.INTEGER);</div><div class="line">        <span class="comment">//第一个参数是3，第二个参数是4，第三个参数是5</span></div><div class="line">        cstmt.setInt(<span class="number">1</span>, <span class="number">3</span>);</div><div class="line">        cstmt.setInt(<span class="number">2</span>, <span class="number">4</span>);</div><div class="line">        cstmt.setInt(<span class="number">4</span>, <span class="number">5</span>);</div><div class="line">        <span class="comment">//执行</span></div><div class="line">        cstmt.execute();</div><div class="line">        <span class="comment">//把第三个和第四个参数经过运算的值拿出来</span></div><div class="line">        System.out.println(cstmt.getInt(<span class="number">3</span>));</div><div class="line">        System.out.println(cstmt.getInt(<span class="number">4</span>));</div><div class="line">        cstmt.close();</div><div class="line">        conn.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="第十二课-JDBC进行批处理"><a href="#第十二课-JDBC进行批处理" class="headerlink" title="第十二课. JDBC进行批处理."></a>第十二课. JDBC进行批处理.</h2><p>有两种方法可以进行批处理：<br>第一种是利用Statement的addBatch方法。代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.Connection;</div><div class="line"><span class="keyword">import</span> java.sql.DriverManager;</div><div class="line"><span class="keyword">import</span> java.sql.Statement;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestBatch</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">        Connection conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line"></div><div class="line">        Statement stmt = conn.createStatement();</div><div class="line">        stmt.addBatch(<span class="string">"insert into dept2 values (51, '500', 'haha')"</span>);</div><div class="line">        stmt.addBatch(<span class="string">"insert into dept2 values (52, '500', 'haha')"</span>);</div><div class="line">        stmt.addBatch(<span class="string">"insert into dept2 values (53, '500', 'haha')"</span>);</div><div class="line"></div><div class="line">        stmt.executeBatch();</div><div class="line">        stmt.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二种是利用PreparedStatement的addBatch()方法进行批处理：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.Connection;</div><div class="line"><span class="keyword">import</span> java.sql.DriverManager;</div><div class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</div><div class="line"><span class="keyword">import</span> java.sql.Statement;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestBatch</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">        Connection conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line"></div><div class="line"><span class="comment">/*        Statement stmt = conn.createStatement();</span></div><div class="line"><span class="comment">        stmt.addBatch("insert into dept2 values (51, '500', 'haha')");</span></div><div class="line"><span class="comment">        stmt.addBatch("insert into dept2 values (52, '500', 'haha')");</span></div><div class="line"><span class="comment">        stmt.addBatch("insert into dept2 values (53, '500', 'haha')");</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">        stmt.executeBatch();</span></div><div class="line"><span class="comment">        stmt.close();*/</span></div><div class="line"></div><div class="line">        PreparedStatement ps = conn.prepareStatement(<span class="string">"insert into dept2 values (?, ?, ?)"</span>);</div><div class="line">        ps.setInt(<span class="number">1</span>, <span class="number">61</span>);</div><div class="line">        ps.setString(<span class="number">2</span>, <span class="string">"haha"</span>);</div><div class="line">        ps.setString(<span class="number">3</span>, <span class="string">"bj"</span>);</div><div class="line">        ps.addBatch();</div><div class="line">        </div><div class="line">        ps.setInt(<span class="number">1</span>, <span class="number">62</span>);</div><div class="line">        ps.setString(<span class="number">2</span>, <span class="string">"haha"</span>);</div><div class="line">        ps.setString(<span class="number">3</span>, <span class="string">"bj"</span>);</div><div class="line">        ps.addBatch();</div><div class="line">        </div><div class="line">        ps.setInt(<span class="number">1</span>, <span class="number">63</span>);</div><div class="line">        ps.setString(<span class="number">2</span>, <span class="string">"haha"</span>);</div><div class="line">        ps.setString(<span class="number">3</span>, <span class="string">"bj"</span>);</div><div class="line">        ps.addBatch();</div><div class="line">        </div><div class="line">        ps.executeBatch();</div><div class="line">        ps.close();</div><div class="line">        </div><div class="line">        conn.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>结果是：<br><img src="11.png" alt=""></p>
+<p>这样就把一批操作一块执行了。</p>
+<h2 id="第十三课-JDBC处理Transaction"><a href="#第十三课-JDBC处理Transaction" class="headerlink" title="第十三课. JDBC处理Transaction"></a>第十三课. JDBC处理Transaction</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.Connection;</div><div class="line"><span class="keyword">import</span> java.sql.DriverManager;</div><div class="line"><span class="keyword">import</span> java.sql.SQLException;</div><div class="line"><span class="keyword">import</span> java.sql.Statement;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestTransaction</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Connection conn = <span class="keyword">null</span>;</div><div class="line">        Statement stmt = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">            conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line"></div><div class="line">            conn.setAutoCommit(<span class="keyword">false</span>);</div><div class="line"></div><div class="line">            stmt = conn.createStatement();</div><div class="line">            stmt.addBatch(<span class="string">"insert into dept2 values (51, '500', 'haha')"</span>);</div><div class="line">            stmt.addBatch(<span class="string">"insert into dept2 values (52, '500', 'haha')"</span>);</div><div class="line">            stmt.addBatch(<span class="string">"insert into dept2 values (53, '500', 'haha')"</span>);</div><div class="line">            stmt.executeBatch();</div><div class="line"></div><div class="line">            conn.commit();</div><div class="line">            conn.setAutoCommit(<span class="keyword">true</span>);</div><div class="line">        &#125;<span class="keyword">catch</span> (ClassNotFoundException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line"></div><div class="line">            e.printStackTrace();</div><div class="line"></div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</div><div class="line">                    conn.rollback();</div><div class="line">                    conn.setAutoCommit(<span class="keyword">true</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;<span class="keyword">catch</span> (SQLException e1)&#123;</div><div class="line">                e1.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)</div><div class="line">                    stmt.close();</div><div class="line">                <span class="keyword">if</span>(conn != <span class="keyword">null</span>)</div><div class="line">                    conn.close();</div><div class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面代码中，先设置 <code>conn.setAutoCommit(false);</code>防止sql语句被提交，然后执行<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">conn.commit();</div><div class="line">conn.setAutoCommit(true);</div></pre></td></tr></table></figure></p>
+<p>使得sql语句可以被一起提交，达到事务的要求</p>
+<h2 id="第十四课-JDBC处理可滚动的结果集"><a href="#第十四课-JDBC处理可滚动的结果集" class="headerlink" title="第十四课. JDBC处理可滚动的结果集"></a>第十四课. JDBC处理可滚动的结果集</h2><p>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestScroll</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">new</span> oracle.jdbc.driver.OracleDriver();</div><div class="line">            String url = <span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>;</div><div class="line"></div><div class="line">            Connection conn = DriverManager.getConnection(url, <span class="string">"scott"</span>, <span class="string">"tiger"</span>);</div><div class="line">            <span class="comment">//TYPE_SCROLL_INSENSITIVE代表对滚动不敏感，可以在任意位置滚来滚去</span></div><div class="line">            <span class="comment">//CONCUR_READ_ONLY代表在并发访问结果集时只能只读访问，不能更新</span></div><div class="line">            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,</div><div class="line">                    ResultSet.CONCUR_READ_ONLY);</div><div class="line">            ResultSet rs = stmt.executeQuery(<span class="string">"SELECT * FROM emp order by sal"</span>);</div><div class="line">            <span class="comment">//指到第一个结果</span></div><div class="line">            rs.next();</div><div class="line">            <span class="comment">//也就是取出empno字段的值</span></div><div class="line">            System.out.println(rs.getInt(<span class="number">1</span>));</div><div class="line">            rs.last();</div><div class="line">            System.out.println(rs.getString(<span class="number">1</span>));</div><div class="line">            <span class="comment">//打印是不是最后一条</span></div><div class="line">            System.out.println(rs.isLast());</div><div class="line">            <span class="comment">//是不是最后一条的下一条</span></div><div class="line">            System.out.println(rs.isAfterLast());</div><div class="line">            <span class="comment">//计算有多少条记录</span></div><div class="line">            System.out.println(rs.getRow());</div><div class="line">            <span class="comment">//往前一条，就是倒数第二条</span></div><div class="line">            rs.previous();</div><div class="line">            System.out.println(rs.getString(<span class="number">1</span>));</div><div class="line">            <span class="comment">//绝对的定位，定位到第六条</span></div><div class="line">            rs.absolute(<span class="number">6</span>);</div><div class="line">            System.out.println(rs.getString(<span class="number">1</span>));</div><div class="line">            rs.close();</div><div class="line">            stmt.close();</div><div class="line">            conn.close();</div><div class="line">        &#125;<span class="keyword">catch</span> (SQLException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="12.png" alt=""><br>结果：<br><img src="13.png" alt=""></p>
+<h2 id="第十五课-JDBC处理可更新的结果集"><a href="#第十五课-JDBC处理可更新的结果集" class="headerlink" title="第十五课. JDBC处理可更新的结果集"></a>第十五课. JDBC处理可更新的结果集</h2><p>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestUpdateRs</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">new</span> oracle.jdbc.driver.OracleDriver();</div><div class="line">            String url = <span class="string">"jdbc:oracle:thin:@127.0.0.1:1521:orcl"</span>;</div><div class="line">            Connection conn = DriverManager.getConnection(url , <span class="string">"scott"</span> , <span class="string">"tiger"</span>);</div><div class="line">            <span class="comment">//CONCUR_UPDATABLE表明结果集是可以更新的</span></div><div class="line">            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,</div><div class="line">                    ResultSet.CONCUR_UPDATABLE);</div><div class="line"></div><div class="line">            ResultSet rs = stmt.executeQuery(<span class="string">"select * from emp"</span>);</div><div class="line"></div><div class="line">            rs.next();</div><div class="line">            <span class="comment">//更新一行数据</span></div><div class="line">            rs.updateString(<span class="string">"ename"</span>,<span class="string">"AAAA"</span>);</div><div class="line">            rs.updateRow();</div><div class="line"></div><div class="line">            <span class="comment">//插入新行</span></div><div class="line">            rs.moveToInsertRow();</div><div class="line"></div><div class="line">            rs.updateInt(<span class="number">1</span>, <span class="number">9999</span>);</div><div class="line">            rs.updateString(<span class="string">"ename"</span>,<span class="string">"AAAA"</span>);</div><div class="line">            rs.updateInt(<span class="string">"mgr"</span>, <span class="number">7839</span>);</div><div class="line">            rs.updateDouble(<span class="string">"sal"</span>, <span class="number">99.99</span>);</div><div class="line">            rs.insertRow();</div><div class="line"></div><div class="line">            <span class="comment">//将光标移动到新建的行</span></div><div class="line">            rs.moveToCurrentRow();</div><div class="line"></div><div class="line">            <span class="comment">//删除行</span></div><div class="line">            rs.absolute(<span class="number">5</span>);</div><div class="line">            rs.deleteRow();</div><div class="line"></div><div class="line">            <span class="comment">//取消更新</span></div><div class="line">            <span class="comment">//rs.cancleRowUpdates();</span></div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行报错：<br><img src="14.png" alt=""></p>
+<p>原因：虽然Sun设计了updateString，但是Oracle不支持</p>
+<h2 id="第十六课-DataSource-RowSet介绍和总结"><a href="#第十六课-DataSource-RowSet介绍和总结" class="headerlink" title="第十六课. DataSource_RowSet介绍和总结"></a>第十六课. DataSource_RowSet介绍和总结</h2><p>DataSource &amp; RowSet<br>DataSource</p>
+<ul>
+<li>DriverManager的替代</li>
+<li>连接池实现</li>
+<li>分布式实现<ul>
+<li>DataSource的属性可以动态改变</li>
+</ul>
+</li>
+</ul>
+<p>RowSet</p>
+<ul>
+<li>新的ResultSet</li>
+<li>从ResultSet继承</li>
+<li>支持断开的结果集</li>
+<li>支持JavaBean标准</li>
+</ul>
+<p>学习方法</p>
+<p>如何掌握JDBC</p>
+<ul>
+<li>记住常用各种类型程序段: TestJDBC.java, TestDML.java，TestPrepStmt, TestTransaction</li>
+<li>将程序处理完善<br>（1）    JDBC初步<br>（2）    DML<br>（3）    Transaction<br>（4）    DataSource &amp; RowSet</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JDBC/" rel="tag"># JDBC</a>
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/19/ThinkingInJava13/" rel="next" title="Java编程思想（十三） 字符串">
+                <i class="fa fa-chevron-left"></i> Java编程思想（十三） 字符串
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第五课-JDBC初步-1"><span class="nav-number">1.</span> <span class="nav-text">第五课. JDBC初步_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六课-JDBC初步-2"><span class="nav-number">2.</span> <span class="nav-text">第六课. JDBC初步_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七课-JDBC初步-3"><span class="nav-number">3.</span> <span class="nav-text">第七课. JDBC初步_3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课-JDBC处理DML语句-1"><span class="nav-number">4.</span> <span class="nav-text">第八课. JDBC处理DML语句_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课-JDBC处理DML语句-2"><span class="nav-number">5.</span> <span class="nav-text">第九课. JDBC处理DML语句_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十课-JDBC处理PreparedStatement"><span class="nav-number">6.</span> <span class="nav-text">第十课. JDBC处理PreparedStatement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十一课-JDBC处理存储过程"><span class="nav-number">7.</span> <span class="nav-text">第十一课. JDBC处理存储过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十二课-JDBC进行批处理"><span class="nav-number">8.</span> <span class="nav-text">第十二课. JDBC进行批处理.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十三课-JDBC处理Transaction"><span class="nav-number">9.</span> <span class="nav-text">第十三课. JDBC处理Transaction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十四课-JDBC处理可滚动的结果集"><span class="nav-number">10.</span> <span class="nav-text">第十四课. JDBC处理可滚动的结果集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十五课-JDBC处理可更新的结果集"><span class="nav-number">11.</span> <span class="nav-text">第十五课. JDBC处理可更新的结果集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十六课-DataSource-RowSet介绍和总结"><span class="nav-number">12.</span> <span class="nav-text">第十六课. DataSource_RowSet介绍和总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
