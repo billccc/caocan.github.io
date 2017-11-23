@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode | 347.Top K Frequent Elements]]></title>
+    <url>%2F2017%2F11%2F23%2Fleetcode347%2F</url>
+    <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/top-k-frequent-elements/description/ 题目介绍：就是给你一个数组，让你求出现频率最高的k个数字。 思路：1.先对数组遍历一遍，用hashset存下每个数字的出现次数。2.假设数组大小是n那么创建一个n+1大小的List[]数组，遍历hashset,将遍历到的元素存放到对应频率下标的数组中。3.按照从后向前的遍历顺序，对List[]数组进行遍历，取出k个数字即可。AC代码：12345678910111213141516171819202122232425262728293031323334353637383940class Solution &#123; public List&lt;Integer&gt; topKFrequent(int[] nums, int k) &#123; HashMap&lt;Integer,Integer&gt; hm = new HashMap&lt;Integer, Integer&gt;(); List&lt;Integer&gt; res = new ArrayList&lt;Integer&gt;(); for(int x : nums) hm.put(x, (hm.getOrDefault(x , 0) + 1)); List&lt;Integer&gt;[] bucket = new List[nums.length + 1]; Set&lt;Integer&gt; KeySet = hm.keySet(); Iterator it = KeySet.iterator(); while(it.hasNext())&#123; int key = (int)it.next(); int freq = hm.get(key); if(bucket[freq] == null) bucket[freq] = new ArrayList&lt;Integer&gt;(); bucket[freq].add(key); &#125; for(int i = nums.length; i &gt;= 0; i--)&#123; if(bucket[i] == null) continue; if(bucket[i].size() != 0)&#123; it = bucket[i].iterator(); while(it.hasNext())&#123; res.add((int)it.next()); k--; if(k == 0) return res; &#125; &#125; &#125; return res; &#125;&#125;]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>桶排序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 655.打印二叉树]]></title>
     <url>%2F2017%2F11%2F23%2Fleetcode655%2F</url>
     <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/print-binary-tree/description/ 思路：假设二叉树的高度是h,那么二叉树的打印宽度就是2^h-1,每次打印只需要计算好位移，打印到当前区间的中点就可以了。具体实现就是：1.先用DFS算出二叉树的高度h2.利用层次遍历将一层的节点存到队列中，如果是null就存null，假设被存储的是第i层，那么一层节点的数量是2^(i-1)个节点3.取出节点对其进行打印,dif = 2^(h-i)-1,第一个节点打印位置是dif，之后的节点都在上一个节点位置上进行位移：pos = pos + 2 * dif + 2; AC代码如下：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public List&lt;List&lt;String&gt;&gt; printTree(TreeNode root) &#123; int height = DFS(root); List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;List&lt;String&gt;&gt;(); //存放每一层节点的队列 LinkedList&lt;TreeNode&gt; queue = new LinkedList&lt;TreeNode&gt;(); if(root == null) return res; queue.add(root); int max_wid = (int)(Math.pow(2, height) - 1); //每一层进行处理 for(int i = 1; i &lt;= height; i++)&#123; //计算这一层有多少节点 int count = (int)Math.pow(2, i-1); int dif = (int)(Math.pow(2, height-i) - 1); int pos = 0; ArrayList&lt;String&gt; cur = new ArrayList&lt;String&gt;(); for(int j = 0; j &lt; max_wid; j++) cur.add(""); TreeNode tmp = queue.poll(); count--; pos += dif; if(tmp == null) &#123; queue.add(null); queue.add(null); &#125; else &#123; cur.set(pos, tmp.val + ""); queue.add(tmp.left); queue.add(tmp.right); &#125; while(count != 0)&#123; tmp = queue.remove(); pos = pos + 2 * dif + 2; if(tmp == null) &#123; queue.add(null); queue.add(null); &#125; else &#123; cur.set(pos, (tmp.val + "")); queue.add(tmp.left); queue.add(tmp.right); &#125; count --; &#125; res.add(cur); &#125; return res; &#125; public int DFS(TreeNode root)&#123; if(root == null) return 0; int left = DFS(root.left); int right = DFS(root.right); if(left &gt; right) return left + 1; return right + 1; &#125;&#125;]]></content>
@@ -55,8 +67,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
@@ -67,8 +79,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
@@ -79,8 +91,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
@@ -138,8 +150,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
@@ -150,8 +162,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>J2EE</tag>
         <tag>Tomcat</tag>
+        <tag>J2EE</tag>
       </tags>
   </entry>
   <entry>
