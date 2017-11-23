@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode | 655.打印二叉树]]></title>
+    <url>%2F2017%2F11%2F23%2Fleetcode655%2F</url>
+    <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/print-binary-tree/description/ 思路：假设二叉树的高度是h,那么二叉树的打印宽度就是2^h-1,每次打印只需要计算好位移，打印到当前区间的中点就可以了。具体实现就是：1.先用DFS算出二叉树的高度h2.利用层次遍历将一层的节点存到队列中，如果是null就存null，假设被存储的是第i层，那么一层节点的数量是2^(i-1)个节点3.取出节点对其进行打印,dif = 2^(h-i)-1,第一个节点打印位置是dif，之后的节点都在上一个节点位置上进行位移：pos = pos + 2 * dif + 2; AC代码如下：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public List&lt;List&lt;String&gt;&gt; printTree(TreeNode root) &#123; int height = DFS(root); List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;List&lt;String&gt;&gt;(); //存放每一层节点的队列 LinkedList&lt;TreeNode&gt; queue = new LinkedList&lt;TreeNode&gt;(); if(root == null) return res; queue.add(root); int max_wid = (int)(Math.pow(2, height) - 1); //每一层进行处理 for(int i = 1; i &lt;= height; i++)&#123; //计算这一层有多少节点 int count = (int)Math.pow(2, i-1); int dif = (int)(Math.pow(2, height-i) - 1); int pos = 0; ArrayList&lt;String&gt; cur = new ArrayList&lt;String&gt;(); for(int j = 0; j &lt; max_wid; j++) cur.add(""); TreeNode tmp = queue.poll(); count--; pos += dif; if(tmp == null) &#123; queue.add(null); queue.add(null); &#125; else &#123; cur.set(pos, tmp.val + ""); queue.add(tmp.left); queue.add(tmp.right); &#125; while(count != 0)&#123; tmp = queue.remove(); pos = pos + 2 * dif + 2; if(tmp == null) &#123; queue.add(null); queue.add(null); &#125; else &#123; cur.set(pos, (tmp.val + "")); queue.add(tmp.left); queue.add(tmp.right); &#125; count --; &#125; res.add(cur); &#125; return res; &#125; public int DFS(TreeNode root)&#123; if(root == null) return 0; int left = DFS(root.left); int right = DFS(root.right); if(left &gt; right) return left + 1; return right + 1; &#125;&#125;]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 477.Total Hamming Distance]]></title>
     <url>%2F2017%2F11%2F23%2Fleetcode477%2F</url>
     <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/total-hamming-distance/description/ 思路：题目的意思就是给了一个数组，现在求总的海明距离，其中： 海明距离：任意两个数在二级制的表示下（int = 32bit），每个bit对应的值是1或0，那么这两个数在这32个位置下，取值不一样的地方的总和就是海明距离 总的距离：该数组中，所有两两组合得到的元素的海明距离的和 看到这里，其实就可以猜到，应该不能暴力解决了 而方法也找到了一个很简单的： int长度是32bit，一共n个数 在每个位置上，如果有k个数为1，那么就有n-k个为0 那么贡献的海明距离就贡献了 k*(n-k) 代码：1234567891011121314151617181920class Solution &#123; public int totalHammingDistance(int[] nums) &#123; int length = nums.length; if(length == 0) return 0; int res = 0; int cnt; for(int i = 0; i &lt; 32; i++)&#123; cnt = 0; for(int j = 0; j &lt; length; j++) &#123; if(nums[j] % 2 == 1) cnt++; nums[j] = nums[j]/2; &#125; res += cnt * (length - cnt); &#125; return res; &#125; &#125;]]></content>
@@ -43,8 +55,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>J2EE</tag>
         <tag>Servlet</tag>
+        <tag>J2EE</tag>
       </tags>
   </entry>
   <entry>
@@ -55,8 +67,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>J2EE</tag>
         <tag>Servlet</tag>
+        <tag>J2EE</tag>
       </tags>
   </entry>
   <entry>
@@ -67,8 +79,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>J2EE</tag>
         <tag>Servlet</tag>
+        <tag>J2EE</tag>
       </tags>
   </entry>
   <entry>
@@ -126,8 +138,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>J2EE</tag>
         <tag>Servlet</tag>
+        <tag>J2EE</tag>
       </tags>
   </entry>
   <entry>
@@ -138,8 +150,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Tomcat</tag>
         <tag>J2EE</tag>
+        <tag>Tomcat</tag>
       </tags>
   </entry>
   <entry>
