@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="leetcode,递归," />
+  <meta name="keywords" content="leetcode,HashMap," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="题目描述：https://leetcode.com/problems/optimal-division/description/ 方法一：这个方法比较暴力一些，就是利用递归来做。  当数组只有一个数字的时候，就直接把它返回即可 当数组中有两个以上的数字的时候，可以将数组分成左右两部分，那么我们要求的最大值一定就是(左边部分的最大值)/(右边部分的最小值)。所以可以创建一个类T来存储我们的最大值和最">
-<meta name="keywords" content="leetcode,递归">
+<meta name="description" content="题目描述：https://leetcode.com/problems/4sum-ii/description/ 这道题是之前那道4Sum的延伸，让我们在四个数组中各取一个数字，使其和为0。那么坠傻的方法就是遍历所有的情况，时间复杂度为O(n4)。但是我们想想既然Two Sum那道都能将时间复杂度缩小一倍，那么这道题我们使用哈希表是否也能将时间复杂度降到O(n2)呢？答案是肯定的，我们如果把A和B的">
+<meta name="keywords" content="leetcode,HashMap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode | 553.最佳括号分配">
-<meta property="og:url" content="https://caocan.github.io/2017/11/05/leetcode553/index.html">
+<meta property="og:title" content="LeetCode | 454.4Sum II">
+<meta property="og:url" content="https://caocan.github.io/2017/11/24/leetcode454/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="题目描述：https://leetcode.com/problems/optimal-division/description/ 方法一：这个方法比较暴力一些，就是利用递归来做。  当数组只有一个数字的时候，就直接把它返回即可 当数组中有两个以上的数字的时候，可以将数组分成左右两部分，那么我们要求的最大值一定就是(左边部分的最大值)/(右边部分的最小值)。所以可以创建一个类T来存储我们的最大值和最">
+<meta property="og:description" content="题目描述：https://leetcode.com/problems/4sum-ii/description/ 这道题是之前那道4Sum的延伸，让我们在四个数组中各取一个数字，使其和为0。那么坠傻的方法就是遍历所有的情况，时间复杂度为O(n4)。但是我们想想既然Two Sum那道都能将时间复杂度缩小一倍，那么这道题我们使用哈希表是否也能将时间复杂度降到O(n2)呢？答案是肯定的，我们如果把A和B的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-07T14:47:41.731Z">
+<meta property="og:updated_time" content="2017-11-24T04:13:32.326Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode | 553.最佳括号分配">
-<meta name="twitter:description" content="题目描述：https://leetcode.com/problems/optimal-division/description/ 方法一：这个方法比较暴力一些，就是利用递归来做。  当数组只有一个数字的时候，就直接把它返回即可 当数组中有两个以上的数字的时候，可以将数组分成左右两部分，那么我们要求的最大值一定就是(左边部分的最大值)/(右边部分的最小值)。所以可以创建一个类T来存储我们的最大值和最">
+<meta name="twitter:title" content="LeetCode | 454.4Sum II">
+<meta name="twitter:description" content="题目描述：https://leetcode.com/problems/4sum-ii/description/ 这道题是之前那道4Sum的延伸，让我们在四个数组中各取一个数字，使其和为0。那么坠傻的方法就是遍历所有的情况，时间复杂度为O(n4)。但是我们想想既然Two Sum那道都能将时间复杂度缩小一倍，那么这道题我们使用哈希表是否也能将时间复杂度降到O(n2)呢？答案是肯定的，我们如果把A和B的">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://caocan.github.io/2017/11/05/leetcode553/"/>
+  <link rel="canonical" href="https://caocan.github.io/2017/11/24/leetcode454/"/>
 
 
 
 
 
-  <title>LeetCode | 553.最佳括号分配 | 曹のBlog</title>
+  <title>LeetCode | 454.4Sum II | 曹のBlog</title>
   
 
 
@@ -287,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/05/leetcode553/">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/24/leetcode454/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="曹灿">
@@ -304,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode | 553.最佳括号分配</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode | 454.4Sum II</h1>
         
 
         <div class="post-meta">
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-05T11:12:20+08:00">
-                2017-11-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-24T12:04:57+08:00">
+                2017-11-24
               </time>
             
 
@@ -376,23 +376,9 @@
       
 
       
-        <p>题目描述：<br><a href="https://leetcode.com/problems/optimal-division/description/" target="_blank" rel="external">https://leetcode.com/problems/optimal-division/description/</a></p>
-<h2 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h2><p>这个方法比较暴力一些，就是利用递归来做。</p>
-<ol>
-<li>当数组只有一个数字的时候，就直接把它返回即可</li>
-<li>当数组中有两个以上的数字的时候，可以将数组分成左右两部分，那么我们要求的最大值一定就是(左边部分的最大值)/(右边部分的最小值)。所以可以创建一个类T来存储我们的最大值和最小值以及它们对应的字符串结果。</li>
-<li>注意在返回构造字符串的时候要注意指针是不是已经走到数组末尾前的一个位置，如果已经到了那个位置，右边部分只有一个数，就不需要给它加括号了。<a id="more"></a>
-代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">optimalDivision</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> end = nums.length - <span class="number">1</span>;</div><div class="line">        T t = optimal(start, end, nums);</div><div class="line">        <span class="keyword">return</span> t.max_str;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">T</span> </span>&#123;</div><div class="line">        <span class="keyword">float</span> max_val;</div><div class="line">        <span class="keyword">float</span> min_val;</div><div class="line">        String max_str;</div><div class="line">        String min_str;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">optimal</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end, <span class="keyword">int</span>[] nums)</span></span>&#123;</div><div class="line">        </div><div class="line">        T t = <span class="keyword">new</span> T();</div><div class="line">        </div><div class="line">        <span class="comment">//如果只有一个数，直接返回自己就可以了</span></div><div class="line">        <span class="keyword">if</span>(start == end) &#123;</div><div class="line">            t.max_val = nums[start];</div><div class="line">            t.min_val = nums[start];</div><div class="line">            t.max_str = <span class="string">""</span> + nums[start];</div><div class="line">            t.min_str = <span class="string">""</span> + nums[start];</div><div class="line">            <span class="keyword">return</span> t;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        t.max_val = Float.MIN_VALUE;</div><div class="line">        t.min_val = Float.MAX_VALUE;</div><div class="line">        t.max_str = <span class="string">""</span>;</div><div class="line">        t.min_str = <span class="string">""</span>;</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="comment">//否则的话，依次把数组划分成左右两部分，并且对这两部分求最大值和最小值</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = start; i &lt; end; i++)&#123;</div><div class="line">            T left = optimal(start, i, nums);</div><div class="line">            T right = optimal(i + <span class="number">1</span>, end, nums);</div><div class="line">            <span class="keyword">if</span>(t.max_val &lt; left.max_val/right.min_val)&#123;</div><div class="line">                t.max_val = left.max_val/right.min_val;</div><div class="line">                <span class="keyword">if</span>(i + <span class="number">1</span> == end)</div><div class="line">                    t.max_str = left.max_str + <span class="string">"/"</span> + right.min_str;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    t.max_str = left.max_str + <span class="string">"/("</span> + right.min_str + <span class="string">")"</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(t.min_val &gt; left.min_val/right.max_val)&#123;</div><div class="line">                t.min_val = left.min_val/right.max_val;</div><div class="line">                <span class="keyword">if</span>(i + <span class="number">1</span> == end)</div><div class="line">                    t.min_str = left.min_str + <span class="string">"/"</span> + right.max_str;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    t.min_str = left.min_str + <span class="string">"/("</span> + right.max_str + <span class="string">")"</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> t;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>评估：这个算法的时间复杂度是O(n!)级别的，而空间复杂度是O(n^2)级别的（因为需要进行长度为n的分划，而每一次分划内部进行递归是n次，所以需要调用O(n^2)次递归栈）</p>
-<h2 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h2><p>方法二是对方法一的修改，就是增加存储二维数组，对每一次已经计算过的start和end之间的结果进行存储，在求解一个start和end之间数组的T时，先看看存储中有没有已经对这部分进行计算，如果已经计算过了，直接返回结果就可以了，没有就再进行方法一的计算，并且对计算结果进行存储。</p>
-<p>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">optimalDivision</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> end = nums.length - <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="comment">//用于存储已经计算出的T</span></div><div class="line">        T [][] memo = <span class="keyword">new</span> T[nums.length][nums.length];</div><div class="line">        </div><div class="line">        T t = optimal(start, end, nums, memo);</div><div class="line">        <span class="keyword">return</span> t.max_str;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">T</span> </span>&#123;</div><div class="line">        <span class="keyword">float</span> max_val;</div><div class="line">        <span class="keyword">float</span> min_val;</div><div class="line">        String max_str;</div><div class="line">        String min_str;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">optimal</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end, <span class="keyword">int</span>[] nums, T[][] memo)</span></span>&#123;</div><div class="line">        </div><div class="line">        <span class="comment">//第一步先进行判断，如果这部分数组已经被计算过了，直接返回已经存储的值即可</span></div><div class="line">        <span class="keyword">if</span>(memo[start][end] != <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> memo[start][end];</div><div class="line">        </div><div class="line">        T t = <span class="keyword">new</span> T();</div><div class="line">        </div><div class="line">        <span class="comment">//如果只有一个数，直接返回自己就可以了</span></div><div class="line">        <span class="keyword">if</span>(start == end) &#123;</div><div class="line">            t.max_val = nums[start];</div><div class="line">            t.min_val = nums[start];</div><div class="line">            t.max_str = <span class="string">""</span> + nums[start];</div><div class="line">            t.min_str = <span class="string">""</span> + nums[start];</div><div class="line">            <span class="comment">//对计算结果进行存储</span></div><div class="line">            memo[start][end] = t;</div><div class="line">            <span class="keyword">return</span> t;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        t.max_val = Float.MIN_VALUE;</div><div class="line">        t.min_val = Float.MAX_VALUE;</div><div class="line">        t.max_str = <span class="string">""</span>;</div><div class="line">        t.min_str = <span class="string">""</span>;</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="comment">//否则的话，依次把数组划分成左右两部分，并且对这两部分求最大值和最小值</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = start; i &lt; end; i++)&#123;</div><div class="line">            T left = optimal(start, i, nums, memo);</div><div class="line">            T right = optimal(i + <span class="number">1</span>, end, nums, memo);</div><div class="line">            <span class="keyword">if</span>(t.max_val &lt; left.max_val/right.min_val)&#123;</div><div class="line">                t.max_val = left.max_val/right.min_val;</div><div class="line">                <span class="keyword">if</span>(i + <span class="number">1</span> == end)</div><div class="line">                    t.max_str = left.max_str + <span class="string">"/"</span> + right.min_str;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    t.max_str = left.max_str + <span class="string">"/("</span> + right.min_str + <span class="string">")"</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(t.min_val &gt; left.min_val/right.max_val)&#123;</div><div class="line">                t.min_val = left.min_val/right.max_val;</div><div class="line">                <span class="keyword">if</span>(i + <span class="number">1</span> == end)</div><div class="line">                    t.min_str = left.min_str + <span class="string">"/"</span> + right.max_str;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    t.min_str = left.min_str + <span class="string">"/("</span> + right.max_str + <span class="string">")"</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//对计算结果进行存储</span></div><div class="line">        memo[start][end] = t;</div><div class="line">        <span class="keyword">return</span> t;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>评价：这个算法的时间复杂度是O(n^3)的，空间复杂度也是O(n^3)</p>
-<h2 id="第三种方式："><a href="#第三种方式：" class="headerlink" title="第三种方式："></a>第三种方式：</h2><p>因为X1/X2/X3…/Xn一定可以转化成一个P/Q的形式，而X1一定在P中，X2一定在Q中，所以上面一定是一个(X1/X2)&#42;Y的形式，而由于X1/(X2/X3…/Xn) = (X1&#42;X3&#42;…Xn)/X2的形式，所以这种情况下Y是最大的，也是整个算式的最优解（原谅我这个等式想了好久才明白…）。所以我们可以直接通过数学定理来求解这个问题：</p>
-<p>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">optimalDivision</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(nums.length == <span class="number">1</span>) <span class="keyword">return</span> <span class="string">""</span>+nums[<span class="number">0</span>];</div><div class="line">        <span class="keyword">if</span>(nums.length == <span class="number">2</span>) <span class="keyword">return</span> nums[<span class="number">0</span>] + <span class="string">"/"</span> + nums[<span class="number">1</span>];</div><div class="line">        String res = nums[<span class="number">0</span>]+<span class="string">"/("</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= (nums.length - <span class="number">2</span>); i++)</div><div class="line">        &#123;</div><div class="line">            res += nums[i] + <span class="string">"/"</span>;</div><div class="line">        &#125;</div><div class="line">        res += nums[nums.length - <span class="number">1</span>] + <span class="string">")"</span>;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>评估：这个代码的时间复杂度是O(n)，空间复杂度也是O(n)</p>
-
+        <p>题目描述：<br><a href="https://leetcode.com/problems/4sum-ii/description/" target="_blank" rel="external">https://leetcode.com/problems/4sum-ii/description/</a></p>
+<p>这道题是之前那道4Sum的延伸，让我们在四个数组中各取一个数字，使其和为0。那么坠傻的方法就是遍历所有的情况，时间复杂度为O(n4)。但是我们想想既然Two Sum那道都能将时间复杂度缩小一倍，那么这道题我们使用哈希表是否也能将时间复杂度降到O(n2)呢？答案是肯定的，我们如果把A和B的两两之和都求出来，在哈希表中建立两数之和跟其出现次数之间的映射，那么我们再遍历C和D中任意两个数之和，我们只要看哈希表存不存在这两数之和的相反数就行了，参见代码如下：<br><a id="more"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fourSumCount</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span>[] B, <span class="keyword">int</span>[] C, <span class="keyword">int</span>[] D)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">        HashMap&lt;Integer, Integer&gt; hm = <span class="keyword">new</span> HashMap();</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.length; i++)</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; B.length; j++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">int</span> sum = A[i] + B[j];</div><div class="line">                <span class="keyword">if</span>(!hm.containsKey(sum))</div><div class="line">                    hm.put(sum, <span class="number">1</span>);</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    hm.put(sum,hm.get(sum) + <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; C.length; i++)</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; D.length; j++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(hm.containsKey(-C[i]-D[j]))</div><div class="line">                    count += hm.get(-C[i]-D[j]);</div><div class="line">                </div><div class="line">            &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> count;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -411,7 +397,7 @@
           
             <a href="/tags/leetcode/" rel="tag"># leetcode</a>
           
-            <a href="/tags/递归/" rel="tag"># 递归</a>
+            <a href="/tags/HashMap/" rel="tag"># HashMap</a>
           
         </div>
       
@@ -424,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/03/gitnotes4/" rel="next" title="Git笔记（四）">
-                <i class="fa fa-chevron-left"></i> Git笔记（四）
+              <a href="/2017/11/23/leetcode347/" rel="next" title="LeetCode | 347.Top K Frequent Elements">
+                <i class="fa fa-chevron-left"></i> LeetCode | 347.Top K Frequent Elements
               </a>
             
           </div>
@@ -433,10 +419,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/07/leetcode677/" rel="prev" title="LeetCode | 677.找前缀总和（Map Sum Pairs）">
-                LeetCode | 677.找前缀总和（Map Sum Pairs） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -493,17 +475,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -565,22 +538,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一："><span class="nav-number">1.</span> <span class="nav-text">方法一：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二："><span class="nav-number">2.</span> <span class="nav-text">方法二：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三种方式："><span class="nav-number">3.</span> <span class="nav-text">第三种方式：</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode | 454.4Sum II]]></title>
+    <url>%2F2017%2F11%2F24%2Fleetcode454%2F</url>
+    <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/4sum-ii/description/ 这道题是之前那道4Sum的延伸，让我们在四个数组中各取一个数字，使其和为0。那么坠傻的方法就是遍历所有的情况，时间复杂度为O(n4)。但是我们想想既然Two Sum那道都能将时间复杂度缩小一倍，那么这道题我们使用哈希表是否也能将时间复杂度降到O(n2)呢？答案是肯定的，我们如果把A和B的两两之和都求出来，在哈希表中建立两数之和跟其出现次数之间的映射，那么我们再遍历C和D中任意两个数之和，我们只要看哈希表存不存在这两数之和的相反数就行了，参见代码如下： 1234567891011121314151617181920212223242526class Solution &#123; public int fourSumCount(int[] A, int[] B, int[] C, int[] D) &#123; int count = 0; HashMap&lt;Integer, Integer&gt; hm = new HashMap(); for(int i = 0; i &lt; A.length; i++) for(int j = 0; j &lt; B.length; j++) &#123; int sum = A[i] + B[j]; if(!hm.containsKey(sum)) hm.put(sum, 1); else hm.put(sum,hm.get(sum) + 1); &#125; for(int i = 0; i &lt; C.length; i++) for(int j = 0; j &lt; D.length; j++) &#123; if(hm.containsKey(-C[i]-D[j])) count += hm.get(-C[i]-D[j]); &#125; return count; &#125;&#125;]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>HashMap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 347.Top K Frequent Elements]]></title>
     <url>%2F2017%2F11%2F23%2Fleetcode347%2F</url>
     <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/top-k-frequent-elements/description/ 题目介绍：就是给你一个数组，让你求出现频率最高的k个数字。 思路：1.先对数组遍历一遍，用hashset存下每个数字的出现次数。2.假设数组大小是n那么创建一个n+1大小的List[]数组，遍历hashset,将遍历到的元素存放到对应频率下标的数组中。3.按照从后向前的遍历顺序，对List[]数组进行遍历，取出k个数字即可。AC代码：12345678910111213141516171819202122232425262728293031323334353637383940class Solution &#123; public List&lt;Integer&gt; topKFrequent(int[] nums, int k) &#123; HashMap&lt;Integer,Integer&gt; hm = new HashMap&lt;Integer, Integer&gt;(); List&lt;Integer&gt; res = new ArrayList&lt;Integer&gt;(); for(int x : nums) hm.put(x, (hm.getOrDefault(x , 0) + 1)); List&lt;Integer&gt;[] bucket = new List[nums.length + 1]; Set&lt;Integer&gt; KeySet = hm.keySet(); Iterator it = KeySet.iterator(); while(it.hasNext())&#123; int key = (int)it.next(); int freq = hm.get(key); if(bucket[freq] == null) bucket[freq] = new ArrayList&lt;Integer&gt;(); bucket[freq].add(key); &#125; for(int i = nums.length; i &gt;= 0; i--)&#123; if(bucket[i] == null) continue; if(bucket[i].size() != 0)&#123; it = bucket[i].iterator(); while(it.hasNext())&#123; res.add((int)it.next()); k--; if(k == 0) return res; &#125; &#125; &#125; return res; &#125;&#125;]]></content>
@@ -175,8 +187,8 @@
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>字典树</tag>
         <tag>HashMap</tag>
+        <tag>字典树</tag>
       </tags>
   </entry>
   <entry>
