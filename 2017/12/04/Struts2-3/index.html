@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Struts2," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍Struts2中ognl表达式的基本用法。">
+<meta name="keywords" content="Struts2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Struts2笔记（三） OGNL">
+<meta property="og:url" content="https://caocan.github.io/2017/12/04/Struts2-3/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍Struts2中ognl表达式的基本用法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/16.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/17.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/18.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/19.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/04/Struts2-3/20.png">
+<meta property="og:updated_time" content="2017-12-04T13:33:21.645Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Struts2笔记（三） OGNL">
+<meta name="twitter:description" content="本文主要介绍Struts2中ognl表达式的基本用法。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/04/Struts2-3/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/12/04/Struts2-3/"/>
+
+
+
+
+
+  <title>Struts2笔记（三） OGNL | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/04/Struts2-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Struts2笔记（三） OGNL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T21:03:35+08:00">
+                2017-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Struts2/" itemprop="url" rel="index">
+                    <span itemprop="name">Struts2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍Struts2中ognl表达式的基本用法。<br><a id="more"></a></p>
+<h2 id="第三十六课-OGNL-1"><a href="#第三十六课-OGNL-1" class="headerlink" title="第三十六课. OGNL_1"></a>第三十六课. OGNL_1</h2><p>先看一下效果：<br><img src="1.png" alt=""></p>
+<p>index.jsp:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">   访问属性</div><div class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&lt;%=contextPath %&gt;/ognl.action?username=u&amp;password=p"</span>&gt;</span>ognl<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>我们首先去struts.xml中进行匹配：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">struts</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">constant</span> <span class="attr">name</span>=<span class="string">"struts.enable.DynamicMethodInvocation"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constant</span> <span class="attr">name</span>=<span class="string">"struts.devMode"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constant</span> <span class="attr">name</span>=<span class="string">"struts.ognl.allowStaticMethodAccess"</span> <span class="attr">value</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">constant</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">"/com/bjsxt/struts2/ognl/ognl.xml"</span>/&gt;</span></div><div class="line">    </div><div class="line"><span class="tag">&lt;/<span class="name">struts</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>发现这次并没有去package中进行搜索匹配，而是直接include了一个ognl.xml文件。查看这个文件：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">struts</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"ognl"</span> <span class="attr">extends</span>=<span class="string">"struts-default"</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"ognl"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.struts2.ognl.OgnlAction"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">result</span>&gt;</span>/ognl.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"test"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.struts2.ognl.TestAction"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">type</span>=<span class="string">"chain"</span>&gt;</span>ognl<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">package</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">struts</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>发现这个文件有一个package，正好匹配我们url里的package名，然后下面有一个名字叫OgnlAction的Action，我们看这个Action类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OgnlAction</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> </span>&#123;</div><div class="line"><span class="comment">//	private Cat cat;</span></div><div class="line"><span class="comment">//	private Map&lt;String, Dog&gt; dogMap = new HashMap&lt;String, Dog&gt;();</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//	private Set&lt;Dog&gt; dogs = new HashSet&lt;Dog&gt;();</span></div><div class="line"></div><div class="line">	<span class="keyword">private</span> String password;</div><div class="line"></div><div class="line"><span class="comment">//	private User user;</span></div><div class="line">	<span class="keyword">private</span> String username;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> List&lt;User&gt; users = <span class="keyword">new</span> ArrayList&lt;User&gt;();</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">OgnlAction</span><span class="params">()</span> </span>&#123;</div><div class="line"><span class="comment">//		users.add(new User(1));</span></div><div class="line"><span class="comment">//		users.add(new User(2));</span></div><div class="line"><span class="comment">//		users.add(new User(3));</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//		dogs.add(new Dog("dog1"));</span></div><div class="line"><span class="comment">//		dogs.add(new Dog("dog2"));</span></div><div class="line"><span class="comment">//		dogs.add(new Dog("dog3"));</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//		dogMap.put("dog100", new Dog("dog100"));</span></div><div class="line"><span class="comment">//		dogMap.put("dog101", new Dog("dog101"));</span></div><div class="line"><span class="comment">//		dogMap.put("dog102", new Dog("dog102"));</span></div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> SUCCESS;</div><div class="line">	&#125;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//	public Cat getCat() &#123;</span></div><div class="line"><span class="comment">//		return cat;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//	public Map&lt;String, Dog&gt; getDogMap() &#123;</span></div><div class="line"><span class="comment">//		return dogMap;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//	public Set&lt;Dog&gt; getDogs() &#123;</span></div><div class="line"><span class="comment">//		return dogs;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"><span class="comment">//</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> password;</div><div class="line">	&#125;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//	public User getUser() &#123;</span></div><div class="line"><span class="comment">//		return user;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> username;</div><div class="line">	&#125;</div><div class="line"></div><div class="line"><span class="comment">//	public List&lt;User&gt; getUsers() &#123;</span></div><div class="line"><span class="comment">//		return users;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">m</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="string">"hello"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line"><span class="comment">//	public void setCat(Cat cat) &#123;</span></div><div class="line"><span class="comment">//		this.cat = cat;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line">	</div><div class="line"><span class="comment">//	public void setDogMap(Map&lt;String, Dog&gt; dogMap) &#123;</span></div><div class="line"><span class="comment">//		this.dogMap = dogMap;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"></div><div class="line"><span class="comment">//	public void setDogs(Set&lt;Dog&gt; dogs) &#123;</span></div><div class="line"><span class="comment">//		this.dogs = dogs;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.password = password;</div><div class="line">	&#125;</div><div class="line"></div><div class="line"><span class="comment">//	public void setUser(User user) &#123;</span></div><div class="line"><span class="comment">//		this.user = user;</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.username = username;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsers</span><span class="params">(List&lt;User&gt; users)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.users = users;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>发现里面有两个属性：password与username，然后里面有getter和setter，通过execute方法返回SUCCESS，然后执行result，返回ognl.jsp：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">   &lt;ol&gt;</div><div class="line">      &lt;li&gt;访问值栈中的action的普通属性: username = &lt;s:property value="username"&gt;&lt;/s:property&gt; &lt;/li&gt;</div><div class="line">      &lt;li&gt;访问值栈中对象的普通属性(get set方法)：&lt;s:property value="user.age"&gt;&lt;/s:property&gt; | &lt;s:property value="user['age']"&gt;&lt;/s:property&gt; | &lt;s:property value="user[\"age\"]"&gt;&lt;/s:property&gt; | wrong: &lt;%--&lt;s:property value="user[age]"&gt;&lt;/s:property&gt;--%&gt;&lt;/li&gt;</div><div class="line">      &lt;%--&lt;li&gt;访问值栈中对象的普通属性(get set方法): &lt;s:property value="cat.friend.name"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问值栈中对象的普通方法：&lt;s:property value="password.length()"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问值栈中对象的普通方法：&lt;s:property value="cat.miaomiao()" &gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问值栈中action的普通方法：&lt;s:property value="m()" &gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;hr /&gt;</div><div class="line">      &lt;li&gt;访问静态方法：&lt;s:property value="@com.bjsxt.struts2.ognl.S@s()"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问静态属性：&lt;s:property value="@com.bjsxt.struts2.ognl.S@STR"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问Math类的静态方法：&lt;s:property value="@@max(2,3)" &gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;hr /&gt;</div><div class="line">      &lt;li&gt;访问普通类的构造方法：&lt;s:property value="new com.bjsxt.struts2.ognl.User(8)"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;hr /&gt;</div><div class="line">      &lt;li&gt;访问List:&lt;s:property value="users"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问List中某个元素:&lt;s:property value="users[1]"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问List中元素某个属性的集合:&lt;s:property value="users.&#123;age&#125;"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问List中元素某个属性的集合中的特定值:&lt;s:property value="users.&#123;age&#125;[0]"&gt;&lt;/s:property&gt; | &lt;s:property value="users[0].age"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问Set:&lt;s:property value="dogs"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问Set中某个元素:&lt;s:property value="dogs[1]"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问Map:&lt;s:property value="dogMap"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问Map中某个元素:&lt;s:property value="dogMap.dog101"&gt;&lt;/s:property&gt; | &lt;s:property value="dogMap['dog101']"&gt;&lt;/s:property&gt; | &lt;s:property value="dogMap[\"dog101\"]"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问Map中所有的key:&lt;s:property value="dogMap.keys"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问Map中所有的value:&lt;s:property value="dogMap.values"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;访问容器的大小：&lt;s:property value="dogMap.size()"&gt;&lt;/s:property&gt; | &lt;s:property value="users.size"&gt;&lt;/s:property&gt; &lt;/li&gt;</div><div class="line">      &lt;hr /&gt;</div><div class="line">      &lt;li&gt;投影(过滤)：&lt;s:property value="users.&#123;?#this.age==1&#125;[0]"&gt;&lt;/s:property&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;投影：&lt;s:property value="users.&#123;^#this.age&gt;1&#125;.&#123;age&#125;"/&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;投影：&lt;s:property value="users.&#123;$#this.age&gt;1&#125;.&#123;age&#125;"/&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;投影：&lt;s:property value="users.&#123;$#this.age&gt;1&#125;.&#123;age&#125; == null"/&gt;&lt;/li&gt;</div><div class="line">      &lt;hr /&gt;</div><div class="line">      &lt;li&gt;[]:&lt;s:property value="[0].username"&gt;&lt;/s:property&gt;&lt;/li&gt;--%&gt;</div><div class="line">      </div><div class="line">   &lt;/ol&gt;</div><div class="line">   </div><div class="line">   &lt;s:debug&gt;&lt;/s:debug&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>查看debug里面的值栈：<br><img src="2.png" alt=""></p>
+<p>发现可以拿到username和password。<br>其实就是通过<code>username = &lt;s:property value=&quot;username&quot;/&gt;</code>，里面的s:property是标签，value=”username”中的”username”就是ognl表达式。</p>
+<p>再做第二个试验：<br>在OgnlAction.java中定义一个<br><code>private User user;</code></p>
+<p>打开关于user的getter和setter：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">()</span> </span>&#123;</div><div class="line">   <span class="keyword">return</span> user;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUser</span><span class="params">(User user)</span> </span>&#123;</div><div class="line">   <span class="keyword">this</span>.user = user;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>User.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.struts2.ognl;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> age = <span class="number">8</span>;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</div><div class="line">      </div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">      <span class="keyword">super</span>();</div><div class="line">      <span class="keyword">this</span>.age = age;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> age;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.age = age;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">"user"</span> + age;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行效果：<br><img src="3.png" alt=""></p>
+<p>发现user的值是null，我们在url后面传入user.age再来试验一把：</p>
+<p><img src="4.png" alt=""></p>
+<p>发现这一次user有了值，并且通过ognl表达式可以打印出user.age。</p>
+<p>所以得出一个结论：user.xxx只有传，才会构造。</p>
+<p><strong>做第二个实验：</strong><br>如果我们自己手动构造user，也是可以的：<br>比如我们在OgnlAction.java中修改：<br><code>private User user = new User();</code><br>再次访问没有user.age的url：</p>
+<p><img src="5.png" alt=""></p>
+<p>发现也是可以有user的。</p>
+<p><strong>做第三个实验：</strong><br>在OgnlAction.java中将<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> User user = <span class="keyword">new</span> User();</div></pre></td></tr></table></figure></p>
+<p>改成<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> User user;</div></pre></td></tr></table></figure></p>
+<p>然后在User.java中去掉<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行<a href="http://localhost:8888/ognl.action?username=u&amp;password=p" target="_blank" rel="external">http://localhost:8888/ognl.action?username=u&amp;password=p</a><br>发现值栈中没有user:<br><img src="6.png" alt=""></p>
+<p>所以得出结论，想要初始化domain model，可以自己new，也可以传参数值，但是这时候需要保持参数为空的构造方法</p>
+<h2 id="第三十七课-OGNL-2"><a href="#第三十七课-OGNL-2" class="headerlink" title="第三十七课. OGNL_2"></a>第三十七课. OGNL_2</h2><p>在ognl.jsp中取消对一句话的注释：<br><code>&lt;li&gt;访问值栈中对象的普通属性(get set方法): &lt;s:property value=&quot;cat.friend.name&quot;/&gt;&lt;/li&gt;</code></p>
+<p>在OgnlAction.java中添加对cat的getter和setter：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Cat cat;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> Cat <span class="title">getCat</span><span class="params">()</span> </span>&#123;</div><div class="line">   <span class="keyword">return</span> cat;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCat</span><span class="params">(Cat cat)</span> </span>&#123;</div><div class="line">   <span class="keyword">this</span>.cat = cat;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Cat.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.struts2.ognl;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> </span>&#123;</div><div class="line">   </div><div class="line">   <span class="keyword">private</span> Dog friend;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> Dog <span class="title">getFriend</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> friend;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFriend</span><span class="params">(Dog friend)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.friend = friend;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">miaomiao</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">"miaomiao"</span>;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Cat类中有一个Dog的好朋友。Dog.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.struts2.ognl;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</div><div class="line">   </div><div class="line">   <span class="keyword">private</span> String name;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Dog</span><span class="params">()</span> </span>&#123;</div><div class="line">      </div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Dog</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">      <span class="keyword">super</span>();</div><div class="line">      <span class="keyword">this</span>.name = name;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> name;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.name = name;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">"dog: "</span> + name;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类之间的关系：<br><img src="7.png" alt=""></p>
+<p>OgnlAction有一个Cat，Cat有一个Dog，它们之间都是聚合关系。</p>
+<p>OGNL：Object Graph Navigation Language</p>
+<p>运行一下：<br><img src="8.png" alt=""></p>
+<p>发现cat内部是一个null值，说明没有创建一个domain model，只需要传值就可以创建了：</p>
+<p><img src="9.png" alt=""></p>
+<h2 id="第三十九课-OGNL-4"><a href="#第三十九课-OGNL-4" class="headerlink" title="第三十九课. OGNL_4"></a>第三十九课. OGNL_4</h2><p>打开ognl.jsp中被注释的一句话：<br><code>&lt;li&gt;访问值栈中对象的普通方法：&lt;s:property value=&quot;password.length()&quot;/&gt;&lt;/li&gt;</code></p>
+<p>运行：<br><img src="10.png" alt=""></p>
+<p>password是值栈中的一个对象，发现可以直接在ognl表达式中运行值栈中对象的普通方法。</p>
+<p>再做一个类似的实验，打开我们的cat的miaomiao方法：<br><code>&lt;li&gt;访问值栈中对象的普通方法：&lt;s:property value=&quot;cat.miaomiao()&quot; /&gt;&lt;/li&gt;</code></p>
+<p>运行：<br><img src="11.png" alt=""></p>
+<p>再做下一个实验，在ognl.jsp中打开：<br><code>&lt;li&gt;访问值栈中action的普通方法：&lt;s:property value=&quot;m()&quot; /&gt;&lt;/li&gt;</code><br>调用值栈中action的普通方法，运行：<br><img src="12.png" alt=""></p>
+<p>做下一个实验，访问静态方法、静态属性（ognl.jsp）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;li&gt;&lt;访问静态方法：&lt;s:property value="@com.bjsxt.struts2.ognl.S@s()"/&gt;&lt;/li&gt;</div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问静态属性：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"@com.bjsxt.struts2.ognl.S@STR"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问Math类的静态方法：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"@@max(2,3)"</span> /&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>第一个@后面跟的是类名，第二个@后面跟的是静态方法名，S.java的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.struts2.ognl;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">S</span> </span>&#123;</div><div class="line">   <span class="keyword">public</span> <span class="keyword">static</span> String STR = <span class="string">"STATIC STRING"</span>;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">s</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">"static method"</span>;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>S中包括静态方法和静态函数。</p>
+<p>运行看一下：<br><img src="13.png" alt=""></p>
+<p>发现静态属性是被访问到了，但是静态方法却没有被访问到。这里是有一个小配置的，要在struts.xml中添加语句：<br><code>&lt;constant name=&quot;struts.ognl.allowStaticMethodAccess&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;</code><br>这样就运行静态方法的访问了：<br><img src="14.png" alt=""></p>
+<p>两个@，也就是@@，只能访问一个类的属性方法，那就是Math类</p>
+<h2 id="第四十课-OGNL-5"><a href="#第四十课-OGNL-5" class="headerlink" title="第四十课. OGNL_5"></a>第四十课. OGNL_5</h2><p>打开ognl.jsp中的一行注释：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问普通类的构造方法：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"new com.bjsxt.struts2.ognl.User(8)"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>调用了User的构造方法，并传入一个参数8，运行：<br><img src="15.png" alt=""></p>
+<p>成功访问了普通类的构造方法。</p>
+<p>我们下面做关于访问集合属性的实验：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问List:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问List中某个元素:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users[1]"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问List中元素某个属性的集合:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users.&#123;age&#125;"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问List中元素某个属性的集合中的特定值:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users.&#123;age&#125;[0]"</span>/&gt;</span> | <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users[0].age"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问Set:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogs"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问Set中某个元素:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogs[1]"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问Map:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogMap"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问Map中某个元素:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogMap.dog101"</span>/&gt;</span> | <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogMap['dog101']"</span>/&gt;</span> | <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogMap[\"</span><span class="attr">dog101</span>\"]"/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问Map中所有的key:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogMap.keys"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问Map中所有的value:<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogMap.values"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>访问容器的大小：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"dogMap.size()"</span>/&gt;</span> | <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users.size"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在OgnlAction.java中，添加下面语句：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> List&lt;User&gt; users = <span class="keyword">new</span> ArrayList&lt;User&gt;();</div><div class="line"><span class="keyword">private</span> Set&lt;Dog&gt; dogs = <span class="keyword">new</span> HashSet&lt;Dog&gt;();</div><div class="line"><span class="keyword">private</span> Map&lt;String, Dog&gt; dogMap = <span class="keyword">new</span> HashMap&lt;String, Dog&gt;();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">OgnlAction</span><span class="params">()</span> </span>&#123;</div><div class="line">   users.add(<span class="keyword">new</span> User(<span class="number">1</span>));</div><div class="line">   users.add(<span class="keyword">new</span> User(<span class="number">2</span>));</div><div class="line">   users.add(<span class="keyword">new</span> User(<span class="number">3</span>));</div><div class="line"></div><div class="line">   dogs.add(<span class="keyword">new</span> Dog(<span class="string">"dog1"</span>));</div><div class="line">   dogs.add(<span class="keyword">new</span> Dog(<span class="string">"dog2"</span>));</div><div class="line">   dogs.add(<span class="keyword">new</span> Dog(<span class="string">"dog3"</span>));</div><div class="line"></div><div class="line">   dogMap.put(<span class="string">"dog100"</span>, <span class="keyword">new</span> Dog(<span class="string">"dog100"</span>));</div><div class="line">   dogMap.put(<span class="string">"dog101"</span>, <span class="keyword">new</span> Dog(<span class="string">"dog101"</span>));</div><div class="line">   dogMap.put(<span class="string">"dog102"</span>, <span class="keyword">new</span> Dog(<span class="string">"dog102"</span>));</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDogMap</span><span class="params">(Map&lt;String, Dog&gt; dogMap)</span> </span>&#123;</div><div class="line">   <span class="keyword">this</span>.dogMap = dogMap;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDogs</span><span class="params">(Set&lt;Dog&gt; dogs)</span> </span>&#123;</div><div class="line">   <span class="keyword">this</span>.dogs = dogs;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, Dog&gt; <span class="title">getDogMap</span><span class="params">()</span> </span>&#123;</div><div class="line">   <span class="keyword">return</span> dogMap;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> Set&lt;Dog&gt; <span class="title">getDogs</span><span class="params">()</span> </span>&#123;</div><div class="line">   <span class="keyword">return</span> dogs;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">getUsers</span><span class="params">()</span> </span>&#123;</div><div class="line">   <span class="keyword">return</span> users;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUser</span><span class="params">(User user)</span> </span>&#123;</div><div class="line">   <span class="keyword">this</span>.user = user;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行效果：<br><img src="16.png" alt=""></p>
+<p>上面注意第16，由于Set无序，所以不能通过<br><code>&lt;s:property value=&quot;dogs[1]&quot;/&gt;</code><br>来取Set的一个值</p>
+<p>其他的ognl表达式，自己看上面代码，记住就可以了。</p>
+<h2 id="第四十一课-OGNL-6"><a href="#第四十一课-OGNL-6" class="headerlink" title="第四十一课. OGNL_6."></a>第四十一课. OGNL_6.</h2><p>在ognl.jsp中添加如下代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>投影(过滤)：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users.&#123;?#this.age==1&#125;[0]"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>投影：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users.&#123;^#this.age&gt;1&#125;.&#123;age&#125;"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>投影：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users.&#123;$#this.age&gt;1&#125;.&#123;age&#125;"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>投影：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"users.&#123;$#this.age&gt;1&#125;.&#123;age&#125; == null"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行看结果：<br><img src="17.png" alt=""></p>
+<p>投影这有三种：<br>?#<br>^#<br>$#</p>
+<p>第一句：<br><code>&lt;li&gt;投影(过滤)：&lt;s:property value=&quot;users.{?#this.age==1}[0]&quot;/&gt;&lt;/li&gt;</code></p>
+<p>users是一个List，在这个List里面取所有age=1的对象，得到一个对象集合，在这个集合中只去取第一个元素。</p>
+<p>第二句：<br><code>&lt;li&gt;投影：&lt;s:property value=&quot;users.{^#this.age&gt;1}.{age}&quot;/&gt;&lt;/li&gt;</code><br>users中age&gt;1的集合中，开头的一个元素，返回它的age。</p>
+<p>第三句：<br><code>&lt;li&gt;投影：&lt;s:property value=&quot;users.{$#this.age&gt;1}.{age}&quot;/&gt;&lt;/li&gt;</code><br>users中age&gt;1的集合中，结尾的一个元素，返回它的age。</p>
+<p>第四句：<br><code>&lt;li&gt;投影：&lt;s:property value=&quot;users.{$#this.age&gt;1}.{age} == null&quot;/&gt;&lt;/li&gt;</code><br>users中age&gt;1的集合中，结尾的一个元素，看看它的age是不是为空。我们这里不为空，所以返回false。</p>
+<h2 id="第四十二课-OGNL-7"><a href="#第四十二课-OGNL-7" class="headerlink" title="第四十二课. OGNL_7"></a>第四十二课. OGNL_7</h2><p>在ognl.jsp中添加：<br><code>&lt;li&gt;[]:&lt;s:property value=&quot;[0] &quot;/&gt;&lt;/li&gt;</code></p>
+<p>运行：<br><img src="18.png" alt=""></p>
+<p>发现中括号里面加一个数值，访问的就是值栈中的一个Object。我们由于是[0]，所以访问的是值栈中从上往下数的第一个对象到栈底的所有Object，就是OgnlAction和DefaultTextProvider</p>
+<p>如果我们修改上面的句子：<br><code>&lt;li&gt;[]:&lt;s:property value=&quot;[0].username&quot;/&gt;&lt;/li&gt;</code></p>
+<p>运行：<br><img src="19.png" alt=""></p>
+<p>发现访问到了Action的username，如果有很多Action，那么就按顺序往下找，直到找到某一个Action中有username属性。那什么时候会有两个Action？</p>
+<h2 id="第四十三课-OGNL-8"><a href="#第四十三课-OGNL-8" class="headerlink" title="第四十三课. OGNL_8"></a>第四十三课. OGNL_8</h2><p>什么时候有两个Action呢？<br>我们在我们的ognl.xml中配置两个Action：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"ognl"</span> <span class="attr">extends</span>=<span class="string">"struts-default"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"ognl"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.struts2.ognl.OgnlAction"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">result</span>&gt;</span>/ognl.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"test"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.struts2.ognl.TestAction"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">type</span>=<span class="string">"chain"</span>&gt;</span>ognl<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">package</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>TestAction.java：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.struts2.ognl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.opensymphony.xwork2.ActionSupport;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAction</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">super</span>.execute();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行test.action：<br><img src="20.png" alt=""></p>
+<p>发现值栈中压入两个Action，一个TestAction，一个OgnlAction。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Struts2/" rel="tag"># Struts2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/04/leetcode646/" rel="next" title="LeetCode | 646.Maximum Length of Pair Chain">
+                <i class="fa fa-chevron-left"></i> LeetCode | 646.Maximum Length of Pair Chain
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十六课-OGNL-1"><span class="nav-number">1.</span> <span class="nav-text">第三十六课. OGNL_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十七课-OGNL-2"><span class="nav-number">2.</span> <span class="nav-text">第三十七课. OGNL_2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十九课-OGNL-4"><span class="nav-number">3.</span> <span class="nav-text">第三十九课. OGNL_4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十课-OGNL-5"><span class="nav-number">4.</span> <span class="nav-text">第四十课. OGNL_5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十一课-OGNL-6"><span class="nav-number">5.</span> <span class="nav-text">第四十一课. OGNL_6.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十二课-OGNL-7"><span class="nav-number">6.</span> <span class="nav-text">第四十二课. OGNL_7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十三课-OGNL-8"><span class="nav-number">7.</span> <span class="nav-text">第四十三课. OGNL_8</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
