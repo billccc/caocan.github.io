@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode | 13.Roman to Integer]]></title>
+    <url>%2F2017%2F12%2F04%2Fleetcode13%2F</url>
+    <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/roman-to-integer/description/ Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999. 解法一： 依次遍历每一个字符，如果下一个字符代表的数字比当前数字大，那么就将结果减去当前数字；如果小就加上。1234567891011121314151617181920212223242526272829303132333435363738class Solution &#123; public int romanToInt(String s) &#123; int[] nums = new int[s.length()]; for(int i = 0; i &lt; s.length(); i++)&#123; switch(s.charAt(i))&#123; case 'M': nums[i]=1000; break; case 'D': nums[i]=500; break; case 'C': nums[i]=100; break; case 'L': nums[i]=50; break; case 'X' : nums[i]=10; break; case 'V': nums[i]=5; break; case 'I': nums[i]=1; break; &#125; &#125; int res = 0; for(int i = 0; i &lt; nums.length-1; i++) if(nums[i] &lt; nums[i+1]) res -= nums[i]; else res += nums[i]; res += nums[nums.length-1]; return res; &#125;&#125; 解法二： 比上一个解法更加高效，由于是在4000范围之内将罗马数字转换成十进制，所以将各种组合情况（只有两个罗马数字的组合）枚举出来，并且按照从大到小放置在数组中。我们做的，只需要利用String类的indexOf函数来查看是否有遍历到的数组字符串作为前缀的，如果有，就把这个前缀的十进制加到结果里，然后字符串将前缀删掉，继续之前的操作，一直到字符串删完为止。 123456789101112131415class Solution &#123; public int romanToInt(String s) &#123; int ans = 0; int[] aArray = &#123;1000,900,500,400,100,90,50,40,10,9,5,4,1&#125;; String[] rArray = &#123;"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"&#125;; for(int i = 0; i &lt; rArray.length; i++)&#123; while(s.indexOf(rArray[i] )== 0)&#123; ans += aArray[i]; s = s.substring(rArray[i].length()); &#125; &#125; return ans; &#125;&#125;]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Struts2笔记（二） Result]]></title>
     <url>%2F2017%2F12%2F02%2FStruts2-2%2F</url>
     <content type="text"><![CDATA[本文主要介绍Struts2中Result的基本用法。 第二十七课. 结果类型 result_type1先看效果： 看代码（struts.xml）:123456789101112131415161718192021&lt;struts&gt; &lt;constant name="struts.devMode" value="true" &gt;&lt;/constant&gt; &lt;package name="resultTypes" namespace="/r" extends="struts-default"&gt; &lt;action name="r1"&gt; &lt;result type="dispatcher"&gt;/r1.jsp&lt;/result&gt; &lt;/action&gt; &lt;action name="r2"&gt; &lt;result type="redirect"&gt;/r2.jsp&lt;/result&gt; &lt;/action&gt; &lt;action name="r3"&gt; &lt;result type="chain"&gt;r1&lt;/result&gt; &lt;/action&gt; &lt;action name="r4"&gt; &lt;result type="redirectAction"&gt;r2&lt;/result&gt; &lt;/action&gt; &lt;/package&gt;&lt;/struts&gt; 之前我们没有指定result的type，默认就是dispatcher，就是运用服务器跳转到一个结果页面，原理就是用jsp的forward，forward到一个html或jsp或其他文件。 chain的意思是forward到一个action，而dispatcher只能是jsp或htmlredirect也只能跳转到一个视图，不能跳转到一个action 如果想客户端跳转到一个action，就用redirectAction用的比较多的就是前四种，其中dispatcher和redirect用的最多 httpheader就是发送一个http的头信息stream就是下载velocity和freemarker是特别相似的模板框架，不过干不过freemarker，已经几乎被淘汰xslt是修饰的xml语言paintext是可以将页面源码显示出来（一般我们都显示出来的是经过解析后的html文件）tiles可以将页面分成几块，每块内容动态指定。 除了前四种，其他知道就行了。 先看第一种，dispatcher： 发现url访问的是服务端的action，也就是说，dispatcher完成的是服务端跳转，过程如下： 而redirect完成的是客户端跳转，所以访问后显示的url是重定向后的jsp： 客户端跳转如下图所示： 对于chain，访问同一个包的action时，不要在前面加/如果访问其他包的Action，例如p2的action，那么可以写成p2/r1 运行效果： 看到r3访问同包中r1的action，r1的action帮我们在服务端dispatcher到了r1.jsp，所以最后链接显示的是r3的action，但是实际显示的是r1的jsp 再实验第四个，也就是redirectAction： 发现显示的是r2.jsp,而且链接也跳到了r2.jsp，这是因为我们利用redirectAction，想访问r2的Action，而r2的action进行了客户端跳转，所以最后给我们客户端返回的是r2.jsp。 第二十九课. result type 常见问题.当我们使用chain的result type时，如何能跳转到其他package下的action ? 通过加参数就可以解决~123456&lt;action name="login" class="..."&gt; &lt;result type="chain"&gt; &lt;param name="actionName"&gt;dashboard&lt;/param&gt; &lt;param name="namespace"&gt;/secure&lt;/param&gt; &lt;/result&gt;&lt;/action&gt; 第三十课. Global Results 全局结果集先把project部署好，运行看效果： index.jsp代码：12345678910&lt;body&gt;Result类型&lt;ol&gt; &lt;li&gt;&lt;a href="user/user?type=1"&gt;返回success&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href="user/user?type=2"&gt;返回error&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href="user/user?type=3"&gt;返回global result&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href="admin/admin"&gt;admin,继承user包&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt; &lt;/body&gt; 来看我们的UserAction.java:1234567891011121314151617181920212223242526272829package com.bjsxt.struts2.user.action;import com.opensymphony.xwork2.ActionSupport;public class UserAction extends ActionSupport &#123; private int type; public int getType() &#123; return type; &#125; public void setType(int type) &#123; this.type = type; &#125; @Override public String execute() throws Exception &#123; if(type == 1) return "success"; else if (type == 2) return "error"; else return "mainpage"; &#125;&#125; 依次点击三个链接，效果如下： 发现当传入type=1时，返回seccess，传入type=2时，返回error，传入type=3时，返回mainpage，它们都是result名字，我们再看struts.xml对这些result的配置：12345678910111213141516171819202122232425&lt;struts&gt; &lt;constant name="struts.devMode" value="true" /&gt; &lt;package name="user" namespace="/user" extends="struts-default"&gt; &lt;global-results&gt; &lt;result name="mainpage"&gt;/main.jsp&lt;/result&gt; &lt;/global-results&gt; &lt;action name="index"&gt; &lt;result&gt;/index.jsp&lt;/result&gt; &lt;/action&gt; &lt;action name="user" class="com.bjsxt.struts2.user.action.UserAction"&gt; &lt;result&gt;/user_success.jsp&lt;/result&gt; &lt;result name="error"&gt;/user_error.jsp&lt;/result&gt; &lt;/action&gt; &lt;/package&gt; &lt;package name="admin" namespace="/admin" extends="user"&gt; &lt;action name="admin" class="com.bjsxt.struts2.user.action.AdminAction"&gt; &lt;result&gt;/admin.jsp&lt;/result&gt; &lt;/action&gt; &lt;/package&gt;&lt;/struts&gt; 发现这次有好几组action，每一个action里面配置了一组result，我们发现，result中有名字叫success和error的，但是唯独没有叫mainpage，再往上看才发现，mainpage配置在了一个global-results中，global-results实际相当于所有在同一个package中的action的共同result配置，每一个在这个package中的action都可以进行访问，也就是一个全局结果集。 我们考虑第二种情况，如果现在下面的名字叫admin的package中的action想要访问mainpage，但是由于不在user包中，应该怎么办？其实我们上面的代码已经给出了答案，就是admin的package中，加了一个extends的配置，设置为extends=”user”，也就是从user包中继承配置，这样就有了mainpage这样的result结果集。 在AdminAction.java中返回mainpage： 123456789101112package com.bjsxt.struts2.user.action;import com.opensymphony.xwork2.ActionSupport;public class AdminAction extends ActionSupport &#123; @Override public String execute() throws Exception &#123; return "mainpage"; &#125;&#125; 结果就会映射到我们的main.jsp： 这是一种设计思想，就是可以在struts.xml中定义一个公用的package，然后每一个package都可以对这个公用包进行extends。 如果没有想继承的，就可以设置extends=&quot;struts-default&quot;，这个就是默认配置。 struts-default的详细代码在struts2-core-2.1.6.jar!\struts-default.xml中可以查看，可以说，struts很复杂，但是它的复杂使我们使用起来更加简单。 第三十一课. 动态结果集 dynamic result.运行起来看结果： 发现传入一个type=1就可以返回一个success的jsp页面。怎么做到的呢？我们先来看struts.xml：12345678910&lt;struts&gt; &lt;constant name="struts.devMode" value="true" /&gt; &lt;package name="user" namespace="/user" extends="struts-default"&gt; &lt;action name="user" class="com.bjsxt.struts2.user.action.UserAction"&gt; &lt;result&gt;$&#123;r&#125;&lt;/result&gt; &lt;/action&gt; &lt;/package&gt; &lt;/struts&gt; 当接收到链接中的user包时，开始匹配，匹配到了我们的user包，然后执行UserAction这个Action：123456789101112131415161718192021222324252627282930313233package com.bjsxt.struts2.user.action;import com.opensymphony.xwork2.ActionSupport;public class UserAction extends ActionSupport &#123; private int type; private String r; public String getR() &#123; return r; &#125; public void setR(String r) &#123; this.r = r; &#125; public int getType() &#123; return type; &#125; public void setType(int type) &#123; this.type = type; &#125; @Override public String execute() throws Exception &#123; if(type == 1) r="/user_success.jsp"; else if (type == 2) r="/user_error.jsp"; return "success"; &#125;&#125; 发现type=1被直接传入了UserAction里面，然后执行execute()方法，因为type=1，所以r=”/user_success.jsp”，这时r被存入值栈。我们查看值栈： 发现r=”/user_success.jsp”已经被放入值栈，这时候我们执行result，${r}用于从值栈中取出r的值，也就是/user_success.jsp，这样我们的页面就显示为/user_success.jsp。这就是动态结果集。 第三十二课. 带参数的结果集先部署、运行，看效果： 发现从值栈中取不出数值，但是从actioncontext却可以。来看代码： 先看index.jsp：1234567&lt;body&gt;向结果传参数&lt;ol&gt; &lt;li&gt;&lt;a href="user/user?type=1"&gt;传参数&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt; &lt;/body&gt; 发现执行名字叫user的Action，传入参数type=1，再看struts.xml：12345678910&lt;struts&gt; &lt;constant name="struts.devMode" value="true" /&gt; &lt;package name="user" namespace="/user" extends="struts-default"&gt; &lt;action name="user" class="com.bjsxt.struts2.user.action.UserAction"&gt; &lt;result type="redirect"&gt;/user_success.jsp?t=$&#123;type&#125;&lt;/result&gt; &lt;/action&gt; &lt;/package&gt; &lt;/struts&gt; 找到user的package和user的Action，执行UserAction对象。查看UserAction.java的代码：123456789101112131415161718192021package com.bjsxt.struts2.user.action;import com.opensymphony.xwork2.ActionSupport;public class UserAction extends ActionSupport &#123; private int type; public int getType() &#123; return type; &#125; public void setType(int type) &#123; this.type = type; &#125; @Override public String execute() throws Exception &#123; return "success"; &#125;&#125; 发现UserAction里面有一个type属性，URL里面的type=1就被传入而&lt;result type=&quot;redirect&quot;&gt;/user_success.jsp?t=${type}&lt;/result&gt;一句重定向，将type从值栈中取出，作为参数t发给服务端，因而这是一个新的request，所以要开辟一个新的值栈。 然后看我们的user_success.jsp文件：123456&lt;body&gt; User Success! from valuestack: &lt;s:property value="t"/&gt;&lt;br/&gt; from actioncontext: &lt;s:property value="#parameters.t"/&gt; &lt;s:debug&gt;&lt;/s:debug&gt;&lt;/body&gt; 发现第一个是直接从值栈中去取t的值，由于已经重定向，所以最初的t的值并没有存入值栈，这时候我们就可以通过第二种方式来拿这个值，就是通过发请求时附加参数的方式，最后通过#parameters.t的方式就可以取到了。 完整的过程如下图所示： 第三十三课. 结果集总结Result 常用四种类型a) dispatcher（默认）b) redirectc) chaind) redirectAction 全局结果集a) global-results | extends 动态结果（了解）a) 在action中保存一个属性，存储具体的过程location 传递参数a) 客户端跳转才需要传递b) ${}表达式（不是EL）]]></content>
@@ -31,8 +42,8 @@
       </categories>
       <tags>
         <tag>JDBC</tag>
-        <tag>J2EE</tag>
         <tag>JSP</tag>
+        <tag>J2EE</tag>
         <tag>BBS</tag>
       </tags>
   </entry>
@@ -115,8 +126,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
@@ -127,8 +138,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
@@ -139,8 +150,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
@@ -198,8 +209,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Servlet</tag>
         <tag>J2EE</tag>
+        <tag>Servlet</tag>
       </tags>
   </entry>
   <entry>
