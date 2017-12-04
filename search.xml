@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode | 646.Maximum Length of Pair Chain]]></title>
+    <url>%2F2017%2F12%2F04%2Fleetcode646%2F</url>
+    <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/maximum-length-of-pair-chain/description/ 解法一：使用贪心法来解决这个问题，只能按照数组第二个元素进行排序。比方(8,9)(10,11)(1,100)按照数组第一个元素排序:(1,100),(8,9),(10,11)。不能通过比较[i][end] 和 [i+1][begin] 来增加链。而如果按照数组第二个元素排序： (8,9) ，(10,11)， (1,100)，那么则可以通过比较 [i][end] 和 [i+1][begin] 来增加 关于排序：Arrays.sort(pairs, (a,b) -&gt; a[1] - b[1]);Java Lambda 表达式（又名闭包(Closure)匿名函数) 笔记 代码：123456789101112131415161718class Solution &#123; public int findLongestChain(int[][] pairs) &#123; Arrays.sort(pairs, (a,b)-&gt;(a[1]-b[1])); int sum = 0; int length = pairs.length; int i = 0; while(i &lt; length)&#123; int current_end = pairs[i][1]; sum++; while(i &lt; length &amp;&amp; pairs[i][0] &lt;= current_end) i++; &#125; return sum; &#125;&#125; 解法二：无论是按照数组的第一个元素排序，还是按照数组的第二个元素排序，这个问题都能转化为用DP解决。以下是用DP解决的。dp[i]储存的是从i结束的链表长度最大值。首先初始化每个dp[i]为1。然后对于每个dp[i]，找在 i 前面的索引 0~j，如果存在可以链接在i 前面的数组，且加完后大于dp[i]之前的值，那么则在dp[j]的基础上+1. 代码：12345678910111213141516171819public class Solution &#123; public int findLongestChain(int[][] pairs) &#123; Arrays.sort(pairs, (a, b) -&gt; (a[0] - b[0])); int i, j, max = 0, n = pairs.length; int dp[] = new int[n]; for (i = 0; i &lt; n; i++) dp[i] = 1; for (i = 1; i &lt; n; i++) for (j = 0; j &lt; i; j++) if (pairs[i][0] &gt; pairs[j][1] &amp;&amp; dp[i] &lt; dp[j] + 1) dp[i] = dp[j] + 1; for (i = 0; i &lt; n; i++) if (max &lt; dp[i]) max = dp[i]; return max; &#125; &#125;]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>DP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 13.Roman to Integer]]></title>
     <url>%2F2017%2F12%2F04%2Fleetcode13%2F</url>
     <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/roman-to-integer/description/ Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999. 解法一： 依次遍历每一个字符，如果下一个字符代表的数字比当前数字大，那么就将结果减去当前数字；如果小就加上。1234567891011121314151617181920212223242526272829303132333435363738class Solution &#123; public int romanToInt(String s) &#123; int[] nums = new int[s.length()]; for(int i = 0; i &lt; s.length(); i++)&#123; switch(s.charAt(i))&#123; case 'M': nums[i]=1000; break; case 'D': nums[i]=500; break; case 'C': nums[i]=100; break; case 'L': nums[i]=50; break; case 'X' : nums[i]=10; break; case 'V': nums[i]=5; break; case 'I': nums[i]=1; break; &#125; &#125; int res = 0; for(int i = 0; i &lt; nums.length-1; i++) if(nums[i] &lt; nums[i+1]) res -= nums[i]; else res += nums[i]; res += nums[nums.length-1]; return res; &#125;&#125; 解法二： 比上一个解法更加高效，由于是在4000范围之内将罗马数字转换成十进制，所以将各种组合情况（只有两个罗马数字的组合）枚举出来，并且按照从大到小放置在数组中。我们做的，只需要利用String类的indexOf函数来查看是否有遍历到的数组字符串作为前缀的，如果有，就把这个前缀的十进制加到结果里，然后字符串将前缀删掉，继续之前的操作，一直到字符串删完为止。 123456789101112131415class Solution &#123; public int romanToInt(String s) &#123; int ans = 0; int[] aArray = &#123;1000,900,500,400,100,90,50,40,10,9,5,4,1&#125;; String[] rArray = &#123;"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"&#125;; for(int i = 0; i &lt; rArray.length; i++)&#123; while(s.indexOf(rArray[i] )== 0)&#123; ans += aArray[i]; s = s.substring(rArray[i].length()); &#125; &#125; return ans; &#125;&#125;]]></content>
