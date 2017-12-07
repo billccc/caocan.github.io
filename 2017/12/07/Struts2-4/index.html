@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Struts2," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍Struts2中标签的基本用法。">
+<meta name="keywords" content="Struts2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Struts2笔记（四） 标签">
+<meta property="og:url" content="https://caocan.github.io/2017/12/07/Struts2-4/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍Struts2中标签的基本用法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/16.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/17.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/18.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/07/Struts2-4/19.png">
+<meta property="og:updated_time" content="2017-12-07T12:31:44.348Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Struts2笔记（四） 标签">
+<meta name="twitter:description" content="本文主要介绍Struts2中标签的基本用法。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/07/Struts2-4/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/12/07/Struts2-4/"/>
+
+
+
+
+
+  <title>Struts2笔记（四） 标签 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/07/Struts2-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Struts2笔记（四） 标签</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-07T20:01:28+08:00">
+                2017-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Struts2/" itemprop="url" rel="index">
+                    <span itemprop="name">Struts2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍Struts2中标签的基本用法。<br><a id="more"></a></p>
+<p>Struts-Tags<br>1.通用标签<br>　　a) property<br>　　b) set<br>　　　　i.默认为 action scope,会将值放入 request 和 ActionContext中<br>　　　　ii. page、request、session、application<br>　　c) bean<br>　　d) include（对中文文件支持有问题，不建议使用，如需包含，改用jsp包含）<br>　　e) param<br>　　f) debug<br>2.控制标签<br>　　a) if else if else<br>　　b) iterator<br>　　　　i. collections map enumeration iterator array<br>　　c) subset<br>3.UI标签<br>　　a) theme<br>　　　　i. simple xthml(默认)css_html ajax<br>4.AJAX标签<br>　　a)补充<br>5.$#%的区别<br>　　a) $用户 i18n 和 struts 配置文件<br>　　b) #取得 ActionContext 的值<br>　　c) %将原本的文本属性解析为ognl，对于本来就是ognl的属性不起作用<br>　　　　i. 参考&lt;s:property 和 &lt;s:include</p>
+<h2 id="第四十四课-Struts标签1-property"><a href="#第四十四课-Struts标签1-property" class="headerlink" title="第四十四课. Struts标签1 property"></a>第四十四课. Struts标签1 property</h2><p>先看效果：<br><img src="1.png" alt=""></p>
+<p>我们先通过index.jsp来访问action：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	访问属性</div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&lt;%=contextPath %&gt;/tags.action?username=u&amp;password=p"</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后访问struts.xml文件，找到tags.action<br>struts.xml:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">struts</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--&lt;constant name="struts.enable.DynamicMethodInvocation" value="false" /&gt;--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constant</span> <span class="attr">name</span>=<span class="string">"struts.devMode"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></div><div class="line">    <span class="comment">&lt;!--&lt;constant name="struts.ognl.allowStaticMethodAccess" value="true"&gt;&lt;/constant&gt;--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constant</span> <span class="attr">name</span>=<span class="string">"struts.ui.theme"</span> <span class="attr">value</span>=<span class="string">"simple"</span> /&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"tags"</span> <span class="attr">extends</span>=<span class="string">"struts-default"</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"tags"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.struts2.tags.TagsAction"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">result</span>&gt;</span>/tags.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">package</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">struts</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>则会执行com.bjsxt.struts2.tags.TagsAction这个类的对象：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.struts2.tags;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.opensymphony.xwork2.ActionSupport;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TagsAction</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> String password;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> String username;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TagsAction</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.addFieldError(<span class="string">"fielderror.test"</span>, <span class="string">"wrong!"</span>);</div><div class="line">		<span class="keyword">return</span> SUCCESS;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> password;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> username;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.password = password;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.username = username;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Action对象通过execute方法返回一个SUCCESS, struts.xml接收了这样的一个返回值后，执行result，返回tags.jsp，我们接下来就逐行分析这个jsp里的标签。</p>
+<p>tags.jsp里的代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>property: <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"username"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>property 取值为字符串: <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"'username'"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>property 设定默认值: <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"admin"</span> <span class="attr">default</span>=<span class="string">"管理员"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>property 设定HTML: <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"'&lt;hr/&gt;'"</span> <span class="attr">escape</span>=<span class="string">"false"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">s:debug</span>&gt;</span><span class="tag">&lt;/<span class="name">s:debug</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">hr</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p>第一句：<br><code>&lt;li&gt;property: &lt;s:property value=&quot;username&quot;/&gt; &lt;/li&gt;</code><br>直接从值栈中取出来username的值，也就是u</p>
+<p>第二句：<br><code>&lt;li&gt;property 取值为字符串: &lt;s:property value=&quot;&#39;username&#39;&quot;/&gt; &lt;/li&gt;</code><br>由于username外面加了单引号，所以它只单纯的表示一个字符串，并不会去取username的值</p>
+<p>第三句：<br><code>&lt;li&gt;property 设定默认值: &lt;s:property value=&quot;admin&quot; default=&quot;管理员&quot;/&gt; &lt;/li&gt;</code><br>由于值栈中没有admin这个属性，所以就直接用default，也就是默认值来进行显示，所以最后显示的是“管理员”</p>
+<p>第四句：<br><code>&lt;li&gt;property 设定HTML: &lt;s:property value=&quot;&#39;&lt;hr/&gt;&#39;&quot; escape=&quot;false&quot;/&gt; &lt;/li&gt;</code><br>本来默认escape的值是true，也就是对前面的HTML元素不做解析，只当做单纯的字符串，所以最后显示的是<code>&lt;hr/&gt;</code><br>但是如果设置<code>escape=&quot;false&quot;</code>，那么就会将<code>&lt;hr/&gt;</code>看作是HTML元素，最后在页面上显示的是一条横线。</p>
+<h2 id="第四十五课-Struts标签-2-set"><a href="#第四十五课-Struts标签-2-set" class="headerlink" title="第四十五课. Struts标签 2 set"></a>第四十五课. Struts标签 2 set</h2><p>效果：<br><img src="2.png" alt=""></p>
+<p>第一句：<br><code>&lt;li&gt;set 设定adminName值（默认为request 和 ActionContext）: &lt;s:set var=&quot;adminName&quot; value=&quot;username&quot; /&gt;&lt;/li&gt;</code></p>
+<p>设定一个变量adminName，让它的值等于username</p>
+<p>第二句：<br><code>&lt;li&gt;set 从request取值: &lt;s:property value=&quot;#request.adminName&quot; /&gt;&lt;/li&gt;</code></p>
+<p>从request中取出adminName，发现可以取出来</p>
+<p>第三句：<br><code>&lt;li&gt;set 从ActionContext取值: &lt;s:property value=&quot;#adminName&quot; /&gt;&lt;/li&gt;</code></p>
+<p>直接从Stack Context中去取adminName，也是可以取出来的。说明在设置这个变量的时候，会同时放入到request和Stack Context中</p>
+<p>接下来研究scope：<br>第一句：<br><code>&lt;li&gt;set 设定范围: &lt;s:set name=&quot;adminPassword&quot; value=&quot;password&quot; scope=&quot;page&quot;/&gt;&lt;/li&gt;</code><br>将scope设置为page，那么当前页面都可以访问到adminPassword</p>
+<p>我们尝试在第二句中进行访问：<br><code>&lt;li&gt;set 从相应范围取值: &lt;%=pageContext.getAttribute(&quot;adminPassword&quot;) %&gt;&lt;/li&gt;</code><br>我们运行后发现是可以成功运行的。<br>将上面两句屏蔽掉（为了取消干扰）<br>第三句：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>set 设定var，范围为ActionContext: <span class="tag">&lt;<span class="name">s:set</span> <span class="attr">var</span>=<span class="string">"adminPassword"</span> <span class="attr">value</span>=<span class="string">"password"</span> <span class="attr">scope</span>=<span class="string">"session"</span>/&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>set 使用#取值: <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#adminPassword"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>set 从相应范围取值: <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#session.adminPassword"</span>/&gt;</span> <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>显示效果：<br><img src="3.png" alt=""></p>
+<p>发现使用#不能去除值，但是使用<code>#session.adminPassword</code>可以。我们debug看一下：<br><img src="4.png" alt=""></p>
+<p>发现通过设置scope=”session”，可以在ActionContext中访问到session并取出来adminPassword。</p>
+<h2 id="第四十六课-Struts标签-3-bean-1"><a href="#第四十六课-Struts标签-3-bean-1" class="headerlink" title="第四十六课. Struts标签 3 bean 1"></a>第四十六课. Struts标签 3 bean 1</h2><p>代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>bean 定义bean,并使用param来设定新的属性值:</div><div class="line">			<span class="tag">&lt;<span class="name">s:bean</span> <span class="attr">name</span>=<span class="string">"com.bjsxt.struts2.tags.Dog"</span> &gt;</span></div><div class="line">				&lt;%--&lt;s:param name="name" value="'pp'"&gt;&lt;/s:param&gt;--%&gt;</div><div class="line">				&lt;%--&lt;s:property value="name"/&gt;--%&gt;</div><div class="line">				</div><div class="line">			<span class="tag">&lt;/<span class="name">s:bean</span>&gt;</span></div><div class="line">			</div><div class="line">			</div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>bean 查看debug情况:</div><div class="line">			<span class="tag">&lt;<span class="name">s:bean</span> <span class="attr">name</span>=<span class="string">"com.bjsxt.struts2.tags.Dog"</span> <span class="attr">var</span>=<span class="string">"myDog"</span>&gt;</span></div><div class="line">				&lt;%--&lt;s:param name="name" value="'oudy'"&gt;&lt;/s:param&gt;--%&gt;</div><div class="line">			<span class="tag">&lt;/<span class="name">s:bean</span>&gt;</span></div><div class="line">			拿出值：</div><div class="line">			<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#myDog.name"</span>/&gt;</span></div><div class="line">			</div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>先看效果：<br><img src="5.png" alt=""></p>
+<p>debug，发现在ActionContext中有myDog这个变量，里面值是null：</p>
+<p><img src="6.png" alt=""></p>
+<p>修改：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>bean 查看debug情况:</div><div class="line">   <span class="tag">&lt;<span class="name">s:bean</span> <span class="attr">name</span>=<span class="string">"com.bjsxt.struts2.tags.Dog"</span> <span class="attr">var</span>=<span class="string">"myDog"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">s:param</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"'oudy'"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:param</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">s:bean</span>&gt;</span></div><div class="line">   拿出值：</div><div class="line">   <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#myDog.name"</span>/&gt;</span></div><div class="line">   </div><div class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意name的value内容要加单引号，因为如果不加会当成ognl表达式，加了以后就当做字符串，这时候我们再debug，发现myDog有了oudy：<br><img src="7.png" alt=""></p>
+<p>修改代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>bean 定义bean,并使用param来设定新的属性值:</div><div class="line">   <span class="tag">&lt;<span class="name">s:bean</span> <span class="attr">name</span>=<span class="string">"com.bjsxt.struts2.tags.Dog"</span> &gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">s:param</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"'pp'"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:param</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"name"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">s:bean</span>&gt;</span></div><div class="line">   </div><div class="line">   </div><div class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>bean 查看debug情况:</div><div class="line">   <span class="tag">&lt;<span class="name">s:bean</span> <span class="attr">name</span>=<span class="string">"com.bjsxt.struts2.tags.Dog"</span> <span class="attr">var</span>=<span class="string">"myDog"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">s:param</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"'oudy'"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:param</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">s:bean</span>&gt;</span></div><div class="line">   拿出值：</div><div class="line">   <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#myDog.name"</span>/&gt;</span></div><div class="line">   </div><div class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="8.png" alt=""></p>
+<p>第一个通过param方式给bean中的name赋值为pp，在紧接着的下一行就可以取到这个bean的name，但是没有向ActionContext中存储。一旦s:bean执行结束，后面的代码就不能访问到这个name了。<br>第二个通过在s:bean中用var定义一个myDog变量，然后在这个bean中用param定义name，取值为oudy，这一次由于使用了var，所以可以在bean结束后，通过#myDog.name取到name值。</p>
+<p>总结一下bean：<br>有两个属性：name和var<br>name: 设置被实例化bean的完整类名<br>var: 设置用于访问ActionContext中值的名称</p>
+<h2 id="第四十八课-Struts标签-5-include"><a href="#第四十八课-Struts标签-5-include" class="headerlink" title="第四十八课. Struts标签 5 include"></a>第四十八课. Struts标签 5 include</h2><p>标签中的include已经不太使用了，了解就行，最多还是用的jsp中的两种包含方式：<br>动态包含：<code>&lt;jsp:include</code><br>静态包含：<code>&lt;@include</code></p>
+<p>代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>include _include1.html 包含静态英文文件</div><div class="line">		<span class="tag">&lt;<span class="name">s:include</span> <span class="attr">value</span>=<span class="string">"/_include1.html"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:include</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>include _include2.html 包含静态中文文件</div><div class="line">		<span class="tag">&lt;<span class="name">s:include</span> <span class="attr">value</span>=<span class="string">"/_include2.html"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:include</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>include _include1.html 包含静态英文文件，说明%用法</div><div class="line">		<span class="tag">&lt;<span class="name">s:set</span> <span class="attr">var</span>=<span class="string">"incPage"</span> <span class="attr">value</span>=<span class="string">"%&#123;'/_include1.html'&#125;"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:include</span> <span class="attr">value</span>=<span class="string">"%&#123;#incPage&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:include</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行来看一下效果：<br><img src="9.png" alt=""></p>
+<p>发现中文文件没有显示出来。</p>
+<p>第三句：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">s:set</span> <span class="attr">var</span>=<span class="string">"incPage"</span> <span class="attr">value</span>=<span class="string">"%&#123;'/_include1.html'&#125;"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">s:include</span> <span class="attr">value</span>=<span class="string">"%&#123;#incPage&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:include</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>设置变量incPage，值是<code>/_include1.html</code><br>我们让<code>#incPage</code>不被当成字符串，而是做成ognl表达式，可以在外面套一个<code>%{}</code><br>所以<code>%{}</code>的作用就是将内部的字符串转换成ognl表达式</p>
+<p>总结：<br>$#%的区别<br>　　a) $用户 i18n 和 struts 配置文件<br>　　b) #取得 ActionContext 的值<br>　　c) %将原本的文本属性解析为ognl，对于本来就是ognl的属性不起作用<br>　　　　i. 参考&lt;s:property 和 &lt;s:include</p>
+<h2 id="第五十课-Struts标签-7-if"><a href="#第五十课-Struts标签-7-if" class="headerlink" title="第五十课. Struts标签 7 if"></a>第五十课. Struts标签 7 if</h2><p>代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>if elseif else: </div><div class="line">		age = <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#parameters.age[0]"</span> /&gt;</span> <span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:set</span> <span class="attr">var</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"#parameters.age[0]"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:if</span> <span class="attr">test</span>=<span class="string">"#age &lt; 0"</span>&gt;</span>wrong age!<span class="tag">&lt;/<span class="name">s:if</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:elseif</span> <span class="attr">test</span>=<span class="string">"#parameters.age[0] &lt; 20"</span>&gt;</span>too young!<span class="tag">&lt;/<span class="name">s:elseif</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:else</span>&gt;</span>yeah!<span class="tag">&lt;/<span class="name">s:else</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		</div><div class="line">		<span class="tag">&lt;<span class="name">s:if</span> <span class="attr">test</span>=<span class="string">"#parameters.aaa == null"</span>&gt;</span>null<span class="tag">&lt;/<span class="name">s:if</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行效果：<br><img src="10.png" alt=""></p>
+<p>debug一下：</p>
+<p><img src="11.png" alt=""></p>
+<p>显示不是特别直观，所以我们可以直接把age直接输出出来看结果。修改代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>if elseif else: </div><div class="line">		age = <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#parameters.age"</span> /&gt;</span> <span class="tag">&lt;<span class="name">br</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行结果：<br><img src="12.png" alt=""></p>
+<p>发现两个传入的参数都显示出来。</p>
+<p>看下面的判断代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">s:set</span> <span class="attr">var</span>=<span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"#parameters.age[0]"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">s:if</span> <span class="attr">test</span>=<span class="string">"#age &lt; 0"</span>&gt;</span>wrong age!<span class="tag">&lt;/<span class="name">s:if</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:elseif</span> <span class="attr">test</span>=<span class="string">"#parameters.age[0] &lt; 20"</span>&gt;</span>too young!<span class="tag">&lt;/<span class="name">s:elseif</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:else</span>&gt;</span>yeah!<span class="tag">&lt;/<span class="name">s:else</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p>set一个var，名字叫age，使它的值是parameters.age[0]<br>这样下面第一个if就可以用这个变量，而且这个变量存在于ActionContext里面，为了使用ActionContext里面的变量，要使用#</p>
+<p>判断逻辑非常简单，我们传入第一个值是9，所以符合第二个判断语句，显示too young。</p>
+<p>如果我们把第一个if不小心写成了#parameters.age，那么会直接输出yeah，因为它取的是在ActionContext里面整个数组所表示的字符串转换成的数字。</p>
+<p>另外看代码：<br><code>&lt;s:if test=&quot;#parameters.aaa == null&quot;&gt;null&lt;/s:if&gt;</code></p>
+<p>由于parameters中没有aaa这个参数，所以符合判断条件，直接输出null</p>
+<h2 id="第五十一课-Struts标签-8-iterator"><a href="#第五十一课-Struts标签-8-iterator" class="headerlink" title="第五十一课. Struts标签 8 iterator"></a>第五十一课. Struts标签 8 iterator</h2><p>效果：<br><img src="13.png" alt=""></p>
+<p>第一句：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>遍历集合：<span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:iterator</span> <span class="attr">value</span>=<span class="string">"&#123;1, 2, 3&#125;"</span> &gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">s:property</span>/&gt;</span> |</div><div class="line">		<span class="tag">&lt;/<span class="name">s:iterator</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>集合中一共三个元素，我们使用<code>&lt;/s:iterator&gt;</code>，就可以依次遍历数组中的元素了。</p>
+<p>第二句：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>自定义变量：<span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:iterator</span> <span class="attr">value</span>=<span class="string">"&#123;'aaa', 'bbb', 'ccc'&#125;"</span> <span class="attr">var</span>=<span class="string">"x"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#x.toUpperCase()"</span>/&gt;</span> |</div><div class="line">		<span class="tag">&lt;/<span class="name">s:iterator</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>将集合中遍历到的元素存入x变量中，取这个变量的时候只需要前面加#就可以从ActionContext；中拿出来了。</p>
+<p>第三句：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>使用status:<span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">s:iterator</span> <span class="attr">value</span>=<span class="string">"&#123;'aaa', 'bbb', 'ccc'&#125;"</span> <span class="attr">status</span>=<span class="string">"status"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">s:property</span>/&gt;</span> | </div><div class="line">	遍历过的元素总数：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#status.count"</span>/&gt;</span> |</div><div class="line">	遍历过的元素索引：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#status.index"</span>/&gt;</span> |</div><div class="line">	当前是偶数？：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#status.even"</span>/&gt;</span> |</div><div class="line">	当前是奇数？：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#status.odd"</span>/&gt;</span> |</div><div class="line">	是第一个元素吗？：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#status.first"</span>/&gt;</span> |</div><div class="line">	是最后一个元素吗？：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#status.last"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">s:iterator</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<pre><code>status存着迭代器的一些状态，看代码理解，非常简单
+</code></pre><p>第四句：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">s:iterator</span> <span class="attr">value</span>=<span class="string">"#&#123;1:'a', 2:'b', 3:'c'&#125;"</span> &gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"key"</span>/&gt;</span> | <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"value"</span>/&gt;</span> <span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">s:iterator</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>存取一个Map，大括号前面必须加一个#<br>取key：<br><code>&lt;s:property value=&quot;key&quot;/&gt;</code><br>取value：<br><code>&lt;s:property value=&quot;value&quot;/&gt;</code></p>
+<p>第五句：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:iterator</span> <span class="attr">value</span>=<span class="string">"#&#123;1:'a', 2:'b', 3:'c'&#125;"</span> <span class="attr">var</span>=<span class="string">"x"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#x.key"</span>/&gt;</span> | <span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"#x.value"</span>/&gt;</span> <span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">s:iterator</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>上面这个代码用x存取了一个entrySet，所以直接用#x.key就可以取key</p>
+<p>遍历总结：<br>iterator可以遍历的内容：collections map enumeration iterator array</p>
+<p>subset求的是子集合</p>
+<h2 id="第五十二课-Struts标签-9-ui"><a href="#第五十二课-Struts标签-9-ui" class="headerlink" title="第五十二课. Struts标签 9 ui"></a>第五十二课. Struts标签 9 ui</h2><p>UI标签特别多，但是用的不是特别多，因为比较繁杂，而且和js结合不是特别好</p>
+<p>一共有四个theme：</p>
+<ul>
+<li>simple </li>
+<li>xthml(默认)</li>
+<li>css_html </li>
+<li>ajax</li>
+</ul>
+<p>部署第一个project（Struts2_2100_Theme_1）:</p>
+<p>struts.xml:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">struts</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--&lt;constant name="struts.enable.DynamicMethodInvocation" value="false" /&gt;--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constant</span> <span class="attr">name</span>=<span class="string">"struts.devMode"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></div><div class="line">    <span class="comment">&lt;!--&lt;constant name="struts.ognl.allowStaticMethodAccess" value="true"&gt;&lt;/constant&gt;--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constant</span> <span class="attr">name</span>=<span class="string">"struts.ui.theme"</span> <span class="attr">value</span>=<span class="string">"simple"</span> /&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"theme"</span> <span class="attr">extends</span>=<span class="string">"struts-default"</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"theme"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.struts2.theme.ThemeAction"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">result</span>&gt;</span>/theme.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">package</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">struts</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行效果：<br><img src="14.png" alt=""></p>
+<p>查看网页源代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="GB18030" ?&gt;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=GB18030"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>theme学习<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">在struts.xml中控制theme，默认为xhtml，可以设置为：simple/css_html/ajax</div><div class="line">	<span class="tag">&lt;<span class="name">ol</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"theme"</span> <span class="attr">name</span>=<span class="string">"theme"</span> <span class="attr">action</span>=<span class="string">"/theme.action"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"formFieldError"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"errorMessage"</span>&gt;</span></div><div class="line">					<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>wrong!<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"></div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"aaa"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"theme_aaa"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">ol</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果把主题换成<br><code>&lt;constant name=&quot;struts.ui.theme&quot; value=&quot;css_xhtml&quot; /&gt;</code><br>再查看网页源代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="GB18030" ?&gt;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=GB18030"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>theme学习<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">在struts.xml中控制theme，默认为xhtml，可以设置为：simple/css_html/ajax</div><div class="line">	<span class="tag">&lt;<span class="name">ol</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"theme"</span> <span class="attr">name</span>=<span class="string">"theme"</span> <span class="attr">action</span>=<span class="string">"/theme.action"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></div><div class="line"></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"formFieldError"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"errorMessage"</span>&gt;</span></div><div class="line">					<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>wrong!<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"></div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"wwgrp_theme_aaa"</span> <span class="attr">class</span>=<span class="string">"wwgrp"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"wwctrl_theme_aaa"</span> <span class="attr">class</span>=<span class="string">"wwctrl"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"aaa"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"theme_aaa"</span>/&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">		<span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">ol</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>发现在form外面包了一层div，只要换一个theme，里面的html写法之类的东西就会跟着变，其实很麻烦，我们自己改也不好改</p>
+<p>看一下theme.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">在struts.xml中控制theme，默认为xhtml，可以设置为：simple/css_html/ajax</div><div class="line">	<span class="tag">&lt;<span class="name">ol</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:form</span> &gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"formFieldError"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:fielderror</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">s:textfield</span> <span class="attr">name</span>=<span class="string">'aaa'</span>&gt;</span><span class="tag">&lt;/<span class="name">s:textfield</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">s:form</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">ol</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>发现外面显示的页面有一个默认的错误信息，就是wrong，但是这个字符串在显示的时候，前面总有一个小圆圈，无法去掉，我们之前的文章里介绍过一个方法，就是到Value Stack里面取这个变量，对其加上我们想要的样式。</p>
+<p>为了解决上面那个问题，我们看下一个小项目（Struts2_2100_Theme_2）</p>
+<p>效果：<br><img src="15.png" alt=""></p>
+<p>可以看到这个问题解决了。</p>
+<p>在theme.jsp中加入css样式：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">.formFieldError &#123;</span></div><div class="line"><span class="undefined">font-family: verdana, arial, helvetica, sans-serif;</span></div><div class="line"><span class="undefined">font-size: 12px;</span></div><div class="line"><span class="undefined">color: #FF3300;</span></div><div class="line"><span class="undefined">vertical-align: bottom;</span></div><div class="line"><span class="undefined">&#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">.formFieldError ul &#123;</span></div><div class="line"><span class="undefined">   /*list-style-type: none*/</span></div><div class="line"><span class="undefined">    margin: 0px;</span></div><div class="line"><span class="undefined">    padding: 3px;</span></div><div class="line"><span class="undefined">    vertical-align: middle;</span></div><div class="line"><span class="undefined">&#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">.formFieldError ul li&#123;</span></div><div class="line"><span class="undefined">   list-style-type: none</span></div><div class="line"><span class="undefined">   </span></div><div class="line"><span class="undefined">&#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>我们看页面源码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;?xml version="1.0" encoding="GB18030" ?&gt;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=GB18030"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>theme学习<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">.formFieldError &#123;</span></div><div class="line"><span class="undefined">font-family: verdana, arial, helvetica, sans-serif;</span></div><div class="line"><span class="undefined">font-size: 12px;</span></div><div class="line"><span class="undefined">color: #FF3300;</span></div><div class="line"><span class="undefined">vertical-align: bottom;</span></div><div class="line"><span class="undefined">&#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">.formFieldError ul &#123;</span></div><div class="line"><span class="undefined">	/*list-style-type: none*/</span></div><div class="line"><span class="undefined">    margin: 0px;</span></div><div class="line"><span class="undefined">    padding: 3px;</span></div><div class="line"><span class="undefined">    vertical-align: middle;</span></div><div class="line"><span class="undefined">&#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">.formFieldError ul li&#123;</span></div><div class="line"><span class="undefined">	list-style-type: none</span></div><div class="line"><span class="undefined">   </span></div><div class="line"><span class="undefined">&#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">用CSS控制显示</div><div class="line">	<span class="tag">&lt;<span class="name">ol</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"theme"</span> <span class="attr">name</span>=<span class="string">"theme"</span> <span class="attr">action</span>=<span class="string">"/theme.action"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"formFieldError"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"errorMessage"</span>&gt;</span></div><div class="line">					<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>wrong!<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"></div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"aaa"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"theme_aaa"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">		<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">ol</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>发现用了那个theme之后，struts自动帮我们生成了名字叫formFieldError的div和名字叫errorMessage的ul，我们对这两个class添加css就可以实现我们想要的样式，很麻烦。原因在于我们只要想要去控制struts的样式时，必须还得去自己了解它们生成的class，所以很麻烦。</p>
+<p>我们看第三个工程（Struts2_2100_Theme_3），这个工程使用的方法也是struts所提倡的：<br>先看效果：<br><img src="16.png" alt=""></p>
+<p>发现前面的小圆点成功去掉，这个是怎么做到的？</p>
+<p>我们struts关于simple样式中filederror的配置在文件<br><code>struts2-core-2.1.6.jar!\template\simple\fielderror.ftl</code><br>中，所以struts提倡我们，如果想要修改样式，就去覆盖原来的文件。</p>
+<p>所以我们在src下创建文件：<br><img src="17.png" alt=""></p>
+<p>把原来的这个文件粘过来，并且在复制基础上进行修改：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">#if</span> <span class="attr">fieldErrors</span>??&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#assign</span> <span class="attr">eKeys</span> = <span class="string">fieldErrors.keySet()</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#assign</span> <span class="attr">eKeysSize</span> = <span class="string">eKeys.size()</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#assign</span> <span class="attr">doneStartUlTag</span>=<span class="string">false</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#assign</span> <span class="attr">doneEndUlTag</span>=<span class="string">false</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#assign</span> <span class="attr">haveMatchedErrorField</span>=<span class="string">false</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#if</span> (<span class="attr">fieldErrorFieldNames</span>?<span class="attr">size</span> &gt;</span> 0) &gt;<span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">#list</span> <span class="attr">fieldErrorFieldNames</span> <span class="attr">as</span> <span class="attr">fieldErrorFieldName</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">#list</span> <span class="attr">eKeys</span> <span class="attr">as</span> <span class="attr">eKey</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">#if</span> (<span class="attr">eKey</span> = <span class="string">fieldErrorFieldName)</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">#assign</span> <span class="attr">haveMatchedErrorField</span>=<span class="string">true</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">#assign</span> <span class="attr">eValue</span> = <span class="string">fieldErrors[fieldErrorFieldName]</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">#if</span> (<span class="attr">haveMatchedErrorField</span> &amp;&amp; (!<span class="attr">doneStartUlTag</span>))&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">            &lt;ul&lt;#rt/&gt;</div><div class="line"><span class="tag">&lt;<span class="name">#if</span> <span class="attr">parameters.cssClass</span>??&gt;</span></div><div class="line"> class="$&#123;parameters.cssClass?html&#125;"<span class="tag">&lt;<span class="name">#rt</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#else</span>&gt;</span></div><div class="line"> class="errorMessage"<span class="tag">&lt;<span class="name">#rt</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">#if</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#if</span> <span class="attr">parameters.cssStyle</span>??&gt;</span></div><div class="line"> style="$&#123;parameters.cssStyle?html&#125;"<span class="tag">&lt;<span class="name">#rt</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">#if</span>&gt;</span></div><div class="line">&gt;</div><div class="line">            <span class="tag">&lt;<span class="name">#assign</span> <span class="attr">doneStartUlTag</span>=<span class="string">true</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">#if</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">#list</span> <span class="attr">eValue</span> <span class="attr">as</span> <span class="attr">eEachValue</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>$&#123;eEachValue&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">#list</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span>        </div><div class="line">      <span class="tag">&lt;/<span class="name">#if</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">#list</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">#list</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">#if</span> (<span class="attr">haveMatchedErrorField</span> &amp;&amp; (!<span class="attr">doneEndUlTag</span>))&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">#assign</span> <span class="attr">doneEndUlTag</span>=<span class="string">true</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">#if</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">#else</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span>   </div><div class="line">   <span class="tag">&lt;<span class="name">#if</span> (<span class="attr">eKeysSize</span> &gt;</span> 0)&gt;<span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">      </div><div class="line">         <span class="tag">&lt;<span class="name">#list</span> <span class="attr">eKeys</span> <span class="attr">as</span> <span class="attr">eKey</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">#assign</span> <span class="attr">eValue</span> = <span class="string">fieldErrors[eKey]</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">#list</span> <span class="attr">eValue</span> <span class="attr">as</span> <span class="attr">eEachValue</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">span</span>&gt;</span>$&#123;eEachValue&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">#list</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">#list</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line">      </div><div class="line">   <span class="tag">&lt;/<span class="name">#if</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">#if</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">#if</span>&gt;</span><span class="tag">&lt;<span class="name">#t</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这样我们就实现了我们的目的。但是这里有一个前提，如果我们想要去修改一个样式，必须要懂freemarker语言。</p>
+<p>最后看第四个工程（Struts2_2100_Theme_3）：<br>效果：<br><img src="18.png" alt=""></p>
+<p>不再覆盖一个配置文件，而是创建一个自己的主题：</p>
+<p><img src="19.png" alt=""></p>
+<p>我们这里就是直接把simple主题完全复制过来，修改然后改名字，在struts.xml中配置成我们自己的主题：<br><code>&lt;constant name=&quot;struts.ui.theme&quot; value=&quot;mytheme&quot; /&gt;</code><br>这样就ok了。</p>
+<p>第四种用法也是struts推荐的方式，但是也需要熟悉freemarker语言。所以特别繁琐。</p>
+<p>只有fielderror最麻烦，simple会使用其默认样式，就是前面有圆点。<br>所以我们如果不涉及fielderror，就用simple主题就可以了，基本上都是不带样式的。</p>
+<p>总结一下theme：</p>
+<ol>
+<li>css（覆盖struts2原来的css）</li>
+<li>覆盖单个文件</li>
+<li>定义自己的theme</li>
+<li>实战<br>a)    把所有主题定义为simple<br>b)    fielderror特殊处理<br>c)    自己控制其他标签的展现</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Struts2/" rel="tag"># Struts2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/07/leetcode421/" rel="next" title="LeetCode | 421.Maximum XOR of Two Numbers in an Array">
+                <i class="fa fa-chevron-left"></i> LeetCode | 421.Maximum XOR of Two Numbers in an Array
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十四课-Struts标签1-property"><span class="nav-number">1.</span> <span class="nav-text">第四十四课. Struts标签1 property</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十五课-Struts标签-2-set"><span class="nav-number">2.</span> <span class="nav-text">第四十五课. Struts标签 2 set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十六课-Struts标签-3-bean-1"><span class="nav-number">3.</span> <span class="nav-text">第四十六课. Struts标签 3 bean 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十八课-Struts标签-5-include"><span class="nav-number">4.</span> <span class="nav-text">第四十八课. Struts标签 5 include</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五十课-Struts标签-7-if"><span class="nav-number">5.</span> <span class="nav-text">第五十课. Struts标签 7 if</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五十一课-Struts标签-8-iterator"><span class="nav-number">6.</span> <span class="nav-text">第五十一课. Struts标签 8 iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五十二课-Struts标签-9-ui"><span class="nav-number">7.</span> <span class="nav-text">第五十二课. Struts标签 9 ui</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
