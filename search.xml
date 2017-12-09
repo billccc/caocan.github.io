@@ -121,9 +121,9 @@
         <category>J2EE</category>
       </categories>
       <tags>
-        <tag>J2EE</tag>
         <tag>JDBC</tag>
         <tag>JSP</tag>
+        <tag>J2EE</tag>
         <tag>BBS</tag>
       </tags>
   </entry>
@@ -301,8 +301,8 @@
         <category>Jsp</category>
       </categories>
       <tags>
-        <tag>Tomcat</tag>
         <tag>J2EE</tag>
+        <tag>Tomcat</tag>
       </tags>
   </entry>
   <entry>
