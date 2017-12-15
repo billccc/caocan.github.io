@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Hibernate," />
 
 
 
@@ -79,51 +79,18 @@
 
 
 
-<meta name="description" content="本篇为git笔记的第四篇">
-<meta name="keywords" content="Git">
+<meta name="description" content="本文主要介绍hibernate的Id生成策略。&amp;lt;–!more–&amp;gt; 1\(\sqrt&amp;#123;3x-1&amp;#125;+(1+x)^2\)">
+<meta name="keywords" content="Hibernate">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git笔记（四）">
-<meta property="og:url" content="https://caocan.github.io/2017/11/03/gitnotes4/index.html">
+<meta property="og:title" content="Hibernate笔记（二） ID生成策略">
+<meta property="og:url" content="https://caocan.github.io/2017/12/15/Hibernate2/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="本篇为git笔记的第四篇">
+<meta property="og:description" content="本文主要介绍hibernate的Id生成策略。&amp;lt;–!more–&amp;gt; 1\(\sqrt&amp;#123;3x-1&amp;#125;+(1+x)^2\)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/16-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/16-2.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/16-3.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/16-4.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/16-5.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/17-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/17-2.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/17-3.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/17-4.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/17-5.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/17-6.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/17-7.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/17-8.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/18-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/18-2.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/18-3.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/18-4.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/18-5.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/18-6.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/18-7.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/18-8.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/19-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/20-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-1.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-2.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-3.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-4.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-5.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-6.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-7.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-8.png">
-<meta property="og:image" content="https://caocan.github.io/2017/11/03/gitnotes4/21-9.png">
-<meta property="og:updated_time" content="2017-11-06T02:09:36.281Z">
+<meta property="og:updated_time" content="2017-12-15T08:16:49.624Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git笔记（四）">
-<meta name="twitter:description" content="本篇为git笔记的第四篇">
-<meta name="twitter:image" content="https://caocan.github.io/2017/11/03/gitnotes4/16-1.png">
+<meta name="twitter:title" content="Hibernate笔记（二） ID生成策略">
+<meta name="twitter:description" content="本文主要介绍hibernate的Id生成策略。&amp;lt;–!more–&amp;gt; 1\(\sqrt&amp;#123;3x-1&amp;#125;+(1+x)^2\)">
 
 
 
@@ -153,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://caocan.github.io/2017/11/03/gitnotes4/"/>
+  <link rel="canonical" href="https://caocan.github.io/2017/12/15/Hibernate2/"/>
 
 
 
 
 
-  <title>Git笔记（四） | 曹のBlog</title>
+  <title>Hibernate笔记（二） ID生成策略 | 曹のBlog</title>
   
 
 
@@ -320,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/11/03/gitnotes4/">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/15/Hibernate2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="曹灿">
@@ -337,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Git笔记（四）</h1>
+          <h1 class="post-title" itemprop="name headline">Hibernate笔记（二） ID生成策略</h1>
         
 
         <div class="post-meta">
@@ -349,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T15:09:38+08:00">
-                2017-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-15T16:02:31+08:00">
+                2017-12-15
               </time>
             
 
@@ -372,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
+                  <a href="/categories/Hibernate/" itemprop="url" rel="index">
+                    <span itemprop="name">Hibernate</span>
                   </a>
                 </span>
 
@@ -409,57 +376,8 @@
       
 
       
-        <p>本篇为git笔记的第四篇<br><a id="more"></a></p>
-<h2 id="第十六课-rebase"><a href="#第十六课-rebase" class="headerlink" title="第十六课. rebase"></a>第十六课. rebase</h2><p>当前分支树：<br></p>
-<p><img src="16-1.png" alt=""></p>
-<p>rebase讲解：<br><img src="16-2.png" alt=""></p>
-<p><img src="16-3.png" alt=""></p>
-<p>rebase步骤：<br><img src="16-4.png" alt=""></p>
-<p>执行命令：<br><code>git rebase --onto master master dev</code></p>
-<p><img src="16-5.png" alt=""></p>
-<p>上面的指令可以简写，如果已经在dev分支上，可以直接执行：<br>git rebase master</p>
-<h2 id="第十七节-远程分支"><a href="#第十七节-远程分支" class="headerlink" title="第十七节.远程分支"></a>第十七节.远程分支</h2><p>远程分支存放在.git/refs/remotes/origin/</p>
-<p>可以使用git branch -a查看本地和远程的所有分支<br><img src="17-1.png" alt=""></p>
-<p>可以使用git fetch获取到远程分支：<br><img src="17-2.png" alt=""></p>
-<p>可以查看当前分支情况：<br><img src="17-3.png" alt=""></p>
-<p>可以看到远程分支已经被获取到本地，并且是本地分支的最新提交，如果想将二者合并，可以直接执行：<br><code>git merge origin/master</code><br>就可以将这两个分支进行合并了：<br><img src="17-4.png" alt=""></p>
-<p><code>git pull</code>相当于是<code>git fetch</code>和<code>git merge origin/master</code>进行合并</p>
-<p>执行<code>git branch -vv</code>可以查看一个分支的跟踪分支<br><img src="17-5.png" alt=""></p>
-<p>现在我们在远程新建一个dev分支<br>然后在本地执行<code>git fetch</code>命令<br><img src="17-6.png" alt=""></p>
-<p>切换到dev：<br><code>git checkout dev</code><br>查看分支树：<br><img src="17-7.png" alt=""><br>查看本地dev分支的跟踪树：<br><img src="17-8.png" alt=""></p>
-<p>可以看到，远程的dev分支就是本地dev分支的跟踪分支，远程master分支就是本地master分支的跟踪分支。</p>
-<h2 id="第十八节-reset命令"><a href="#第十八节-reset命令" class="headerlink" title="第十八节.reset命令"></a>第十八节.reset命令</h2><ol>
-<li><code>git reset -- .</code><br>当前暂存区中有c0，c1两个文件：<br><img src="18-1.png" alt=""></li>
-</ol>
-<p>而代码仓库只有已经提交的c0文件<br><img src="18-2.png" alt=""></p>
-<p>现在执行<code>git reset -- .</code><br><img src="18-3.png" alt=""><br>可以看到代码仓库把暂存区全部覆盖，所以没有了c1文件</p>
-<ol>
-<li><code>git reset --soft chash</code></li>
-</ol>
-<p>现在工作目录有c0和c1,暂存区只有c0，现在再次将工作目录文件添加并提交：<br><img src="18-4.png" alt=""></p>
-<p>发现提交信息写错了，想重新提交：<br><img src="18-5.png" alt=""></p>
-<p>由上面可以看到c1已经进入暂存区，而且待提交</p>
-<p>如果想直接修改最后一次提交的提交信息，可以直接敲：<br><code>git commit --amend -m ‘相输入的内容’</code></p>
-<ol>
-<li><code>git reset --mixed chash</code><br>可以更新commit记录并覆盖暂存区。<br><img src="18-6.png" alt=""></li>
-</ol>
-<p>可以看到c1已经不被跟踪了</p>
-<ol>
-<li><p><code>git reset --hard chash</code><br>上面这个指令可以使分支回滚到上一次提交记录上：<br><img src="18-7.png" alt=""></p>
-</li>
-<li><p><code>git reset chash</code><br>上面这个指令默认选项是mixed</p>
-</li>
-</ol>
-<p>总结一下：<br>•    –soft – 缓存区和工作目录都不会被改变<br>•    –mixed – 默认选项。缓存区和你指定的提交同步，但工作目录不受影响<br>•    –hard – 缓存区和工作目录都同步到你指定的提交<br><img src="18-8.png" alt=""></p>
-<h2 id="第十九课-交互式rebase"><a href="#第十九课-交互式rebase" class="headerlink" title="第十九课.交互式rebase"></a>第十九课.交互式rebase</h2><p><img src="19-1.png" alt=""></p>
-<h2 id="第二十节-cherry-pick"><a href="#第二十节-cherry-pick" class="headerlink" title="第二十节.cherry-pick"></a>第二十节.cherry-pick</h2><p><code>git cherry-pick chash(想要挑选的commit可以合并到当前分支上去)：</code><br><img src="20-1.png" alt=""></p>
-<h2 id="第二十一节-revert"><a href="#第二十一节-revert" class="headerlink" title="第二十一节.revert"></a>第二十一节.revert</h2><p>当前状态：<br><img src="21-1.png" alt=""></p>
-<p>发现d2提交有问题，可以对d2的提交进行撤销：<br><code>git revert 1702</code><br>保存后变为：<br><img src="21-2.png" alt=""><br>再对d0进行撤销：<br><img src="21-3.png" alt=""><br>上面的revert操作相当于undo操作，就是撤销。</p>
-<p>现在想回到最初的d2，只需要执行操作：<br><code>git reset --hard 1702</code><br>就可以得到如下的分支提交树：<br><img src="21-4.png" alt=""><br>切换到master,<br>再对dev和master进行merge<br><img src="21-5.png" alt=""><br>对merge后的提交进行撤销，首先我们可以查看79ef的情况：<br><img src="21-6.png" alt=""></p>
-<p>可以看到，这个merge是由622f4d3和1702b16合并而成的，<br>所以可以执行命令：<br><code>git revert -m 1 79ef</code><br>上面的1就是指定622f4d3为回退后的主分支<br>可以得到如下的界面：<br><img src="21-7.png" alt=""><br>保存并退出：<br><code>:wq</code></p>
-<p>可以得到如下版本树：<br><img src="21-8.png" alt=""></p>
-<p>revert小结：<br><img src="21-9.png" alt=""></p>
-
+        <p>本文主要介绍hibernate的Id生成策略。<br>&lt;–!more–&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\(\sqrt&#123;3x-1&#125;+(1+x)^2\)</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -476,7 +394,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/Hibernate/" rel="tag"># Hibernate</a>
           
         </div>
       
@@ -489,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/03/gitnotes3/" rel="next" title="Git笔记（三）">
-                <i class="fa fa-chevron-left"></i> Git笔记（三）
+              <a href="/2017/12/15/Hibernate1/" rel="next" title="Hibernate笔记（一） Hibernate简介及基础配置">
+                <i class="fa fa-chevron-left"></i> Hibernate笔记（一） Hibernate简介及基础配置
               </a>
             
           </div>
@@ -498,10 +416,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/05/leetcode553/" rel="prev" title="LeetCode | 553.最佳括号分配">
-                LeetCode | 553.最佳括号分配 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -558,17 +472,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -630,22 +535,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第十六课-rebase"><span class="nav-number">1.</span> <span class="nav-text">第十六课. rebase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十七节-远程分支"><span class="nav-number">2.</span> <span class="nav-text">第十七节.远程分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十八节-reset命令"><span class="nav-number">3.</span> <span class="nav-text">第十八节.reset命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十九课-交互式rebase"><span class="nav-number">4.</span> <span class="nav-text">第十九课.交互式rebase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十节-cherry-pick"><span class="nav-number">5.</span> <span class="nav-text">第二十节.cherry-pick</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十一节-revert"><span class="nav-number">6.</span> <span class="nav-text">第二十一节.revert</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
