@@ -79,18 +79,30 @@
 
 
 
-<meta name="description" content="本文主要介绍hibernate的Id生成策略。&amp;lt;–!more–&amp;gt; 1\(\sqrt&amp;#123;3x-1&amp;#125;+(1+x)^2\)">
+<meta name="description" content="本文主要介绍hibernate的Id生成策略。">
 <meta name="keywords" content="Hibernate">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hibernate笔记（二） ID生成策略">
 <meta property="og:url" content="https://caocan.github.io/2017/12/15/Hibernate2/index.html">
 <meta property="og:site_name" content="曹のBlog">
-<meta property="og:description" content="本文主要介绍hibernate的Id生成策略。&amp;lt;–!more–&amp;gt; 1\(\sqrt&amp;#123;3x-1&amp;#125;+(1+x)^2\)">
+<meta property="og:description" content="本文主要介绍hibernate的Id生成策略。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-15T08:16:49.624Z">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/15/Hibernate2/11.png">
+<meta property="og:updated_time" content="2017-12-15T08:35:08.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hibernate笔记（二） ID生成策略">
-<meta name="twitter:description" content="本文主要介绍hibernate的Id生成策略。&amp;lt;–!more–&amp;gt; 1\(\sqrt&amp;#123;3x-1&amp;#125;+(1+x)^2\)">
+<meta name="twitter:description" content="本文主要介绍hibernate的Id生成策略。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/15/Hibernate2/1.png">
 
 
 
@@ -376,8 +388,45 @@
       
 
       
-        <p>本文主要介绍hibernate的Id生成策略。<br>&lt;–!more–&gt;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\(\sqrt&#123;3x-1&#125;+(1+x)^2\)</div></pre></td></tr></table></figure>
+        <p>本文主要介绍hibernate的Id生成策略。<br><a id="more"></a></p>
+<h2 id="第二十课-ID生成策略-XML-配置"><a href="#第二十课-ID生成策略-XML-配置" class="headerlink" title="第二十课. ID生成策略 XML 配置."></a>第二十课. ID生成策略 XML 配置.</h2><p>之前我们对于不管是Teacher类还是Student类，都采用手动设置的方式来生成id，现在我们采用自动生成的方式来生成id号。在xml中它的配置就是Generate参数：<br><img src="1.png" alt=""></p>
+<p>具体的参数配置如下：</p>
+<p><img src="2.png" alt=""></p>
+<p>下面我们将<br>TeacherTest类复制过来，改名叫做HibernateIDTest，并且进行修改，屏蔽掉原先对于id的设置，在Student.hbm.xml中对id进行配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0"?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE hibernate-mapping PUBLIC</span></div><div class="line"><span class="meta">        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"</span></div><div class="line"><span class="meta">        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">hibernate-mapping</span> <span class="attr">package</span>=<span class="string">"com.bjsxt.hibernate.model"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"Student"</span> <span class="attr">table</span>=<span class="string">"_Student"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">name</span>=<span class="string">"id"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">generator</span> <span class="attr">class</span>=<span class="string">"uuid"</span>&gt;</span><span class="tag">&lt;/<span class="name">generator</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">class</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">hibernate-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这样每插入一条数据都会形成一个独一无二的id号。<br>我们运行一下：<br><img src="3.png" alt=""></p>
+<p>上面那个id就是hibernate自动帮我们生成的。</p>
+<p>如果我们将generate class的值改成native，那么hibernate就会帮我们从1开始，每次以递增1的方式来生成id。</p>
+<h2 id="第二十一课-ID生成策略XML配置-Annotatio配置"><a href="#第二十一课-ID生成策略XML配置-Annotatio配置" class="headerlink" title="第二十一课. ID生成策略XML配置-Annotatio配置"></a>第二十一课. ID生成策略XML配置-Annotatio配置</h2><p>generate class里面常用四个：native identity sequence uuid（跨平台 native uuid）</p>
+<p>下面我们验证一下native跨平台：<br>先查询一下<code>_Student</code>：<br><img src="4.png" alt=""></p>
+<p>根据native规则，它是从1开始生成id的。<br>之前我们的操作都是在MySql上进行的，下面我们不改代码，只改配置，看看在Oracle上能不能跑这个代码。<br>我们先找到<br>hibernate-distribution-3.3.2.GA-dist\hibernate-distribution-3.3.2.GA\project\etc这个文件夹，在这个文件夹下找到hibernate.properties文件进行参考，看到对Oracle的配置是：<br><img src="5.png" alt=""></p>
+<p>基于这个参考，我们修改我们的hibernate.cfg.xml:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.driver_class"</span>&gt;</span>oracle.jdbc.driver.OracleDriver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.url"</span>&gt;</span>jdbc:oracle:thin:@127.0.0.1:1521:orcl<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.username"</span>&gt;</span>scott<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.password"</span>&gt;</span>tiger<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dialect"</span>&gt;</span>org.hibernate.dialect.Oracle10gDialect<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意的是上面需要引入oracle的classes12.jar包，而且版本得兼容</p>
+<p>由于oracle中表名不能以下划线开头，所以我们需要修改Teacher.java，去掉一行：<br><code>@Table(name = &quot;_Teacher&quot;)</code></p>
+<p>我们执行一下，控台输出这样的话：<br><img src="6.png" alt=""></p>
+<p>说明使用hibernate，在oracle中帮我们生成了sequence</p>
+<p>这是使用xml方式生成的，那么如何使用注解方式呢？</p>
+<p>我们再回到Mysql，把配置改回去。</p>
+<p>我们再Teacher类的getId方法上面加上一句注解：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="meta">@GeneratedValue</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> id;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们模仿TestTeacher.java在HibernateIDTestzhong 写一个测试代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTeacherSave</span><span class="params">()</span></span>&#123;</div><div class="line">    Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line"></div><div class="line">    t.setName(<span class="string">"t1"</span>);</div><div class="line">    t.setTitle(<span class="string">"middle"</span>);</div><div class="line">    t.setBirthdate(<span class="keyword">new</span> Date());</div><div class="line"></div><div class="line">    Session session = sessionFactory.getCurrentSession();</div><div class="line">    session.beginTransaction();</div><div class="line">    session.save(t);</div><div class="line">    session.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行可以看到：<br><img src="7.png" alt=""></p>
+<p>发现注解简单了很多。而且id生成以后，oracle是sequence，mysql是auto_increment</p>
+<p>注解方式：@GeneratedValue<br>a)    自定义ID<br>b)    AUTO(直接写 @GeneratedValue 相当如native)<br>&nbsp;&nbsp;&nbsp;&nbsp;i.    默认：对 MySQL,使用auto_increment<br>&nbsp;&nbsp;&nbsp;&nbsp;ii.    对 Oracle使用hibernate_sequence(名称固定）<br>c)    IDENTITY(@GeneratedValue(strategy=GenerationType.IDENTITY))<br>d)    SEQUENCE(@GeneratedValue(strategy=GenerationType.SEQUENCE))<br>&nbsp;&nbsp;&nbsp;&nbsp;i.    @SequenceGenerator(可自定义在数据库生成指定的sequence名)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="comment">//在@GeneratedValue中增加 generator="teacherSEQ"</span></div></pre></td></tr></table></figure></p>
+<p><img src="8.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GeneratedValue</span>(strategy=GenerationType.SEQUENCE,generator=<span class="string">"teacherSEQ"</span>)</div><div class="line"><span class="comment">//"teacherSEQ"为@SequenceGenerator的标识名</span></div><div class="line"><span class="comment">//"teacherSEQ_DB"为指定到数据库生成的Sequence名</span></div><div class="line"><span class="meta">@SequenceGenerator</span>(name=<span class="string">"teacherSEQ"</span>, sequenceName=<span class="string">"teacherSEQ_DB"</span>) </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">			<span class="keyword">return</span> id;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="第二十三课-ID生成策略-Annotation配置-Table-Generator"><a href="#第二十三课-ID生成策略-Annotation配置-Table-Generator" class="headerlink" title="第二十三课. ID生成策略 Annotation配置 Table Generator"></a>第二十三课. ID生成策略 Annotation配置 Table Generator</h2><p>e)    TABLE (可以忘记)<br>&nbsp;&nbsp;&nbsp;&nbsp;i.    @TableGenerator<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@TableGenerator</span>(name=<span class="string">"teacherID"</span>,</div><div class="line">		table=<span class="string">"teacherID_DB"</span>,</div><div class="line">		pkColumnName=<span class="string">"key_value"</span>,</div><div class="line">		pkColumnValue=<span class="string">"pk_value"</span>,</div><div class="line">		valueColumnName=<span class="string">"teacher"</span>,</div><div class="line">		allocationSize=<span class="number">1</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="9.png" alt=""></p>
+<p>配置Teacher.java：</p>
+<p><img src="10.png" alt=""></p>
+<p>运行时报错，发现原因是由于Teacher.java中的key和value在mysql中都是关键词，所以会报错，所以我们修改如下：</p>
+<p><img src="11.png" alt=""></p>
+<p>如果我们想跨平台，可以使用这种方式。</p>
+<h2 id="第二十四课-ID生成策略-联合主键-XML"><a href="#第二十四课-ID生成策略-联合主键-XML" class="headerlink" title="第二十四课. ID生成策略 联合主键 XML"></a>第二十四课. ID生成策略 联合主键 XML</h2><p>Xml方式: composite-id<br>i.    将联合主键的属性提取出来,重新编写一个pojo类（原pojo类中的id，name要删除 并新加入属性“StudentPK”）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">	   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentPK</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line"><span class="keyword">private</span> String id;</div><div class="line"><span class="keyword">private</span> String name;</div><div class="line">… …</div></pre></td></tr></table></figure></p>
+<p>ii.    新建pojo类必须实现 java.io.Serializable 序列化接口<br>iii.    新pojo类要重写equals和hashCode方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span>(o <span class="keyword">instanceof</span> StudentPk) &#123;</div><div class="line">		StudentPk pk = (StudentPk)o;</div><div class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.id == pk.getId() &amp;&amp; <span class="keyword">this</span>.name.equals(pk.getName())) &#123;</div><div class="line">		  <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.name.hashCode();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>iv.    联合主键生成策略XML配置方法<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">   	<span class="tag">&lt;<span class="name">hibernate-mapping</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"com.bjsxt.pojo.Student"</span> &gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">composite-id</span> <span class="attr">name</span>=<span class="string">"studentPK"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.pojo.StudentPK"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">key-property</span> <span class="attr">name</span>=<span class="string">"id"</span>&gt;</span><span class="tag">&lt;/<span class="name">key-property</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">key-property</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;/<span class="name">key-property</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">composite-id</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> /&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sex"</span> /&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"good"</span> <span class="attr">type</span>=<span class="string">"yes_no"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">class</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">hibernate-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="第二十五课-ID生成策略-联合主键-Annotation"><a href="#第二十五课-ID生成策略-联合主键-Annotation" class="headerlink" title="第二十五课. ID生成策略 联合主键 Annotation"></a>第二十五课. ID生成策略 联合主键 Annotation</h2><p><strong>Annotation</strong><br>i.    前三步与Xml方式前三步一样 都要建立新pojo类 都要实现Serializable接口 重写equals和hashCode方法.<br>ii.    方法1在新类前写@Embeddable，在原pojo类的新属性“TercherPK”的get方法前写@ld，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">  	  @ Embeddable</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TeacherPK</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line">		<span class="keyword">private</span> String id;</div><div class="line">		<span class="keyword">private</span> String name;</div><div class="line">		… …</div><div class="line"></div><div class="line">	   <span class="meta">@Entity</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> </span>&#123;</div><div class="line"><span class="keyword">private</span> TeacherPK teacherPK ;</div><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="function"><span class="keyword">public</span> TeacherPK <span class="title">getTeacherPK</span><span class="params">()</span> </span>&#123;</div><div class="line">			<span class="keyword">return</span> teacherPK;</div><div class="line">&#125;</div><div class="line">… …</div></pre></td></tr></table></figure></p>
+<p>iii.    方法2：<code>@EmbeddedlD(*)</code>  新pojo类无需加注解，只需在原pojo类新属性“TercherPK”的get方法前写@EmbeddedlD即可<br>iv.    方法3：<code>@ld  @IdClass(*)</code>  新pojo类无需加注解，原pojo类的id，name属性保留不变，也无需新增“TercherPK”属性。 只在id，name的get方法前都加@Id，并在原pojo类前加<code>“@IdClass(TeacherPK).class)”</code>，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="meta">@IdClass</span>(TeacherPK.class)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> </span>&#123;</div><div class="line"><span class="keyword">private</span> String id;</div><div class="line"><span class="keyword">private</span> String name;</div><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> id;</div><div class="line">&#125;</div><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> name;</div><div class="line">&#125;</div><div class="line">... ...</div></pre></td></tr></table></figure></p>
+<p>上面的三种注解方式，第二种最常见，第三种也比较常用。</p>
+
       
     </div>
     
@@ -472,8 +521,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -535,6 +593,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十课-ID生成策略-XML-配置"><span class="nav-number">1.</span> <span class="nav-text">第二十课. ID生成策略 XML 配置.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十一课-ID生成策略XML配置-Annotatio配置"><span class="nav-number">2.</span> <span class="nav-text">第二十一课. ID生成策略XML配置-Annotatio配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十三课-ID生成策略-Annotation配置-Table-Generator"><span class="nav-number">3.</span> <span class="nav-text">第二十三课. ID生成策略 Annotation配置 Table Generator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十四课-ID生成策略-联合主键-XML"><span class="nav-number">4.</span> <span class="nav-text">第二十四课. ID生成策略 联合主键 XML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十五课-ID生成策略-联合主键-Annotation"><span class="nav-number">5.</span> <span class="nav-text">第二十五课. ID生成策略 联合主键 Annotation</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
