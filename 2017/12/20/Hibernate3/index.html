@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hibernate," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍Hibernate核心开发接口。">
+<meta name="keywords" content="Hibernate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate笔记（三） Hibernate核心开发接口介绍">
+<meta property="og:url" content="https://caocan.github.io/2017/12/20/Hibernate3/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍Hibernate核心开发接口。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/16.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/17.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/18.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/19.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/20.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/21.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/22.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/23.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/24.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/25.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/26.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/27.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/28.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/29.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/30.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/31.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/32.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/33.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/20/Hibernate3/34.png">
+<meta property="og:updated_time" content="2017-12-20T16:13:44.233Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate笔记（三） Hibernate核心开发接口介绍">
+<meta name="twitter:description" content="本文主要介绍Hibernate核心开发接口。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/20/Hibernate3/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/12/20/Hibernate3/"/>
+
+
+
+
+
+  <title>Hibernate笔记（三） Hibernate核心开发接口介绍 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/20/Hibernate3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hibernate笔记（三） Hibernate核心开发接口介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-20T23:30:34+08:00">
+                2017-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hibernate/" itemprop="url" rel="index">
+                    <span itemprop="name">Hibernate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍Hibernate核心开发接口。<br><a id="more"></a></p>
+<h2 id="第二十六课-CoreAPI-Configuration-SessionFactory-GetCurrentSession-OpenSession"><a href="#第二十六课-CoreAPI-Configuration-SessionFactory-GetCurrentSession-OpenSession" class="headerlink" title="第二十六课. CoreAPI-Configuration-SessionFactory-GetCurrentSession-OpenSession"></a>第二十六课. CoreAPI-Configuration-SessionFactory-GetCurrentSession-OpenSession</h2><p>我们做一个小实验，我们将hibernate.cfg.xml名字改成hibernate.xml，我们运行一下我们的测试程序，测试代码是(com.bjsxt.hibernate.HibernateCoreAPITest.java)：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HibernateCoreAPITest</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SessionFactory sessionFactory;</div><div class="line"></div><div class="line">   <span class="meta">@BeforeClass</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">beforeClass</span><span class="params">()</span> </span>&#123;</div><div class="line">      sessionFactory = <span class="keyword">new</span> AnnotationConfiguration().configure().buildSessionFactory();</div><div class="line">   &#125;</div><div class="line">   <span class="meta">@AfterClass</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">afterClass</span><span class="params">()</span> </span>&#123;</div><div class="line">      sessionFactory.close();</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTeacherSave</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">      Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line"></div><div class="line">      t.setName(<span class="string">"t1"</span>);</div><div class="line">      t.setTitle(<span class="string">"middle"</span>);</div><div class="line">      t.setBirthDate(<span class="keyword">new</span> Date());</div><div class="line"></div><div class="line">      <span class="comment">//Session session = sessionFactory.openSession();</span></div><div class="line">      Session session = sessionFactory.getCurrentSession();</div><div class="line"></div><div class="line">      session.beginTransaction();</div><div class="line">      session.save(t);</div><div class="line"></div><div class="line">      Session session2 = sessionFactory.getCurrentSession();</div><div class="line"></div><div class="line">      System.out.println(session == session2);</div><div class="line"></div><div class="line">      session.getTransaction().commit();</div><div class="line"></div><div class="line">      Session session3 = sessionFactory.getCurrentSession();</div><div class="line"></div><div class="line">      System.out.println(session == session3);</div><div class="line"></div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>发现报错：<br><img src="1.png" alt=""></p>
+<p>如果我们在beforeClass方法内对；配置进行修改：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@BeforeClass</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">beforeClass</span><span class="params">()</span> </span>&#123;</div><div class="line">   sessionFactory = <span class="keyword">new</span> AnnotationConfiguration().configure(<span class="string">"hibernate.xml"</span>).buildSessionFactory();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>那么这个时候就会对修改过名字后的配置文件进行识别，程序可以正常运行。</p>
+<p>结论：<br>我们可以在configure方法中指定hibernate配置文件</p>
+<p>我们看上面testTeacherSave()代码中关于Session的部分：</p>
+<p>SessionFactory是用来产生和管理Session的。通常情况下每个应用只需要一个SessionFactory，除非要访问多个数据库的情况。</p>
+<p>我们需要关注两个方法，一个是openSession，另外一个是getCurrentSession，我们通过实验可以来阐述二者的区别：</p>
+<p>第一个先做openSession的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTeacherSave</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">      Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line"></div><div class="line">      t.setName(<span class="string">"t1"</span>);</div><div class="line">      t.setTitle(<span class="string">"middle"</span>);</div><div class="line">      t.setBirthDate(<span class="keyword">new</span> Date());</div><div class="line"></div><div class="line">      Session session = sessionFactory.openSession();</div><div class="line"><span class="comment">//    Session session = sessionFactory.getCurrentSession();</span></div><div class="line"></div><div class="line">      session.beginTransaction();</div><div class="line">      session.save(t);</div><div class="line">	session.getTransaction().commit();</div><div class="line">session.close();</div><div class="line"></div><div class="line">      Session session2 = sessionFactory.openSession();</div><div class="line"></div><div class="line">      System.out.println(session == session2);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>最后显示结果是false，说明使用openSession方法产生的两个Session是不一样的。而且openSession每次使用结束后需要自己手动close。</p>
+<p>再做第二个实验，关于getCurrentSession的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTeacherSave</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">      Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line"></div><div class="line">      t.setName(<span class="string">"t1"</span>);</div><div class="line">      t.setTitle(<span class="string">"middle"</span>);</div><div class="line">      t.setBirthDate(<span class="keyword">new</span> Date());</div><div class="line"></div><div class="line"><span class="comment">//    Session session = sessionFactory.openSession();</span></div><div class="line">      Session session = sessionFactory.getCurrentSession();</div><div class="line"></div><div class="line">      session.beginTransaction();</div><div class="line">      session.save(t);</div><div class="line"></div><div class="line">      Session session2 = sessionFactory.getCurrentSession();</div><div class="line"></div><div class="line">      System.out.println(session == session2);</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>结果显示是true，说明使用getCurrentSession方法得到的两个Session是相同的。</p>
+<p>我们再继续做实验:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTeacherSave</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">      Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line"></div><div class="line">      t.setName(<span class="string">"t1"</span>);</div><div class="line">      t.setTitle(<span class="string">"middle"</span>);</div><div class="line">      t.setBirthDate(<span class="keyword">new</span> Date());</div><div class="line"></div><div class="line"><span class="comment">//    Session session = sessionFactory.openSession();</span></div><div class="line">      Session session = sessionFactory.getCurrentSession();</div><div class="line"></div><div class="line">      session.beginTransaction();</div><div class="line">      session.save(t);</div><div class="line"></div><div class="line">      Session session2 = sessionFactory.getCurrentSession();</div><div class="line"></div><div class="line">      System.out.println(session == session2);</div><div class="line">   </div><div class="line"></div><div class="line">      session.getTransaction().commit();</div><div class="line"></div><div class="line">      Session session3 = sessionFactory.getCurrentSession();</div><div class="line"></div><div class="line">      System.out.println(session == session3);</div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>发现经过commit之后，session和session3并不相同，即使是在getCurrentSession下得到的。</p>
+<p>我们再来剖析一下getCurrentSession的用途，看这样一张架构图：<br><img src="2.png" alt=""></p>
+<p>在添加一个用户的时候，会发生两个操作，一个是向数据库中加入一个用户记录，另外一个就是在日志中添加一个记录。这两个应该同时处于同一个事物之中，这时候如果用openSession就不太合适了，因为是不同的Session，为了保证两个操作在同一个Session中，我们应该使用getCurrentSession方法。</p>
+<h2 id="第二十七课-CoreAPI-JTA简介"><a href="#第二十七课-CoreAPI-JTA简介" class="headerlink" title="第二十七课. CoreAPI JTA简介"></a>第二十七课. CoreAPI JTA简介</h2><p>我们在前面讲的，getCurrentsession建立Session会从上下文找，如果有，用旧的，如果没有，建新的，那么这个上下文是怎么配置的？</p>
+<p>上下文可以在hibernate.cfg.xml中进行配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Enable Hibernate's automatic session context management --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"current_session_context_class"</span>&gt;</span>thread<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>current_session_context_class有四个选项可以配置：<br>jta、thread、managed、custom.Class<br>其中jta、thread常用，managed、custom.Class少用</p>
+<p>thread是使用connection 单数据库连接管理事务</p>
+<p>jta （全称java transaction api），是java分布式事务管理（多数据库访问）<br>要理解jta，看下面的架构图：<br><img src="3.png" alt=""><br>jta需要操作多个数据库，比如在订单系统中，当下了一个订单之后，向DB1存取产品信息，向DB2存取财务方面的信息。这两个信息一块从属于一个事物，如果这时候在使用单连接，是解决不了问题的。这时候就用到了jta。jta由中间件提供（jboss WebLogic等，tomcat不支持）</p>
+<p>总结一下上面讲到的关于SessionFactory的知识点：<br>SessoinFactory<br>a)    用来产生和管理Session<br>b)    通常情况下每个应用只需要一个SessionFactory<br>c)    除非要访问多个数据库的情况<br>d)    关注两个方法即：openSession getCurrentsession<br>i.    openSession每次都是新的，需要close<br>ii.    getCurrentsession从上下文找，如果有，用旧的，如果没有，建新的</p>
+<ol>
+<li>用途：界定事务边界</li>
+<li>事务提交自动close</li>
+<li>上下文配置可参见xml文件中<br> <code>&lt;property name=&quot;current_session_context_classs&quot;&gt;thread&lt;/property&gt;</code></li>
+<li>current_session_context_class (jta、thread常用 managed、custom.Class少用)<br>a) thread 使用connection 单数据库连接管理事务<br>b）jta （全称java transaction api）-java分布式事务管理（多数据库访问）<br>  jta由中间件提供（jboss WebLogic等，tomcat不支持）</li>
+</ol>
+<h2 id="第二十八课-CoreAPI对象三种状态"><a href="#第二十八课-CoreAPI对象三种状态" class="headerlink" title="第二十八课. CoreAPI对象三种状态"></a>第二十八课. CoreAPI对象三种状态</h2><p>openSession和getCurrenSession不能混用。由于Session是一个接口，但是openSession得到的Session和getCurrenSession得到的Session的具体实现是不一样的。</p>
+<p>先写个小测试程序来测试一下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSaveWith3State</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">      Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line"></div><div class="line">      t.setName(<span class="string">"t1"</span>);</div><div class="line">      t.setTitle(<span class="string">"middle"</span>);</div><div class="line">      t.setBirthDate(<span class="keyword">new</span> Date());</div><div class="line"></div><div class="line">      Session session = sessionFactory.getCurrentSession();</div><div class="line">      session.beginTransaction();</div><div class="line">      session.save(t);</div><div class="line">      System.out.println(t.getId());</div><div class="line">      session.getTransaction().commit();</div><div class="line"></div><div class="line"><span class="comment">//    System.out.println(t.getId());</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>在这之前需要先drop掉我们的teacher表。</p>
+<p>运行一下，看到打印出的id是1</p>
+<p>hibernate有三种对象状态，它们之间的关系如下：<br><img src="4.png" alt=""></p>
+<ol>
+<li>三种状态的区分关键在于<br>a)    有没有ID<br>b)    ID在数据库中有没有<br>c)    在内存中有没有（session缓存）</li>
+<li>三种状态：<br>a)    transient：内存中一个对象，没ID,缓存中也没有<br>b)    persistent：内存中有，缓存中有，数据库有（ID)<br>c)    detached：内存有，缓存没有，数据库有，有ID</li>
+</ol>
+<h2 id="第二十九课-CoreAPI-Delete"><a href="#第二十九课-CoreAPI-Delete" class="headerlink" title="第二十九课. CoreAPI Delete"></a>第二十九课. CoreAPI Delete</h2><p>写一个代码测试一下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDelete</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line">   t.setName(<span class="string">"t1"</span>);</div><div class="line">   t.setTitle(<span class="string">"middle"</span>);</div><div class="line">   t.setBirthDate(<span class="keyword">new</span> Date());</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   session.save(t);</div><div class="line">   System.out.println(t.getId());</div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line">   Session session2 = sessionFactory.getCurrentSession();</div><div class="line">   session2.beginTransaction();</div><div class="line">   session2.delete(t);</div><div class="line">   session2.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="5.png" alt=""></p>
+<p>这个代码首先创建了一个Teacher对象，这时处于Transient状态，然后通过save方法存储这个对象，进入到Persistent状态。然后commit，就进入另外一个session，这时候用getCurrentSession函数获取到这个session，由于它有id，所以通过delete方法就可以将这个对象从数据库删除。</p>
+<p>再做第二个实验：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDelete2</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line">   t.setId(<span class="number">2</span>);</div><div class="line"></div><div class="line"></div><div class="line">   Session session2 = sessionFactory.getCurrentSession();</div><div class="line">   session2.beginTransaction();</div><div class="line">   session2.delete(t);</div><div class="line">   session2.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个实验中，我们只创建了一个对象，这时进入了Transient状态，这时没有将对象存入数据库。这时候我们对其设置id号，然后delete这个对象，运行一下：<br><img src="6.png" alt=""></p>
+<p>发现还是可以delete掉的。</p>
+<h2 id="第三十课-CoreAPI-Get-Load"><a href="#第三十课-CoreAPI-Get-Load" class="headerlink" title="第三十课. CoreAPI Get Load"></a>第三十课. CoreAPI Get Load</h2><p>我们先学习怎么从数据库中取出一条数据并转化成一个对象：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoad</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line">   System.out.println(t.getName());</div><div class="line">   </div><div class="line">   session.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="7.png" alt=""></p>
+<p>发现成功将id号为1的对象从数据库中取了出来并且将它的名字打印在了控台上面。</p>
+<p>再看session的Get方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGet</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.get(Teacher.class, <span class="number">1</span>);</div><div class="line">   System.out.println(t.getName());</div><div class="line">   session.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="8.png" alt=""></p>
+<p>发现session的get和load都可以取到一个数据库中的对象，并将这个对象的名字打印出来。</p>
+<p>但实际上，这两个方法有着重要的区别：<br>先看get方法，如果我们将打印名字的语句放在commit之后：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGet</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.get(Teacher.class, <span class="number">1</span>);</div><div class="line">   session.getTransaction().commit();</div><div class="line">   System.out.println(t.getName());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="9.png" alt=""></p>
+<p>发现没有任何问题。</p>
+<p>但是同样的，我们再来试一下load方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> <span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoad</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line">   System.out.println(t.getName());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="10.png" alt=""></p>
+<p>发现会报错，这个错误叫做LazyInitializationException，而且说我们没有session。这个原因我们可以做个试验来讲明。</p>
+<p>将testLoad修改，去掉那个打印名字的句子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> <span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoad</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="11.png" alt=""></p>
+<p>发现没有生成任何sql语句。</p>
+<p>我们同样的，去掉testGet中的打印名字语句：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> <span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGet</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.get(Teacher.class, <span class="number">1</span>);</div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="12.png" alt=""></p>
+<p>OK，这下我们就明白了，原来get方法只要生成一个对象，就会产生sql语句，但是load方法不是，它是在用到这个对象的时候，才开始生成sql语句。</p>
+<p>如果我们load一个不存在的记录，比如id为5的对象，不会报错，因为这时候对象没有被调用，所以不会发出sql语句；但是get就不行了，只要创建这个对象，就会生成sql语句，所以它会到数据库查，一查没有这个记录，所以会报错。</p>
+<p>所以get和load的区别如下：</p>
+<ol>
+<li>不存在对应记录时表现不一样</li>
+<li>load返回的是代理对象，等到真正用到对象的内容时才发出sql语句</li>
+<li>get直接从数据库加载，不会延迟</li>
+</ol>
+<h2 id="第三十一课-CoreAPI-Get-Load-2"><a href="#第三十一课-CoreAPI-Get-Load-2" class="headerlink" title="第三十一课. CoreAPI Get Load 2"></a>第三十一课. CoreAPI Get Load 2</h2><p>还是关于刚刚的get和load的区别，其实load返回的是代理对象，get直接从数据库直接加载，我们可以做一个实验，就是打印它们的类型名：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoad</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">      Session session = sessionFactory.getCurrentSession();</div><div class="line">      session.beginTransaction();</div><div class="line">      Teacher t = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line"></div><div class="line">      session.getTransaction().commit();</div><div class="line">      System.out.println(t.getClass());</div><div class="line"><span class="comment">//    System.out.println(t.getName());</span></div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGet</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">      Session session = sessionFactory.getCurrentSession();</div><div class="line">      session.beginTransaction();</div><div class="line">      Teacher t = (Teacher)session.get(Teacher.class, <span class="number">1</span>);</div><div class="line">      session.getTransaction().commit();</div><div class="line">      System.out.println(t.getClass());</div><div class="line"><span class="comment">//    System.out.println(t.getName());</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>发现load运行结果：<br><img src="13.png" alt=""></p>
+<p>是一个代理类型</p>
+<p>而get运行结果：<br><img src="14.png" alt=""></p>
+<p>就是直接从数据库拿出来的一个Teacher类型的对象。</p>
+<p>第三十二课. CoreAPI Update</p>
+<p>update：</p>
+<ol>
+<li>用来更新detached对象，更新完成后转为persistent状态</li>
+<li>更新transient对象会报错</li>
+<li>更新自己设定id的transient对象可以（数据库有对应记录）</li>
+<li>persistent状态的对象只要设定（如:t.setName…）不同字段就会发生更新</li>
+</ol>
+<p>先看第一个测试例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate1</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.get(Teacher.class, <span class="number">1</span>);</div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line">   t.setName(<span class="string">"zhanglaoshi"</span>);</div><div class="line"></div><div class="line">   Session session2 = sessionFactory.getCurrentSession();</div><div class="line">   session2.beginTransaction();</div><div class="line">   session2.update(t);</div><div class="line"></div><div class="line">   session2.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="15.png" alt=""></p>
+<p>这个例子中，先从数据库中取出来一个id为1的记录，然后通过setName方式改变这个对象的名字，再取出当前的session，执行update操作，发现结果是将这条数据进行修改重新插入到数据库中的。</p>
+<p>再看下一个例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate2</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line">   t.setName(<span class="string">"zhanglaoshi"</span>);</div><div class="line"></div><div class="line">   Session session2 = sessionFactory.getCurrentSession();</div><div class="line">   session2.beginTransaction();</div><div class="line">   session2.update(t);</div><div class="line"></div><div class="line">   session2.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行这个例子：<br><img src="16.png" alt=""></p>
+<p>发现0条数据被更新，这是因为在测试代码中，我们没有指定新的Teacher对象t的id号，所以session不知道要去更新哪一条对象数据，所以会报错。</p>
+<p>第三个例子代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate3</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line">   t.setId(<span class="number">1</span>);</div><div class="line">   t.setName(<span class="string">"zhanglaoshi"</span>);</div><div class="line"></div><div class="line">   Session session2 = sessionFactory.getCurrentSession();</div><div class="line">   session2.beginTransaction();</div><div class="line">   session2.update(t);</div><div class="line"></div><div class="line">   session2.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行一下：<br><img src="17.png" alt=""></p>
+<p>发现这样的transient对象也可以被更新，因为这一次我们设置了对象id，而且在数据库中有这条记录，所以我们可以成功更新这一条对象。</p>
+<p>看下一种更新方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate4</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.get(Teacher.class, <span class="number">1</span>);</div><div class="line">   t.setName(<span class="string">"zhangsan2"</span>);</div><div class="line">   session.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="18.png" alt=""></p>
+<p>这一次，我们从数据库中取出一个对象，然后修改这个对象，不执行update操作，只是commit，发现在控制台还是把整个对象中数据进行修改，然后插入到数据库中了。</p>
+<p>我们再执行一次：</p>
+<p><img src="19.png" alt=""></p>
+<p>发现这一次除了取对象，就并没有数据进行修改操作，原因是因为数据在上一次修改之后，并没有再次修改，所以不会再执行一次插入操作。</p>
+<p>这时候我们还是觉得麻烦，如果只想修改对象的一个字段，却要整个重新插入，麻烦，怎么可以只set一个字段？</p>
+<p>解决办法就是先在getTitle上面加一个Column注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Column</span>(updatable = <span class="keyword">false</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getTitle</span><span class="params">()</span> </span>&#123;</div><div class="line">   <span class="keyword">return</span> title;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>修改一下update4，要它修改的名字变一下，变成原来对象没有的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate4</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.get(Teacher.class, <span class="number">1</span>);</div><div class="line">   t.setName(<span class="string">"zhangsan"</span>);</div><div class="line">   session.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>再执行：<br><img src="20.png" alt=""></p>
+<p>发现set了所有字段，成功！</p>
+<p>这种方式虽然可以达到目的，但是不常用。</p>
+<p>我们介绍下一种方法，先修改Student.hbm.xml：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0"?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE hibernate-mapping PUBLIC</span></div><div class="line"><span class="meta">        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"</span></div><div class="line"><span class="meta">        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">hibernate-mapping</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"com.bjsxt.hibernate.Student"</span> <span class="attr">dynamic-update</span>=<span class="string">"true"</span>&gt;</span></div><div class="line">      </div><div class="line">      <span class="tag">&lt;<span class="name">id</span> <span class="attr">name</span>=<span class="string">"id"</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">generator</span> <span class="attr">class</span>=<span class="string">"native"</span>&gt;</span><span class="tag">&lt;/<span class="name">generator</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line"></div><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"age"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sex"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"good"</span> <span class="attr">type</span>=<span class="string">"yes_no"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">class</span>&gt;</span></div><div class="line">   </div><div class="line"><span class="tag">&lt;/<span class="name">hibernate-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在class后面加上了dynamic-update=”true”这个选项。</p>
+<p>查询一下数据库中表Student：<br><img src="21.png" alt=""></p>
+<p>发现有一条数据，现在我们就修改这一条数据：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate5</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Student s = (Student) session.get(Student.class, <span class="number">1</span>);</div><div class="line">   s.setName(<span class="string">"zhangsan2"</span>);</div><div class="line">   session.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="22.png" alt=""></p>
+<p>发现这个操作之后，数据只set了要被修改的字段，很棒！</p>
+<p>如果去掉dynamic-update=”true”这个配置，修改例子中的名字，再执行：</p>
+<p><img src="23.png" alt=""></p>
+<p>发现又把所有字段都更新了。</p>
+<p>再做一个关于跨session的实验：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate5</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Student s = (Student) session.get(Student.class, <span class="number">1</span>);</div><div class="line">   s.setName(<span class="string">"zhangsan4"</span>);</div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line"></div><div class="line">   s.setName(<span class="string">"z4"</span>);</div><div class="line"></div><div class="line">   Session session2 = sessionFactory.getCurrentSession();</div><div class="line">   session2.beginTransaction();</div><div class="line">   session2.update(s);</div><div class="line">   session2.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们运行一下：<br><img src="24.png" alt=""></p>
+<p>如果我们再改成dynamic-update=”true”，第一个setName改一下，运行：</p>
+<p><img src="25.png" alt=""></p>
+<p>发现第一次我们运行的时候，由于设置了动态更新，所以把数据库中对象取出来以后，只是set要修改的字段，就结束。<br>commit以后，session已经变成了一个新的session，这时候我们的对象没有在session中找到自己原来的对象，所以没有比对，不能直接set一个字段，所以就把所有字段再set一遍，插入数据库。</p>
+<p>第六种update方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate6</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Student s = (Student)session.get(Student.class, <span class="number">1</span>);</div><div class="line">   s.setName(<span class="string">"zhangsan6"</span>);</div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line">   s.setName(<span class="string">"z4"</span>);</div><div class="line"></div><div class="line">   Session session2 = sessionFactory.getCurrentSession();</div><div class="line">   session2.beginTransaction();</div><div class="line">   session2.merge(s);</div><div class="line">   session2.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>跨session以后，我们使用merge方法，来更新要修改的字段。运行结果：<br><img src="26.png" alt=""></p>
+<p>发现一个很好玩的事情，就是在我们进入新的session之后，要merge的时候，会先执行一个查询语句，其实这个查询语句是把我们要修改的对象load到了session中，然后和session中的对象进行比对，如果要修改的字段不同，那么set一个字段就可以。这种方式其实也特别麻烦，因为每次都要先load一下才能set字段。</p>
+<p>第七种更新方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdate7</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"update Student s set s.name='z5' where s.id = 1"</span>);</div><div class="line">   q.executeUpdate();</div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行一下：<br><img src="27.png" alt=""></p>
+<p>发现只set了我们要修改的字段，而且不需要load。这种方式叫做HQL，是一种特别类似于JDBC中Statement语句的写法，用SQL语句来操作更新，推荐使用。</p>
+<p>总结一下update：</p>
+<ol>
+<li>用来更新detached对象，更新完成后转为persistent状态</li>
+<li>更新transient对象会报错</li>
+<li>更新自己设定id的transient对象可以（数据库有对应记录）</li>
+<li>persistent状态的对象只要设定（如:t.setName…）不同字段就会发生更新</li>
+<li>更新部分更改的字段<br>a)    xml 设定 property 标签的 update 属性，annotation 设定@Column 的 updatable<br>属性，不过这种方式很少用，因为不灵活<br>b)    使用xml中的dynamic-update，JPA1.0 Annotation 没有对应的属性，hibernate 扩<br>展？<br>i. 同一个session可以，跨session不行，不过可以用merge()(不重要）<br>c)    使用 HQL(EjBQL)(建议）</li>
+</ol>
+<h2 id="第三十三课-CoreAPI-saveOrUpdate-Clear-Flush"><a href="#第三十三课-CoreAPI-saveOrUpdate-Clear-Flush" class="headerlink" title="第三十三课. CoreAPI-saveOrUpdate-Clear-Flush"></a>第三十三课. CoreAPI-saveOrUpdate-Clear-Flush</h2><p>saveOrUpdate方法：<br>我们先把Teacher类中的<br>@Column(updatable = false)<br>这一句去掉。<br>编写测试函数：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSaveOrUpdate</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">   Teacher t = <span class="keyword">new</span> Teacher();</div><div class="line">   t.setName(<span class="string">"t1"</span>);</div><div class="line">   t.setTitle(<span class="string">"middle"</span>);</div><div class="line">   t.setBirthDate(<span class="keyword">new</span> Date());</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   session.saveOrUpdate(t);</div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line">   t.setName(<span class="string">"t2"</span>);</div><div class="line"></div><div class="line">   Session session2 = sessionFactory.getCurrentSession();</div><div class="line">   session2.beginTransaction();</div><div class="line">   session2.saveOrUpdate(t);</div><div class="line">   session2.getTransaction().commit();</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="28.png" alt=""></p>
+<p>发现在新创一个对象以后，如果调用saveOrUpdate方法，那么会执行save操作；如果是已经有了这样一个对象，只是设置了它的某个字段，那么会执行update操作。</p>
+<p>这个方法到此为止，我们看下一个方法。</p>
+<p>这个方法叫clear方法，先来看一个例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testClear</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line">   System.out.println(t.getName());</div><div class="line"></div><div class="line">   Teacher t2 = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line">   System.out.println(t2.getName());</div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="29.png" alt=""></p>
+<p>发现第一次会从数据库中取一下这个对象，而第二次没有执行查询语句，原因是因为第一次已经将对象load导入缓存中了，第二次取的对象就是这个对象，所以先从缓冲中去取，而不是从数据库中取。</p>
+<p>那么clear是做什么的？<br>我们再做实验：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testClear</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line">   System.out.println(t.getName());</div><div class="line"></div><div class="line">   session.clear();</div><div class="line"></div><div class="line">   Teacher t2 = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line">   System.out.println(t2.getName());</div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="30.png" alt=""></p>
+<p>发现执行了两次查询，这时候我们明白了，原来clear是用来清空缓存的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFlush</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line">   t.setName(<span class="string">"tttt"</span>);</div><div class="line"></div><div class="line"></div><div class="line">   t.setName(<span class="string">"ttttt"</span>);</div><div class="line"></div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行一下：<br><img src="31.png" alt=""></p>
+<p>发现只是执行了一次update语句，这是因为我们对字段的两次修改都是在commit之前的。所以不管对这个字段修改了多少次，在执行commit之后，只会更新一次。</p>
+<p>如果我们想生成多个update操作，怎么做呢？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFlush</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">   Session session = sessionFactory.getCurrentSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Teacher t = (Teacher)session.load(Teacher.class, <span class="number">1</span>);</div><div class="line">   t.setName(<span class="string">"tttt"</span>);</div><div class="line"></div><div class="line"></div><div class="line">   session.flush();</div><div class="line"></div><div class="line">   t.setName(<span class="string">"ttttt"</span>);</div><div class="line"></div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行一下：<br><img src="32.png" alt=""></p>
+<p>发现再加入了一个flush语句之后，会执行两条update操作。<br>所以flush的作用就是强制让缓存的内容和数据库中的内容做同步。</p>
+<p>如果将flush改成clear，执行一下：<br><img src="33.png" alt=""></p>
+<p>发现只执行一次查询操作，原因是由于将数据库中对象load到缓存之后，我们就用clear方法把缓存清空了，之后我们再一次setName，只是对一个Transient状态的对象进行操作，那么我们setName之后，不会和数据库打交道，不会立即执行sql语句。</p>
+<h2 id="第三十四课-CoreAPI-SchemaExport-and-总结"><a href="#第三十四课-CoreAPI-SchemaExport-and-总结" class="headerlink" title="第三十四课. CoreAPI SchemaExport and 总结"></a>第三十四课. CoreAPI SchemaExport and 总结</h2><p>先将hibernate.hbm.xml中<br><code>&lt;property name=&quot;hbm2ddl.auto&quot;&gt;update&lt;/property&gt;</code><br>这一句屏蔽掉。</p>
+<p>写测试代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSchemaExport</span><span class="params">()</span> </span>&#123;</div><div class="line">   <span class="keyword">new</span> SchemaExport(<span class="keyword">new</span> AnnotationConfiguration().configure()).create(<span class="keyword">true</span>, <span class="keyword">true</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="34.png" alt=""></p>
+<p>发现每一个建表语句都打印了两次。这是由于log4j先打印了一次，然后我们的create语句中第一次参数又将建表的DDL打印了一次。如果改成false，就只会打印一次了。</p>
+<p>这个例子的主要作用就在于帮我们建立一个表。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hibernate/" rel="tag"># Hibernate</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/15/Hibernate2/" rel="next" title="Hibernate笔记（二） ID生成策略">
+                <i class="fa fa-chevron-left"></i> Hibernate笔记（二） ID生成策略
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十六课-CoreAPI-Configuration-SessionFactory-GetCurrentSession-OpenSession"><span class="nav-number">1.</span> <span class="nav-text">第二十六课. CoreAPI-Configuration-SessionFactory-GetCurrentSession-OpenSession</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十七课-CoreAPI-JTA简介"><span class="nav-number">2.</span> <span class="nav-text">第二十七课. CoreAPI JTA简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十八课-CoreAPI对象三种状态"><span class="nav-number">3.</span> <span class="nav-text">第二十八课. CoreAPI对象三种状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二十九课-CoreAPI-Delete"><span class="nav-number">4.</span> <span class="nav-text">第二十九课. CoreAPI Delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十课-CoreAPI-Get-Load"><span class="nav-number">5.</span> <span class="nav-text">第三十课. CoreAPI Get Load</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十一课-CoreAPI-Get-Load-2"><span class="nav-number">6.</span> <span class="nav-text">第三十一课. CoreAPI Get Load 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十三课-CoreAPI-saveOrUpdate-Clear-Flush"><span class="nav-number">7.</span> <span class="nav-text">第三十三课. CoreAPI-saveOrUpdate-Clear-Flush</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十四课-CoreAPI-SchemaExport-and-总结"><span class="nav-number">8.</span> <span class="nav-text">第三十四课. CoreAPI SchemaExport and 总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
