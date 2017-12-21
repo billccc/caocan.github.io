@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hibernate," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍针对关联关系的CRUD。">
+<meta name="keywords" content="Hibernate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate笔记（四） 关联关系的CRUD">
+<meta property="og:url" content="https://caocan.github.io/2017/12/21/Hibernate5/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍针对关联关系的CRUD。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/16.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/17.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/18.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/19.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate5/20.png">
+<meta property="og:updated_time" content="2017-12-21T02:45:09.228Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate笔记（四） 关联关系的CRUD">
+<meta name="twitter:description" content="本文主要介绍针对关联关系的CRUD。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/21/Hibernate5/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/12/21/Hibernate5/"/>
+
+
+
+
+
+  <title>Hibernate笔记（四） 关联关系的CRUD | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/21/Hibernate5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hibernate笔记（四） 关联关系的CRUD</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-21T10:23:56+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hibernate/" itemprop="url" rel="index">
+                    <span itemprop="name">Hibernate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍针对关联关系的CRUD。<br><a id="more"></a></p>
+<h2 id="第四十七课-关联关系的CRUD-Cascade-Fetch-1"><a href="#第四十七课-关联关系的CRUD-Cascade-Fetch-1" class="headerlink" title="第四十七课.关联关系的CRUD Cascade Fetch 1"></a>第四十七课.关联关系的CRUD Cascade Fetch 1</h2><p>User.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.hibernate;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.persistence.*;</div><div class="line"></div><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="meta">@Table</span>(name = <span class="string">"t_user"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> Group group;</div><div class="line"></div><div class="line">    <span class="meta">@Id</span></div><div class="line">    <span class="meta">@GeneratedValue</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@ManyToOne</span>(cascade = &#123;CascadeType.ALL&#125;)</div><div class="line">    <span class="function"><span class="keyword">public</span> Group <span class="title">getGroup</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> group;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGroup</span><span class="params">(Group group)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.group = group;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Group.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.hibernate;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.persistence.*;</div><div class="line"><span class="keyword">import</span> java.util.HashSet;</div><div class="line"><span class="keyword">import</span> java.util.Set;</div><div class="line"></div><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="meta">@Table</span>(name = <span class="string">"t_group"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Group</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> Set&lt;User&gt; users = <span class="keyword">new</span> HashSet&lt;User&gt;();</div><div class="line"></div><div class="line">    <span class="meta">@Id</span></div><div class="line">    <span class="meta">@GeneratedValue</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@OneToMany</span>(mappedBy = <span class="string">"group"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Set&lt;User&gt; <span class="title">getUsers</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> users;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsers</span><span class="params">(Set&lt;User&gt; users)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.users = users;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>HibernateORMappingTest.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.hibernate;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Date;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.hibernate.Query;</div><div class="line"><span class="keyword">import</span> org.hibernate.Session;</div><div class="line"><span class="keyword">import</span> org.hibernate.SessionFactory;</div><div class="line"><span class="keyword">import</span> org.hibernate.cfg.AnnotationConfiguration;</div><div class="line"><span class="keyword">import</span> org.hibernate.tool.hbm2ddl.SchemaExport;</div><div class="line"><span class="keyword">import</span> org.junit.AfterClass;</div><div class="line"><span class="keyword">import</span> org.junit.BeforeClass;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HibernateORMappingTest</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SessionFactory sessionFactory;</div><div class="line">   </div><div class="line">   <span class="meta">@BeforeClass</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">beforeClass</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">new</span> SchemaExport(<span class="keyword">new</span> AnnotationConfiguration().configure()).create(<span class="keyword">false</span>, <span class="keyword">true</span>);</div><div class="line">      sessionFactory = <span class="keyword">new</span> AnnotationConfiguration().configure().buildSessionFactory();</div><div class="line">   &#125;</div><div class="line">   <span class="meta">@AfterClass</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">afterClass</span><span class="params">()</span> </span>&#123;</div><div class="line">      sessionFactory.close();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSchemaExport</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">new</span> SchemaExport(<span class="keyword">new</span> AnnotationConfiguration().configure()).create(<span class="keyword">false</span>, <span class="keyword">true</span>);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSaveUser</span><span class="params">()</span></span>&#123;</div><div class="line">      User u = <span class="keyword">new</span> User();</div><div class="line">      u.setName(<span class="string">"u1"</span>);</div><div class="line">      Group g = <span class="keyword">new</span> Group();</div><div class="line">      g.setName(<span class="string">"g1"</span>);</div><div class="line">      u.setGroup(g);</div><div class="line">      Session s = sessionFactory.getCurrentSession();</div><div class="line">      s.beginTransaction();</div><div class="line"><span class="comment">//    s.save(g);</span></div><div class="line">      s.save(u);</div><div class="line">      s.getTransaction().commit();</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">      beforeClass();</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="1.png" alt=""></p>
+<p>看一下数据库：</p>
+<p><img src="2.png" alt=""></p>
+<p>发现我们没有执行s.save(g)这个操作，只是设置了g，然后存储了u，但是hibernate自动帮我们存储g，其实这就是因为我们设置了：<br><code>@ManyToOne(cascade = {CascadeType.ALL})</code><br>也就是级联，由于User和Group之间存在多对一的关系，所以每当我们存储一个User的时候，由于级联，对应的Group也会被自动存储。</p>
+<p>CascadeType取值</p>
+<pre><code>ALL    Cascade all operations所有情况
+MERGE  Cascade merge operation合并(merge=save+update)
+PERSIST  Cascade persist operation存储 persist()
+REFRESH  Cascade refresh operation刷新
+REMOVE   Cascade remove operation删除
+</code></pre><p>cascade仅仅是帮我们省了编程的麻烦而已，不要把它的作用看的太大<br>Cascade的属性是数组格式，指明做什么操作的时候关联对象是绑在一起的</p>
+<h2 id="第四十八课-关联关系的CRUD-Cascade-Fetch-2"><a href="#第四十八课-关联关系的CRUD-Cascade-Fetch-2" class="headerlink" title="第四十八课. 关联关系的CRUD Cascade Fetch 2"></a>第四十八课. 关联关系的CRUD Cascade Fetch 2</h2><p>上一节我们存储了User，Group会一并存储进数据库，那么现在我们存储Group，User会不会也一并存储呢？</p>
+<p>我们来做实验：<br>在HibernateORMapping.java中加入：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSaveGroup</span><span class="params">()</span></span>&#123;</div><div class="line">      User u1 = <span class="keyword">new</span> User();</div><div class="line">      u1.setName(<span class="string">"u1"</span>);</div><div class="line">      User u2 = <span class="keyword">new</span> User();</div><div class="line">      u2.setName(<span class="string">"u2"</span>);</div><div class="line">      Group g = <span class="keyword">new</span> Group();</div><div class="line">      g.setName(<span class="string">"g1"</span>);</div><div class="line">      g.getUsers().add(u1);</div><div class="line">      g.getUsers().add(u2);</div><div class="line">      Session s = sessionFactory.getCurrentSession();</div><div class="line">      s.beginTransaction();</div><div class="line"><span class="comment">//    s.save(g);</span></div><div class="line">      s.save(g);</div><div class="line">      s.getTransaction().commit();</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>现在两个User都是transient状态，然后我们创建一个Group，将这两个User加入Group，然后save这个Group，看结果：<br><img src="3.png" alt=""></p>
+<p>发现只是将Group插入数据库，但是没有插入User。</p>
+<p>究其原因，是因为在ManyToOne这一段是有设置Cascade级联，但是在OneToMany这一段并没有设置。我们重新设置：<br>（Group.java）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OneToMany</span>(mappedBy = <span class="string">"group"</span>,</div><div class="line">    cascade = &#123;CascadeType.ALL&#125;</div><div class="line">)</div><div class="line"><span class="function"><span class="keyword">public</span> Set&lt;User&gt; <span class="title">getUsers</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> users;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="4.png" alt=""></p>
+<p>发现这一次把两个User也插入到数据库里面去了。<br>我们看一下数据库：</p>
+<p><img src="5.png" alt=""></p>
+<p>很糟糕，两个User是被插入了，但是它们的group_id是空值。</p>
+<p>这个原因是由于我们在设置User的时候，没有设置它们的group，重新来写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSaveGroup</span><span class="params">()</span></span>&#123;</div><div class="line">      User u1 = <span class="keyword">new</span> User();</div><div class="line">      u1.setName(<span class="string">"u1"</span>);</div><div class="line">      User u2 = <span class="keyword">new</span> User();</div><div class="line">      u2.setName(<span class="string">"u2"</span>);</div><div class="line">      Group g = <span class="keyword">new</span> Group();</div><div class="line">      g.setName(<span class="string">"g1"</span>);</div><div class="line">      g.getUsers().add(u1);</div><div class="line">      g.getUsers().add(u2);</div><div class="line">      u1.setGroup(g);</div><div class="line">      u2.setGroup(g);</div><div class="line">      Session s = sessionFactory.getCurrentSession();</div><div class="line">      s.beginTransaction();</div><div class="line"><span class="comment">//    s.save(g);</span></div><div class="line">      s.save(g);</div><div class="line">      s.getTransaction().commit();</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>查看数据库：<br><img src="6.png" alt=""></p>
+<p>没问题了！</p>
+<ol>
+<li>铁律：双向关系在程序中要设定双向关联</li>
+<li>铁律：双向mappedBy</li>
+</ol>
+<p>刚刚试了插入的级联，我们现在再测试一下，取一个对象的操作，看看能不能级联：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetUser</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">   testSaveGroup();</div><div class="line"></div><div class="line">   Session s = sessionFactory.getCurrentSession();</div><div class="line">   s.beginTransaction();</div><div class="line">   User u = (User)s.get(User.class, <span class="number">1</span>);</div><div class="line">   s.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="7.png" alt=""></p>
+<p>发现将User和对应的Group都取了出来。</p>
+<p>刚刚是在cascade设了级联的情况，现在把ManyToOne这一端的cascade删除了，再测试：<br><img src="8.png" alt=""></p>
+<p>OK，还是可以的。这说明ManyToOne默认情况下会把对应的One那一方取出来。</p>
+<p>我们已经试过了多对一这一方的读取，再来试一下一对多的读取。<br>就是说，如果我们读取一个Group，会将与它关联的User都取出来吗？<br>测试代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetGroup</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">   testSaveGroup();</div><div class="line"></div><div class="line">   Session s = sessionFactory.getCurrentSession();</div><div class="line">   s.beginTransaction();</div><div class="line">   Group g = (Group) s.get(Group.class, <span class="number">1</span>);</div><div class="line">   s.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="9.png" alt=""></p>
+<p>发现只是将id号为1的Group取了出来，并没有取User。</p>
+<p>我们不是已经设置了Cascade了吗？<br>注意：<br>cascade只是负责CUD，R，也就是读取，和cascade没有关系。<br>读取与另外一个参数有关系，就是fetch</p>
+<p>我们查阅文档知道fetch返回值是一个Enum类型的，有两个选项：Eager和Lazy</p>
+<p>OneToMany这一端默认是Lazy，我们设置成Eager试一下：<br>Group.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OneToMany</span>(mappedBy = <span class="string">"group"</span>,</div><div class="line">    cascade = &#123;CascadeType.ALL&#125;,</div><div class="line">    fetch = FetchType.EAGER</div><div class="line">)</div><div class="line"><span class="function"><span class="keyword">public</span> Set&lt;User&gt; <span class="title">getUsers</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> users;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>并且在测试程序中，将获取到的Group对象中包括的User名字都打印出来：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetGroup</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">   testSaveGroup();</div><div class="line"></div><div class="line">   Session s = sessionFactory.getCurrentSession();</div><div class="line">   s.beginTransaction();</div><div class="line">   Group g = (Group) s.get(Group.class, <span class="number">1</span>);</div><div class="line">   s.getTransaction().commit();</div><div class="line">   <span class="keyword">for</span> (User u : g.getUsers())&#123;</div><div class="line">      System.out.println(u.getName());</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="10.png" alt=""></p>
+<p>发现Group中包括的User都被成功取出来了！</p>
+<h2 id="第四十九课-关联关系的CRUD-Cascade-Fetch-3"><a href="#第四十九课-关联关系的CRUD-Cascade-Fetch-3" class="headerlink" title="第四十九课. 关联关系的CRUD Cascade Fetch 3"></a>第四十九课. 关联关系的CRUD Cascade Fetch 3</h2><p>刚刚试了OneToMany的fetch，那么ManyToOne的默认应该是Eager了，我们试着将它设置成Lazy，看看什么情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ManyToOne</span>(fetch = FetchType.LAZY)</div><div class="line"><span class="function"><span class="keyword">public</span> Group <span class="title">getGroup</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> group;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行试一下：<br><img src="11.png" alt=""></p>
+<p>果然，只取了User。那么什么时候会将Group取出来呢？<br>我们修改测试程序：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetUser</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">   testSaveGroup();</div><div class="line"></div><div class="line">   Session s = sessionFactory.getCurrentSession();</div><div class="line">   s.beginTransaction();</div><div class="line">   User u = (User)s.get(User.class, <span class="number">1</span>);</div><div class="line">   System.out.println(u.getGroup().getName());</div><div class="line">   s.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>也就是当我们取出User之后，将User的Group取出来打印，运行看结果：<br><img src="12.png" alt=""></p>
+<p>发现可以成功取出！</p>
+<p>但是如果我们将打印语句放在commit之后：<br><img src="13.png" alt=""></p>
+<p>发现会报错，原因在于我们是Lazy的fetch，所以Commit之后，就没有Session了，因而取不出User。<br>但为什么之前的OneToMany那一边就可以？<br>因为那里已经设置了Eager的fetch，也就是说，不论有没有Session，都已经将User都取出来了，所以不需要再到数据库去取，从而也就不需要session了。</p>
+<p>load和get效果一样。</p>
+<p>我们再把ManyToOne后面的fetch去掉，也就是回到Eager，再重新测试，结果：<br><img src="14.png" alt=""></p>
+<p>发现从数据库中取了两次User，这就告诉我们，在设计多对一和一对多的时候，不要两端同时Eager，其实默认的JPA的设计就很好，也就是ManyToOne是Eager，OneToMany是Lazy。（这个可以这么理解，如果我们写一个BBS，一个版块中有很多帖子，如果每一次我们每加载一个版块，如果采取Eager，那么就会把所有帖子都拿出来加载，这个肯定是不现实的）。</p>
+<h2 id="第五十课-关联关系的CRUD-Cascade-Fetch-4"><a href="#第五十课-关联关系的CRUD-Cascade-Fetch-4" class="headerlink" title="第五十课. 关联关系的CRUD Cascade Fetch 4"></a>第五十课. 关联关系的CRUD Cascade Fetch 4</h2><p>我们把ManyToOne的cascade改成ALL：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ManyToOne</span>(cascade = &#123;CascadeType.ALL&#125;)</div><div class="line"><span class="function"><span class="keyword">public</span> Group <span class="title">getGroup</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> group;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>测试程序：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdateUser</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">   testSaveGroup();</div><div class="line"></div><div class="line">   Session s = sessionFactory.getCurrentSession();</div><div class="line">   s.beginTransaction();</div><div class="line">   User u = (User)s.get(User.class, <span class="number">1</span>);</div><div class="line"></div><div class="line">       s.getTransaction().commit();</div><div class="line"></div><div class="line">       u.setName(<span class="string">"user"</span>);</div><div class="line">       u.getGroup().setName(<span class="string">"group"</span>);</div><div class="line"></div><div class="line">       Session s2 = sessionFactory.getCurrentSession();</div><div class="line">       s2.beginTransaction();</div><div class="line">       s2.update(u);</div><div class="line"></div><div class="line">       s2.getTransaction().commit();</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>运行之后结果：<br><img src="15.png" alt=""></p>
+<p>发现不光给我们的User做了更新，还给Group做了更新。</p>
+<p>但是我们如果用了其他的cascade参数，并不会都更新，比如我们设置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ManyToOne</span>(cascade = &#123;CascadeType.MERGE, CascadeType.PERSIST&#125;)</div><div class="line"><span class="function"><span class="keyword">public</span> Group <span class="title">getGroup</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> group;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行后发现，只更新了User，并没有更新Group：<br><img src="16.png" alt=""></p>
+<p>但如果测试程序中update(u)改成merge(u)，就可以。</p>
+<p>再比如我们想测试persist的用法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUpdateUser</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">      testSaveGroup();</div><div class="line"></div><div class="line">      Session s = sessionFactory.getCurrentSession();</div><div class="line">      s.beginTransaction();</div><div class="line"><span class="comment">//    User u = (User)s.get(User.class, 1);</span></div><div class="line"></div><div class="line">        s.getTransaction().commit();</div><div class="line"></div><div class="line">        User u = <span class="keyword">new</span> User();</div><div class="line">        u.setName(<span class="string">"user"</span>);</div><div class="line">        Group g = <span class="keyword">new</span> Group();</div><div class="line">        g.setName(<span class="string">"g2"</span>);</div><div class="line">        u.setGroup(g);</div><div class="line"></div><div class="line">        Session s2 = sessionFactory.getCurrentSession();</div><div class="line">        s2.beginTransaction();</div><div class="line">        s2.persist(u);</div><div class="line"></div><div class="line">        s2.getTransaction().commit();</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>运行之后发现，是会将创建好的User和与其级联的Group一并插入到数据库的：<br><img src="17.png" alt=""></p>
+<h2 id="第五十一课-关联关系的CRUD-Cascade-Fetch-5"><a href="#第五十一课-关联关系的CRUD-Cascade-Fetch-5" class="headerlink" title="第五十一课. 关联关系的CRUD Cascade Fetch 5"></a>第五十一课. 关联关系的CRUD Cascade Fetch 5</h2><p>我们来测试删除User：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDeleteUser</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    testSaveGroup();</div><div class="line"></div><div class="line">    Session s = sessionFactory.getCurrentSession();</div><div class="line">    s.beginTransaction();</div><div class="line">    User u = (User)s.load(User.class, <span class="number">1</span>);</div><div class="line">    s.delete(u);</div><div class="line">    s.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行后发现User表和Group表都被删除了。原因在于我们在ManyToOne和OneToMany两端都设置了CascadeType.ALL，也就是在删除时候也会执行级联操作，所以连带着，把两张表都删除了。</p>
+<p>这显然不是我们想要的，如果我们只想把一个User删除，怎么做？<br>修改代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDeleteUser</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    testSaveGroup();</div><div class="line"></div><div class="line">    Session s = sessionFactory.getCurrentSession();</div><div class="line">    s.beginTransaction();</div><div class="line">    User u = (User)s.load(User.class, <span class="number">1</span>);</div><div class="line">    u.setGroup(<span class="keyword">null</span>);</div><div class="line">    s.delete(u);</div><div class="line">    s.getTransaction().commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>也就是把这个User的Group设成null，这样就不存在级联关系了，这样再执行，就只会删除这一个User了。</p>
+<p>或者我们可以使用HQL或者EJBQL也可以做到：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDeleteUser</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">        testSaveGroup();</div><div class="line"></div><div class="line">        Session s = sessionFactory.getCurrentSession();</div><div class="line">        s.beginTransaction();</div><div class="line"><span class="comment">//        User u = (User)s.load(User.class, 1);</span></div><div class="line"><span class="comment">//        u.setGroup(null);</span></div><div class="line"><span class="comment">//        s.delete(u);</span></div><div class="line">        s.createQuery(<span class="string">"delete from User u where u.id = 1"</span>).executeUpdate();</div><div class="line">        s.getTransaction().commit();</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>这次再查看数据库：<br><img src="18.png" alt=""></p>
+<p>没问题，顺利解决。</p>
+<p>其实实际工作中，我们使用EJBQL或者HQL比较多。</p>
+<h2 id="第五十二课-关联关系的CRUD-Cascade-Fetch-6"><a href="#第五十二课-关联关系的CRUD-Cascade-Fetch-6" class="headerlink" title="第五十二课.关联关系的CRUD Cascade Fetch 6"></a>第五十二课.关联关系的CRUD Cascade Fetch 6</h2><p>上一次我们删User，会连带着把Group删掉，最后就没有数据了。<br>这一次我们删Group，看看怎么样？</p>
+<p>测试程序：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDeleteGroup</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">      testSaveGroup();</div><div class="line"></div><div class="line">      Session s = sessionFactory.getCurrentSession();</div><div class="line">      s.beginTransaction();</div><div class="line"><span class="comment">//        User u = (User)s.load(User.class, 1);</span></div><div class="line"><span class="comment">//        u.setGroup(null);</span></div><div class="line"><span class="comment">//        s.delete(u);</span></div><div class="line">      Group g = (Group)s.load(Group.class, <span class="number">1</span>);</div><div class="line">      s.delete(g);</div><div class="line"><span class="comment">//    s.createQuery("delete from User u where u.id = 1").executeUpdate();</span></div><div class="line">      s.getTransaction().commit();</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="19.png" alt=""></p>
+<p>看数据库：<br><img src="20.png" alt=""></p>
+<p>也就是说，把所有的表都删除了。</p>
+<p>所以还是因为cascade的原因，如果只想删除group，把级联的user的id设置为null，我们还可以用HQL或者EJBQL来控制。</p>
+<p>也就是说，如果想消除关联关系，先设定关系为null，再删除对应记录。如果不删记录，该记录变成垃圾数据</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hibernate/" rel="tag"># Hibernate</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/21/Hibernate4/" rel="next" title="Hibernate笔记（四） 关系映射">
+                <i class="fa fa-chevron-left"></i> Hibernate笔记（四） 关系映射
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十七课-关联关系的CRUD-Cascade-Fetch-1"><span class="nav-number">1.</span> <span class="nav-text">第四十七课.关联关系的CRUD Cascade Fetch 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十八课-关联关系的CRUD-Cascade-Fetch-2"><span class="nav-number">2.</span> <span class="nav-text">第四十八课. 关联关系的CRUD Cascade Fetch 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十九课-关联关系的CRUD-Cascade-Fetch-3"><span class="nav-number">3.</span> <span class="nav-text">第四十九课. 关联关系的CRUD Cascade Fetch 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五十课-关联关系的CRUD-Cascade-Fetch-4"><span class="nav-number">4.</span> <span class="nav-text">第五十课. 关联关系的CRUD Cascade Fetch 4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五十一课-关联关系的CRUD-Cascade-Fetch-5"><span class="nav-number">5.</span> <span class="nav-text">第五十一课. 关联关系的CRUD Cascade Fetch 5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五十二课-关联关系的CRUD-Cascade-Fetch-6"><span class="nav-number">6.</span> <span class="nav-text">第五十二课.关联关系的CRUD Cascade Fetch 6</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
