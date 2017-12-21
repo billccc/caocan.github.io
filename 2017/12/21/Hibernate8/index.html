@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hibernate," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍Hibernate的性能优化方式，最后总结一下Hibernate。">
+<meta name="keywords" content="Hibernate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate笔记（八） Hibernate性能优化">
+<meta property="og:url" content="https://caocan.github.io/2017/12/21/Hibernate8/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍Hibernate的性能优化方式，最后总结一下Hibernate。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/16.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/17.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/18.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/19.png">
+<meta property="og:updated_time" content="2017-12-21T08:53:07.703Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate笔记（八） Hibernate性能优化">
+<meta name="twitter:description" content="本文主要介绍Hibernate的性能优化方式，最后总结一下Hibernate。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/21/Hibernate8/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/12/21/Hibernate8/"/>
+
+
+
+
+
+  <title>Hibernate笔记（八） Hibernate性能优化 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/21/Hibernate8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hibernate笔记（八） Hibernate性能优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-21T16:51:05+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hibernate/" itemprop="url" rel="index">
+                    <span itemprop="name">Hibernate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍Hibernate的性能优化方式，最后总结一下Hibernate。<br><a id="more"></a></p>
+<h2 id="第六十四课-1-N问题"><a href="#第六十四课-1-N问题" class="headerlink" title="第六十四课. 1+N问题"></a>第六十四课. 1+N问题</h2><p>重置上一节中数据库的数据，然后我们插入一些数据：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSave</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</div><div class="line">      Category c = <span class="keyword">new</span> Category();</div><div class="line">      c.setName(<span class="string">"c"</span> + i);</div><div class="line">      Topic t = <span class="keyword">new</span> Topic();</div><div class="line">      t.setCategory(c);</div><div class="line">      t.setTitle(<span class="string">"t"</span> + i);</div><div class="line">      t.setCreateDate(<span class="keyword">new</span> Date());</div><div class="line">      session.save(c);</div><div class="line">      session.save(t);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="1.png" alt=""></p>
+<p>可以看到，这一次我们每一个版块中插入一条数据。</p>
+<p>接下来我们写一个测试程序，用来往出取数据：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQuery1</span><span class="params">()</span> </span>&#123;</div><div class="line">      Session session = sf.openSession();</div><div class="line">      session.beginTransaction();</div><div class="line"></div><div class="line"><span class="comment">//    List&lt;Topic&gt; topics = (List&lt;Topic&gt;)session.createCriteria(Topic.class).list();</span></div><div class="line">      List&lt;Topic&gt; topics = (List&lt;Topic&gt;)session.createQuery(<span class="string">"from Topic"</span>).list();</div><div class="line">      </div><div class="line">      <span class="keyword">for</span>(Topic t : topics) &#123;</div><div class="line">         System.out.println(t.getId() + <span class="string">"-"</span> + t.getTitle());</div><div class="line">      &#125;</div><div class="line">      session.getTransaction().commit();</div><div class="line">      session.close();</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>执行：<br><img src="2.png" alt=""></p>
+<p>发现除了发出一个在Topic表中进行查询的sql语句之外，还另外发出了十条查询category表的sql语句。我们本来期望只发出第一条语句，这就是1+N问题。原因就是在Topic类中的ManyToOne默认设置是fetch为Eager的，所以会将与其关联的category都取出来。</p>
+<p>这个问题怎么解决呢？</p>
+<ol>
+<li>@ManyToOne(fetch=FetchType.LAZY) </li>
+<li>BatchSize(本例就是在Category类上面加一条注解：@BatchSize(size = 5))：<br>运行：<br><img src="3.png" alt=""></li>
+</ol>
+<p>这样就将原来十条sql合并成了两条，提高了效率。</p>
+<ol>
+<li>join fetch<br>@Test<br>public void testQuery4() {<br>  Session session = sf.openSession();<br>  session.beginTransaction();</li>
+</ol>
+<p>//    List<topic> topics = (List<topic>)session.createCriteria(Topic.class).list();<br>        List<topic> topics = (List<topic>)session.createQuery(“from Topic t left join fetch t.category c”).list();</topic></topic></topic></topic></p>
+<pre><code>    for(Topic t : topics) {
+        System.out.println(t.getId() + &quot;-&quot; + t.getTitle());
+    }
+    session.getTransaction().commit();
+    session.close();
+
+}
+</code></pre><p>这样也可以解决1+N问题。</p>
+<h2 id="第六十五课-list-iterate"><a href="#第六十五课-list-iterate" class="headerlink" title="第六十五课. list-iterate"></a>第六十五课. list-iterate</h2><p>list和iterate不同之处（//主要为了面试  详见hibernate_2900_Hibernate_list_iterate）<br>a)    list取所有<br>b)    iterate先取 ID,等用到的时候再根据ID来取对象<br>c)    session中list第二次发出，仍会到数据库査询<br>d)    iterate 第二次，首先找session 级缓存</p>
+<h2 id="第六十六课-一级缓存-二级缓存-查询缓存"><a href="#第六十六课-一级缓存-二级缓存-查询缓存" class="headerlink" title="第六十六课. 一级缓存-二级缓存-查询缓存"></a>第六十六课. 一级缓存-二级缓存-查询缓存</h2><p>先来研究一级缓存：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCache1</span><span class="params">()</span></span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Category c = (Category)session.load(Category.class, <span class="number">1</span>);</div><div class="line">   System.out.println(c.getName());</div><div class="line"></div><div class="line">   Category c2 = (Category)session.load(Category.class, <span class="number">1</span>);</div><div class="line">   System.out.println(c2.getName());</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="4.png" alt=""></p>
+<p>发现只发出一次sql查询，由于第二次取的是相同的数据，而且第一次已经存入到一级缓存中，所以第二次没有去数据库去取，而是直接到一级缓存去取。</p>
+<p>下面我们研究session：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCache2</span><span class="params">()</span></span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Category c = (Category)session.load(Category.class, <span class="number">1</span>);</div><div class="line">   System.out.println(c.getName());</div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line"></div><div class="line">   Session session2 = sf.openSession();</div><div class="line">   session2.beginTransaction();</div><div class="line"></div><div class="line">   Category c2 = (Category)session2.load(Category.class, <span class="number">1</span>);</div><div class="line">   System.out.println(c2.getName());</div><div class="line">   session2.getTransaction().commit();</div><div class="line">   session2.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="5.png" alt=""></p>
+<p>发现一个session的不能去另外一个session中取数据。</p>
+<p>现在我们试图打开二级缓存，让两个session可以使用相同的缓存。<br>i.    hibernate.cfg.xml 设定：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span></span></div><div class="line"><span class="tag"><span class="attr">name</span>= <span class="string">"cache.use_second_level_cache"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span></span></div><div class="line"><span class="tag"><span class="attr">name</span>=<span class="string">"cache.provider_class"</span>&gt;</span>org.hibernate.cache.EhCacheProvider<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>ii.    @Cache注解(由hibernate扩展提供)<br>  在Category.java里加上：<br><code>@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)</code><br>然后我们加入需要的jar包（ehcache-1.2.3.jar及commons-logging-1.0.4.jar包）：</p>
+<p>运行：<br><img src="6.png" alt=""></p>
+<p>发现hibernate这一次只发了一次sql，说明二级缓存已经打开，所以两个session可以共用缓存。</p>
+<p>总结：</p>
+<ol>
+<li>一级缓存和二级缓存和査询缓存（面试题）(详见hibernate_3000_Hibernate_3KindsOf_Cache)<br>a)    什么是缓存<br>b)    什么是一级缓存，session级别的缓存<br>c)    什么是二级缓存，SessionFactory级别的缓存，可以跨越session存在<br>i.    经常被访间<br>ii.    改动不大不会经常改动<br>iii.    数重有限</li>
+</ol>
+<h2 id="第六十七课-查询缓存"><a href="#第六十七课-查询缓存" class="headerlink" title="第六十七课. 查询缓存."></a>第六十七课. 查询缓存.</h2><p>查询缓存依赖于二级缓存。</p>
+<p>我们打开查询缓存：<br>在hibernate.cfg.xml中加入：<br><code>&lt;property name=&quot;cache.use_query_cache&quot;&gt;true&lt;/property&gt;</code></p>
+<p>写一个测试程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryCache</span><span class="params">()</span></span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   List&lt;Category&gt; categories = (List&lt;Category&gt;) session.createQuery(<span class="string">"from Category"</span>).list();</div><div class="line">   List&lt;Category&gt; categories2 = (List&lt;Category&gt;) session.createQuery(<span class="string">"from Category"</span>).list();</div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们调用了两个相同的查询，运行：<br><img src="7.png" alt=""></p>
+<p>但是这毕竟是两个相同的查询，为什么不可以使用查询缓存呢？<br>我们在测试程序中打开查询缓存的设置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">List&lt;Category&gt; categories = (List&lt;Category&gt;) session.createQuery(<span class="string">"from Category"</span>).setCacheable(<span class="keyword">true</span>).list();</div><div class="line">List&lt;Category&gt; categories2 = (List&lt;Category&gt;) session.createQuery(<span class="string">"from Category"</span>).setCacheable(<span class="keyword">true</span>).list();</div></pre></td></tr></table></figure></p>
+<p>再运行：<br><img src="8.png" alt=""></p>
+<p>发现这一次就只发出了一次sql，说明查询缓存被使用了。</p>
+<p>即使我们在两个不同的session中使用相同的查询，如果已经打开了查询缓存，也会只发出一次sql。</p>
+<p>缓存算法：（纯为了面试）<br>i.    LRU  LFU  FIFO</p>
+<ol>
+<li>Least Recently Used –最近很少被使用</li>
+<li>Least Frequently Used (命中率高低)</li>
+<li>First In First Out 按顺序替换</li>
+</ol>
+<p>ii.    memoryStoreEvictionPolicy = “LRU” (ehcache.xml中配置) </p>
+<h2 id="第六十八课-事务隔离机制-悲观锁-乐观锁-1"><a href="#第六十八课-事务隔离机制-悲观锁-乐观锁-1" class="headerlink" title="第六十八课. 事务隔离机制-悲观锁-乐观锁-1"></a>第六十八课. 事务隔离机制-悲观锁-乐观锁-1</h2><p>事务并发处理(面试的意义更大)<br>a)    事务：ACID<br>i.    Atomic Consistency Itegrity Durability<br>b)    事务并发时可能出现的问题：<br>第一类丢失更新(Lost Update)<br><img src="9.png" alt=""></p>
+<p>dirty read脏读(读到了另一个事务在处理中还未提交的数据)</p>
+<p><img src="10.png" alt=""></p>
+<p>non-repeatable read 不可重复读<br><img src="11.png" alt=""></p>
+<p>second lost update problem 第二类丢失更新(不可重复读的特殊情况)</p>
+<p><img src="12.png" alt=""></p>
+<p>phantom read 幻读</p>
+<p><img src="13.png" alt=""></p>
+<p>c)    数据库的事务隔离机制<br>i.    查看 java.sql.Connection 文档<br>ii.    1：read-uncommitted  2：read-committed  4：repeatable read  8：serializable（数字代表对应值）<br>为什么取值要使用 1 2 4 8 而不是 1 2 3 4<br>1=0001  2=0010 4=0100 8=1000(位移计算效率高)</p>
+<ol>
+<li>只要数据库支持事务,就不可能出现第一类丢失更新</li>
+<li>read-uncommitted(允许读取未提交的数据) 会出现dirty read, phantom-read,<br>non-repeatable read 问题</li>
+<li>read-commited(读取已提交的数据 项目中一般都使用这个)不会出现dirty read,因为只有另<br>一个事务提交才会读出来结果，但仍然会出现 non-repeatable read 和 phantom-read<br>使用read-commited机制可用悲观锁 乐观锁来解决non-repeatable read 和 phantom-read问题</li>
+<li>repeatable read(事务执行中其他事务无法执行修改或插入操作     较安全)</li>
+<li>serializable解决一切问题(顺序执行事务 不并发，实际中很少用)</li>
+</ol>
+<h2 id="第六十九课-事务隔离机制-悲观锁-乐观锁-2"><a href="#第六十九课-事务隔离机制-悲观锁-乐观锁-2" class="headerlink" title="第六十九课. 事务隔离机制-悲观锁-乐观锁-2"></a>第六十九课. 事务隔离机制-悲观锁-乐观锁-2</h2><p>d)    设定hibernate的事务隔离级别(使用hibernate.connection.isolation配置 取值1、2、4、8)<br>i.    hibernate.connection.isolation = 2（如果不设 默认依赖数据库本身的级别）<br>ii.    用悲观锁解决repeatable read的问题（依赖于数据库的锁）<br>(详见项目 hibernate_3100_Hibernate_Concurrency_Pessimistic_Lock)</p>
+<ol>
+<li>select … for update</li>
+<li>使用另一种load方法–load(xx.class , i , LockMode.Upgrade)<br>a)    LockMode.None无锁的机制，Transaction结束时，切换到此模式<br>b)    LockMode.read在査询的时候hibernate会自动获取锁<br>c)    LockMode.write insert  update hibernate 会自动获取锁<br>d)    以上3种锁的模式，是hibernate内部使用的(不需要设)<br>e)    LockMode.UPGRADE_NOWAIT是 ORACLE 支持的锁的方式<br>e)    Hibernate(JPA)乐观锁定(ReadCommitted)<br>(详见项目hibernate_3200_Hibernate_Concurrency_Optimistic_Lock)<br>实体类中增加version属性(数据库也会对应生成该字段,初始值为0)，并在其get方法前加<br>@Version注解，则在操作过程中没更新一次该行数据则version值加1，即可在事务提交前判断该数据是否被其他事务修改过.<br>@Version</li>
+</ol>
+<p><img src="14.png" alt=""></p>
+<p>先看悲观锁的代码：<br>先执行testSchemaExport()来创建一个Account表，再执行一个testSave()，存取一个数据：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSave</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   </div><div class="line">   Account a = <span class="keyword">new</span> Account();</div><div class="line">   a.setBalance(<span class="number">100</span>);</div><div class="line">   session.save(a);</div><div class="line">      </div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>查询数据库：<br><img src="15.png" alt=""></p>
+<p>成功插入一条数据。</p>
+<p>然后我们看一个对数据库的操作：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOperation1</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   </div><div class="line">   Account a = (Account)session.load(Account.class, <span class="number">1</span>);</div><div class="line">   <span class="keyword">int</span> balance = a.getBalance();</div><div class="line">   <span class="comment">//do some caculations</span></div><div class="line">   balance = balance - <span class="number">10</span>;</div><div class="line">   a.setBalance(balance);</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个操作就是将数据库的数据取出来，修改，再存放回去。但是考虑一个问题，如果这个时候，另外一个用户也对数据库进行操作，那么就会被这个操作冲掉数据，导致结果不正确，这个应该怎么解决？<br>悲观锁就是一种解决方案：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPessimisticLock</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   </div><div class="line">   Account a = (Account)session.load(Account.class, <span class="number">1</span>, LockMode.UPGRADE);</div><div class="line">   <span class="keyword">int</span> balance = a.getBalance();</div><div class="line">   <span class="comment">//do some caculation</span></div><div class="line">   balance = balance - <span class="number">10</span>;</div><div class="line">   a.setBalance(balance);</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>就是在操作之前，就给这个操作上锁，使得其他对数据库的操作不能往下进行。<br>我们执行一下：<br><img src="16.png" alt=""></p>
+<p>看到在查询数据时加上了一个for update，这其实就是给数据库上了一个悲观锁，使得其他对数据库的更新不能进行。</p>
+<p>我们再来看乐观锁：<br>这个代码中，Account类中如此设计：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> balance;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> version;</div><div class="line">   <span class="meta">@Version</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getVersion</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> version;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVersion</span><span class="params">(<span class="keyword">int</span> version)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.version = version;</div><div class="line">   &#125;</div><div class="line">   <span class="meta">@Id</span></div><div class="line">   <span class="meta">@GeneratedValue</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> id;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.id = id;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getBalance</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> balance;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBalance</span><span class="params">(<span class="keyword">int</span> balance)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.balance = balance;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里多加了一个version字段，乐观锁在程序运行过程中加锁，如果一个用户对数据库进行了更新，version就加1，然后如果在这个用户更新的同时，另一个用户也对这个数据库的同一条数据进行更新，他在更新后之后要检查version字段，如果和之前的不一样，那么就判定有其他用户对这个数据进行过更新，那么就报错。我们看代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOptimisticLock</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line"></div><div class="line">   Session session2 = sf.openSession();</div><div class="line"></div><div class="line">   </div><div class="line">   </div><div class="line">   </div><div class="line">   session.beginTransaction();</div><div class="line">   Account a1 = (Account) session.load(Account.class, <span class="number">1</span>);</div><div class="line">   </div><div class="line"></div><div class="line">   session2.beginTransaction();</div><div class="line">   Account a2 = (Account) session2.load(Account.class, <span class="number">1</span>);</div><div class="line">   </div><div class="line">   a1.setBalance(<span class="number">900</span>);</div><div class="line">   a2.setBalance(<span class="number">1100</span>);</div><div class="line"></div><div class="line">   session.getTransaction().commit();</div><div class="line">   System.out.println(a1.getVersion());</div><div class="line"></div><div class="line">   session2.getTransaction().commit();</div><div class="line">   System.out.println(a2.getVersion());</div><div class="line"></div><div class="line">   session.close();</div><div class="line">   session2.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="17.png" alt=""></p>
+<p>发现session2在commit的时候会报错。</p>
+<p>乐观锁的执行效率要比悲观锁要高。</p>
+<h2 id="第七十课-hibernate总结"><a href="#第七十课-hibernate总结" class="headerlink" title="第七十课. hibernate总结"></a>第七十课. hibernate总结</h2><p><img src="18.png" alt=""></p>
+<p><img src="19.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hibernate/" rel="tag"># Hibernate</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/21/Hibernate7/" rel="next" title="Hibernate笔记（七） Hibernate查询">
+                <i class="fa fa-chevron-left"></i> Hibernate笔记（七） Hibernate查询
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十四课-1-N问题"><span class="nav-number">1.</span> <span class="nav-text">第六十四课. 1+N问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十五课-list-iterate"><span class="nav-number">2.</span> <span class="nav-text">第六十五课. list-iterate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十六课-一级缓存-二级缓存-查询缓存"><span class="nav-number">3.</span> <span class="nav-text">第六十六课. 一级缓存-二级缓存-查询缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十七课-查询缓存"><span class="nav-number">4.</span> <span class="nav-text">第六十七课. 查询缓存.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十八课-事务隔离机制-悲观锁-乐观锁-1"><span class="nav-number">5.</span> <span class="nav-text">第六十八课. 事务隔离机制-悲观锁-乐观锁-1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十九课-事务隔离机制-悲观锁-乐观锁-2"><span class="nav-number">6.</span> <span class="nav-text">第六十九课. 事务隔离机制-悲观锁-乐观锁-2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七十课-hibernate总结"><span class="nav-number">7.</span> <span class="nav-text">第七十课. hibernate总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
