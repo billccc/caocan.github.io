@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hibernate," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍Hibernate查询，包括HQL，EJBQL，QBC和QBE">
+<meta name="keywords" content="Hibernate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate笔记（七） Hibernate查询">
+<meta property="og:url" content="https://caocan.github.io/2017/12/21/Hibernate7/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍Hibernate查询，包括HQL，EJBQL，QBC和QBE">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate7/16.png">
+<meta property="og:updated_time" content="2017-12-21T08:29:12.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate笔记（七） Hibernate查询">
+<meta name="twitter:description" content="本文主要介绍Hibernate查询，包括HQL，EJBQL，QBC和QBE">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/21/Hibernate7/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/12/21/Hibernate7/"/>
+
+
+
+
+
+  <title>Hibernate笔记（七） Hibernate查询 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/21/Hibernate7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hibernate笔记（七） Hibernate查询</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-21T11:52:08+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hibernate/" itemprop="url" rel="index">
+                    <span itemprop="name">Hibernate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍Hibernate查询，包括HQL，EJBQL，QBC和QBE<br><a id="more"></a></p>
+<p>HQL vs EJBQL</p>
+<ol>
+<li>NativeSQL &gt; HQL &gt; EJBQL(JPQL 1.0) &gt; QBC(Query By Criteria) &gt; QBE(Query By Example)</li>
+<li>总结:QL应该和导航关系结合，共同为查询提供服务。</li>
+</ol>
+<h2 id="第六十课-Hibernate查询-HQL-EJBQL-QBC-QBE-2"><a href="#第六十课-Hibernate查询-HQL-EJBQL-QBC-QBE-2" class="headerlink" title="第六十课. Hibernate查询 HQL-EJBQL-QBC-QBE-2"></a>第六十课. Hibernate查询 HQL-EJBQL-QBC-QBE-2</h2><p>Category.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.hibernate;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.persistence.Entity;</div><div class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</div><div class="line"><span class="keyword">import</span> javax.persistence.Id;</div><div class="line"></div><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Category</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line">   <span class="keyword">private</span> String name;</div><div class="line">   <span class="meta">@Id</span></div><div class="line">   <span class="meta">@GeneratedValue</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> id;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.id = id;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> name;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.name = name;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Msg.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.hibernate;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.persistence.Entity;</div><div class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</div><div class="line"><span class="keyword">import</span> javax.persistence.Id;</div><div class="line"><span class="keyword">import</span> javax.persistence.ManyToOne;</div><div class="line"></div><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Msg</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line">   <span class="keyword">private</span> String cont;</div><div class="line">   <span class="keyword">private</span> Topic topic;</div><div class="line">   <span class="meta">@ManyToOne</span></div><div class="line">   <span class="function"><span class="keyword">public</span> Topic <span class="title">getTopic</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> topic;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTopic</span><span class="params">(Topic topic)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.topic = topic;</div><div class="line">   &#125;</div><div class="line">   <span class="meta">@Id</span></div><div class="line">   <span class="meta">@GeneratedValue</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> id;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.id = id;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getCont</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> cont;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCont</span><span class="params">(String cont)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.cont = cont;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>MsgInfo.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.hibernate;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.persistence.Entity;</div><div class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</div><div class="line"><span class="keyword">import</span> javax.persistence.Id;</div><div class="line"><span class="keyword">import</span> javax.persistence.ManyToOne;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MsgInfo</span> </span>&#123; <span class="comment">//VO DTO Value Object username p1 p2 UserInfo-&gt;User-&gt;DB</span></div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line">   <span class="keyword">private</span> String cont;</div><div class="line">   <span class="keyword">private</span> String topicName;</div><div class="line">   <span class="keyword">private</span> String categoryName;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="title">MsgInfo</span><span class="params">(<span class="keyword">int</span> id, String cont, String topicName, String categoryName)</span> </span>&#123;</div><div class="line">      <span class="keyword">super</span>();</div><div class="line">      <span class="keyword">this</span>.id = id;</div><div class="line">      <span class="keyword">this</span>.cont = cont;</div><div class="line">      <span class="keyword">this</span>.topicName = topicName;</div><div class="line">      <span class="keyword">this</span>.categoryName = categoryName;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getTopicName</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> topicName;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTopicName</span><span class="params">(String topicName)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.topicName = topicName;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getCategoryName</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> categoryName;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCategoryName</span><span class="params">(String categoryName)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.categoryName = categoryName;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> id;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.id = id;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getCont</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> cont;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCont</span><span class="params">(String cont)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.cont = cont;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Topic.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.hibernate;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Date;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.persistence.Entity;</div><div class="line"><span class="keyword">import</span> javax.persistence.FetchType;</div><div class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</div><div class="line"><span class="keyword">import</span> javax.persistence.Id;</div><div class="line"><span class="keyword">import</span> javax.persistence.ManyToOne;</div><div class="line"></div><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Topic</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line">   <span class="keyword">private</span> String title;</div><div class="line">   <span class="keyword">private</span> Category category;</div><div class="line">   <span class="comment">//private Category category2;</span></div><div class="line">   </div><div class="line">   <span class="keyword">private</span> Date createDate;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> Date <span class="title">getCreateDate</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> createDate;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCreateDate</span><span class="params">(Date createDate)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.createDate = createDate;</div><div class="line">   &#125;</div><div class="line">   <span class="meta">@ManyToOne</span>(fetch=FetchType.LAZY)</div><div class="line">   <span class="function"><span class="keyword">public</span> Category <span class="title">getCategory</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> category;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCategory</span><span class="params">(Category category)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.category = category;</div><div class="line">   &#125;</div><div class="line">   <span class="meta">@Id</span></div><div class="line">   <span class="meta">@GeneratedValue</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> id;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.id = id;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getTitle</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> title;</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.title = title;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行建表语句：<br><img src="1.png" alt=""></p>
+<p>然后我们去存一些数据：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSave</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</div><div class="line">      Category c = <span class="keyword">new</span> Category();</div><div class="line">      c.setName(<span class="string">"c"</span> + i);</div><div class="line">      session.save(c);</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</div><div class="line">      Category c = <span class="keyword">new</span> Category();</div><div class="line">      c.setId(<span class="number">1</span>);</div><div class="line">      Topic t = <span class="keyword">new</span> Topic();</div><div class="line">      t.setCategory(c);</div><div class="line">      t.setTitle(<span class="string">"t"</span> + i);</div><div class="line">      t.setCreateDate(<span class="keyword">new</span> Date());</div><div class="line">      session.save(t);</div><div class="line">      </div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</div><div class="line">      </div><div class="line">      Topic t = <span class="keyword">new</span> Topic();</div><div class="line">      t.setId(<span class="number">1</span>);</div><div class="line">      Msg m = <span class="keyword">new</span> Msg();</div><div class="line">      m.setCont(<span class="string">"m"</span> + i);</div><div class="line">      m.setTopic(t);</div><div class="line">      session.save(m);</div><div class="line">      </div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   </div><div class="line">   </div><div class="line">   </div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行效果：<br><img src="2.png" alt=""></p>
+<p><img src="3.png" alt=""></p>
+<p><img src="4.png" alt=""></p>
+<p>数据被成功插入！</p>
+<p>接下来我们就基于这样的数据做查询。</p>
+<p>第一种，QL语言：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_01</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Category"</span>);</div><div class="line">   List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">   <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">      System.out.println(c.getName());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行：<br><img src="5.png" alt=""></p>
+<p>成功将Category中插入的十条记录都取出来了。</p>
+<p>第二个查询：<br>查询category中名字大于c5的名字：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_02</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Category c where c.name &gt; 'c5'"</span>);</div><div class="line">   List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">   <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">      System.out.println(c.getName());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行：<br><img src="6.png" alt=""></p>
+<p>第三个查询：<br>将category的名字倒序输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_03</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Category c order by c.name desc"</span>);</div><div class="line">   List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">   <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">      System.out.println(c.getName());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行：<br><img src="7.png" alt=""></p>
+<p>第四个查询：<br>这一次我们查询不重复的category，也是按照倒序排列：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_04</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select distinct c from Category c order by c.name desc"</span>);</div><div class="line">   List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">   <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">      System.out.println(c.getName());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意输出的SQL语句，是通过id来区分两个记录是否重复：<br><img src="8.png" alt=""></p>
+<p>看第五个查询：<br>我们这一次查询id号大于2且小于8的category：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_05</span><span class="params">()</span> </span>&#123;</div><div class="line">      Session session = sf.openSession();</div><div class="line">      session.beginTransaction();</div><div class="line">      Query q = session.createQuery(<span class="string">"from Category c where c.id &gt; :min and c.id &lt; :max"</span>);</div><div class="line"><span class="comment">//    q.setParameter("min", 2);</span></div><div class="line"><span class="comment">//    q.setParameter("max", 8);</span></div><div class="line">      q.setInteger(<span class="string">"min"</span>, <span class="number">2</span>);</div><div class="line">      q.setInteger(<span class="string">"max"</span>, <span class="number">8</span>);</div><div class="line">      </div><div class="line">      List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">      <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">         System.out.println(c.getId() + <span class="string">"-"</span> + c.getName());</div><div class="line">      &#125;</div><div class="line">      session.getTransaction().commit();</div><div class="line">      session.close();</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>其中:min是一个占位符，可以通过下面的setInteger来设置，也就是将占位符的参数设成了Integer类型。<br>执行：<br><img src="9.png" alt=""></p>
+<p>没问题！</p>
+<p>其实还可以用链式编程方式来写这一段代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_05</span><span class="params">()</span> </span>&#123;</div><div class="line">      Session session = sf.openSession();</div><div class="line">      session.beginTransaction();</div><div class="line"><span class="comment">/*    Query q = session.createQuery("from Category c where c.id &gt; :min and c.id &lt; :max");</span></div><div class="line"><span class="comment">//    q.setParameter("min", 2);</span></div><div class="line"><span class="comment">//    q.setParameter("max", 8);</span></div><div class="line"><span class="comment">      q.setInteger("min", 2);</span></div><div class="line"><span class="comment">      q.setInteger("max", 8);*/</span></div><div class="line">      </div><div class="line">      Query q = session.createQuery(<span class="string">"from Category c where c.id &gt; :min and c.id &lt; :max"</span>)</div><div class="line">         .setInteger(<span class="string">"min"</span>, <span class="number">2</span>)</div><div class="line">         .setInteger(<span class="string">"max"</span>, <span class="number">8</span>);</div><div class="line">      List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">      <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">         System.out.println(c.getId() + <span class="string">"-"</span> + c.getName());</div><div class="line">      &#125;</div><div class="line">      session.getTransaction().commit();</div><div class="line">      session.close();</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>由于setInteger返回的是一个query对象，所以依然可以调用它的setInteger方法，这就是链式编程。</p>
+<p>第六个查询，其实是第五个的替代写法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_06</span><span class="params">()</span> </span>&#123;</div><div class="line">      Session session = sf.openSession();</div><div class="line">      session.beginTransaction();</div><div class="line">      Query q = session.createQuery(<span class="string">"from Category c where c.id &gt; ? and c.id &lt; ?"</span>);</div><div class="line">      q.setParameter(<span class="number">0</span>, <span class="number">2</span>)</div><div class="line">         .setParameter(<span class="number">1</span>, <span class="number">8</span>);</div><div class="line"><span class="comment">//    q.setParameter(1, 8);</span></div><div class="line">      List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">      <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">         System.out.println(c.getId() + <span class="string">"-"</span> + c.getName());</div><div class="line">      &#125;</div><div class="line">      session.getTransaction().commit();</div><div class="line">      session.close();</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>效果是一样的。</p>
+<p>看第七个查询，就是分页：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//分页</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_07</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Category c order by c.name desc"</span>);</div><div class="line">   q.setMaxResults(<span class="number">4</span>);</div><div class="line">   q.setFirstResult(<span class="number">2</span>);</div><div class="line">   List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">   <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">      System.out.println(c.getId() + <span class="string">"-"</span> + c.getName());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个查询中，先将所有的category倒序排列，然后我们设定最大结果集是4，从第二条开始查询，也就是7：<br><img src="10.png" alt=""></p>
+<p>第八个查询：<br>这一次我们取出来的不是对象，而是具体的字段，他们存储在List列表的Object数组之中，然后用数组的形式将它们取出打印：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_08</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select c.id,  c.name from Category c order by c.name desc"</span>);</div><div class="line">   List&lt;Object[]&gt; categories = (List&lt;Object[]&gt;)q.list();</div><div class="line">   <span class="keyword">for</span>(Object[] o : categories) &#123;</div><div class="line">      System.out.println(o[<span class="number">0</span>] + <span class="string">"-"</span> + o[<span class="number">1</span>]);</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="11.png" alt=""></p>
+<p>第九个查询：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//设定fetch type 为lazy后将不会有第二条sql语句</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_09</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Topic t where t.category.id = 1"</span>);</div><div class="line">   List&lt;Topic&gt; topics = (List&lt;Topic&gt;)q.list();</div><div class="line">   <span class="keyword">for</span>(Topic t : topics) &#123;</div><div class="line">      System.out.println(t.getTitle());</div><div class="line">      <span class="comment">//System.out.println(t.getCategory().getName());</span></div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们执行一下：<br><img src="12.png" alt=""></p>
+<p>由于ManyToOne默认是Eager，所以hibernate在取出topic之后，会把级联的category也取出来，这就是第二个sql语句。</p>
+<p>如果我们把ManyToOne改成Lazy（Topic.java）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ManyToOne</span>(fetch=FetchType.LAZY)</div><div class="line"><span class="function"><span class="keyword">public</span> Category <span class="title">getCategory</span><span class="params">()</span> </span>&#123;</div><div class="line">   <span class="keyword">return</span> category;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>再运行：<br><img src="13.png" alt=""></p>
+<p>这次就不会把category取出来了，也就不执行第二次sql了。</p>
+<p>如果将屏蔽的语句<br><code>System.out.println(t.getCategory().getName());</code><br>取消屏蔽，那么在lazy情况下也会执行第二条sql，因为用到了category，就回去取。</p>
+<p>第十一个查询：</p>
+<p>这一次我们多次导航，查询一个版块所有帖子（m.topic.category.id）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_11</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Msg m where m.topic.category.id = 1"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Msg m = (Msg)o;</div><div class="line">      System.out.println(m.getCont());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行：<br><img src="14.png" alt=""></p>
+<p>由于有导航（一对多、多对一），所以hibernate自己就可以帮我们连接表。</p>
+<p>第十二个查询：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//了解即可</span></div><div class="line"><span class="comment">//VO Value Object</span></div><div class="line"><span class="comment">//DTO data transfer object</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_12</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select new com.bjsxt.hibernate.MsgInfo(m.id, m.cont, m.topic.title, m.topic.category.name) from Msg"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      MsgInfo m = (MsgInfo)o;</div><div class="line">      System.out.println(m.getCont());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这一次我们将表中数据取出来，组成一个临时对象MsgInfo返回，这个对象就是DTO，是用来传输数据的。</p>
+<p>第十三个查询：<br>这一次我们将两张表通过join连接起来，由于已经设了导航，所以不需要再设置连接条件：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//动手测试left right join</span></div><div class="line"><span class="comment">//为什么不能直接写Category名，而必须写t.category</span></div><div class="line"><span class="comment">//因为有可能存在多个成员变量（同一个类），需要指明用哪一个成员变量的连接条件来做连接</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_13</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select t.title, c.name from Topic t join t.category c "</span>); <span class="comment">//join Category c</span></div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Object[] m = (Object[])o;</div><div class="line">      System.out.println(m[<span class="number">0</span>] + <span class="string">"-"</span> + m[<span class="number">1</span>]);</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="第六十一课-Hibernate查询-HQL-EJBQL-QBC-QBE-3"><a href="#第六十一课-Hibernate查询-HQL-EJBQL-QBC-QBE-3" class="headerlink" title="第六十一课. Hibernate查询-HQL-EJBQL-QBC-QBE-3."></a>第六十一课. Hibernate查询-HQL-EJBQL-QBC-QBE-3.</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//学习使用uniqueResult</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_14</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Msg m where m = :MsgToSearch "</span>); <span class="comment">//不重要</span></div><div class="line">   Msg m = <span class="keyword">new</span> Msg();</div><div class="line">   m.setId(<span class="number">1</span>);</div><div class="line">   q.setParameter(<span class="string">"MsgToSearch"</span>, m);</div><div class="line">   </div><div class="line">   Msg mResult = (Msg)q.uniqueResult();</div><div class="line">   System.out.println(mResult.getCont());</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这一次我们查询语句直接让一个对象等于一个参数，这个参数我们动态设置，通过setParameter来设置，然后两个对象通过hashcode和equals来进行比较。<br>最终用uniqueResult来返回查到的结果。</p>
+<p>第十五个查询：</p>
+<p>这次我们使用聚合函数count(*)，来查询一共有多少Msg：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_15</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select count(*) from Msg m"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">long</span> count = (Long)q.uniqueResult();</div><div class="line">   System.out.println(count);</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第十六个查询：<br>这次我们依然使用聚合函数，返回一个对象数组，然后依次将其拿出来打印：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_16</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select max(m.id), min(m.id), avg(m.id), sum(m.id) from Msg m"</span>);</div><div class="line">   </div><div class="line">   Object[] o = (Object[])q.uniqueResult();</div><div class="line">   System.out.println(o[<span class="number">0</span>] + <span class="string">"-"</span> + o[<span class="number">1</span>] + <span class="string">"-"</span> + o[<span class="number">2</span>] + <span class="string">"-"</span> + o[<span class="number">3</span>]);</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第十七、十八、十九个查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_17</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Msg m where m.id between 3 and 5"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Msg m = (Msg)o;</div><div class="line">      System.out.println(m.getId() + <span class="string">"-"</span> + m.getCont());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_18</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Msg m where m.id in (3,4, 5)"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Msg m = (Msg)o;</div><div class="line">      System.out.println(m.getId() + <span class="string">"-"</span> + m.getCont());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//is null 与 is not null</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_19</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Msg m where m.cont is not null"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Msg m = (Msg)o;</div><div class="line">      System.out.println(m.getId() + <span class="string">"-"</span> + m.getCont());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面就是HQL的语法。</p>
+<p>第六十二课. Hibernate查询-HQL-EJBQL-QBC-QBE-4</p>
+<p>第二十个查询：</p>
+<p>查询没有帖子的Topic：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//is empty and is not empty</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_20</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Topic t where t.msgs is empty"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Topic t = (Topic)o;</div><div class="line">      System.out.println(t.getId() + <span class="string">"-"</span> + t.getTitle());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二十一个查询：</p>
+<p>查询名字中有零个或者多个5的Topic（%代表零个或者多个，_代表一个或者多个）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_21</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Topic t where t.title like '%5'"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Topic t = (Topic)o;</div><div class="line">      System.out.println(t.getId() + <span class="string">"-"</span> + t.getTitle());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二十三个查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//不重要</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_23</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select lower(t.title),"</span> +</div><div class="line">                               <span class="string">"upper(t.title),"</span> +</div><div class="line">                               <span class="string">"trim(t.title),"</span> +</div><div class="line">                               <span class="string">"concat(t.title, '***'),"</span> +</div><div class="line">                               <span class="string">"length(t.title)"</span> +</div><div class="line">                               <span class="string">" from Topic t "</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Object[] arr = (Object[])o;</div><div class="line">      System.out.println(arr[<span class="number">0</span>] + <span class="string">"-"</span> + arr[<span class="number">1</span>] + <span class="string">"-"</span> + arr[<span class="number">2</span>] + <span class="string">"-"</span> + arr[<span class="number">3</span>] + <span class="string">"-"</span> + arr[<span class="number">4</span>] + <span class="string">"-"</span>);</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二十四个查询：<br>用到了数学的函数：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_24</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select abs(t.id),"</span> +</div><div class="line">                               <span class="string">"sqrt(t.id),"</span> +</div><div class="line">                               <span class="string">"mod(t.id, 2)"</span> +</div><div class="line">                               <span class="string">" from Topic t "</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Object[] arr = (Object[])o;</div><div class="line">      System.out.println(arr[<span class="number">0</span>] + <span class="string">"-"</span> + arr[<span class="number">1</span>] + <span class="string">"-"</span> + arr[<span class="number">2</span>] );</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二十五个查询：</p>
+<p>我们设想一个场景，就是在集群环境下，多台服务器都围绕着一个数据库做操作，那么这时用服务器自己的时间就会不统一，最好的办法是使用数据库的时间：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_25</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select current_date, current_time, current_timestamp, t.id from Topic t"</span>);</div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Object[] arr = (Object[])o;</div><div class="line">      System.out.println(arr[<span class="number">0</span>] + <span class="string">" | "</span> + arr[<span class="number">1</span>] + <span class="string">" | "</span> + arr[<span class="number">2</span>] + <span class="string">" | "</span> + arr[<span class="number">3</span>]);</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行：<br><img src="15.png" alt=""></p>
+<p>第二十六个查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_26</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Topic t where t.createDate &lt; :date"</span>);</div><div class="line">   q.setParameter(<span class="string">"date"</span>, <span class="keyword">new</span> Date());</div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Topic t = (Topic)o;</div><div class="line">      System.out.println(t.getTitle());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二十七个查询：<br>使用group by：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_27</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select t.title, count(*) from Topic t group by t.title"</span>) ;</div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Object[] arr = (Object[])o;</div><div class="line">      System.out.println(arr[<span class="number">0</span>] + <span class="string">"|"</span> + arr[<span class="number">1</span>]);</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_28</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"select t.title, count(*) from Topic t group by t.title having count(*) &gt;= 1"</span>) ;</div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Object[] arr = (Object[])o;</div><div class="line">      System.out.println(arr[<span class="number">0</span>] + <span class="string">"|"</span> + arr[<span class="number">1</span>]);</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二十九个查询：<br>使用子查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_29</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Topic t where t.id &lt; (select avg(t.id) from Topic t)"</span>) ;</div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Topic t = (Topic)o;</div><div class="line">      System.out.println(t.getTitle());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第三十个查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_30</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.createQuery(<span class="string">"from Topic t where t.id &lt; ALL (select t.id from Topic t where mod(t.id, 2)= 0) "</span>) ;</div><div class="line">   <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">      Topic t = (Topic)o;</div><div class="line">      System.out.println(t.getTitle());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>&lt;All</code>代表小于取出来所有值，也就是小于2、4、6、8等等所有取出来的值。没什么用</p>
+<p>第三十一个查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">//用in 可以实现exists的功能</span></div><div class="line">   <span class="comment">//但是exists执行效率高</span></div><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_31</span><span class="params">()</span> </span>&#123;</div><div class="line">      Session session = sf.openSession();</div><div class="line">      session.beginTransaction();<span class="comment">// t.id not in (1)</span></div><div class="line">      Query q = session.createQuery(<span class="string">"from Topic t where not exists (select m.id from Msg m where m.topic.id=t.id)"</span>) ;</div><div class="line"><span class="comment">//    Query q = session.createQuery("from Topic t where exists (select m.id from Msg m where m.topic.id=t.id)") ;</span></div><div class="line">      <span class="keyword">for</span>(Object o : q.list()) &#123;</div><div class="line">         Topic t = (Topic)o;</div><div class="line">         System.out.println(t.getTitle());</div><div class="line">      &#125;</div><div class="line">      session.getTransaction().commit();</div><div class="line">      session.close();</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>第三十三个查询：<br>用命名查询：</p>
+<p>在Topic.java上加上：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="meta">@NamedQueries</span>(</div><div class="line">      &#123;</div><div class="line">         <span class="meta">@NamedQuery</span>(name=<span class="string">"topic.selectCertainTopic"</span>, query=<span class="string">"from Topic t where t.id = :id"</span>)</div><div class="line">      &#125;</div><div class="line">      )</div></pre></td></tr></table></figure></p>
+<p>然后在测试代码中直接使用这一段已经命名的查询：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//不重要</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_33</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Query q = session.getNamedQuery(<span class="string">"topic.selectCertainTopic"</span>);</div><div class="line">   q.setParameter(<span class="string">"id"</span>, <span class="number">5</span>);</div><div class="line">   Topic t = (Topic)q.uniqueResult();</div><div class="line">   System.out.println(t.getTitle());</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第三十四个查询：</p>
+<p>使用本地Sql:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Native（了解）</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHQL_34</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   SQLQuery q = session.createSQLQuery(<span class="string">"select * from category limit 2,4"</span>).addEntity(Category.class);</div><div class="line">   List&lt;Category&gt; categories = (List&lt;Category&gt;)q.list();</div><div class="line">   <span class="keyword">for</span>(Category c : categories) &#123;</div><div class="line">      System.out.println(c.getName());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将category表中取出的结果转化成Category对象。</p>
+<p>以上就是HQL语句的所有例子，遇到不明白的就可以到上面查询。</p>
+<h2 id="第六十三课-Hibernate查询-HQL-EJBQL-QBC-QBE-5"><a href="#第六十三课-Hibernate查询-HQL-EJBQL-QBC-QBE-5" class="headerlink" title="第六十三课. Hibernate查询 HQL-EJBQL-QBC-QBE-5"></a>第六十三课. Hibernate查询 HQL-EJBQL-QBC-QBE-5</h2><p>QBE是QBC的一个子集。</p>
+<p>先来看QBC的测试代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQBC</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   <span class="comment">//criterion 标准/准则/约束</span></div><div class="line">   Criteria c = session.createCriteria(Topic.class) <span class="comment">//from Topic</span></div><div class="line">             </div><div class="line">             .add(Restrictions.gt(<span class="string">"id"</span>, <span class="number">2</span>)) <span class="comment">//greater than = id &gt; 2</span></div><div class="line">             .add(Restrictions.lt(<span class="string">"id"</span>, <span class="number">8</span>)) <span class="comment">//little than = id &lt; 8</span></div><div class="line">             .add(Restrictions.like(<span class="string">"title"</span>, <span class="string">"t_"</span>))</div><div class="line">             .createCriteria(<span class="string">"category"</span>)</div><div class="line">             .add(Restrictions.between(<span class="string">"id"</span>, <span class="number">3</span>, <span class="number">5</span>)) <span class="comment">//category.id &gt;= 3 and category.id &lt;=5</span></div><div class="line">             ;</div><div class="line">   <span class="comment">//DetachedCriterea</span></div><div class="line">   <span class="keyword">for</span>(Object o : c.list()) &#123;</div><div class="line">      Topic t = (Topic)o;</div><div class="line">      System.out.println(t.getId() + <span class="string">"-"</span> + t.getTitle());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Criteria就是一个可以让查询语言更像面向对象语言的解决方案，那么上面一个测试代码生成的sql语句就是：<br><img src="16.png" alt=""></p>
+<p>发现其实上面的语句是连接了两张表的。</p>
+<p>Criteria是与具体的session关联的，DetachedCriterea可以先创建，创建好之后再与session连接，更具有灵活性。</p>
+<p>下面来看QBE,也就是Query By Example（通过例子查询）:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//query by criteria query by example</span></div><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQBE</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   Topic tExample = <span class="keyword">new</span> Topic();</div><div class="line">   tExample.setTitle(<span class="string">"T_"</span>);</div><div class="line">   </div><div class="line">   Example e = Example.create(tExample)</div><div class="line">            .ignoreCase().enableLike();</div><div class="line">   Criteria c = session.createCriteria(Topic.class)</div><div class="line">             .add(Restrictions.gt(<span class="string">"id"</span>, <span class="number">2</span>))</div><div class="line">             .add(Restrictions.lt(<span class="string">"id"</span>, <span class="number">8</span>))</div><div class="line">             .add(e)</div><div class="line">             ;</div><div class="line">             </div><div class="line">   </div><div class="line">   <span class="keyword">for</span>(Object o : c.list()) &#123;</div><div class="line">      Topic t = (Topic)o;</div><div class="line">      System.out.println(t.getId() + <span class="string">"-"</span> + t.getTitle());</div><div class="line">   &#125;</div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hibernate/" rel="tag"># Hibernate</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/21/Hibernate6/" rel="next" title="Hibernate笔记（六） 集合映射、继承映射、树状映射和作业设计">
+                <i class="fa fa-chevron-left"></i> Hibernate笔记（六） 集合映射、继承映射、树状映射和作业设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十课-Hibernate查询-HQL-EJBQL-QBC-QBE-2"><span class="nav-number">1.</span> <span class="nav-text">第六十课. Hibernate查询 HQL-EJBQL-QBC-QBE-2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十一课-Hibernate查询-HQL-EJBQL-QBC-QBE-3"><span class="nav-number">2.</span> <span class="nav-text">第六十一课. Hibernate查询-HQL-EJBQL-QBC-QBE-3.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六十三课-Hibernate查询-HQL-EJBQL-QBC-QBE-5"><span class="nav-number">3.</span> <span class="nav-text">第六十三课. Hibernate查询 HQL-EJBQL-QBC-QBE-5</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
