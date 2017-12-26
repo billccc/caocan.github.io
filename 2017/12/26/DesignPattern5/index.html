@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍动态代理模式。">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式笔记（五） 动态代理">
+<meta property="og:url" content="https://caocan.github.io/2017/12/26/DesignPattern5/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍动态代理模式。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/9.png">
+<meta property="og:updated_time" content="2017-12-26T04:45:10.909Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式笔记（五） 动态代理">
+<meta name="twitter:description" content="本文主要介绍动态代理模式。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/26/DesignPattern5/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/12/26/DesignPattern5/"/>
+
+
+
+
+
+  <title>设计模式笔记（五） 动态代理 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/26/DesignPattern5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式笔记（五） 动态代理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-26T12:33:20+08:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍动态代理模式。<br><a id="more"></a></p>
+<h2 id="第一课"><a href="#第一课" class="headerlink" title="第一课"></a>第一课</h2><p>写一个Movable接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Movable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>写一个类Tank来实现这个接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> com.bjsxt.proxy.Movable;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Random;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tank</span> <span class="keyword">implements</span> <span class="title">Movable</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"Tank Moving...."</span>);</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">10000</span>));</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个类实现了Movable接口中的move方法，在里面打印了一行话，而且让线程睡眠了10s。</p>
+<p>现在我们想记录一下这个类的move方法运行的时间，该怎么实现呢？<br>第一种方法是在Tank类中的move方法上加时间戳，然后计算出运行时间。<br>第二种方法是继承这个类，然后在调用Tank类的move方法，在方法前后记录时间，做差就可以得出运行时间：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tank2</span> <span class="keyword">extends</span> <span class="title">Tank</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</div><div class="line">        <span class="keyword">super</span>.move();</div><div class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</div><div class="line">        System.out.println(<span class="string">"time:"</span> + (end - start));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>还有一种，就是采用聚合的思想，实现一个Movable接口，在类中加入Tank类的一个成员变量，在自己的move方法中加入对Tank对象的时间计算：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TankTimeProxy</span> <span class="keyword">implements</span> <span class="title">Movable</span></span>&#123;</div><div class="line">    Movable t;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TankTimeProxy</span><span class="params">(Movable t)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.t = t;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</div><div class="line">        System.out.println(<span class="string">"starttime:"</span> + start);</div><div class="line">        t.move();</div><div class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</div><div class="line">        System.out.println(<span class="string">"time:"</span> + (end - start));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果我们还想实现对Tank的日志记录，那么和上面的方法一样：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TankLogProxy</span> <span class="keyword">implements</span> <span class="title">Movable</span></span>&#123;</div><div class="line">    Movable t;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TankLogProxy</span><span class="params">(Movable t)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.t = t;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"Tank Start....."</span>);</div><div class="line">        t.move();</div><div class="line">        System.out.println(<span class="string">"Tank Stop....."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最初其实我们设计的时候，成员变量都是Tank类型的，但是我们要考虑这样一种需求，就是我们想先记录Tank的运行时间，再记录Tank的日志，那么就需要一个包含一个，所以为了可拓展性，我们将成员变量都定义为Movable类型，这样就可以写出如下的测试代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Tank t = <span class="keyword">new</span> Tank();</div><div class="line">        TankTimeProxy ttp = <span class="keyword">new</span> TankTimeProxy(t);</div><div class="line">        TankLogProxy tlp = <span class="keyword">new</span> TankLogProxy(ttp);</div><div class="line">        Movable m = tlp;</div><div class="line">        m.move();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样就先记录了运行时间，后又记录了日志。</p>
+<p>如果我们想先记录日志，后记录运行时间，那么可以很简单的修改:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Tank t = <span class="keyword">new</span> Tank();</div><div class="line">        TankLogProxy tlp = <span class="keyword">new</span> TankLogProxy(t);</div><div class="line">        TankTimeProxy ttp = <span class="keyword">new</span> TankTimeProxy(tlp);</div><div class="line">        Movable m = ttp;</div><div class="line">        m.move();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="第二课"><a href="#第二课" class="headerlink" title="第二课"></a>第二课</h2><p>前面的代理我们只能对Tank类产生代理，那我们能不能设计一个代理，可以对任何类都代理？</p>
+<p>这一次，我们就写测试类，叫Test1，里面呢，是把TankTimeProxy这个类的代码完完全全复制进来，并且做成一个字符串，然后我们利用jdk提供的编译器，来编译我们的这个字符串，使它形成一个二进制文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.compiler.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.tools.JavaCompiler;</div><div class="line"><span class="keyword">import</span> javax.tools.StandardJavaFileManager;</div><div class="line"><span class="keyword">import</span> javax.tools.ToolProvider;</div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileWriter;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        String rt = <span class="string">"\r\n"</span>;</div><div class="line">        String src = <span class="string">"package com.bjsxt.proxy;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"public class TankTimeProxy implements Movable&#123;"</span> + rt +</div><div class="line"></div><div class="line"></div><div class="line">                <span class="string">"   public TankTimeProxy(Movable t) &#123;"</span> + rt +</div><div class="line">                <span class="string">"       this.t = t;"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   Movable t;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   @Override "</span> + rt +</div><div class="line">                <span class="string">"   public void move()&#123;"</span> + rt +</div><div class="line">                <span class="string">"       long start = System.currentTimeMillis();"</span> + rt +</div><div class="line">                <span class="string">"       System.out.println(\"starttime:\" + start);"</span> + rt +</div><div class="line">                <span class="string">"       t.move();"</span> + rt +</div><div class="line">                <span class="string">"       long end = System.currentTimeMillis();"</span> + rt +</div><div class="line">                <span class="string">"       System.out.println(\"time:\" + (end - start));"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line">                <span class="string">"&#125;"</span>;</div><div class="line">        System.out.println(System.getProperty(<span class="string">"user.dir"</span>));</div><div class="line">        String fileName = System.getProperty(<span class="string">"user.dir"</span>)</div><div class="line">                            + <span class="string">"/src/com/bjsxt/proxy/TankTimeProxy.java"</span>;</div><div class="line">        File f = <span class="keyword">new</span> File(fileName);</div><div class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(f);</div><div class="line">        fw.write(src);</div><div class="line">        fw.flush();</div><div class="line">        fw.close();</div><div class="line"></div><div class="line">        <span class="comment">//先拿到编译器对象</span></div><div class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</div><div class="line">        System.out.println(compiler.getClass().getName());</div><div class="line"></div><div class="line">        <span class="comment">//拿到fileManager，动态管理文件</span></div><div class="line">        StandardJavaFileManager fileMgr = compiler.getStandardFileManager(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        Iterable units = fileMgr.getJavaFileObjects(fileName);</div><div class="line"></div><div class="line">        JavaCompiler.CompilationTask t = compiler.getTask(<span class="keyword">null</span>,fileMgr,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,units);</div><div class="line">        <span class="comment">//编译了我们的类</span></div><div class="line">        t.call();</div><div class="line">        fileMgr.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后运行起来发现，果真生成了一个TankTimeProxy.class文件：<br><img src="1.png" alt=""></p>
+<h2 id="第四课"><a href="#第四课" class="headerlink" title="第四课"></a>第四课</h2><p>刚刚我们将那个字符串编译成了二进制文件，接下来我们想把这个二进制文件load到内存中并且生成新对象：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.compiler.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.tools.JavaCompiler;</div><div class="line"><span class="keyword">import</span> javax.tools.StandardJavaFileManager;</div><div class="line"><span class="keyword">import</span> javax.tools.ToolProvider;</div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileWriter;</div><div class="line"><span class="keyword">import</span> java.net.URL;</div><div class="line"><span class="keyword">import</span> java.net.URLClassLoader;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        String rt = <span class="string">"\r\n"</span>;</div><div class="line">        String src = <span class="string">"package com.bjsxt.proxy;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"public class TankTimeProxy implements Movable&#123;"</span> + rt +</div><div class="line"></div><div class="line"></div><div class="line">                <span class="string">"   public TankTimeProxy(Movable t) &#123;"</span> + rt +</div><div class="line">                <span class="string">"       this.t = t;"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   Movable t;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   @Override "</span> + rt +</div><div class="line">                <span class="string">"   public void move()&#123;"</span> + rt +</div><div class="line">                <span class="string">"       long start = System.currentTimeMillis();"</span> + rt +</div><div class="line">                <span class="string">"       System.out.println(\"starttime:\" + start);"</span> + rt +</div><div class="line">                <span class="string">"       t.move();"</span> + rt +</div><div class="line">                <span class="string">"       long end = System.currentTimeMillis();"</span> + rt +</div><div class="line">                <span class="string">"       System.out.println(\"time:\" + (end - start));"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line">                <span class="string">"&#125;"</span>;</div><div class="line">        System.out.println(System.getProperty(<span class="string">"user.dir"</span>));</div><div class="line">        String fileName = System.getProperty(<span class="string">"user.dir"</span>)</div><div class="line">                            + <span class="string">"/src/com/bjsxt/proxy/TankTimeProxy.java"</span>;</div><div class="line">        File f = <span class="keyword">new</span> File(fileName);</div><div class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(f);</div><div class="line">        fw.write(src);</div><div class="line">        fw.flush();</div><div class="line">        fw.close();</div><div class="line"></div><div class="line">        <span class="comment">/*编译*/</span></div><div class="line">        <span class="comment">//先拿到编译器对象</span></div><div class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</div><div class="line">        System.out.println(compiler.getClass().getName());</div><div class="line"></div><div class="line">        <span class="comment">//拿到fileManager，动态管理文件</span></div><div class="line">        StandardJavaFileManager fileMgr = compiler.getStandardFileManager(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        Iterable units = fileMgr.getJavaFileObjects(fileName);</div><div class="line"></div><div class="line">        JavaCompiler.CompilationTask t = compiler.getTask(<span class="keyword">null</span>,fileMgr,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,units);</div><div class="line">        <span class="comment">//编译了我们的类</span></div><div class="line">        t.call();</div><div class="line">        fileMgr.close();</div><div class="line"></div><div class="line">        <span class="comment">//load into memory and create an instance</span></div><div class="line">        URL[] urls = <span class="keyword">new</span> URL[] &#123;<span class="keyword">new</span> URL(<span class="string">"file:/"</span> + System.getProperty(<span class="string">"user.dir"</span>) + <span class="string">"/src"</span>)&#125;;</div><div class="line">        URLClassLoader ul = <span class="keyword">new</span> URLClassLoader(urls);</div><div class="line">        Class c = ul.loadClass(<span class="string">"com.bjsxt.proxy.TankTimeProxy"</span>);</div><div class="line">        System.out.println(c);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意，用ClassLoader去load二进制文件时候，二进制文件必须在classpath下面，而这一次我们的二进制文件并不在classpath，所以我们这次使用URLClassLoader来load。</p>
+<h2 id="第五课"><a href="#第五课" class="headerlink" title="第五课"></a>第五课</h2><p>上一节中已经把二进制文件load到内存中，并且生成了新对象，现在我们要做的，就是拿到这个对象的构造器，然后创建一个新的实例，去调用这个实例的方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        String rt = <span class="string">"\r\n"</span>;</div><div class="line">        String src = <span class="string">"package com.bjsxt.proxy;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"public class TankTimeProxy implements Movable&#123;"</span> + rt +</div><div class="line"></div><div class="line"></div><div class="line">                <span class="string">"   public TankTimeProxy(Movable t) &#123;"</span> + rt +</div><div class="line">                <span class="string">"       this.t = t;"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   Movable t;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   @Override "</span> + rt +</div><div class="line">                <span class="string">"   public void move()&#123;"</span> + rt +</div><div class="line">                <span class="string">"       long start = System.currentTimeMillis();"</span> + rt +</div><div class="line">                <span class="string">"       System.out.println(\"starttime:\" + start);"</span> + rt +</div><div class="line">                <span class="string">"       t.move();"</span> + rt +</div><div class="line">                <span class="string">"       long end = System.currentTimeMillis();"</span> + rt +</div><div class="line">                <span class="string">"       System.out.println(\"time:\" + (end - start));"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line">                <span class="string">"&#125;"</span>;</div><div class="line">        System.out.println(System.getProperty(<span class="string">"user.dir"</span>));</div><div class="line">        String fileName = System.getProperty(<span class="string">"user.dir"</span>)</div><div class="line">                            + <span class="string">"/src/com/bjsxt/proxy/TankTimeProxy.java"</span>;</div><div class="line">        File f = <span class="keyword">new</span> File(fileName);</div><div class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(f);</div><div class="line">        fw.write(src);</div><div class="line">        fw.flush();</div><div class="line">        fw.close();</div><div class="line"></div><div class="line">        <span class="comment">/*编译*/</span></div><div class="line">        <span class="comment">//先拿到编译器对象</span></div><div class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</div><div class="line">        System.out.println(compiler.getClass().getName());</div><div class="line"></div><div class="line">        <span class="comment">//拿到fileManager，动态管理文件</span></div><div class="line">        StandardJavaFileManager fileMgr = compiler.getStandardFileManager(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        Iterable units = fileMgr.getJavaFileObjects(fileName);</div><div class="line"></div><div class="line">        JavaCompiler.CompilationTask t = compiler.getTask(<span class="keyword">null</span>,fileMgr,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,units);</div><div class="line">        <span class="comment">//编译了我们的类</span></div><div class="line">        t.call();</div><div class="line">        fileMgr.close();</div><div class="line"></div><div class="line">        <span class="comment">//load into memory and create an instance</span></div><div class="line">        URL[] urls = <span class="keyword">new</span> URL[] &#123;<span class="keyword">new</span> URL(<span class="string">"file:/"</span> + System.getProperty(<span class="string">"user.dir"</span>) + <span class="string">"/src"</span>)&#125;;</div><div class="line">        URLClassLoader ul = <span class="keyword">new</span> URLClassLoader(urls);</div><div class="line">        Class c = ul.loadClass(<span class="string">"com.bjsxt.proxy.TankTimeProxy"</span>);</div><div class="line">        System.out.println(c);</div><div class="line"></div><div class="line">        Constructor ctr = c.getConstructor(Movable.class);</div><div class="line"></div><div class="line">        Movable m = (Movable) ctr.newInstance(<span class="keyword">new</span> Tank());</div><div class="line"></div><div class="line">        m.move();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="2.png" alt=""></p>
+<p>发现也可以去执行我们TankTimeProxy的move方法，实现了和我们之前写的TankTimeProxy相同的代理功能。</p>
+<h2 id="第六课"><a href="#第六课" class="headerlink" title="第六课"></a>第六课</h2><p>上面我们实现的都是一个写死的接口代理，现在我们想代理任何的接口，不光局限于Movable，怎么做？</p>
+<p>我们新创建一个Proxy类，这个类和之前的Test写法几乎一模一样，只是我们在创建一个新代理实例的时候，需要传入一个参数，这个参数指定我们想要给哪一个接口去生成代理：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.tools.JavaCompiler;</div><div class="line"><span class="keyword">import</span> javax.tools.StandardJavaFileManager;</div><div class="line"><span class="keyword">import</span> javax.tools.ToolProvider;</div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileWriter;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</div><div class="line"><span class="keyword">import</span> java.net.URL;</div><div class="line"><span class="keyword">import</span> java.net.URLClassLoader;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(Class infce)</span> <span class="keyword">throws</span> Exception</span>&#123; <span class="comment">//JDK6 Complier API， CGLib， ASM</span></div><div class="line"></div><div class="line">        String rt = <span class="string">"\r\n"</span>;</div><div class="line">        String src = <span class="string">"package com.bjsxt.proxy;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"public class TankTimeProxy implements "</span> + infce.getName() + <span class="string">"&#123;"</span> + rt +</div><div class="line"></div><div class="line"></div><div class="line">                <span class="string">"   public TankTimeProxy(Movable t) &#123;"</span> + rt +</div><div class="line">                <span class="string">"       this.t = t;"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   Movable t;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   @Override "</span> + rt +</div><div class="line">                <span class="string">"   public void move()&#123;"</span> + rt +</div><div class="line">                <span class="string">"       long start = System.currentTimeMillis();"</span> + rt +</div><div class="line">                <span class="string">"       System.out.println(\"starttime:\" + start);"</span> + rt +</div><div class="line">                <span class="string">"       t.move();"</span> + rt +</div><div class="line">                <span class="string">"       long end = System.currentTimeMillis();"</span> + rt +</div><div class="line">                <span class="string">"       System.out.println(\"time:\" + (end - start));"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line">                <span class="string">"&#125;"</span>;</div><div class="line"></div><div class="line">        System.out.println(System.getProperty(<span class="string">"user.dir"</span>));</div><div class="line">        String fileName = System.getProperty(<span class="string">"user.dir"</span>)</div><div class="line">                + <span class="string">"/src/com/bjsxt/proxy/TankTimeProxy.java"</span>;</div><div class="line">        File f = <span class="keyword">new</span> File(fileName);</div><div class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(f);</div><div class="line">        fw.write(src);</div><div class="line">        fw.flush();</div><div class="line">        fw.close();</div><div class="line"></div><div class="line">        <span class="comment">/*编译*/</span></div><div class="line">        <span class="comment">//先拿到编译器对象</span></div><div class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</div><div class="line">        System.out.println(compiler.getClass().getName());</div><div class="line"></div><div class="line">        <span class="comment">//拿到fileManager，动态管理文件</span></div><div class="line">        StandardJavaFileManager fileMgr = compiler.getStandardFileManager(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        Iterable units = fileMgr.getJavaFileObjects(fileName);</div><div class="line"></div><div class="line">        JavaCompiler.CompilationTask t = compiler.getTask(<span class="keyword">null</span>,fileMgr,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,units);</div><div class="line">        <span class="comment">//编译了我们的类</span></div><div class="line">        t.call();</div><div class="line">        fileMgr.close();</div><div class="line"></div><div class="line">        <span class="comment">//load into memory and create an instance</span></div><div class="line">        URL[] urls = <span class="keyword">new</span> URL[] &#123;<span class="keyword">new</span> URL(<span class="string">"file:/"</span> + System.getProperty(<span class="string">"user.dir"</span>) + <span class="string">"/src"</span>)&#125;;</div><div class="line">        URLClassLoader ul = <span class="keyword">new</span> URLClassLoader(urls);</div><div class="line">        Class c = ul.loadClass(<span class="string">"com.bjsxt.proxy.TankTimeProxy"</span>);</div><div class="line">        System.out.println(c);</div><div class="line"></div><div class="line">        Constructor ctr = c.getConstructor(Movable.class);</div><div class="line"></div><div class="line">        Movable m = (Movable) ctr.newInstance(<span class="keyword">new</span> Tank());</div><div class="line"></div><div class="line">        m.move();</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样当我们在测试程序中传入一个Movable.class的时候，生成的.java文件和.class文件就会自动实现这个接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.Serializable;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        Tank t = <span class="keyword">new</span> Tank();</div><div class="line"></div><div class="line">        Movable m = (Movable) Proxy.newProxyInstance(Movable.class);</div><div class="line"></div><div class="line">        m.move();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行之后生成的.java文件为：<br><img src="3.png" alt=""></p>
+<p>如果我们换成传入Serializable.class，那么结果为：<br><img src="4.png" alt=""></p>
+<p>Ok，这一段很清晰。就是我们可以去实现任何接口的代理，只要我们去传递参数。</p>
+<p>有了这个基础，我们可以利用java的反射机制，来获取一个接口中拥有的所有方法，然后动态的为每一个方法去生成代理方法。先来测试一个反射：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.compiler.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Method[] methods = com.bjsxt.proxy.Movable.class.getMethods();</div><div class="line">        <span class="keyword">for</span> (Method m : methods)</div><div class="line">            System.out.println(m.getName());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行：<br><img src="5.png" alt=""></p>
+<p>我们已经获取到了Movable的方法。</p>
+<p>下面我们就在我们的Proxy类中对这种方式进行应用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.tools.JavaCompiler;</div><div class="line"><span class="keyword">import</span> javax.tools.StandardJavaFileManager;</div><div class="line"><span class="keyword">import</span> javax.tools.ToolProvider;</div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileWriter;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> java.net.URL;</div><div class="line"><span class="keyword">import</span> java.net.URLClassLoader;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(Class infce)</span> <span class="keyword">throws</span> Exception</span>&#123; <span class="comment">//JDK6 Complier API， CGLib， ASM</span></div><div class="line"></div><div class="line">        String methodString = <span class="string">""</span>;</div><div class="line">        String rt = <span class="string">"\r\n"</span>;</div><div class="line"></div><div class="line">        Method[] methods = infce.getMethods();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (Method m : methods)&#123;</div><div class="line">            methodString += <span class="string">"@Override"</span> + rt +</div><div class="line">                            <span class="string">"public void "</span> + m.getName() + <span class="string">"() &#123;"</span> + rt +</div><div class="line">                            <span class="string">"       long start = System.currentTimeMillis();"</span> + rt +</div><div class="line">                            <span class="string">"       System.out.println(\"starttime:\" + start);"</span> + rt +</div><div class="line">                            <span class="string">"       t."</span> + m.getName() + <span class="string">"();"</span> + rt +</div><div class="line">                            <span class="string">"       long end = System.currentTimeMillis();"</span> + rt +</div><div class="line">                            <span class="string">"       System.out.println(\"time:\" + (end - start));"</span> + rt +</div><div class="line">                            <span class="string">"&#125;"</span> + rt;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        System.out.println(methodString);</div><div class="line"></div><div class="line"></div><div class="line">        String src = <span class="string">"package com.bjsxt.proxy;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"public class TankTimeProxy implements "</span> + infce.getName() + <span class="string">"&#123;"</span> + rt +</div><div class="line"></div><div class="line"></div><div class="line">                <span class="string">"   public TankTimeProxy(Movable t) &#123;"</span> + rt +</div><div class="line">                <span class="string">"       this.t = t;"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   Movable t;"</span> + rt +</div><div class="line"></div><div class="line">               methodString +</div><div class="line">                <span class="string">"&#125;"</span>;</div><div class="line"></div><div class="line">        System.out.println(System.getProperty(<span class="string">"user.dir"</span>));</div><div class="line">        String fileName = System.getProperty(<span class="string">"user.dir"</span>)</div><div class="line">                + <span class="string">"/src/com/bjsxt/proxy/TankTimeProxy.java"</span>;</div><div class="line">        File f = <span class="keyword">new</span> File(fileName);</div><div class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(f);</div><div class="line">        fw.write(src);</div><div class="line">        fw.flush();</div><div class="line">        fw.close();</div><div class="line"></div><div class="line">        <span class="comment">/*编译*/</span></div><div class="line">        <span class="comment">//先拿到编译器对象</span></div><div class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</div><div class="line">        System.out.println(compiler.getClass().getName());</div><div class="line"></div><div class="line">        <span class="comment">//拿到fileManager，动态管理文件</span></div><div class="line">        StandardJavaFileManager fileMgr = compiler.getStandardFileManager(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        Iterable units = fileMgr.getJavaFileObjects(fileName);</div><div class="line"></div><div class="line">        JavaCompiler.CompilationTask t = compiler.getTask(<span class="keyword">null</span>,fileMgr,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,units);</div><div class="line">        <span class="comment">//编译了我们的类</span></div><div class="line">        t.call();</div><div class="line">        fileMgr.close();</div><div class="line"></div><div class="line">        <span class="comment">//load into memory and create an instance</span></div><div class="line">        URL[] urls = <span class="keyword">new</span> URL[] &#123;<span class="keyword">new</span> URL(<span class="string">"file:/"</span> + System.getProperty(<span class="string">"user.dir"</span>) + <span class="string">"/src"</span>)&#125;;</div><div class="line">        URLClassLoader ul = <span class="keyword">new</span> URLClassLoader(urls);</div><div class="line">        Class c = ul.loadClass(<span class="string">"com.bjsxt.proxy.TankTimeProxy"</span>);</div><div class="line">        System.out.println(c);</div><div class="line"></div><div class="line">        Constructor ctr = c.getConstructor(Movable.class);</div><div class="line"></div><div class="line"><span class="comment">//        Movable m = (Movable) ctr.newInstance(new Tank());</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//        m.move();</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过methodString字符串，我们就可以生成所有这个接口的方法的代理，并且最后嵌入总的代码中。我们来运行试一下，看看能不能生成想要的代码：<br><img src="6.png" alt=""></p>
+<p>非常完美！</p>
+<p>我们试着换一下接口，去实现Comparable接口的代理代码：<br><img src="7.png" alt=""></p>
+<p>且不管语法对错，总之也可以生成我们想要的代码。</p>
+<p>我们想让Proxy代码返回目标对象，然后去执行对象方法，需要做一点小小的修改：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(Class infce)</span> <span class="keyword">throws</span> Exception</span>&#123; <span class="comment">//JDK6 Complier API， CGLib， ASM</span></div><div class="line"></div><div class="line">        String methodString = <span class="string">""</span>;</div><div class="line">        String rt = <span class="string">"\r\n"</span>;</div><div class="line"></div><div class="line">        Method[] methods = infce.getMethods();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (Method m : methods)&#123;</div><div class="line">            methodString += <span class="string">"@Override"</span> + rt +</div><div class="line">                            <span class="string">"public void "</span> + m.getName() + <span class="string">"() &#123;"</span> + rt +</div><div class="line">                            <span class="string">"       long start = System.currentTimeMillis();"</span> + rt +</div><div class="line">                            <span class="string">"       System.out.println(\"starttime:\" + start);"</span> + rt +</div><div class="line">                            <span class="string">"       t."</span> + m.getName() + <span class="string">"();"</span> + rt +</div><div class="line">                            <span class="string">"       long end = System.currentTimeMillis();"</span> + rt +</div><div class="line">                            <span class="string">"       System.out.println(\"time:\" + (end - start));"</span> + rt +</div><div class="line">                            <span class="string">"&#125;"</span> + rt;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        System.out.println(methodString);</div><div class="line"></div><div class="line"></div><div class="line">        String src = <span class="string">"package com.bjsxt.proxy;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"public class TankTimeProxy implements "</span> + infce.getName() + <span class="string">"&#123;"</span> + rt +</div><div class="line"></div><div class="line"></div><div class="line">                <span class="string">"   public TankTimeProxy(Movable t) &#123;"</span> + rt +</div><div class="line">                <span class="string">"       this.t = t;"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   Movable t;"</span> + rt +</div><div class="line"></div><div class="line">               methodString +</div><div class="line">                <span class="string">"&#125;"</span>;</div><div class="line"></div><div class="line">        System.out.println(System.getProperty(<span class="string">"user.dir"</span>));</div><div class="line">        String fileName = <span class="string">"d:/src/com/bjsxt/proxy/TankTimeProxy.java"</span>;</div><div class="line">        File f = <span class="keyword">new</span> File(fileName);</div><div class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(f);</div><div class="line">        fw.write(src);</div><div class="line">        fw.flush();</div><div class="line">        fw.close();</div><div class="line"></div><div class="line">        <span class="comment">/*编译*/</span></div><div class="line">        <span class="comment">//先拿到编译器对象</span></div><div class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</div><div class="line">        System.out.println(compiler.getClass().getName());</div><div class="line"></div><div class="line">        <span class="comment">//拿到fileManager，动态管理文件</span></div><div class="line">        StandardJavaFileManager fileMgr = compiler.getStandardFileManager(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        Iterable units = fileMgr.getJavaFileObjects(fileName);</div><div class="line"></div><div class="line">        JavaCompiler.CompilationTask t = compiler.getTask(<span class="keyword">null</span>,fileMgr,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,units);</div><div class="line">        <span class="comment">//编译了我们的类</span></div><div class="line">        t.call();</div><div class="line">        fileMgr.close();</div><div class="line"></div><div class="line">        <span class="comment">//load into memory and create an instance</span></div><div class="line">        URL[] urls = <span class="keyword">new</span> URL[] &#123;<span class="keyword">new</span> URL(<span class="string">"file:/"</span> + <span class="string">"d:/src/"</span>)&#125;;</div><div class="line">        URLClassLoader ul = <span class="keyword">new</span> URLClassLoader(urls);</div><div class="line">        Class c = ul.loadClass(<span class="string">"com.bjsxt.proxy.TankTimeProxy"</span>);</div><div class="line">        System.out.println(c);</div><div class="line"></div><div class="line">        Constructor ctr = c.getConstructor(Movable.class);</div><div class="line"></div><div class="line">        Object m = ctr.newInstance(<span class="keyword">new</span> Tank());</div><div class="line"></div><div class="line"><span class="comment">//        Movable m = (Movable) ctr.newInstance(new Tank());</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//        m.move();</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> m;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>就是我们自己去建立一个文件夹d:/src/com/bjsxt/proxy，然后将fileName和URL进行修改，并且将方法返回类型改成Object，这样就可以去执行代理的move方法了：<br><img src="8.png" alt=""></p>
+<h2 id="第八课"><a href="#第八课" class="headerlink" title="第八课"></a>第八课</h2><p>上面已经实现可以为任意接口做代理的功能，那如果我们想动态实现任意的代理，就是说，可以实现记录时间的代理，或者记录日志的代理，等等，这个该怎么动态实现呢？</p>
+<p>这一次我们定义一个InvocationHandler接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InvocationHandler</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invoke</span><span class="params">(Object o, Method m)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后需要实现什么功能的代理就去实现这个接口，比如我们去实现一个TimeHandler类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimeHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Object target;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TimeHandler</span><span class="params">(Object target)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.target = target;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getO</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> target;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setO</span><span class="params">(Object o)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.target = o;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invoke</span><span class="params">(Object o, Method m)</span> </span>&#123;</div><div class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</div><div class="line">        System.out.println(<span class="string">"starttime:"</span> + start);</div><div class="line">        System.out.println(o.getClass().getName());</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            m.invoke(target);</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</div><div class="line">        System.out.println(<span class="string">"time:"</span> + (end-start));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这个实现中，我们内部加入了一个Object类的target成员变量，这个变量其实就是我们将来要去为之实现代理的类。</p>
+<p>然后重新设计Proxy类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.tools.JavaCompiler;</div><div class="line"><span class="keyword">import</span> javax.tools.StandardJavaFileManager;</div><div class="line"><span class="keyword">import</span> javax.tools.ToolProvider;</div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileWriter;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> java.net.URL;</div><div class="line"><span class="keyword">import</span> java.net.URLClassLoader;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(Class infce, InvocationHandler h)</span> <span class="keyword">throws</span> Exception</span>&#123; <span class="comment">//JDK6 Complier API， CGLib， ASM</span></div><div class="line"></div><div class="line">        String methodString = <span class="string">""</span>;</div><div class="line">        String rt = <span class="string">"\r\n"</span>;</div><div class="line"></div><div class="line">        Method[] methods = infce.getMethods();</div><div class="line"></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (Method m : methods)&#123;</div><div class="line">            methodString += <span class="string">"@Override"</span> + rt +</div><div class="line">                    <span class="string">"public void "</span> + m.getName() + <span class="string">"() &#123;"</span> + rt +</div><div class="line">                    <span class="string">"   try&#123; "</span> + rt +</div><div class="line">                    <span class="string">"   Method md = "</span> + infce.getName() + <span class="string">".class.getMethod(\""</span> + m.getName() + <span class="string">"\");"</span> + rt +</div><div class="line">                    <span class="string">"   h.invoke(this, md);"</span> + rt +</div><div class="line">                    <span class="string">"   &#125;catch(Exception e)&#123;e.printStackTrace();&#125;"</span> + rt +</div><div class="line">                    <span class="string">"&#125;"</span> + rt;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        System.out.println(methodString);</div><div class="line"></div><div class="line"></div><div class="line">        String src = <span class="string">"package com.bjsxt.proxy;"</span> + rt +</div><div class="line">                <span class="string">"import java.lang.reflect.Method;"</span> + rt +</div><div class="line">                <span class="string">"public class TankTimeProxy implements "</span> + infce.getName() + <span class="string">"&#123;"</span> + rt +</div><div class="line"></div><div class="line"></div><div class="line">                <span class="string">"   public TankTimeProxy(InvocationHandler h) &#123;"</span> + rt +</div><div class="line">                <span class="string">"       this.h = h;"</span> + rt +</div><div class="line">                <span class="string">"   &#125;"</span> + rt +</div><div class="line"></div><div class="line">                <span class="string">"   com.bjsxt.proxy.InvocationHandler h;"</span> + rt +</div><div class="line"></div><div class="line">               methodString +</div><div class="line">                <span class="string">"&#125;"</span>;</div><div class="line"></div><div class="line">        System.out.println(System.getProperty(<span class="string">"user.dir"</span>));</div><div class="line">        String fileName = <span class="string">"d:/src/com/bjsxt/proxy/TankTimeProxy.java"</span>;</div><div class="line">        File f = <span class="keyword">new</span> File(fileName);</div><div class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(f);</div><div class="line">        fw.write(src);</div><div class="line">        fw.flush();</div><div class="line">        fw.close();</div><div class="line"></div><div class="line">        <span class="comment">/*编译*/</span></div><div class="line">        <span class="comment">//先拿到编译器对象</span></div><div class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</div><div class="line">        System.out.println(compiler.getClass().getName());</div><div class="line"></div><div class="line">        <span class="comment">//拿到fileManager，动态管理文件</span></div><div class="line">        StandardJavaFileManager fileMgr = compiler.getStandardFileManager(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">        Iterable units = fileMgr.getJavaFileObjects(fileName);</div><div class="line"></div><div class="line">        JavaCompiler.CompilationTask t = compiler.getTask(<span class="keyword">null</span>,fileMgr,<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,units);</div><div class="line">        <span class="comment">//编译了我们的类</span></div><div class="line">        t.call();</div><div class="line">        fileMgr.close();</div><div class="line"></div><div class="line">        <span class="comment">//load into memory and create an instance</span></div><div class="line">        URL[] urls = <span class="keyword">new</span> URL[] &#123;<span class="keyword">new</span> URL(<span class="string">"file:/"</span> + <span class="string">"d:/src/"</span>)&#125;;</div><div class="line">        URLClassLoader ul = <span class="keyword">new</span> URLClassLoader(urls);</div><div class="line">        Class c = ul.loadClass(<span class="string">"com.bjsxt.proxy.TankTimeProxy"</span>);</div><div class="line">        System.out.println(c);</div><div class="line"></div><div class="line">        Constructor ctr = c.getConstructor(InvocationHandler.class);</div><div class="line"></div><div class="line">        Object m = ctr.newInstance(h);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> m;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这一次，我们通过getConstructor方法拿到InvocationHandler类的构造器，然后去传入一个被传入的InvocationHandler参数，这里是h，其实可以就是我们刚刚的TimeHandler，这样就可以构造出一个加了被代理的类的对象。</p>
+<p>我们在测试代码中这么写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.Serializable;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        Tank t = <span class="keyword">new</span> Tank();</div><div class="line">        InvocationHandler h = <span class="keyword">new</span> TimeHandler(t);</div><div class="line"></div><div class="line">        Movable m = (Movable) Proxy.newProxyInstance(Movable.class, h);</div><div class="line"></div><div class="line">        m.move();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行一下：<br><img src="9.png" alt=""></p>
+<p>这样就完成了对任意的对象，任意的接口方法，实现任意的代理。</p>
+<h2 id="第九课"><a href="#第九课" class="headerlink" title="第九课"></a>第九课</h2><p>有了上面的基础，我们来完成一个例子，就是定义一个用户管理的接口，这个管理者有一个add方法，我们现在就是想用上面的方法，为这个类设计一个动态的代理，可以使得这个类在执行add方法之外包上一个事务管理的代理功能。</p>
+<p>先设计UserMgr接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy.test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserMgr</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addUser</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>设计一个UserMgrImpl类来实现这个接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy.test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserMgrImpl</span> <span class="keyword">implements</span> <span class="title">UserMgr</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"1: 插入记录到User表"</span>);</div><div class="line">        System.out.println(<span class="string">"2: 做日志在另外一张表"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接下来我们就要去实现一个事务管理的代理（TransactionHandler.java）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.proxy.InvocationHandler;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransactionHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TransactionHandler</span><span class="params">(Object target)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.target = target;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Object target;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invoke</span><span class="params">(Object o, Method m)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"Transaction Start"</span>);</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            m.invoke(target);</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"Transaction Commit"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>写一个测试代码，将UserMgrImpl传入到TransactionHandler中，然后将这个代理传入到Proxy的newProxyInstance方法中，构造一个被代理的类，接下来就可以调用其addUser方法了：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.proxy.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.proxy.InvocationHandler;</div><div class="line"><span class="keyword">import</span> com.bjsxt.proxy.Proxy;</div><div class="line"><span class="keyword">import</span> com.bjsxt.proxy.TimeHandler;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        UserMgr mgr = <span class="keyword">new</span> UserMgrImpl();</div><div class="line">        InvocationHandler h = <span class="keyword">new</span> TransactionHandler(mgr);</div><div class="line"></div><div class="line">        UserMgr u = (UserMgr) Proxy.newProxyInstance(UserMgr.class, h);</div><div class="line">        u.addUser();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/26/DesignPattern4/" rel="next" title="设计模式笔记（四） Strategy">
+                <i class="fa fa-chevron-left"></i> 设计模式笔记（四） Strategy
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一课"><span class="nav-number">1.</span> <span class="nav-text">第一课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二课"><span class="nav-number">2.</span> <span class="nav-text">第二课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四课"><span class="nav-number">3.</span> <span class="nav-text">第四课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五课"><span class="nav-number">4.</span> <span class="nav-text">第五课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六课"><span class="nav-number">5.</span> <span class="nav-text">第六课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课"><span class="nav-number">6.</span> <span class="nav-text">第八课</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课"><span class="nav-number">7.</span> <span class="nav-text">第九课</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
