@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要模拟一下Spring。">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring笔记（一） 模拟Spring">
+<meta property="og:url" content="https://caocan.github.io/2017/12/29/Spring1/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要模拟一下Spring。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/1.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/2.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/3.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/4.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/5.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/6.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/7.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/8.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/9.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/10.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/11.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/12.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/13.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/15.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/29/Spring1/16.png">
+<meta property="og:updated_time" content="2017-12-29T13:55:16.367Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring笔记（一） 模拟Spring">
+<meta name="twitter:description" content="本文主要模拟一下Spring。">
+<meta name="twitter:image" content="https://caocan.github.io/2017/12/29/Spring1/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2017/12/29/Spring1/"/>
+
+
+
+
+
+  <title>Spring笔记（一） 模拟Spring | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2017/12/29/Spring1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring笔记（一） 模拟Spring</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T21:29:01+08:00">
+                2017-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要模拟一下Spring。<br><a id="more"></a></p>
+<h2 id="第一课-模拟Spring-01"><a href="#第一课-模拟Spring-01" class="headerlink" title="第一课. 模拟Spring-01"></a>第一课. 模拟Spring-01</h2><p>课程内容</p>
+<ol>
+<li>面向接口（抽象）编程的概念与好处</li>
+<li>IOC/DI的概念与好处<br>a)    Inversion of control<br>b)    dependency injection</li>
+<li>AOP的概念与好处</li>
+<li>Spring简介</li>
+<li>Spring应用IOC/DI（重要）<br>a)    xml<br>b)    annotation</li>
+<li>Spring应用AOP（重要）<br>a)    xml<br>b)    annotation</li>
+<li>Struts2.1.6 + Spring 2.5.6 + Hibernate3.3.2整合（重要）<br>a)    opensessionInviewfilter（记住，解决什么问题，怎么解决）</li>
+</ol>
+<h2 id="第二课-模拟Spring-02"><a href="#第二课-模拟Spring-02" class="headerlink" title="第二课. 模拟Spring-02"></a>第二课. 模拟Spring-02</h2><p>Spring框架图示：<br><img src="1.png" alt=""></p>
+<h2 id="第三课-模拟Spring-03"><a href="#第三课-模拟Spring-03" class="headerlink" title="第三课. 模拟Spring-03"></a>第三课. 模拟Spring-03</h2><p>这一节开始，我们模拟Spring。</p>
+<p>我们来设想一个处理用户的场景，在这个系统里，可以添加用户，并且把用户存储到数据库里。</p>
+<p>创建四个包：<br><img src="2.png" alt=""></p>
+<p>在com.bjsxt.model中创建Model，也就是User：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.model;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.username = username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.password = password;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在com,bjsxt.dao中创建DAO的抽象接口，这个接口的主要功能是去保存一个用户：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.dao;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDAO</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User u)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后我们在com.bjsxt.dao.impl包中实现这个接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.dao.impl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDAOImpl</span> <span class="keyword">implements</span> <span class="title">UserDAO</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User u)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"a user saved!"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在com.bjsxt.service包中，创建业务逻辑，也就是处理用户的service：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> UserDAO userDAO = <span class="keyword">new</span> UserDAOImpl();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User u)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO.save(u);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> UserDAO <span class="title">getUserDAO</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> userDAO;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDAO</span><span class="params">(UserDAO userDAO)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO = userDAO;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意：为什么要创建一个DAO的接口？主要是为了可扩展性，比如这个DAO是要与数据库打交道，那么具体实现可以有Mysql的实现，也可以有Oracle的实现。</p>
+<h2 id="第四课-模拟Spring-04"><a href="#第四课-模拟Spring-04" class="headerlink" title="第四课. 模拟Spring-04"></a>第四课. 模拟Spring-04</h2><p>先模拟一下Spring的配置文件，其实这一部分内容之前在工厂模式的笔记中有。</p>
+<p>先创建一个test.xml：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</div><div class="line">&lt;HD&gt;</div><div class="line">    &lt;disk name=<span class="string">"C"</span>&gt;</div><div class="line">        &lt;capacity&gt;8G&lt;/capacity&gt;</div><div class="line">        &lt;directories&gt;200&lt;/directories&gt;</div><div class="line">        &lt;files&gt;1580&lt;/files&gt;</div><div class="line">    &lt;/disk&gt;</div><div class="line">    &lt;disk name=<span class="string">"D"</span>&gt;</div><div class="line">        &lt;capacity&gt;10G&lt;/capacity&gt;</div><div class="line">        &lt;directories&gt;500&lt;/directories&gt;</div><div class="line">        &lt;files&gt;3000&lt;/files&gt;</div><div class="line">    &lt;/disk&gt;</div><div class="line">&lt;/HD&gt;</div></pre></td></tr></table></figure></p>
+<p>然后我们引入jdom.jar这个jar包，编写代码去解析xml中内容：<br>(Sample1.java)：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.jdom.*;</div><div class="line"><span class="keyword">import</span> org.jdom.input.SAXBuilder;</div><div class="line"><span class="keyword">import</span> org.jdom.xpath.XPath;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sample1</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        SAXBuilder sb = <span class="keyword">new</span> SAXBuilder();</div><div class="line">        Document doc = sb.build(Sample1.class.getClassLoader().getResourceAsStream(<span class="string">"test.xml"</span>));</div><div class="line">        Element root = doc.getRootElement();</div><div class="line">        List list = root.getChildren(<span class="string">"disk"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</div><div class="line">            Element element = (Element) list.get(i);</div><div class="line">            String name = element.getAttributeValue(<span class="string">"name"</span>);</div><div class="line">            String capacity = element.getChildText(<span class="string">"capacity"</span>); <span class="comment">//取disk子元素capacity的内容</span></div><div class="line">            String directories = element.getChildText(<span class="string">"directories"</span>);</div><div class="line">            String files = element.getChildText(<span class="string">"files"</span>);</div><div class="line">            System.out.println(<span class="string">"磁盘信息:"</span>);</div><div class="line">            System.out.println(<span class="string">"分区盘符:"</span> + name);</div><div class="line">            System.out.println(<span class="string">"分区容量:"</span> + capacity);</div><div class="line">            System.out.println(<span class="string">"目录数:"</span> + directories);</div><div class="line">            System.out.println(<span class="string">"文件数:"</span> + files);</div><div class="line">            System.out.println(<span class="string">"-----------------------------------"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="第五课-模拟Spring-05"><a href="#第五课-模拟Spring-05" class="headerlink" title="第五课. 模拟Spring-05"></a>第五课. 模拟Spring-05</h2><p>基于上面的技术，我们把可以替换的类写到配置文件，然后去读xml配置即可。</p>
+<p>beans.xml：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"u"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.dao.impl.UserDAOImpl"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后创建一个com.bjsxt.spring的包，在包内创建一个Bean工厂：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.spring;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanFactory</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getBean</span><span class="params">(String name)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后模仿Spring创建一个ClassPathXmlApplicationContext类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.spring;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.jdom.Document;</div><div class="line"><span class="keyword">import</span> org.jdom.Element;</div><div class="line"><span class="keyword">import</span> org.jdom.JDOMException;</div><div class="line"><span class="keyword">import</span> org.jdom.input.SAXBuilder;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassPathXmlApplicationContext</span> <span class="keyword">implements</span> <span class="title">BeanFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getBean</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> beans.get(name);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; beans = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ClassPathXmlApplicationContext</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        SAXBuilder sb = <span class="keyword">new</span> SAXBuilder();</div><div class="line">        Document doc = sb.build(<span class="keyword">this</span>.getClass().getClassLoader().getResourceAsStream(<span class="string">"beans.xml"</span>));</div><div class="line">        Element root = doc.getRootElement();    <span class="comment">//获取根元素</span></div><div class="line">        List list = root.getChildren(<span class="string">"bean"</span>);   <span class="comment">//取名字为disk的所有元素</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++)&#123;</div><div class="line">            Element element = (Element)list.get(i);</div><div class="line">            String id = element.getAttributeValue(<span class="string">"id"</span>);</div><div class="line">            String clazz = element.getAttributeValue(<span class="string">"class"</span>);</div><div class="line">            System.out.println(id + <span class="string">":"</span> + clazz);</div><div class="line">            Object o = Class.forName(clazz).newInstance();</div><div class="line">            beans.put(id, o);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就可以解析xml，读到配置文件中的内容。</p>
+<p>然后我们按照惯例，在project下创建一个test文件夹，在里面创建一个com.bjsxt.service的包，编写测试代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.spring.BeanFactory;</div><div class="line"><span class="keyword">import</span> com.bjsxt.spring.ClassPathXmlApplicationContext;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line"></div><div class="line">        BeanFactory factory = <span class="keyword">new</span> ClassPathXmlApplicationContext();</div><div class="line"></div><div class="line">        UserService service = <span class="keyword">new</span> UserService();</div><div class="line">        UserDAO userDAO = (UserDAO)factory.getBean(<span class="string">"u"</span>);</div><div class="line">        service.setUserDAO(userDAO);</div><div class="line">        User u = <span class="keyword">new</span> User();</div><div class="line">        service.add(u);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意要把jUnit4引入（最新是5.0版本）。</p>
+<p>运行：<br><img src="3.png" alt=""></p>
+<p>成功！</p>
+<h2 id="第七课-模拟Spring-07"><a href="#第七课-模拟Spring-07" class="headerlink" title="第七课. 模拟Spring-07"></a>第七课. 模拟Spring-07</h2><p>上一节中，UserDAO需要我们自己通过bean的名字来到bean工厂查找，就是这一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">BeanFactory factory = <span class="keyword">new</span> ClassPathXmlApplicationContext();</div><div class="line"></div><div class="line">UserService service = <span class="keyword">new</span> UserService();</div><div class="line">UserDAO userDAO = (UserDAO)factory.getBean(<span class="string">"u"</span>);</div><div class="line">service.setUserDAO(userDAO);</div><div class="line">User u = <span class="keyword">new</span> User();</div><div class="line">service.add(u);</div></pre></td></tr></table></figure>
+<p>现在我们不想自己去new一个UserDAO，而是改由容器来帮我们装配。也就是把测试代码改成下面这样：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.spring.BeanFactory;</div><div class="line"><span class="keyword">import</span> com.bjsxt.spring.ClassPathXmlApplicationContext;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line"></div><div class="line">        BeanFactory factory = <span class="keyword">new</span> ClassPathXmlApplicationContext();</div><div class="line"></div><div class="line">        UserService service = (UserService)factory.getBean(<span class="string">"userService"</span>);</div><div class="line"></div><div class="line">        <span class="comment">/*UserService service = new UserService();</span></div><div class="line"><span class="comment">        UserDAO userDAO = (UserDAO)factory.getBean("u");</span></div><div class="line"><span class="comment">        service.setUserDAO(userDAO);*/</span></div><div class="line">        User u = <span class="keyword">new</span> User();</div><div class="line">        service.add(u);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>怎么做？</p>
+<p>先修改beans,xml，让名字为u的bean成为Service的bean的一个属性：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"u"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.dao.impl.UserDAOImpl"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"userDAO"</span> <span class="attr">bean</span>=<span class="string">"u"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>修改ClassPathXmlApplicationContext.java，通过反射机制来让容器帮我们将DAO设置到Service里面：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.spring;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.jdom.Document;</div><div class="line"><span class="keyword">import</span> org.jdom.Element;</div><div class="line"><span class="keyword">import</span> org.jdom.JDOMException;</div><div class="line"><span class="keyword">import</span> org.jdom.input.SAXBuilder;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassPathXmlApplicationContext</span> <span class="keyword">implements</span> <span class="title">BeanFactory</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getBean</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> beans.get(name);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; beans = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ClassPathXmlApplicationContext</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        SAXBuilder sb = <span class="keyword">new</span> SAXBuilder();</div><div class="line">        Document doc = sb.build(<span class="keyword">this</span>.getClass().getClassLoader().getResourceAsStream(<span class="string">"beans.xml"</span>));</div><div class="line">        Element root = doc.getRootElement();    <span class="comment">//获取根元素</span></div><div class="line">        List list = root.getChildren(<span class="string">"bean"</span>);   <span class="comment">//取名字为disk的所有元素</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++)&#123;</div><div class="line">            Element element = (Element)list.get(i);</div><div class="line">            String id = element.getAttributeValue(<span class="string">"id"</span>);</div><div class="line">            String clazz = element.getAttributeValue(<span class="string">"class"</span>);</div><div class="line">            System.out.println(id + <span class="string">":"</span> + clazz);</div><div class="line">            Object o = Class.forName(clazz).newInstance();</div><div class="line">            beans.put(id, o);</div><div class="line"></div><div class="line">            <span class="keyword">for</span> (Element propertyElement : (List&lt;Element&gt;)element.getChildren(<span class="string">"property"</span>))&#123;</div><div class="line">                String name = propertyElement.getAttributeValue(<span class="string">"name"</span>);    <span class="comment">//userDAO</span></div><div class="line">                String bean = propertyElement.getAttributeValue(<span class="string">"bean"</span>);    <span class="comment">//u</span></div><div class="line">                Object beanObject = beans.get(bean);    <span class="comment">//UserDAOImpl instance</span></div><div class="line"></div><div class="line">                String methodName = <span class="string">"set"</span> + name.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + name.substring(<span class="number">1</span>);</div><div class="line">                System.out.println(<span class="string">"method name = "</span> + methodName);</div><div class="line"></div><div class="line">                Method m = o.getClass().getMethod(methodName, beanObject.getClass().getInterfaces()[<span class="number">0</span>]);</div><div class="line">                m.invoke(o, beanObject);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下Test:<br><img src="4.png" alt=""></p>
+<p>成功！</p>
+<p>什么是IOC（DI），有什么好处</p>
+<ol>
+<li>把自己new的东西改为由容器提供<br>a)    初始化具体值<br>b)    装配</li>
+<li>好处：灵活配置</li>
+</ol>
+<h2 id="第八课-IOC简介"><a href="#第八课-IOC简介" class="headerlink" title="第八课. IOC简介"></a>第八课. IOC简介</h2><p>上一节中我们试着模拟了一下Spring的过程，这一次我们真正使用Spring来完成和上一节中相同的功能。</p>
+<p>首先我们需要引入几个包：<br><img src="5.png" alt=""></p>
+<p>其中名字为Spring的library中，添加的是spring.jar包。</p>
+<p>删去原来的spring的package，因为这一次我们要用真正的spring。</p>
+<p>查阅spring的文档，编写我们的beans.xml：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"u"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.dao.impl.UserDAOImpl"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"userDAO"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"u"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- more bean definitions go here --&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>将Test引入的包改成spring的jar包中的类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.BeanFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line"><span class="comment">//Dependency Injection</span></div><div class="line"><span class="comment">//Inverse of Control</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line"></div><div class="line">        BeanFactory factory = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</div><div class="line"></div><div class="line">        UserService service = (UserService)factory.getBean(<span class="string">"userService"</span>);</div><div class="line"></div><div class="line">        <span class="comment">/*UserService service = new UserService();</span></div><div class="line"><span class="comment">        UserDAO userDAO = (UserDAO)factory.getBean("u");</span></div><div class="line"><span class="comment">        service.setUserDAO(userDAO);*/</span></div><div class="line">        User u = <span class="keyword">new</span> User();</div><div class="line">        service.add(u);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行一下：<br><img src="6.png" alt=""></p>
+<p>成功~</p>
+<h2 id="第九课-自动提示-Spring注入类型"><a href="#第九课-自动提示-Spring注入类型" class="headerlink" title="第九课. 自动提示-Spring注入类型"></a>第九课. 自动提示-Spring注入类型</h2><p>注入类型：<br>a)    setter（重要）<br>b)    构造方法（可以忘记）<br>c)    接口注入（可以忘记）</p>
+<p>上面的注入方式是setter注入，一定要记住，所谓setter注入就是调用了set什么什么方法。下面介绍一个构造注入的方式，只需要了解即可：<br>先给UserService中加入一个构造函数：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserService</span><span class="params">(UserDAO userDAO)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO = userDAO;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> UserDAO userDAO = <span class="keyword">new</span> UserDAOImpl();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User u)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO.save(u);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> UserDAO <span class="title">getUserDAO</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> userDAO;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDAO</span><span class="params">(UserDAO userDAO)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO = userDAO;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后我们重新修改beans.xml这个配置文件：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"u"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.dao.impl.UserDAOImpl"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></div><div class="line"><span class="comment">&lt;!--        &lt;property name="userDAO"&gt;</span></div><div class="line"><span class="comment">            &lt;ref bean="u"/&gt;</span></div><div class="line"><span class="comment">        &lt;/property&gt;--&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"u"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- more bean definitions go here --&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="第十课-Id-Name"><a href="#第十课-Id-Name" class="headerlink" title="第十课. Id-Name"></a>第十课. Id-Name</h2><p>在beans.xml配置文件中，将bean的id换成name，也是一样的。</p>
+<h2 id="第十一课-简单属性注入"><a href="#第十一课-简单属性注入" class="headerlink" title="第十一课. 简单属性注入"></a>第十一课. 简单属性注入</h2><p>这一次我们在UserDAOImpl中加入两个字段：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.dao.impl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDAOImpl</span> <span class="keyword">implements</span> <span class="title">UserDAO</span> </span>&#123;</div><div class="line">   <span class="comment">/* (non-Javadoc)</span></div><div class="line"><span class="comment">    * @see com.bjsxt.dao.UserDAO#save(com.bjsxt.model.User)</span></div><div class="line"><span class="comment">    */</span></div><div class="line">   </div><div class="line">   <span class="keyword">private</span> <span class="keyword">int</span> daoId;</div><div class="line">   <span class="keyword">private</span> String daoStatus;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getDaoId</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> daoId;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDaoId</span><span class="params">(<span class="keyword">int</span> daoId)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.daoId = daoId;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getDaoStatus</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> daoStatus;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDaoStatus</span><span class="params">(String daoStatus)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.daoStatus = daoStatus;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span> </span>&#123;</div><div class="line">      System.out.println(<span class="string">"user saved!"</span>);</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.daoId + <span class="string">":"</span> + <span class="keyword">this</span>.daoStatus;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>修改beans.xml，在bean中对DAO中的属性进行简单配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"userDAO"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.dao.impl.UserDAOImpl"</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"daoId"</span> <span class="attr">value</span>=<span class="string">"8"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"daoStatus"</span> <span class="attr">value</span>=<span class="string">"good"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- </span></div><div class="line"><span class="comment">   &lt;property name="userDAO"&gt;</span></div><div class="line"><span class="comment">      &lt;ref bean="userDAO"/&gt;</span></div><div class="line"><span class="comment">   &lt;/property&gt;</span></div><div class="line"><span class="comment">    --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"userDAO"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这种方式在我们自己写程序其实不是很常用，了解即可。<br>但是在Spring帮我们做好的一些配置上会用到，之后会学。</p>
+<h2 id="第十二课-scope"><a href="#第十二课-scope" class="headerlink" title="第十二课. scope"></a>第十二课. scope</h2><p>bean的scope有多种，这里主要讲singleton和prototype<br>默认的scope是singleton，也就是单例模式，我们来验证一下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line"></div><div class="line">        BeanFactory factory = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</div><div class="line"></div><div class="line">        UserService service = (UserService)factory.getBean(<span class="string">"userService"</span>);</div><div class="line">        UserService service2 = (UserService)factory.getBean(<span class="string">"userService"</span>);</div><div class="line"></div><div class="line">        System.out.println(service == service2);</div><div class="line"></div><div class="line">        <span class="comment">/*UserService service = new UserService();</span></div><div class="line"><span class="comment">        UserDAO userDAO = (UserDAO)factory.getBean("u");</span></div><div class="line"><span class="comment">        service.setUserDAO(userDAO);*/</span></div><div class="line">        User u = <span class="keyword">new</span> User();</div><div class="line">        service.add(u);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们创建两个UserService，来看看他们是不是一个UserService，运行：<br><img src="7.png" alt=""></p>
+<p>由运行结果看出，这两个UserService是同一个。</p>
+<p>如果我们将scope修改成prototype：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span> <span class="attr">scope</span>=<span class="string">"prototype"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这次再运行：<br><img src="8.png" alt=""></p>
+<p>这次两个Service就不是同一个了，也就是每次创建一个新的对象。</p>
+<p>我们struts2中的action就应该是prototype的。</p>
+<h2 id="第十三课-集合装配"><a href="#第十三课-集合装配" class="headerlink" title="第十三课. 集合装配"></a>第十三课. 集合装配</h2><p>这一节的内容很少用，不重要，参考程序就可以：</p>
+<p>com.bjsxt.dao.UserDAO：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.dao;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDAO</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>com.bjsxt.dao.impl.UserDAOImpl：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.dao.impl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"><span class="keyword">import</span> java.util.Set;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDAOImpl</span> <span class="keyword">implements</span> <span class="title">UserDAO</span> </span>&#123;</div><div class="line">   <span class="comment">/* (non-Javadoc)</span></div><div class="line"><span class="comment">    * @see com.bjsxt.dao.UserDAO#save(com.bjsxt.model.User)</span></div><div class="line"><span class="comment">    */</span></div><div class="line">   <span class="keyword">private</span> Set&lt;String&gt; sets;</div><div class="line">   <span class="keyword">private</span> List&lt;String&gt; lists;</div><div class="line">   <span class="keyword">private</span> Map&lt;String , String&gt; maps;</div><div class="line">   </div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">getSets</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> sets;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSets</span><span class="params">(Set&lt;String&gt; sets)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.sets = sets;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getLists</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> lists;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLists</span><span class="params">(List&lt;String&gt; lists)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.lists = lists;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">getMaps</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> maps;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMaps</span><span class="params">(Map&lt;String, String&gt; maps)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.maps = maps;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="title">UserDAOImpl</span><span class="params">()</span> </span>&#123;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   </div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span> </span>&#123;</div><div class="line">      System.out.println(<span class="string">"user saved!"</span>);</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">"sets size:"</span> + sets.size() + <span class="string">"| lists size:"</span> + lists.size() + <span class="string">"| maps size:"</span> + maps.size() ; </div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>com.bjsxt.model.User：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.model;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>com.bjsxt.service.UserService：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> UserDAO userDAO;</div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="title">UserService</span><span class="params">(UserDAO userDAO)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.userDAO = userDAO;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="comment">/*public UserDAO getUserDAO() &#123;</span></div><div class="line"><span class="comment">      return userDAO;</span></div><div class="line"><span class="comment">   &#125;</span></div><div class="line"><span class="comment">   public void setUserDAO(UserDAO userDAO) &#123;</span></div><div class="line"><span class="comment">      System.out.println("set");</span></div><div class="line"><span class="comment">      this.userDAO = userDAO;</span></div><div class="line"><span class="comment">   &#125;*/</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span> </span>&#123;</div><div class="line">      System.out.println(<span class="keyword">this</span>.userDAO);</div><div class="line">      <span class="keyword">this</span>.userDAO.save(user);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>beans.xml：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"userDAO"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.dao.impl.UserDAOImpl"</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sets"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">set</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">set</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"lists"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maps"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">map</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"1"</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">entry</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"2"</span> <span class="attr">value</span>=<span class="string">"2"</span>&gt;</span><span class="tag">&lt;/<span class="name">entry</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"3"</span> <span class="attr">value</span>=<span class="string">"3"</span>&gt;</span><span class="tag">&lt;/<span class="name">entry</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"4"</span> <span class="attr">value</span>=<span class="string">"4"</span>&gt;</span><span class="tag">&lt;/<span class="name">entry</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">map</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- </span></div><div class="line"><span class="comment">   &lt;property name="userDAO"&gt;</span></div><div class="line"><span class="comment">      &lt;ref bean="userDAO"/&gt;</span></div><div class="line"><span class="comment">   &lt;/property&gt;</span></div><div class="line"><span class="comment">    --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"userDAO"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>最后我们将UserDAO打印出来看看：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">com.bjsxt.service.UserServiceTest：</div><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">      ApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</div><div class="line">      UserDAO u1 = (UserDAO)ctx.getBean(<span class="string">"userDAO"</span>);</div><div class="line">      System.out.println(u1);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果：<br><img src="9.png" alt=""></p>
+<p>发现在配置文件中配置的集合值都被成功注入。</p>
+<h2 id="第十四课-AutoWire"><a href="#第十四课-AutoWire" class="headerlink" title="第十四课. AutoWire"></a>第十四课. AutoWire</h2><p>为了区分不同的UserDAOImpl，我们给这个类里面加上id的字段：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.dao.impl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDAOImpl</span> <span class="keyword">implements</span> <span class="title">UserDAO</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> daoId;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User u)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"a user saved!"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getDaoId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> daoId;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDaoId</span><span class="params">(<span class="keyword">int</span> daoId)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.daoId = daoId;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"daoId="</span> + daoId;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>UserService.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> UserDAO userDAO = <span class="keyword">new</span> UserDAOImpl();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User u)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO.save(u);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> UserDAO <span class="title">getUserDAO</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> userDAO;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDAO</span><span class="params">(UserDAO userDAO)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO = userDAO;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>beans.xml：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"userDAO"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.dao.impl.UserDAOImpl"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"daoId"</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"userDAO2"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.dao.impl.UserDAOImpl"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"daoId"</span> <span class="attr">value</span>=<span class="string">"2"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span> <span class="attr">scope</span>=<span class="string">"prototype"</span> <span class="attr">autowire</span>=<span class="string">"byName"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--&lt;property name="userDAO" ref="userDAO1"/&gt;--&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- more bean definitions go here --&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意上面的userService这个bean的autowire，里面设置的是byName，那么它就会按照userService类内部属性的名字进行自动装配，因为里面是有UserDAO这个成员变量，就会到配置文件去找相同名字的，找到第一个bean名字是userDAO，那么就把这个设置注入。打印一下，看看id是什么：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.BeanFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line"><span class="comment">//Dependency Injection</span></div><div class="line"><span class="comment">//Inverse of Control</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line"></div><div class="line">        BeanFactory factory = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</div><div class="line"></div><div class="line">        UserService service = (UserService)factory.getBean(<span class="string">"userService"</span>);</div><div class="line"></div><div class="line">        System.out.println(service.getUserDAO());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印：<br><img src="10.png" alt=""></p>
+<p>成功~</p>
+<p>如果我们将autowire改成byType，会是什么样子？<br><img src="11.png" alt=""></p>
+<p>发现报错了，因为这一次是按类型来找，找到两个都是叫做UserDAO的，所以重复了。如果删去一个bean就可以了。</p>
+<h2 id="第十五课-LifeCycle"><a href="#第十五课-LifeCycle" class="headerlink" title="第十五课. LifeCycle"></a>第十五课. LifeCycle</h2><p>a)    lazy-init（不重要）<br>b)    init-method destroy-method不要和prototype一起用（了解）</p>
+<p>先说lazy-init，举例：<br><img src="12.png" alt=""></p>
+<p>当Context初始化的时候，这个bean不进行初始化，什么时候用到了这个bean，什么时候初始化。</p>
+<p>再说第二个。</p>
+<p>先为UserService类中加入初始化和销毁函数：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserService</span><span class="params">(UserDAO userDAO)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO = userDAO;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> UserDAO userDAO = <span class="keyword">new</span> UserDAOImpl();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User u)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO.save(u);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> UserDAO <span class="title">getUserDAO</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> userDAO;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDAO</span><span class="params">(UserDAO userDAO)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDAO = userDAO;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"init"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"destroy"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在beans.xml中进行配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span> <span class="attr">init-method</span>=<span class="string">"init"</span> <span class="attr">destroy-method</span>=<span class="string">"destroy"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>我们来写一个测试程序测试一下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.BeanFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line"><span class="comment">//Dependency Injection</span></div><div class="line"><span class="comment">//Inverse of Control</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line"></div><div class="line">        ClassPathXmlApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</div><div class="line"></div><div class="line">        UserService service = (UserService)ctx.getBean(<span class="string">"userService"</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="13.png" alt=""></p>
+<p>如果想要执行bean的destroy方法，该怎么做？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.BeanFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line"><span class="comment">//Dependency Injection</span></div><div class="line"><span class="comment">//Inverse of Control</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line"></div><div class="line">        ClassPathXmlApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</div><div class="line"></div><div class="line">        UserService service = (UserService)ctx.getBean(<span class="string">"userService"</span>);</div><div class="line"></div><div class="line">        ctx.destroy();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果：<br><img src="14.png" alt=""></p>
+<p>如果我们创建两个UserService，会是什么结果？</p>
+<p>代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.UserDAO;</div><div class="line"><span class="keyword">import</span> com.bjsxt.dao.impl.UserDAOImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.model.User;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.BeanFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line"><span class="comment">//Dependency Injection</span></div><div class="line"><span class="comment">//Inverse of Control</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line"></div><div class="line">        ClassPathXmlApplicationContext ctx = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</div><div class="line"></div><div class="line">        UserService service = (UserService)ctx.getBean(<span class="string">"userService"</span>);</div><div class="line">        UserService service2 = (UserService)ctx.getBean(<span class="string">"userService"</span>);</div><div class="line"><span class="comment">//</span></div><div class="line">        ctx.destroy();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="15.png" alt=""></p>
+<p>发现也只执行了一次init，和一次destroy。因为默认是单例模式，所有这两个UserService是同一个对象。</p>
+<p>将UserService的scope修改成prototype：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.service.UserService"</span> <span class="attr">init-method</span>=<span class="string">"init"</span> <span class="attr">destroy-method</span>=<span class="string">"destroy"</span> <span class="attr">scope</span>=<span class="string">"prototype"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>再运行：<br><img src="16.png" alt=""></p>
+<p>发现只执行了两次init，那么这里就要提醒一条：<br>init-method destroy-methd 不要和prototype一起用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/27/Reflection/" rel="next" title="反射">
+                <i class="fa fa-chevron-left"></i> 反射
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一课-模拟Spring-01"><span class="nav-number">1.</span> <span class="nav-text">第一课. 模拟Spring-01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二课-模拟Spring-02"><span class="nav-number">2.</span> <span class="nav-text">第二课. 模拟Spring-02</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三课-模拟Spring-03"><span class="nav-number">3.</span> <span class="nav-text">第三课. 模拟Spring-03</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四课-模拟Spring-04"><span class="nav-number">4.</span> <span class="nav-text">第四课. 模拟Spring-04</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五课-模拟Spring-05"><span class="nav-number">5.</span> <span class="nav-text">第五课. 模拟Spring-05</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七课-模拟Spring-07"><span class="nav-number">6.</span> <span class="nav-text">第七课. 模拟Spring-07</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八课-IOC简介"><span class="nav-number">7.</span> <span class="nav-text">第八课. IOC简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九课-自动提示-Spring注入类型"><span class="nav-number">8.</span> <span class="nav-text">第九课. 自动提示-Spring注入类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十课-Id-Name"><span class="nav-number">9.</span> <span class="nav-text">第十课. Id-Name</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十一课-简单属性注入"><span class="nav-number">10.</span> <span class="nav-text">第十一课. 简单属性注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十二课-scope"><span class="nav-number">11.</span> <span class="nav-text">第十二课. scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十三课-集合装配"><span class="nav-number">12.</span> <span class="nav-text">第十三课. 集合装配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十四课-AutoWire"><span class="nav-number">13.</span> <span class="nav-text">第十四课. AutoWire</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十五课-LifeCycle"><span class="nav-number">14.</span> <span class="nav-text">第十五课. LifeCycle</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
