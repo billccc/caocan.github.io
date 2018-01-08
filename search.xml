@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode | 52.N-Queens II]]></title>
+    <url>%2F2018%2F01%2F08%2Fleetcode52%2F</url>
+    <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/n-queens-ii/description/ N-Queens问题简述：八皇后问题，是一个古老而著名的问题，是回溯算法的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出：在8×8格的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆法。 解题思路：这一题由于只要求我们写出有多少种N皇后的解法，所以我们不需要列出来每一种的具体布局，只需要DFS+剪枝就可以了。我们保证逐行递归，所以行一定是不重复的；接下来我们只需要用三个布尔数组来保存已有状态：列数组、左对角线数组和右对角线数组。 左对角线为：1XXX1XXX1 左对角线的规律就是行号减去列号为一个常量，所以用大小为2n的数组存储； 右对角线为：XX1X1X1XX 右对角线的规律就是行号加上列号为一个常量，所以也用大小为2n的数组存储。 代码：1234567891011121314151617181920212223242526272829303132class Solution &#123; int res = 0; public int totalNQueens(int n) &#123; boolean[] cols = new boolean[n]; boolean[] left = new boolean[2*n]; boolean[] right = new boolean[2*n]; totalNQueens(n, 0, cols, left, right); return res; &#125; public void totalNQueens(int n, int r, boolean[] cols, boolean[] left, boolean[] right)&#123; if(r == n)&#123; res++; return; &#125; for(int i = 0; i &lt; n; i++)&#123; int myleft = r - i; if(myleft &lt; 0) myleft = -myleft + n; int myright = i + r; if(cols[i] != true &amp;&amp; left[myleft] != true &amp;&amp; right[myright] != true) &#123; cols[i] = left[myleft] = right[myright] = true; totalNQueens(n, r+1, cols, left, right); cols[i] = left[myleft] = right[myright] = false; &#125; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>递归</tag>
+        <tag>回溯</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 216.Combination Sum III]]></title>
     <url>%2F2018%2F01%2F08%2Fleetcode216%2F</url>
     <content type="text"><![CDATA[题目描述：https://leetcode.com/problems/combination-sum-iii/description/题目大意：给一个正整数n,将其分解为k个数的加和，找出所有的k个数的组合，并且这些组合相互唯一，例如1,2,3和3,2,1视为同一组。 解题思路：本题采用DFS+剪枝就可以： 如果k==0且n==0，说明找到了一组解，将其加入队列； 如果k==0且n!=0，说明到头了也没找到解，返回； 除了上面两种情况，就从一个start开始到9，对每一个数进行DFS递归调用，注意递归调用后要恢复现场。 代码：1234567891011121314151617181920212223242526272829class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; combinationSum3(int k, int n) &#123; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList(); List&lt;Integer&gt; tmp = new ArrayList(); dfs(k, n, 1, tmp, res); return res; &#125; public void dfs(int k, int n, int start, List&lt;Integer&gt; tmp, List&lt;List&lt;Integer&gt;&gt; res)&#123; if(k == 0)&#123; if(n == 0)&#123; List&lt;Integer&gt; ans = new ArrayList(tmp); res.add(ans); System.out.println(res); &#125; return; &#125; for(int i = start; i &lt;= 9; i++)&#123; if(i &gt; n) return; tmp.add(i); dfs(k-1, n-i, i+1, tmp, res); tmp.remove(tmp.size()-1); &#125; &#125;&#125;]]></content>
