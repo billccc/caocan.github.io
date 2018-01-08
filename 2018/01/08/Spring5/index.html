@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本节我们来整合SSH三大框架。">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring笔记（五） SSH整合·一">
+<meta property="og:url" content="https://caocan.github.io/2018/01/08/Spring5/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本节我们来整合SSH三大框架。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/1.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/2.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/3.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/4.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/5.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/6.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/7.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/8.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/9.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/10.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/11.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/12.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/13.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/14.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/15.png">
+<meta property="og:image" content="https://caocan.github.io/2018/01/08/Spring5/16.png">
+<meta property="og:updated_time" content="2018-01-08T03:40:46.680Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring笔记（五） SSH整合·一">
+<meta name="twitter:description" content="本节我们来整合SSH三大框架。">
+<meta name="twitter:image" content="https://caocan.github.io/2018/01/08/Spring5/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2018/01/08/Spring5/"/>
+
+
+
+
+
+  <title>Spring笔记（五） SSH整合·一 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2018/01/08/Spring5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring笔记（五） SSH整合·一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-08T11:14:56+08:00">
+                2018-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本节我们来整合SSH三大框架。<br><a id="more"></a></p>
+<h2 id="第三十五课-SSH整合之-架构的历史1"><a href="#第三十五课-SSH整合之-架构的历史1" class="headerlink" title="第三十五课. SSH整合之-架构的历史1"></a>第三十五课. SSH整合之-架构的历史1</h2><p>写一个小项目，把Struts2、hibernate和Spring整合起来，项目最简单的架构如下：<br><img src="1.png" alt=""></p>
+<p>根据这个思路，我们只利用jsp来写这个小项目。</p>
+<p>先创建一个WEB项目，名字就叫Spring_2300_Registration_1</p>
+<p>接下来我们将需要的jar包，也就是mysql的驱动加入：<br><img src="2.png" alt=""></p>
+<p>然后我们在web文件夹下创建四个jsp：<br>register.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%--</span> <span class="attr">Created</span> <span class="attr">by</span> <span class="attr">IntelliJ</span> <span class="attr">IDEA.</span> <span class="attr">--</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>用户注册<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"registerDeal.jsp"</span>&gt;</span></div><div class="line">      用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">      密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password1"</span> <span class="attr">name</span>=<span class="string">"password1"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">      确认密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password2"</span> <span class="attr">name</span>=<span class="string">"password2"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>registerDeal.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">import</span>=<span class="string">"java.sql.Connection"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">import</span>=<span class="string">"java.sql.DriverManager"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">import</span>=<span class="string">"java.sql.PreparedStatement"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">import</span>=<span class="string">"java.sql.ResultSet"</span> %&gt;</span><span class="tag">&lt;<span class="name">%--</span></span></div><div class="line"><span class="tag">  <span class="attr">Created</span> <span class="attr">by</span> <span class="attr">IntelliJ</span> <span class="attr">IDEA.</span></span></div><div class="line"><span class="tag">  <span class="attr">User:</span> <span class="attr">korson</span></span></div><div class="line"><span class="tag">  <span class="attr">Date:</span> <span class="attr">2018</span>/<span class="attr">1</span>/<span class="attr">5</span></span></div><div class="line"><span class="tag">  <span class="attr">Time:</span> <span class="attr">9:27</span></span></div><div class="line"><span class="tag">  <span class="attr">To</span> <span class="attr">change</span> <span class="attr">this</span> <span class="attr">template</span> <span class="attr">use</span> <span class="attr">File</span> | <span class="attr">Settings</span> | <span class="attr">File</span> <span class="attr">Templates.</span></span></div><div class="line"><span class="tag"><span class="attr">--</span>%&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag"><span class="attr">String</span> <span class="attr">username</span> = <span class="string">request.getParameter(</span>"<span class="attr">username</span>");</span></div><div class="line"><span class="tag"><span class="attr">String</span> <span class="attr">password</span> = <span class="string">request.getParameter(</span>"<span class="attr">password1</span>");</span></div><div class="line"><span class="tag"><span class="attr">String</span> <span class="attr">password2</span> = <span class="string">request.getParameter(</span>"<span class="attr">password2</span>");</span></div><div class="line"><span class="tag"></span></div><div class="line"><span class="tag">    <span class="attr">Class.forName</span>("<span class="attr">com.mysql.jdbc.Driver</span>");</span></div><div class="line"><span class="tag">    <span class="attr">Connection</span> <span class="attr">conn</span> = <span class="string">DriverManager.getConnection(</span>"<span class="attr">jdbc:mysql:</span>//<span class="attr">localhost</span>/<span class="attr">spring</span>", "<span class="attr">root</span>", "<span class="attr">09129421</span>");</span></div><div class="line"><span class="tag"></span></div><div class="line"><span class="tag">    <span class="attr">String</span> <span class="attr">sqlQuery</span> = <span class="string">"select count(*) from user where username = ?"</span>;</span></div><div class="line"><span class="tag">    <span class="attr">PreparedStatement</span> <span class="attr">psQuery</span> = <span class="string">conn.prepareStatement(sqlQuery);</span></span></div><div class="line"><span class="tag">    <span class="attr">psQuery.setString</span>(<span class="attr">1</span>, <span class="attr">username</span>);</span></div><div class="line"><span class="tag">    <span class="attr">ResultSet</span> <span class="attr">rs</span> = <span class="string">psQuery.executeQuery();</span></span></div><div class="line"><span class="tag">    <span class="attr">rs.next</span>();</span></div><div class="line"><span class="tag">    <span class="attr">int</span> <span class="attr">count</span> = <span class="string">rs.getInt(1);</span></span></div><div class="line"><span class="tag">    <span class="attr">if</span> (<span class="attr">count</span> &gt;</span> 0)&#123;</div><div class="line">        response.sendRedirect("registerFail.jsp");</div><div class="line">        psQuery.close();</div><div class="line">        conn.close();</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    String sql = "insert into user values(null, ?, ?)";</div><div class="line">    PreparedStatement ps = conn.prepareStatement(sql);</div><div class="line">    ps.setString(1, username);</div><div class="line">    ps.setString(2, password);</div><div class="line">    ps.executeUpdate();</div><div class="line">    ps.close();</div><div class="line">    conn.close();</div><div class="line"></div><div class="line">    response.sendRedirect("registerSuccess.jsp");</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
+<p>registerSuccess.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    Success!<span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>registerFail.jsp：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    Fail!<span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行一下试试，先去输入一个新的用户：<br><img src="3.png" alt=""></p>
+<p>运行：<br><img src="4.png" alt=""></p>
+<p>跳到了成功页面上来了。</p>
+<p>我们查看一下数据库：<br><img src="5.png" alt=""></p>
+<p>如果我们再次输入这个用户名的时候，就会帮我们跳转到失败的页面上去。</p>
+<p>到目前为止，这个项目的整体流程图如下（二层架构）：<br><img src="6.png" alt=""></p>
+<p>上面介绍的是我们纯粹用jsp构建的二层架构式的项目，也就是jsp和数据库两层，现在我们想使用spring，将model抽象出来，并且加上service层，来控制中间的业务逻辑，也就是不让jsp来承担太多的业务逻辑。</p>
+<p>先创建一个model的package：com.bjsxt.registration.model，在里面创建一个model，叫做User：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.model;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.service.UserManager;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.username = username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.password = password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到里面只有对应于数据库的字段和字段的getter和setter方法，这种模型叫做贫血模型，还有一种叫做充血模型，就是在model内部也加入了一些业务逻辑，比如判断自己在数据库中是否存在等等。</p>
+<p>然后我们构建service层，创建一个名字叫com.bjsxt.registration.service的package，在里面创建一个UserManager的类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exists</span><span class="params">(User u)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line">        Connection conn = DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost/spring"</span>, <span class="string">"root"</span>, <span class="string">"09129421"</span>);</div><div class="line"></div><div class="line">        String sqlQuery = <span class="string">"select count(*) from user where username = ?"</span>;</div><div class="line">        PreparedStatement psQuery = conn.prepareStatement(sqlQuery);</div><div class="line">        psQuery.setString(<span class="number">1</span>, u.getUsername());</div><div class="line">        ResultSet rs = psQuery.executeQuery();</div><div class="line">        rs.next();</div><div class="line">        <span class="keyword">int</span> count = rs.getInt(<span class="number">1</span>);</div><div class="line">        psQuery.close();</div><div class="line">        conn.close();</div><div class="line">        <span class="keyword">if</span> (count &gt; <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User u)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line">        Connection conn = DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost/spring"</span>, <span class="string">"root"</span>, <span class="string">"09129421"</span>);</div><div class="line"></div><div class="line">        String sql = <span class="string">"insert into user values(null, ?, ?)"</span>;</div><div class="line">        PreparedStatement ps = conn.prepareStatement(sql);</div><div class="line">        ps.setString(<span class="number">1</span>, u.getUsername());</div><div class="line">        ps.setString(<span class="number">2</span>, u.getPassword());</div><div class="line">        ps.executeUpdate();</div><div class="line">        ps.close();</div><div class="line">        conn.close();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，这个类中的代码其实是把我们之前在registerDeal.jsp里面的代码复制过来的，里面有两个方法，一个add方法，是用来向数据库中插入数据的；另外一个就是exists方法，是用来判断一个User是否在数据库中存在的。</p>
+<p>这样，经过重构，我们的registerDeal.jsp就变成了：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.sql.Connection"</span> %&gt;</div><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.sql.DriverManager"</span> %&gt;</div><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.sql.PreparedStatement"</span> %&gt;</div><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"com.bjsxt.registration.service.*"</span> %&gt;</div><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"com.bjsxt.registration.model.*"</span> %&gt;</div><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.sql.ResultSet"</span> %&gt;</div><div class="line"></div><div class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</div><div class="line">&lt;%</div><div class="line">String username = request.getParameter(<span class="string">"username"</span>);</div><div class="line">String password = request.getParameter(<span class="string">"password1"</span>);</div><div class="line">String password2 = request.getParameter(<span class="string">"password2"</span>);</div><div class="line"></div><div class="line">User u = <span class="keyword">new</span> User();</div><div class="line">u.setUsername(username);</div><div class="line">u.setPassword(password);</div><div class="line">Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line">Connection conn = DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost/spring"</span>, <span class="string">"root"</span>, <span class="string">"09129421"</span>);</div><div class="line"></div><div class="line">UserManager um = <span class="keyword">new</span> UserManager();</div><div class="line"><span class="keyword">boolean</span> exist = um.exists(u);</div><div class="line"><span class="keyword">if</span> (exist)&#123;</div><div class="line">    response.sendRedirect(<span class="string">"registerFail.jsp"</span>);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">um.add(u);</div><div class="line">response.sendRedirect(<span class="string">"registerSuccess.jsp"</span>);</div><div class="line">%&gt;</div></pre></td></tr></table></figure></p>
+<p>这样的模型就是三层模型，如下图所示：<br><img src="7.png" alt=""></p>
+<p>中间被括起来的就是业务逻辑层。这个架构就是三层架构+Entity+Service</p>
+<h2 id="第三十六课-SSH整合之-架构的历史2"><a href="#第三十六课-SSH整合之-架构的历史2" class="headerlink" title="第三十六课. SSH整合之-架构的历史2"></a>第三十六课. SSH整合之-架构的历史2</h2><p>上一节中介绍了三层架构+Entity+Service，这一节我们再对工程进行分离，来使用三层架构+Entity+Service+Hibernate来实现这个项目，也就是说，之前的数据库操作，我们现在交由Hibernate来实现。</p>
+<p>首先我们需要引入Hibernate相关的包：<br><img src="8.png" alt=""></p>
+<p>引入包之后，我们再将以前的hibernate.cfg.xml和log4j.properties文件粘贴到src文件夹下面，对hibernate.cfg.xml进行修改：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version='1.0' encoding='utf-8'?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE hibernate-configuration PUBLIC</span></div><div class="line"><span class="meta">        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"</span></div><div class="line"><span class="meta">        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">hibernate-configuration</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">session-factory</span>&gt;</span></div><div class="line"></div><div class="line">         </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.driver_class"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.url"</span>&gt;</span>jdbc:mysql://localhost/spring<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.username"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.password"</span>&gt;</span>09129421<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dialect"</span>&gt;</span>org.hibernate.dialect.MySQLDialect<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    </div><div class="line">        <span class="comment">&lt;!-- JDBC connection pool (use the built-in) --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"connection.pool_size"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line">        </div><div class="line"></div><div class="line">        <span class="comment">&lt;!-- Enable Hibernate's automatic session context management --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"current_session_context_class"</span>&gt;</span>thread<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="comment">&lt;!-- Disable the second-level cache  --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cache.provider_class"</span>&gt;</span>org.hibernate.cache.NoCacheProvider<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="comment">&lt;!-- Echo all executed SQL to stdout --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"show_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"format_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="comment">&lt;!-- Drop and re-create the database schema on startup</span></div><div class="line"><span class="comment">        &lt;property name="hbm2ddl.auto"&gt;update&lt;/property&gt;</span></div><div class="line"><span class="comment">       --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">mapping</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.registration.model.User"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">session-factory</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">hibernate-configuration</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>创建好hibernate相关的配置之后，我们来新建一个com.bjsxt.registration.util的package，在里面新建一个类，叫做HibernateUtil.java，用于生成SessionFactory的单例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.util;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.hibernate.SessionFactory;</div><div class="line"><span class="keyword">import</span> org.hibernate.cfg.AnnotationConfiguration;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HibernateUtil</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SessionFactory sf;</div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">        sf = <span class="keyword">new</span> AnnotationConfiguration().configure().buildSessionFactory();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SessionFactory <span class="title">getSessionFactory</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> sf;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后我们修改UserManager这个类，让其使用我们的单例SessionFactory：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.util.HibernateUtil;</div><div class="line"><span class="keyword">import</span> org.hibernate.Session;</div><div class="line"><span class="keyword">import</span> org.hibernate.SessionFactory;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exists</span><span class="params">(User u)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        SessionFactory sf = HibernateUtil.getSessionFactory();</div><div class="line">        Session s = sf.getCurrentSession();</div><div class="line">        s.beginTransaction();</div><div class="line">        <span class="keyword">long</span> count = (Long)s.createQuery(<span class="string">"select count(*) from User u where u.username = :username"</span>)</div><div class="line">                .setString(<span class="string">"username"</span>, u.getUsername())</div><div class="line">                .uniqueResult();</div><div class="line"></div><div class="line">        s.getTransaction().commit();</div><div class="line">        <span class="keyword">if</span>(count &gt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User u)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        SessionFactory sf = HibernateUtil.getSessionFactory();</div><div class="line">        Session s = sf.getCurrentSession();</div><div class="line">        s.beginTransaction();</div><div class="line">        s.save(u);</div><div class="line">        s.getTransaction().commit();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>写好了这个项目之后，我们生成两个junit的测试代码，用于测试这两个函数是否能跑通：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"><span class="keyword">import</span> org.junit.Assert;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserManagerTest</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testExist</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        UserManager um = <span class="keyword">new</span> UserManager();</div><div class="line">        User u = <span class="keyword">new</span> User();</div><div class="line">        u.setUsername(<span class="string">"a"</span>);</div><div class="line">        <span class="keyword">boolean</span> exists = um.exists(u);</div><div class="line">        Assert.assertEquals(<span class="keyword">true</span>, exists);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        UserManager um = <span class="keyword">new</span> UserManager();</div><div class="line">        User u = <span class="keyword">new</span> User();</div><div class="line">        u.setUsername(<span class="string">"b"</span>);</div><div class="line">        u.setPassword(<span class="string">"b"</span>);</div><div class="line">        <span class="keyword">boolean</span> exists = um.exists(u);</div><div class="line">        <span class="keyword">if</span> (!exists)&#123;</div><div class="line">            um.add(u);</div><div class="line">            u.setUsername(<span class="string">"b"</span>);</div><div class="line">            Assert.assertEquals(<span class="keyword">true</span>, um.exists(u));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            Assert.fail(<span class="string">"not added"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第一次运行testAdd()方法：<br><img src="9.png" alt=""></p>
+<p>第二次运行testAdd()方法，由于已经向数据库插入了一个叫b的User，所以第二次插入就会报错：<br><img src="10.png" alt=""></p>
+<p>好的，这就是我们的三层架构+Entity+Service+Hibernate实现过程，架构图如下：<br><img src="11.png" alt=""></p>
+<p>下面我们还想继续抽象，抽象出一个DAO层出来。</p>
+<h2 id="第三十七课-SSH整合之-架构的历史-3"><a href="#第三十七课-SSH整合之-架构的历史-3" class="headerlink" title="第三十七课. SSH整合之-架构的历史-3"></a>第三十七课. SSH整合之-架构的历史-3</h2><p>这一节中，我们在上面的项目基础上继续抽象，将Service层抽象出一个接口和一个实现；创建一个DAO层，DAO层也分为接口和实现。并且把以前Service的逻辑挪到DAO层中。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">com.bjsxt.registration.dao包中的UserDao接口：</div><div class="line"><span class="keyword">package</span> com.bjsxt.registration.dao;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User u)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkUserExistsWithName</span><span class="params">(String username)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>com.bjsxt.registration.dao.impl包中实现上面的接口（UserDaoImpl）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.dao.impl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.dao.UserDao;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.util.HibernateUtil;</div><div class="line"><span class="keyword">import</span> org.hibernate.Session;</div><div class="line"><span class="keyword">import</span> org.hibernate.SessionFactory;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User u)</span> </span>&#123;</div><div class="line">        SessionFactory sf = HibernateUtil.getSessionFactory();</div><div class="line">        Session s = sf.getCurrentSession();</div><div class="line">        s.beginTransaction();</div><div class="line">        s.save(u);</div><div class="line">        s.getTransaction().commit();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkUserExistsWithName</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        SessionFactory sf = HibernateUtil.getSessionFactory();</div><div class="line">        Session s = sf.getCurrentSession();</div><div class="line">        s.beginTransaction();</div><div class="line">        <span class="keyword">long</span> count = (Long)s.createQuery(<span class="string">"select count(*) from User u where u.username = :username"</span>)</div><div class="line">                .setString(<span class="string">"username"</span>, username)</div><div class="line">                .uniqueResult();</div><div class="line"></div><div class="line">        s.getTransaction().commit();</div><div class="line">        <span class="keyword">if</span>(count &gt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>将UserManager改成一个接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.dao.UserDao;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">exists</span><span class="params">(User u)</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(User u)</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line"></div><div class="line">    <span class="function">UserDao <span class="title">getUserDao</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setUserDao</span><span class="params">(UserDao userDao)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>实现（com.bjsxt.registration.service.impl.UserManagerImpl）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.service.impl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.dao.UserDao;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.dao.impl.UserDaoImpl;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.service.UserManager;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserManagerImpl</span> <span class="keyword">implements</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> UserDao userDao = <span class="keyword">new</span> UserDaoImpl();</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exists</span><span class="params">(User u)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        <span class="keyword">return</span> userDao.checkUserExistsWithName(u.getUsername());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User u)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        userDao.save(u);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> UserDao <span class="title">getUserDao</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> userDao;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDao</span><span class="params">(UserDao userDao)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.userDao = userDao;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样就又一次实现了我们的架构，架构图如下：<br><img src="12.png" alt=""></p>
+<h2 id="第三十八课-SSH整合之-架构的历史-4"><a href="#第三十八课-SSH整合之-架构的历史-4" class="headerlink" title="第三十八课. SSH整合之-架构的历史-4"></a>第三十八课. SSH整合之-架构的历史-4</h2><p>下面我们考虑将Struts2加进来。<br>也就是加入了MVC的Controller（包括struts2的filter和action）：<br><img src="13.png" alt=""></p>
+<p>先将struts2需要的包都引入并且加到web/WEB-INF/lib文件夹下。</p>
+<p>然后我们将struts.xml复制并修改：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE struts PUBLIC</span></div><div class="line"><span class="meta">    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"</span></div><div class="line"><span class="meta">    "http://struts.apache.org/dtds/struts-2.0.dtd"&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">struts</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"registration"</span> <span class="attr">extends</span>=<span class="string">"struts-default"</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.registration.action.UserAction"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">name</span>=<span class="string">"success"</span>&gt;</span></div><div class="line">                /registerSuccess.jsp</div><div class="line">            <span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">name</span>=<span class="string">"fail"</span>&gt;</span></div><div class="line">                /registerFail.jsp</div><div class="line">            <span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">package</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">struts</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后我们创建一个com.bjsxt.registration.action文件夹，在里面创建一个UserAction类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.action;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.service.UserManager;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.service.impl.UserManagerImpl;</div><div class="line"><span class="keyword">import</span> com.opensymphony.xwork2.ActionSupport;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line">    <span class="keyword">private</span> String password2;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.username = username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.password = password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    UserManager um = <span class="keyword">new</span> UserManagerImpl();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> UserManager <span class="title">getUm</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> um;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUm</span><span class="params">(UserManager um)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.um = um;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        User u = <span class="keyword">new</span> User();</div><div class="line">        u.setUsername(username);</div><div class="line">        u.setPassword(password);</div><div class="line">        <span class="keyword">if</span>(um.exists(u))</div><div class="line">            <span class="keyword">return</span> <span class="string">"fail"</span>;</div><div class="line">        um.add(u);</div><div class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行一下：<br><img src="14.png" alt=""></p>
+<p>成功插入一条数据！</p>
+<h2 id="第三十九课-SSH整合之-架构的历史-5"><a href="#第三十九课-SSH整合之-架构的历史-5" class="headerlink" title="第三十九课. SSH整合之-架构的历史-5"></a>第三十九课. SSH整合之-架构的历史-5</h2><p>这一次我们将spring加进来，使得spring帮我们来注入，并且我们基于spring来进行AOP编程。</p>
+<p>架构如下：<br><img src="15.png" alt=""></p>
+<p>我们删除原先的hibernate.cfg.xml，改由Spring帮我们配置数据库。复制并修改beans.xml：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></span></div><div class="line"><span class="tag">       <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span></div><div class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/context</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/context/spring-context-2.5.xsd</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/aop</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/tx</span></span></div><div class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.bjsxt"</span> /&gt;</span></div><div class="line"></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span></span></div><div class="line"><span class="tag">            <span class="attr">class</span>=<span class="string">"org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"locations"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>classpath:jdbc.properties<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span></span></div><div class="line"><span class="tag">          <span class="attr">class</span>=<span class="string">"org.apache.commons.dbcp.BasicDataSource"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span></span></div><div class="line"><span class="tag">                  <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driverClassName&#125;"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sessionFactory"</span></span></div><div class="line"><span class="tag">          <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"packagesToScan"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.bjsxt.registration.model<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernateProperties"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">props</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.dialect"</span>&gt;</span></div><div class="line">                    org.hibernate.dialect.MySQLDialect</div><div class="line">                <span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.show_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">props</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"txManager"</span></span></div><div class="line"><span class="tag">          <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate3.HibernateTransactionManager"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"bussinessService"</span></span></div><div class="line"><span class="tag">                      <span class="attr">expression</span>=<span class="string">"execution(public * com.bjsxt.registration.service.*.*(..))"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">pointcut-ref</span>=<span class="string">"bussinessService"</span></span></div><div class="line"><span class="tag">                     <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"txManager"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"exists"</span> <span class="attr">read-only</span>=<span class="string">"true"</span> /&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"add*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"hibernateTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate3.HibernateTemplate"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>jdbc.properties：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">jdbc.driverClassName=com.mysql.jdbc.Driver</div><div class="line">jdbc.url=jdbc:mysql://localhost:3306/spring</div><div class="line">jdbc.username=root</div><div class="line">jdbc.password=09129421</div></pre></td></tr></table></figure></p>
+<p>由上面的beans.xml我们看出，hibernateTemplate中注入了sessionFactory，sessionFactory内部扫描了com.bjsxt.registration.model包下的所有model。</p>
+<p>然后我们修改UserDaoImpl的实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.dao.impl;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.dao.UserDao;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.util.HibernateUtil;</div><div class="line"><span class="keyword">import</span> org.hibernate.Session;</div><div class="line"><span class="keyword">import</span> org.hibernate.SessionFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.orm.hibernate3.HibernateTemplate;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.annotation.Resource;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="meta">@Component</span>(<span class="string">"userDao"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> HibernateTemplate hibernateTemplate;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User u)</span> </span>&#123;</div><div class="line">        hibernateTemplate.save(u);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkUserExistsWithName</span><span class="params">(String username)</span> </span>&#123;</div><div class="line"></div><div class="line">        List&lt;User&gt; users = hibernateTemplate.find(<span class="string">"from User u where u.username = '"</span> + username + <span class="string">"'"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (users != <span class="keyword">null</span> &amp;&amp; users.size() &gt; <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> HibernateTemplate <span class="title">getHibernateTemplate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> hibernateTemplate;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Resource</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHibernateTemplate</span><span class="params">(HibernateTemplate hibernateTemplate)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.hibernateTemplate = hibernateTemplate;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的@Resource就是把hibernateTemplate注入到UserDaoImpl里面。</p>
+<p>整体过程就是将sessionFactory注入搭配hibernateTemplate，然后把hibernateTemplate注入到Dao里面。</p>
+<p>我们来生成一个test测试样例来测试一下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.action;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.action.UserAction;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.junit.Before; </div><div class="line"><span class="keyword">import</span> org.junit.After;</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.assertEquals;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserActionTest</span> </span>&#123; </div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testExecute</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        UserAction ua = <span class="keyword">new</span> UserAction();</div><div class="line">        ua.setUsername(<span class="string">"f"</span>);</div><div class="line">        ua.setPassword(<span class="string">"f"</span>);</div><div class="line">        String ret = ua.execute();</div><div class="line">        assertEquals(<span class="string">"success"</span>, ret);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行：<br><img src="16.png" alt=""></p>
+<p>成功。</p>
+<h2 id="第四十课-SSH整合之-架构的历史-6"><a href="#第四十课-SSH整合之-架构的历史-6" class="headerlink" title="第四十课. SSH整合之-架构的历史-6"></a>第四十课. SSH整合之-架构的历史-6</h2><p>Struts的读常量：</p>
+<ol>
+<li>struts-default.xml</li>
+<li>struts-plugin.xml</li>
+<li>struts.xml</li>
+<li>struts.properties</li>
+<li>web.xml</li>
+</ol>
+<p>这一节我们整合Spring和Struts，让Spring帮我们来管理Struts2的Action。</p>
+<p>首先需要引入jar包，使得struts可以支持spring：<br><code>WEB-INF/lib/struts2-spring-plugin-2.1.6.jar</code></p>
+<p>接下来需要配置web.xml，加入下面两句：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!-- default: /WEB-INF/applicationContext.xml --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!-- &lt;param-value&gt;/WEB-INF/applicationContext-*.xml,classpath*:applicationContext-*.xml&lt;/param-value&gt;  --&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:beans.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>struts启动后，默认会先去读/WEB-INF/applicationContext.xml，由于我们进行了修改，所以会先去读beans.xml这个配置文件。</p>
+<p>读完beans.xml这个配置文件后，会去读struts2-spring-plugin-2.1.6.jar包里面的struts-plugin.xml这个文件，然后会去struts.xml中找action：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE struts PUBLIC</span></div><div class="line"><span class="meta">   "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"</span></div><div class="line"><span class="meta">   "http://struts.apache.org/dtds/struts-2.1.dtd"&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">struts</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"registration"</span> <span class="attr">extends</span>=<span class="string">"struts-default"</span>&gt;</span></div><div class="line"></div><div class="line">      <span class="tag">&lt;<span class="name">action</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.bjsxt.registration.action.UserAction"</span>&gt;</span></div><div class="line"></div><div class="line">         <span class="tag">&lt;<span class="name">result</span> <span class="attr">name</span>=<span class="string">"success"</span>&gt;</span>/registerSuccess.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">result</span> <span class="attr">name</span>=<span class="string">"fail"</span>&gt;</span>/registerFail.jsp<span class="tag">&lt;/<span class="name">result</span>&gt;</span></div><div class="line"></div><div class="line">      <span class="tag">&lt;/<span class="name">action</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">package</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">struts</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>找到action名字叫做user，类是com.bjsxt.registration.action.UserAction，我们再对这个类进行注解，去掉原来的构造函数，用@Resourece关键字，让我们的Spring帮我们自动进行注入，并且加上@Scope(“prototype”)，将其设置为多例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.action;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.annotation.Resource;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Scope;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.service.UserManager;</div><div class="line"><span class="keyword">import</span> com.opensymphony.xwork2.ActionSupport;</div><div class="line"></div><div class="line"><span class="meta">@Component</span>(<span class="string">"user"</span>)</div><div class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> </span>&#123;</div><div class="line">   </div><div class="line">   <span class="keyword">private</span> String username;</div><div class="line">   <span class="keyword">private</span> String password;</div><div class="line">   <span class="keyword">private</span> String password2;</div><div class="line">   </div><div class="line">   <span class="keyword">private</span> UserManager um;</div><div class="line">   </div><div class="line">   </div><div class="line">   </div><div class="line">   <span class="function"><span class="keyword">public</span> UserManager <span class="title">getUm</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> um;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="meta">@Resource</span>(name=<span class="string">"userManager"</span>)</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUm</span><span class="params">(UserManager um)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.um = um;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">      User u = <span class="keyword">new</span> User();</div><div class="line">      u.setUsername(username);</div><div class="line">      u.setPassword(password);</div><div class="line">      <span class="keyword">if</span>(um.exists(u)) &#123;</div><div class="line">         <span class="keyword">return</span> <span class="string">"fail"</span>;</div><div class="line">      &#125;</div><div class="line">      um.add(u);</div><div class="line">      <span class="keyword">return</span> <span class="string">"success"</span>;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> username;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.username = username;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> password;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.password = password;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getPassword2</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> password2;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword2</span><span class="params">(String password2)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.password2 = password2;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>试着运行，是正常的。</p>
+<h2 id="第四十二课-SSH整合之-架构的历史-8"><a href="#第四十二课-SSH整合之-架构的历史-8" class="headerlink" title="第四十二课. SSH整合之-架构的历史-8"></a>第四十二课. SSH整合之-架构的历史-8</h2><p>以前我们的username和password都是在Action内部，这一次我们再将其抽离出来，形成一个DTO，或者叫VO。</p>
+<p>DTO，也就是data transfer object，VO，就是value object。</p>
+<p>我们创建一个com.bjsxt.registration.vo，在里面创建一个UserRegisterInfo：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.vo;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserRegisterInfo</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line">    <span class="keyword">private</span> String password2;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.username = username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.password = password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword2</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> password2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword2</span><span class="params">(String password2)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.password2 = password2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>重新设计UserAction类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bjsxt.registration.action;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.annotation.Resource;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.vo.UserRegisterInfo;</div><div class="line"><span class="keyword">import</span> com.opensymphony.xwork2.ModelDriven;</div><div class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Scope;</div><div class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.model.User;</div><div class="line"><span class="keyword">import</span> com.bjsxt.registration.service.UserManager;</div><div class="line"><span class="keyword">import</span> com.opensymphony.xwork2.ActionSupport;</div><div class="line"></div><div class="line"><span class="meta">@Component</span>(<span class="string">"user"</span>)</div><div class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> <span class="keyword">implements</span> <span class="title">ModelDriven</span> </span>&#123;</div><div class="line">   </div><div class="line">   <span class="keyword">private</span> UserRegisterInfo info = <span class="keyword">new</span> UserRegisterInfo();</div><div class="line">   </div><div class="line">   <span class="keyword">private</span> UserManager um;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> UserManager <span class="title">getUm</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> um;</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   <span class="meta">@Resource</span>(name=<span class="string">"userManager"</span>)</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUm</span><span class="params">(UserManager um)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.um = um;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">      User u = <span class="keyword">new</span> User();</div><div class="line">      u.setUsername(info.getUsername());</div><div class="line">      u.setPassword(info.getPassword());</div><div class="line">      <span class="keyword">if</span>(um.exists(u)) &#123;</div><div class="line">         <span class="keyword">return</span> <span class="string">"fail"</span>;</div><div class="line">      &#125;</div><div class="line">      um.add(u);</div><div class="line">      <span class="keyword">return</span> <span class="string">"success"</span>;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> UserRegisterInfo <span class="title">getInfo</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> info;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInfo</span><span class="params">(UserRegisterInfo info)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.info = info;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">getModel</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">return</span> info;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行，正常。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/08/Spring4/" rel="next" title="Spring笔记（四） Spring整合Hibernate">
+                <i class="fa fa-chevron-left"></i> Spring笔记（四） Spring整合Hibernate
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十五课-SSH整合之-架构的历史1"><span class="nav-number">1.</span> <span class="nav-text">第三十五课. SSH整合之-架构的历史1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十六课-SSH整合之-架构的历史2"><span class="nav-number">2.</span> <span class="nav-text">第三十六课. SSH整合之-架构的历史2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十七课-SSH整合之-架构的历史-3"><span class="nav-number">3.</span> <span class="nav-text">第三十七课. SSH整合之-架构的历史-3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十八课-SSH整合之-架构的历史-4"><span class="nav-number">4.</span> <span class="nav-text">第三十八课. SSH整合之-架构的历史-4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三十九课-SSH整合之-架构的历史-5"><span class="nav-number">5.</span> <span class="nav-text">第三十九课. SSH整合之-架构的历史-5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十课-SSH整合之-架构的历史-6"><span class="nav-number">6.</span> <span class="nav-text">第四十课. SSH整合之-架构的历史-6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四十二课-SSH整合之-架构的历史-8"><span class="nav-number">7.</span> <span class="nav-text">第四十二课. SSH整合之-架构的历史-8</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
