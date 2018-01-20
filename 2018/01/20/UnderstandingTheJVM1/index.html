@@ -91,13 +91,13 @@
 <meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/2.jpg">
 <meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/3.jpg">
 <meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/4.jpg">
-<meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/5,jpg">
+<meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/5.jpg">
 <meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/6.jpg">
 <meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/7.jpg">
 <meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/8.jpg">
 <meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/9.jpg">
 <meta property="og:image" content="https://caocan.github.io/2018/01/20/UnderstandingTheJVM1/10.jpg">
-<meta property="og:updated_time" content="2018-01-20T14:04:34.256Z">
+<meta property="og:updated_time" content="2018-01-20T14:13:26.560Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机》读书笔记（一） 走进Java&amp;自动内存管理机制">
 <meta name="twitter:description" content="本文为《深入理解Java虚拟机》的1到5章读书笔记，主要介绍了Java简史、JVM简史和比较重要的自动内存管理机制。">
@@ -546,9 +546,11 @@
 <li>虚拟机栈（栈帧中的本地变量表）中引用的对象</li>
 <li>方法区中类静态属性引用的变量</li>
 <li>方法区中常量引用的变量</li>
-<li>本地方法栈中JNI（即一般说的Native方法）引用的对象<h3 id="再谈引用"><a href="#再谈引用" class="headerlink" title="再谈引用"></a>再谈引用</h3></li>
+<li>本地方法栈中JNI（即一般说的Native方法）引用的对象</li>
 </ul>
 </li>
+</ol>
+<h3 id="再谈引用"><a href="#再谈引用" class="headerlink" title="再谈引用"></a>再谈引用</h3><ol>
 <li>JDK1.2之前引用的定义：如果reference类型的数据中存储的数值代表的是另外一块内存的起始地址，就称这块内存代表着一个引用</li>
 <li>JDK1.2之后，引用分为强引用、软引用、弱引用、虚引用四种：<ul>
 <li>强引用：是指在程序代码中直接存在的引用，譬如引用new操作符创建的对象。只要强引用还存在，垃圾收集器就永远不会回收掉被引用的对象</li>
@@ -626,7 +628,7 @@
 <p>是Jvm client模式下默认的新生代收集器。对于限定单个CPU的环境来说，简单高效，Serial收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率，因此是运行在Client模式下的虚拟机的不错选择（比如桌面应用场景）。</p>
 <h3 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h3><ol>
 <li>ParNew收集器是Serial收集器的多线程版本</li>
-<li>ParNew收集器是运行在Server模式下虚拟机中首选的新生代收集器<br><img src="5,jpg" alt=""></li>
+<li>ParNew收集器是运行在Server模式下虚拟机中首选的新生代收集器<br><img src="5.jpg" alt=""></li>
 </ol>
 <h3 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h3><ol>
 <li>Parallel Scavenge收集器是一个新生代收集器，采用复制算法</li>
@@ -797,10 +799,13 @@
 <p>问题：网站每隔十几分钟出现十几秒的停顿。</p>
 <p>分析：监控服务器运行状况后发现，GC停顿导致，虚拟机在server模式下选择的是Parallel Scavenge收集器，回收12GB堆的Full GC时间14秒。另外文档序列化产生的大对象进入老年代。</p>
 <p>高性能硬件上的程序部署策略有两种：</p>
-<pre><code>-    通过64位jdk使用大内存，控制Full GC的频率，如一天一次，将内存可用空间保持在一个稳定的水平。
-
--    使用若干个32位虚拟机建立逻辑集群来利用硬件资源，在一台物理机器上启动多个应用服务器进程，给每个服务器进程分配不同的端口，然后在前端搭建一个负载均衡器，以反向代理的方式来分配访问请求。
-</code></pre><p>解决方案：5个32位JDK的逻辑集群，每个进程2GB内存，其中堆1.5GB，建立一个Apache服务作为前端均衡代理访问门户，改为CMS收集器。</p>
+<ul>
+<li><p>通过64位jdk使用大内存，控制Full GC的频率，如一天一次，将内存可用空间保持在一个稳定的水平。</p>
+</li>
+<li><p>使用若干个32位虚拟机建立逻辑集群来利用硬件资源，在一台物理机器上启动多个应用服务器进程，给每个服务器进程分配不同的端口，然后在前端搭建一个负载均衡器，以反向代理的方式来分配访问请求。</p>
+</li>
+</ul>
+<p>解决方案：5个32位JDK的逻辑集群，每个进程2GB内存，其中堆1.5GB，建立一个Apache服务作为前端均衡代理访问门户，改为CMS收集器。</p>
 <h2 id="集群间同步导致的内存溢出"><a href="#集群间同步导致的内存溢出" class="headerlink" title="集群间同步导致的内存溢出"></a>集群间同步导致的内存溢出</h2><p>B/S的MIS系统</p>
 <p>硬件：2个CPU，8GB内存的HP小型机</p>
 <p>服务器：WebLogic9.2，每台机器启动了3个WebLogic实例，构成一个6个节点的亲合式集群，节点之间没有session同步。</p>
