@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JUnit," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍JUnit的用法和以及相关的单元测试框架的用法。">
+<meta name="keywords" content="JUnit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JUnit笔记">
+<meta property="og:url" content="https://caocan.github.io/2018/02/04/JUnit/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍JUnit的用法和以及相关的单元测试框架的用法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/1.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/2.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/3.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/4.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/5.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/6.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/7.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/8.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/9.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/10.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/04/JUnit/11.png">
+<meta property="og:updated_time" content="2018-02-04T03:05:32.517Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JUnit笔记">
+<meta name="twitter:description" content="本文主要介绍JUnit的用法和以及相关的单元测试框架的用法。">
+<meta name="twitter:image" content="https://caocan.github.io/2018/02/04/JUnit/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2018/02/04/JUnit/"/>
+
+
+
+
+
+  <title>JUnit笔记 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2018/02/04/JUnit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JUnit笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-04T10:14:30+08:00">
+                2018-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/J2EE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2EE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍JUnit的用法和以及相关的单元测试框架的用法。<br><a id="more"></a></p>
+<h2 id="一、junit的安装和测试原则"><a href="#一、junit的安装和测试原则" class="headerlink" title="一、junit的安装和测试原则"></a>一、junit的安装和测试原则</h2><p>1.导入junit的jar，不建议直接使用eclipse中所提供的包<br>2.在src目录下编写服务代码<br>3.创建测试类<br>基本原则：</p>
+<ul>
+<li>在eclipse中创建一个source folder，命名为test</li>
+<li>创建一个测试类所在的包，包的名称和要测试的类一致</li>
+</ul>
+<p>4.Junit3和Junit4两者的区别是非常明显的<br>在Junit3中，如果某个类需要是测试类，必须将其继承于TestCase，如果某个方法需要是测试方法，必须让这个方法通过testXXX开头，在junit3中，如果希望指定某个测试方法运行之前运行某个初始化方法，这个方法的名称必须是setUp，如果希望在某个测试方法运行之后运行某个释放资源的方法，这个方法的名称必须是tearDown</p>
+<p>在Junit4中，一个POJO类就是测试类，测试方法通过@Test来标识，初始化方法通过@Before，释放资源的方法通过@After来标注。但是为了让junit4中的测试类在junit3中也可以使用，习惯于把初始化方法命名为setUp，释放资源的方法命名为tearDown，测试方法也同样以test开头</p>
+<p>5.如何使用断言<br>   在junit4中提供了一个Assert的类，这个类中有大量的方法进行断言的处理，在junit3中由于继承了TestCase,这个TestCase中提供了大量的assert的方法<br><img src="1.png" alt=""></p>
+<p><img src="2.png" alt=""></p>
+<p>6.测试异常对象<br><img src="3.png" alt=""></p>
+<p>7.timeout参数<br><img src="4.png" alt=""></p>
+<h2 id="二、hamcrest简介和TestSuite"><a href="#二、hamcrest简介和TestSuite" class="headerlink" title="二、hamcrest简介和TestSuite"></a>二、hamcrest简介和TestSuite</h2><h3 id="hamcrest"><a href="#hamcrest" class="headerlink" title="hamcrest"></a>hamcrest</h3><p>hamcrest可以有效增加junit的测试能力，用一些相对通俗的语言来进行测试<br>要使用junit中的assertThat来进行断言<br>第一个参数表示实际值，第二个参数表示hamcrest的表达式<br><img src="5.png" alt=""></p>
+<p>特别注意：如果使用junit4.10，必须把hamcrest的jar包移到junit的jar之前，否则，组合条件allOf,anyOf都会抛出异常<br>常用的比较方式</p>
+<h3 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h3><p>  <strong>allOf</strong> - 如果所有匹配器都匹配才匹配, short circuits (很难懂的一个词,意译是短路,感觉不对,就没有翻译)(像 Java &amp;&amp;)<br>  <strong>anyOf</strong> - 如果任何匹配器匹配就匹配, short circuits (像 Java ||)<br>  <strong>not</strong> - 如果包装的匹配器不匹配器时匹配,反之亦然</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>  <strong>equalTo</strong> - 测试对象相等使用Object.equals方法<br>  <strong>hasToString</strong> - 测试Object.toString方法<br>  <strong>instanceOf, isCompatibleType</strong> - 测试类型<br>  <strong>notNullValue, nullValue</strong> - 测试null<br>  <strong>sameInstance</strong> - 测试对象实例<br>  <strong>Beans</strong><br>  <strong>hasProperty</strong> - 测试JavaBeans属性</p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>  <strong>array</strong> - 测试一个数组元素test an array’s elements against an array of matchers<br>  <strong>hasEntry, hasKey, hasValue</strong> - 测试一个Map包含一个实体,键或者值<br>  <strong>hasItem, hasItems</strong> - 测试一个集合包含一个元素<br>  <strong>hasItemInArray</strong> - 测试一个数组包含一个元素</p>
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>  <strong>closeTo</strong> - 测试浮点值接近给定的值<br>  <strong>greaterThan, greaterThanOrEqualTo, lessThan, lessThanOrEqualTo</strong> - 测试次序</p>
+<h3 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h3><p>  <strong>equalToIgnoringCase</strong> - 测试字符串相等忽略大小写<br>  <strong>equalToIgnoringWhiteSpace</strong> - 测试字符串忽略空白<br>  <strong>containsString, endsWith, startsWith</strong> - 测试字符串匹配</p>
+<h3 id="testsuite"><a href="#testsuite" class="headerlink" title="testsuite"></a>testsuite</h3><p>可以通过TestSuite来组成多个测试组件<br><img src="6.png" alt=""></p>
+<h2 id="三、测试驱动开发"><a href="#三、测试驱动开发" class="headerlink" title="三、测试驱动开发"></a>三、测试驱动开发</h2><p>正常的开发流程<br>编码—&gt;测试—&gt;重复—&gt;提交<br>基于测试驱动的开发<br>测试—&gt;编码—&gt;重复—&gt;提交<br>先写了测试之后，由于测试的覆盖率要求为100%，所以就会让代码中可能存在的分支都进行测试，这样先写测试单元，可以为将来的代码提供一种有效的参考</p>
+<p>我们定义一个zttc.itat.service的包，在下面写我们的接口和具体实现：<br>IUserService：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> zttc.itat.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> zttc.itat.model.User;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUserService</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String username)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">load</span><span class="params">(String username)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(String username, String password)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>UserServiceByMap：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> zttc.itat.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> zttc.itat.model.User;</div><div class="line"><span class="keyword">import</span> zttc.itat.model.UserException;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceByMap</span> <span class="keyword">implements</span> <span class="title">IUserService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Map&lt;String, User&gt; us = <span class="keyword">new</span> HashMap&lt;String, User&gt;();</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(load(user.getUsername()) != <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UserException(<span class="string">"用户名已经存在"</span>);</div><div class="line">        us.put(user.getUsername(), user);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (username.equals(<span class="string">"superadmin"</span>)) <span class="keyword">return</span>;</div><div class="line">        us.remove(username);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">load</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> us.get(username);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(String username, String password)</span> </span>&#123;</div><div class="line">        User u = load(username);</div><div class="line">        <span class="keyword">if</span> (u == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> UserException(<span class="string">"用户名不存在"</span>);</div><div class="line">        <span class="keyword">if</span> (!u.getPassword().equals(password)) <span class="keyword">throw</span> <span class="keyword">new</span> UserException(<span class="string">"用户密码不存在"</span>);</div><div class="line">        <span class="keyword">return</span> u;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试类：<br>TestUserService：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> zttc.itat.service;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.junit.Before;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> zttc.itat.model.User;</div><div class="line"><span class="keyword">import</span> zttc.itat.model.UserException;</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestUserService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> IUserService us;</div><div class="line">    <span class="keyword">private</span> User baseUser;</div><div class="line"></div><div class="line">    <span class="meta">@Before</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="comment">//初始化</span></div><div class="line">        us = <span class="keyword">new</span> UserServiceByMap();</div><div class="line">        baseUser = <span class="keyword">new</span> User(<span class="string">"admin"</span>,<span class="string">"123"</span>,<span class="string">"管理员"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span></span>&#123;</div><div class="line">        User u = baseUser;</div><div class="line">        us.add(u);</div><div class="line">        User tu = us.load(<span class="string">"admin"</span>);</div><div class="line"></div><div class="line">        assertNotNull(tu);</div><div class="line">        assertEquals(tu.getUsername(), u.getUsername());</div><div class="line">        assertEquals(tu.getPassword(), u.getPassword());</div><div class="line">        assertEquals(tu.getNickname(), u.getNickname());</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span>(expected = UserException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAddExistUsername</span><span class="params">()</span></span>&#123;</div><div class="line">        us.add(baseUser);</div><div class="line">        User tu = <span class="keyword">new</span> User(<span class="string">"admin"</span>, <span class="string">"123"</span>, <span class="string">"123"</span>);</div><div class="line">        us.add(tu);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDelete</span><span class="params">()</span></span>&#123;</div><div class="line">        us.add(baseUser);</div><div class="line">        User tu = us.load(baseUser.getUsername());</div><div class="line">        assertNotNull(tu);</div><div class="line">        us.delete(baseUser.getUsername());</div><div class="line">        tu = us.load(baseUser.getUsername());</div><div class="line">        assertNull(<span class="string">"删除的用户还存在"</span>,tu);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">assertUserEquals</span><span class="params">(User u, User tu)</span></span>&#123;</div><div class="line">        assertEquals(tu.getUsername(), u.getUsername());</div><div class="line">        assertEquals(tu.getPassword(), u.getPassword());</div><div class="line">        assertEquals(tu.getNickname(), u.getNickname());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLogin</span><span class="params">()</span></span>&#123;</div><div class="line">        User u = baseUser;</div><div class="line">        us.add(u);</div><div class="line">        String username = <span class="string">"admin"</span>;</div><div class="line">        String password = <span class="string">"123"</span>;</div><div class="line">        User tu = us.login(username,password);</div><div class="line"></div><div class="line">        assertUserEquals(baseUser, tu);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span>(expected = UserException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNotExistsUserLogin</span><span class="params">()</span></span>&#123;</div><div class="line">        us.add(baseUser);</div><div class="line">        String username = <span class="string">"admin1"</span>;</div><div class="line">        String password = <span class="string">"123"</span>;</div><div class="line">        User tu = us.login(username,password);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span>(expected = UserException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPasswordErrorUserLogin</span><span class="params">()</span></span>&#123;</div><div class="line">        us.add(baseUser);</div><div class="line">        String username = <span class="string">"admin"</span>;</div><div class="line">        String password = <span class="string">"1234"</span>;</div><div class="line">        us.login(username, password);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="cobertura的使用"><a href="#cobertura的使用" class="headerlink" title="cobertura的使用"></a>cobertura的使用</h2><p>1、将cobertura的路径设置到path中<br>2、将要测试的源代码，编译之后的字节码文件和所需要的jar包拷贝到一个单独的目录中做处理<br>3、在命令提示符中使用命令为要生成测试覆盖率报告的代码生成一个ser的文件<br>3.1、 生成cobertura.ser文件<br>cobertura-instrument –destination instrumented org/konghao/manager/<br><img src="7.png" alt=""></p>
+<p>4、基于ser文件运行测试<br>4.1、java -cp lib/junit-4.10.jar;lib/cobertura.jar;instrumented;.;-Dnet.sourceforge.cobertura.datafile=cobertura.ser org.junit.runner.JUnitCore org.konghao.manager.TestUserManager<br><img src="8.png" alt=""></p>
+<p>5、根据ser文件生成测试覆盖率的报告<br>  特别注意：如果文件的编码是utf-8的，在生成报告前需要为cobertura-report.bat文件增加DfileEncoding的处理<br><img src="9.png" alt=""></p>
+<p>cobertura-report –format html –datafile cobertura.ser –destination reports src<br><img src="10.png" alt=""></p>
+<h2 id="四、stub和mock"><a href="#四、stub和mock" class="headerlink" title="四、stub和mock"></a>四、stub和mock</h2><p>stub原理代码：<br>UserStubDao：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> zttc.itat.dao;</div><div class="line"></div><div class="line"><span class="keyword">import</span> zttc.itat.model.User;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserStubDao</span> <span class="keyword">implements</span> <span class="title">IUserDao</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Map&lt;String, User&gt; us = <span class="keyword">new</span> HashMap&lt;String, User&gt;();</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span> </span>&#123;</div><div class="line">        us.put(user.getUsername(),user);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        us.remove(username);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">load</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> us.get(username);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>UserService：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> zttc.itat.dao;</div><div class="line"></div><div class="line"><span class="keyword">import</span> zttc.itat.model.User;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserStubDao</span> <span class="keyword">implements</span> <span class="title">IUserDao</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Map&lt;String, User&gt; us = <span class="keyword">new</span> HashMap&lt;String, User&gt;();</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span> </span>&#123;</div><div class="line">        us.put(user.getUsername(),user);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        us.remove(username);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">load</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> us.get(username);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>测试类：<br>TestUserService：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Before</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    us = <span class="keyword">new</span> UserService(<span class="keyword">new</span> UserStubDao());</div><div class="line">    baseUser = <span class="keyword">new</span> User(<span class="string">"admin"</span>,<span class="string">"123"</span>,<span class="string">"管理员"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="dbunit"><a href="#dbunit" class="headerlink" title="dbunit"></a>dbunit</h3><p>dbunit用来隔离数据库的访问</p>
+<h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><p>1、导入jar包<br> dbunit.jar<br> slf4j.jar<br>2、创建dbunit的测试数据xml文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">dataset</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- &lt;t_user&gt;</span></div><div class="line"><span class="comment">    &lt;id&gt;1&lt;/id&gt;</span></div><div class="line"><span class="comment">    &lt;username&gt;kh&lt;/username&gt;</span></div><div class="line"><span class="comment">    &lt;password&gt;123&lt;/password&gt;</span></div><div class="line"><span class="comment">    &lt;nickname&gt;孔浩&lt;/nickname&gt;</span></div><div class="line"><span class="comment">  &lt;/t_user&gt; --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">t_user</span> <span class="attr">id</span>=<span class="string">"1"</span> <span class="attr">username</span>=<span class="string">"admin"</span> <span class="attr">password</span>=<span class="string">"123"</span> <span class="attr">nickname</span>=<span class="string">"超级管理员"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dataset</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>3、创建dbunit的Connection<br>dbunit的Connection是用来对数据文件进行操作的，这个Connection必须依赖于目前项目中所使用的Connection<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">IDatabaseConnection con = <span class="keyword">new</span> DatabaseConnection(DbUtil.getConnection());</div></pre></td></tr></table></figure></p>
+<p>4、创建IDataSet，通过DATASet来获取测试数据中的数据<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * FlatXmlDataSet用来获取基于属性存储的属性值</span></div><div class="line"><span class="comment"> * XMLDataSet用来获取基于节点类型存储的属性值</span></div><div class="line"><span class="comment"> */</span></div><div class="line">IDataSet ds = <span class="keyword">new</span> FlatXmlDataSet(</div><div class="line">    <span class="keyword">new</span> FlatXmlProducer(</div><div class="line">    <span class="keyword">new</span> InputSource(</div><div class="line">    TestDbUnit.class.getClassLoader().getResourceAsStream(<span class="string">"t_user.xml"</span>))));</div></pre></td></tr></table></figure></p>
+<p>5、初始化数据并且完成测试<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//会将数据库中的数据清空，并且把测试数据插入</span></div><div class="line">DatabaseOperation.CLEAN_INSERT.execute(con, ds);</div><div class="line"></div><div class="line"><span class="comment">//从DAO中获取数据并且完成测试</span></div><div class="line">IUserDao ud = <span class="keyword">new</span> UserDao();</div><div class="line">User tu = ud.load(<span class="string">"admin"</span>);</div><div class="line">assertEquals(tu.getId(), <span class="number">1</span>);</div><div class="line">assertEquals(tu.getUsername(), <span class="string">"admin"</span>);</div><div class="line">assertEquals(tu.getPassword(), <span class="string">"123"</span>);</div><div class="line">assertEquals(tu.getNickname(), <span class="string">"超级管理员"</span>);</div></pre></td></tr></table></figure></p>
+<h4 id="还原数据库"><a href="#还原数据库" class="headerlink" title="还原数据库"></a>还原数据库</h4><p>1、备份<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBackup</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">       <span class="comment">//创建dbunit的Connnection，需要传入一个数据库的connection作为参数</span></div><div class="line">       IDatabaseConnection con = <span class="keyword">new</span> DatabaseConnection(DbUtil.getConnection());</div><div class="line">       <span class="comment">//根据con创建相应的dataset,这个dataset包含了所有的表</span></div><div class="line">       IDataSet ds = con.createDataSet();</div><div class="line">       <span class="comment">//将ds中的数据通过FlatXmlDataSet的格式写到文件中</span></div><div class="line">       FlatXmlDataSet.write(ds, <span class="keyword">new</span> FileWriter(<span class="string">"d:/test.xml"</span>));</div><div class="line">    &#125; <span class="keyword">catch</span> (DataSetException e) &#123;</div><div class="line">       e.printStackTrace();</div><div class="line">    &#125; <span class="keyword">catch</span> (DatabaseUnitException e) &#123;</div><div class="line">       e.printStackTrace();</div><div class="line">    &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">       <span class="comment">// TODO Auto-generated catch block</span></div><div class="line">       e.printStackTrace();</div><div class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">       <span class="comment">// TODO Auto-generated catch block</span></div><div class="line">       e.printStackTrace();</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>以上演示的是备份数据库的所有文件</p>
+<p>备份某些特定的表<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBackupTable</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">       <span class="comment">//创建dbunit的Connnection，需要传入一个数据库的connection作为参数</span></div><div class="line">       IDatabaseConnection con = <span class="keyword">new</span> DatabaseConnection(DbUtil.getConnection());</div><div class="line">       <span class="comment">//通过QueryDataSet可以有效的选择要处理的表来作为数据集 </span></div><div class="line">       QueryDataSet backup = <span class="keyword">new</span> QueryDataSet(con);</div><div class="line">       <span class="comment">//添加t_user这张表作为备份表</span></div><div class="line">       backup.addTable(<span class="string">"t_user"</span>);</div><div class="line">       FlatXmlDataSet.write(backup, <span class="keyword">new</span> FileWriter(<span class="string">"d:/test.xml"</span>));</div></pre></td></tr></table></figure></p>
+<p>2、还原数据库</p>
+<h3 id="easymock"><a href="#easymock" class="headerlink" title="easymock"></a>easymock</h3><p>mock对象用来对一些未实现关联对象的类进行测试的对象</p>
+<ul>
+<li>mock和stub的区别</li>
+<li>mock关注的是交互</li>
+<li>stub关注的是状态<br>EasyMock就是实现Mock对象的框架</li>
+</ul>
+<h4 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h4><p>1、导入easymock的jar包<br>2、Mock对象的生命周期<br>  三个阶段：<strong>record，replay,verify</strong><br> Mock的关注点是在交互上，主要解决的问题是对象之间的交互，诸如:Service就依赖于DAO，如果DAO没有实现，我们可以通过Mock来模拟DAO的实现。<br>record阶段就是用来说明这个DAO上面可能存在的值<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoad</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//1、创建DAO的Mock对象，目前就进入了record阶段</span></div><div class="line">    IUserDao ud = EasyMock.createMock(IUserDao.class);</div><div class="line">    User u = <span class="keyword">new</span> User(<span class="number">1</span>,<span class="string">"admin"</span>,<span class="string">"123"</span>,<span class="string">"管理员"</span>);</div><div class="line">    <span class="comment">//2、记录ud可能会发生的操作的结果</span></div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">     * 以下代码所指的是，当在dao中调用了load方法并且参数为admin的时候，返回值是u对象</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="comment">//必须把交互的所有过程都记录下来</span></div><div class="line">    EasyMock.expect(ud.load(<span class="string">"asd"</span>)).andReturn(u);</div><div class="line">    ud.delete(<span class="string">"abc"</span>);</div><div class="line">    <span class="comment">//以下用来操作没有返回值的方法</span></div><div class="line">    EasyMock.expectLastCall();</div><div class="line">    EasyMock.expect(ud.load(<span class="string">"admin"</span>)).andReturn(u);</div><div class="line">    <span class="comment">//3、进入测试阶段，也就是replay阶段</span></div><div class="line">    EasyMock.replay(ud);</div><div class="line">    <span class="comment">//创建Service和DAO的关联</span></div><div class="line">    IUserService us = <span class="keyword">new</span> UserService(ud);</div><div class="line">    <span class="comment">//完成测试</span></div><div class="line">    User tu = us.load(<span class="string">"admin"</span>);</div><div class="line">    EntitiesHelper.assertUser(tu,u);</div><div class="line">    <span class="comment">//3、验证交互关系是否正确</span></div><div class="line">    EasyMock.verify(ud);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h4 id="mock的几种创建方式"><a href="#mock的几种创建方式" class="headerlink" title="mock的几种创建方式"></a>mock的几种创建方式</h4><p>1、createMock<br>通过createMock说创建的mock对象，在进行verify的时候仅仅只是检查关联方法是否正常完成调用，如果完成次数一致就认为测试通过，不考虑顺序问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoadMock</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//1、创建DAO的Mock对象，目前就进入了record阶段</span></div><div class="line">    IUserDao ud = EasyMock.createMock(IUserDao.class);</div><div class="line">    User u = <span class="keyword">new</span> User(<span class="number">1</span>,<span class="string">"admin"</span>,<span class="string">"123"</span>,<span class="string">"管理员"</span>);</div><div class="line">    EasyMock.expect(ud.load(<span class="string">"asd"</span>)).andReturn(u);</div><div class="line">    <span class="comment">//使用的createMock,如果方法的调用顺序不一致，不会抛出异常</span></div><div class="line">    ud.delete(<span class="string">"abc"</span>);</div><div class="line">    EasyMock.expectLastCall();</div><div class="line">    EasyMock.expect(ud.load(<span class="string">"admin"</span>)).andReturn(u);</div><div class="line">    EasyMock.replay(ud);</div><div class="line">    <span class="comment">//创建Service和DAO的关联</span></div><div class="line">    IUserService us = <span class="keyword">new</span> UserService(ud);</div><div class="line">    <span class="comment">//完成测试</span></div><div class="line">    User tu = us.load(<span class="string">"admin"</span>);</div><div class="line">    EntitiesHelper.assertUser(tu,u);</div><div class="line">    <span class="comment">//3、验证交互关系是否正确</span></div><div class="line">    EasyMock.verify(ud);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>2、createStrictMock<br>在verify时不仅仅验证关联方法的调用次数还要验证顺序<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoadStrictMock</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="comment">//1、创建DAO的Mock对象，目前就进入了record阶段</span></div><div class="line">  IUserDao ud = EasyMock.createStrictMock(IUserDao.class);</div><div class="line">  User u = <span class="keyword">new</span> User(<span class="number">1</span>,<span class="string">"admin"</span>,<span class="string">"123"</span>,<span class="string">"管理员"</span>);</div><div class="line">  EasyMock.expect(ud.load(<span class="string">"asd"</span>)).andReturn(u);</div><div class="line">  <span class="comment">//使用的createStrictMock,方法的顺序不一致，所以会抛出异常</span></div><div class="line">  ud.delete(<span class="string">"abc"</span>);</div><div class="line">  EasyMock.expectLastCall();</div><div class="line">  EasyMock.expect(ud.load(<span class="string">"admin"</span>)).andReturn(u);</div><div class="line">  EasyMock.replay(ud);</div><div class="line">  <span class="comment">//创建Service和DAO的关联</span></div><div class="line">  IUserService us = <span class="keyword">new</span> UserService(ud);</div><div class="line">  <span class="comment">//完成测试</span></div><div class="line">  User tu = us.load(<span class="string">"admin"</span>);</div><div class="line">  EntitiesHelper.assertUser(tu,u);</div><div class="line">  <span class="comment">//3、验证交互关系是否正确</span></div><div class="line">  EasyMock.verify(ud);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3、基于MockCongrol的创建<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">   * 使用mockControl可以检查一组调用对象之间的关系</span></div><div class="line"><span class="comment">   * 所以如果希望使用Strict的方式，而且依赖了两个类以上，这两个依赖类应该通过control的方式创建</span></div><div class="line"><span class="comment">   */</span></div><div class="line">  <span class="meta">@Test</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test05</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//可以通过control来创建一组mock</span></div><div class="line">    IMocksControl mc = createStrictControl();</div><div class="line">    s1 = mc.createMock(IService1.class);</div><div class="line">    s2 = mc.createMock(IService2.class);</div><div class="line">    s1.method1();</div><div class="line">    expectLastCall();</div><div class="line">    s1.method2();</div><div class="line">    expectLastCall();</div><div class="line">    s2.method3();</div><div class="line">    expectLastCall();</div><div class="line">    s2.method4();</div><div class="line">    expectLastCall();</div><div class="line">    <span class="comment">//让mock控制器中的进行操作</span></div><div class="line">    mc.replay();</div><div class="line">    ms.setS1(s1);</div><div class="line">    ms.setS2(s2);</div><div class="line">    ms.m2();</div><div class="line">    <span class="comment">//验证mock控制器中的所有mock调用</span></div><div class="line">    mc.verify();</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="五、基于容器的测试"><a href="#五、基于容器的测试" class="headerlink" title="五、基于容器的测试"></a>五、基于容器的测试</h2><p>cactus可以完成模拟J2EE的容器做测试<br>可以测试Servlet,JSP,Filter和EJB<br>cactus主要是基于junit3.8来进行操作的，并不支持junit4中的annotation</p>
+<h3 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h3><p>1、导入jar(以下有背景的都要导入)<br><img src="11.png" alt=""></p>
+<p>2、创建Servlet的测试类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 只要写了一个类继承于 ServletTestCase，就会拥有相应的request等方法</span></div><div class="line"><span class="comment"> * 需要注意的一点就是：此时junit4中的Annotation全部不起作用</span></div><div class="line"><span class="comment"> * 就得按照junit3的方法来:setUp和tearDown用来做初始化和结束释放资源</span></div><div class="line"><span class="comment"> * testXX用来做测试</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span> Administrator</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLoginServletByCactus</span> <span class="keyword">extends</span> <span class="title">ServletTestCase</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> LoginServlet servlet;</div><div class="line">  <span class="comment">//begin是在客户端执行的</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beginNoSession</span><span class="params">(WebRequest request)</span> </span>&#123;</div><div class="line">    request.setAutomaticSession(<span class="keyword">false</span>);</div><div class="line">    request.addParameter(<span class="string">"username"</span>, <span class="string">"kh"</span>);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="comment">//在服务器端执行</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</div><div class="line">    servlet = <span class="keyword">new</span> LoginServlet();</div><div class="line">  &#125;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNoSession</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//服务器端执行</span></div><div class="line">    Assert.assertFalse(servlet.isLogin(request));</div><div class="line">    Assert.assertEquals(request.getParameter(<span class="string">"username"</span>),<span class="string">"kh"</span>);</div><div class="line">    </div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSessionNoUser</span><span class="params">()</span> </span>&#123;</div><div class="line">    Assert.assertFalse(servlet.isLogin(request));</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSessionHasUser</span><span class="params">()</span> </span>&#123;</div><div class="line">    session.setAttribute(<span class="string">"loginUser"</span>, <span class="keyword">new</span> User());</div><div class="line">    Assert.assertTrue(servlet.isLogin(request));</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDoGet</span><span class="params">()</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">    servlet.doGet(request, response);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="comment">//客户端执行</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">endDoGet</span><span class="params">(WebResponse resp)</span> </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">       Assert.assertEquals(resp.getTables()[<span class="number">0</span>].getCellAsText(<span class="number">0</span>,<span class="number">0</span>),<span class="string">"111"</span>);</div><div class="line">       Assert.assertEquals(resp.getTables()[<span class="number">0</span>].getCellAsText(<span class="number">0</span>,<span class="number">1</span>),<span class="string">"222"</span>);</div><div class="line">    &#125; <span class="keyword">catch</span> (SAXException e) &#123;</div><div class="line">       e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3、创建动态web环境并且配置web.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletRedirector<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.apache.cactus.server.ServletTestRedirector<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletRedirector<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/ServletRedirector<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="jetty"><a href="#jetty" class="headerlink" title="jetty"></a>jetty</h3><p>TestJettyInCactus：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> zttc.itat.servlet;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.cactus.extension.jetty.Jetty5xTestSetup;</div><div class="line"></div><div class="line"><span class="keyword">import</span> junit.framework.Test;</div><div class="line"><span class="keyword">import</span> junit.framework.TestSuite;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestJettyInCactus</span> </span>&#123;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Test <span class="title">suite</span><span class="params">()</span> </span>&#123;</div><div class="line">      System.setProperty(<span class="string">"cactus.contextURL"</span>, <span class="string">"http://localhost:2323/test"</span>);</div><div class="line">      TestSuite suite = <span class="keyword">new</span> TestSuite();</div><div class="line">      suite.addTestSuite(TestLoginServletByCactus.class);</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Jetty5xTestSetup(suite);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>jetty文档地址：<br><a href="http://www.eclipse.org/jetty/documentation/current/" target="_blank" rel="external">http://www.eclipse.org/jetty/documentation/current/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JUnit/" rel="tag"># JUnit</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/29/springmvc1/" rel="next" title="SpringMVC笔记（一） SpringMVC框架简介以及入门程序">
+                <i class="fa fa-chevron-left"></i> SpringMVC笔记（一） SpringMVC框架简介以及入门程序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、junit的安装和测试原则"><span class="nav-number">1.</span> <span class="nav-text">一、junit的安装和测试原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、hamcrest简介和TestSuite"><span class="nav-number">2.</span> <span class="nav-text">二、hamcrest简介和TestSuite</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hamcrest"><span class="nav-number">2.1.</span> <span class="nav-text">hamcrest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑"><span class="nav-number">2.2.</span> <span class="nav-text">逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象"><span class="nav-number">2.3.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合"><span class="nav-number">2.4.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字"><span class="nav-number">2.5.</span> <span class="nav-text">数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本"><span class="nav-number">2.6.</span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#testsuite"><span class="nav-number">2.7.</span> <span class="nav-text">testsuite</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、测试驱动开发"><span class="nav-number">3.</span> <span class="nav-text">三、测试驱动开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cobertura的使用"><span class="nav-number">4.</span> <span class="nav-text">cobertura的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、stub和mock"><span class="nav-number">5.</span> <span class="nav-text">四、stub和mock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dbunit"><span class="nav-number">5.1.</span> <span class="nav-text">dbunit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境搭建"><span class="nav-number">5.1.1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#还原数据库"><span class="nav-number">5.1.2.</span> <span class="nav-text">还原数据库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#easymock"><span class="nav-number">5.2.</span> <span class="nav-text">easymock</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行环境"><span class="nav-number">5.2.1.</span> <span class="nav-text">运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mock的几种创建方式"><span class="nav-number">5.2.2.</span> <span class="nav-text">mock的几种创建方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、基于容器的测试"><span class="nav-number">6.</span> <span class="nav-text">五、基于容器的测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建环境"><span class="nav-number">6.1.</span> <span class="nav-text">搭建环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jetty"><span class="nav-number">6.2.</span> <span class="nav-text">jetty</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
