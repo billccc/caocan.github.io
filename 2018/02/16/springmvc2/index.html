@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SpringMVC," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍spring mvc框架和mybatis框架的整合，二者一起开发出一个简单的商品订单系统。">
+<meta name="keywords" content="SpringMVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC笔记（二） springmvc和mybatis的整合">
+<meta property="og:url" content="https://caocan.github.io/2018/02/16/springmvc2/index.html">
+<meta property="og:site_name" content="曹のBlog">
+<meta property="og:description" content="本文主要介绍spring mvc框架和mybatis框架的整合，二者一起开发出一个简单的商品订单系统。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/1.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/2.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/3.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/4.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/5.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/6.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/7.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/8.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/9.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/10.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/11.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/12.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/13.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/14.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/15.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/16.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/17.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/18.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/19.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/20.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/21.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/22.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/23.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/24.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/25.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/26.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/27.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/28.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/29.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/30.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/31.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/32.png">
+<meta property="og:image" content="https://caocan.github.io/2018/02/16/springmvc2/33.png">
+<meta property="og:updated_time" content="2018-02-16T08:30:27.732Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC笔记（二） springmvc和mybatis的整合">
+<meta name="twitter:description" content="本文主要介绍spring mvc框架和mybatis框架的整合，二者一起开发出一个简单的商品订单系统。">
+<meta name="twitter:image" content="https://caocan.github.io/2018/02/16/springmvc2/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caocan.github.io/2018/02/16/springmvc2/"/>
+
+
+
+
+
+  <title>SpringMVC笔记（二） springmvc和mybatis的整合 | 曹のBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">曹のBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caocan.github.io/2018/02/16/springmvc2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="曹灿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="曹のBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringMVC笔记（二） springmvc和mybatis的整合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-16T15:58:24+08:00">
+                2018-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringMVC/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringMVC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍spring mvc框架和mybatis框架的整合，二者一起开发出一个简单的商品订单系统。<br><a id="more"></a></p>
+<h1 id="8-springmvc和mybatis整合"><a href="#8-springmvc和mybatis整合" class="headerlink" title="8    springmvc和mybatis整合"></a>8    springmvc和mybatis整合</h1><h2 id="8-1-需求"><a href="#8-1-需求" class="headerlink" title="8.1    需求"></a>8.1    需求</h2><p>使用springmvc和mybatis完成商品列表查询。</p>
+<h2 id="8-2-整合思路"><a href="#8-2-整合思路" class="headerlink" title="8.2    整合思路"></a>8.2    整合思路</h2><p>springmvc+mybaits的系统架构：<br><img src="1.png" alt=""></p>
+<p>第一步：整合dao层<br>    mybatis和spring整合，通过spring管理mapper接口。<br>    使用mapper的扫描器自动扫描mapper接口在spring中进行注册。</p>
+<p>第二步：整合service层<br>    通过spring管理 service接口。<br>    使用配置方式将service接口配置在spring配置文件中。<br>    实现事务控制。</p>
+<p>第三步：整合springmvc<br>    由于springmvc是spring的模块，不需要整合。</p>
+<h2 id="8-3-准备环境"><a href="#8-3-准备环境" class="headerlink" title="8.3    准备环境"></a>8.3    准备环境</h2><p>数据库环境：mysql5.1<br><img src="2.png" alt=""></p>
+<p>java环境：<br>jdk1.7.0_72<br>Intellij IDEA</p>
+<p>springmvc版本：spring3.2</p>
+<p>所需要的jar包：<br>数据库驱动包：mysql5.1<br>mybatis的jar包<br>mybatis和spring整合包<br>log4j包<br>dbcp数据库连接池包<br>spring3.2所有jar包<br>jstl包</p>
+<p>参考：<br><img src="3.png" alt=""></p>
+<p>工程结构：<br><img src="4.png" alt=""></p>
+<h2 id="8-4-整合dao"><a href="#8-4-整合dao" class="headerlink" title="8.4    整合dao"></a>8.4    整合dao</h2><p>mybatis和spring进行整合。</p>
+<h3 id="8-4-1-sqlMapConfig-xml"><a href="#8-4-1-sqlMapConfig-xml" class="headerlink" title="8.4.1    sqlMapConfig.xml"></a>8.4.1    sqlMapConfig.xml</h3><p>mybatis自己的配置文件。<br><img src="5.png" alt=""></p>
+<h3 id="8-4-2-applicationContext-dao-xml"><a href="#8-4-2-applicationContext-dao-xml" class="headerlink" title="8.4.2    applicationContext-dao.xml"></a>8.4.2    applicationContext-dao.xml</h3><p>配置：<br>数据源<br>SqlSessionFactory<br>mapper扫描器<br><img src="6.png" alt=""></p>
+<h3 id="8-4-3-逆向工程生成po类及mapper-单表增删改查"><a href="#8-4-3-逆向工程生成po类及mapper-单表增删改查" class="headerlink" title="8.4.3    逆向工程生成po类及mapper(单表增删改查)"></a>8.4.3    逆向工程生成po类及mapper(单表增删改查)</h3><p><img src="7.png" alt=""></p>
+<p>将生成的文件拷贝至工程 中。</p>
+<h3 id="8-4-4-手动定义商品查询mapper"><a href="#8-4-4-手动定义商品查询mapper" class="headerlink" title="8.4.4    手动定义商品查询mapper"></a>8.4.4    手动定义商品查询mapper</h3><p>针对综合查询mapper，一般情况会有关联查询，建议自定义mapper</p>
+<h4 id="8-4-4-1-ItemsMapperCustom-xml"><a href="#8-4-4-1-ItemsMapperCustom-xml" class="headerlink" title="8.4.4.1    ItemsMapperCustom.xml"></a>8.4.4.1    ItemsMapperCustom.xml</h4><p>sql语句：<br><code>SELECT * FROM items  WHERE items.name LIKE &#39;%笔记本%&#39;</code></p>
+<p><img src="8.png" alt=""></p>
+<h4 id="8-4-4-2-ItemsMapperCustom-java"><a href="#8-4-4-2-ItemsMapperCustom-java" class="headerlink" title="8.4.4.2    ItemsMapperCustom.java"></a>8.4.4.2    ItemsMapperCustom.java</h4><p><img src="9.png" alt=""></p>
+<h2 id="8-5-整合service"><a href="#8-5-整合service" class="headerlink" title="8.5    整合service"></a>8.5    整合service</h2><p>让spring管理service接口。</p>
+<h3 id="8-5-1-定义service接口"><a href="#8-5-1-定义service接口" class="headerlink" title="8.5.1    定义service接口"></a>8.5.1    定义service接口</h3><p><img src="10.png" alt=""></p>
+<p><img src="11.png" alt=""></p>
+<h3 id="8-5-2-在spring容器配置service-applicationContext-service-xml"><a href="#8-5-2-在spring容器配置service-applicationContext-service-xml" class="headerlink" title="8.5.2    在spring容器配置service(applicationContext-service.xml)"></a>8.5.2    在spring容器配置service(applicationContext-service.xml)</h3><p>创建applicationContext-service.xml，文件中配置service。<br><img src="12.png" alt=""></p>
+<h3 id="8-5-3-事务控制-applicationContext-transaction-xml"><a href="#8-5-3-事务控制-applicationContext-transaction-xml" class="headerlink" title="8.5.3    事务控制(applicationContext-transaction.xml)"></a>8.5.3    事务控制(applicationContext-transaction.xml)</h3><p>在applicationContext-transaction.xml中使用spring声明式事务控制方法。<br><img src="13.png" alt=""></p>
+<h2 id="8-6-整合springmvc"><a href="#8-6-整合springmvc" class="headerlink" title="8.6    整合springmvc"></a>8.6    整合springmvc</h2><h3 id="8-6-1-springmvc-xml"><a href="#8-6-1-springmvc-xml" class="headerlink" title="8.6.1    springmvc.xml"></a>8.6.1    springmvc.xml</h3><p>创建springmvc.xml文件，配置处理器映射器、适配器、视图解析器。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 可以扫描controller、service、...</span></div><div class="line"><span class="comment">	这里让扫描controller，指定controller的包</span></div><div class="line"><span class="comment">	 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"cn.itcast.ssm.controller"</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></div><div class="line">	</div><div class="line">		</div><div class="line">	<span class="comment">&lt;!--注解映射器 --&gt;</span></div><div class="line">	<span class="comment">&lt;!-- &lt;bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/&gt; --&gt;</span></div><div class="line">	<span class="comment">&lt;!--注解适配器 --&gt;</span></div><div class="line">	<span class="comment">&lt;!-- &lt;bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/&gt; --&gt;</span></div><div class="line">	</div><div class="line">	<span class="comment">&lt;!-- 使用 mvc:annotation-driven代替上边注解映射器和注解适配器配置</span></div><div class="line"><span class="comment">	mvc:annotation-driven默认加载很多的参数绑定方法，</span></div><div class="line"><span class="comment">	比如json转换解析器就默认加载了，如果使用mvc:annotation-driven不用配置上边的RequestMappingHandlerMapping和RequestMappingHandlerAdapter</span></div><div class="line"><span class="comment">	实际开发时使用mvc:annotation-driven</span></div><div class="line"><span class="comment">	 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">mvc:annotation-driven</span>&gt;</span><span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></div><div class="line">	</div><div class="line"></div><div class="line">	<span class="comment">&lt;!-- 视图解析器</span></div><div class="line"><span class="comment">	解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包</span></div><div class="line"><span class="comment">	 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">bean</span></span></div><div class="line"><span class="tag">		<span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 配置jsp路径的前缀 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/jsp/"</span>/&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 配置jsp路径的后缀 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="8-6-2-配置前端控制器"><a href="#8-6-2-配置前端控制器" class="headerlink" title="8.6.2    配置前端控制器"></a>8.6.2    配置前端控制器</h3><p>参考入门程序。</p>
+<h3 id="8-6-3-编写Controller-就是Handler"><a href="#8-6-3-编写Controller-就是Handler" class="headerlink" title="8.6.3    编写Controller(就是Handler)"></a>8.6.3    编写Controller(就是Handler)</h3><p><img src="14.png" alt=""></p>
+<h3 id="8-6-4-编写jsp"><a href="#8-6-4-编写jsp" class="headerlink" title="8.6.4    编写jsp"></a>8.6.4    编写jsp</h3><p><img src="15.png" alt=""></p>
+<h2 id="8-7-加载spring容器"><a href="#8-7-加载spring容器" class="headerlink" title="8.7    加载spring容器"></a>8.7    加载spring容器</h2><p>将mapper、service、controller加载到spring容器中。<br><img src="16.png" alt=""></p>
+<p>建议使用通配符加载上边的配置文件。</p>
+<p>在web.xml中，添加spring容器监听器，加载spring容器。<br><img src="17.png" alt=""></p>
+<h1 id="9-商品修改功能开发"><a href="#9-商品修改功能开发" class="headerlink" title="9    商品修改功能开发"></a>9    商品修改功能开发</h1><h2 id="9-1-需求"><a href="#9-1-需求" class="headerlink" title="9.1    需求"></a>9.1    需求</h2><p>操作流程：<br>1、进入商品查询列表页面<br>2、点击修改，进入商品修改页面，页面中显示了要修改的商品（从数据库查询）<br>    要修改的商品从数据库查询，根据商品id(主键)查询商品信息</p>
+<p>3、在商品修改页面，修改商品信息，修改后，点击提交</p>
+<h2 id="9-2-开发mapper"><a href="#9-2-开发mapper" class="headerlink" title="9.2    开发mapper"></a>9.2    开发mapper</h2><p>mapper：<br>    根据id查询商品信息<br>    根据id更新Items表的数据<br>不用开发了，使用逆向工程生成的代码。</p>
+<h2 id="9-3-开发service"><a href="#9-3-开发service" class="headerlink" title="9.3    开发service"></a>9.3    开发service</h2><p>接口功能：<br>    根据id查询商品信息<br>    修改商品信息<br><img src="18.png" alt=""></p>
+<h2 id="9-4-开发controller"><a href="#9-4-开发controller" class="headerlink" title="9.4    开发controller"></a>9.4    开发controller</h2><p>方法：<br>    商品信息修改页面显示<br>    商品信息修改提交</p>
+<h1 id="10-RequestMapping"><a href="#10-RequestMapping" class="headerlink" title="10    @RequestMapping"></a>10    @RequestMapping</h1><ul>
+<li>url映射<br>定义controller方法对应的url，进行处理器映射使用。</li>
+</ul>
+<ul>
+<li><p>窄化请求映射<br><img src="19.png" alt=""></p>
+</li>
+<li><p>限制http请求方法<br>出于安全性考虑，对http的链接进行方法限制。<br>如果限制请求为post方法，进行get请求，报错：<br><img src="20.png" alt=""></p>
+</li>
+</ul>
+<p><img src="21.png" alt=""></p>
+<h1 id="11-controller方法的返回值"><a href="#11-controller方法的返回值" class="headerlink" title="11    controller方法的返回值"></a>11    controller方法的返回值</h1><ul>
+<li><p>返回ModelAndView<br>需要方法结束时，定义ModelAndView，将model和view分别进行设置。</p>
+</li>
+<li><p>返回string<br>如果controller方法返回string，</p>
+</li>
+</ul>
+<p>1、表示返回逻辑视图名。<br>真正视图(jsp路径)=前缀+逻辑视图名+后缀<br><img src="22.png" alt=""></p>
+<p>2、redirect重定向<br>商品修改提交后，重定向到商品查询列表。<br>redirect重定向特点：浏览器地址栏中的url会变化。修改提交的request数据无法传到重定向的地址。因为重定向后重新进行request（request无法共享）<br><img src="23.png" alt=""></p>
+<p>3、forward页面转发<br>通过forward进行页面转发，浏览器地址栏url不变，request可以共享。<br><img src="24.png" alt=""></p>
+<ul>
+<li>返回void</li>
+</ul>
+<p>在controller方法形参上可以定义request和response，使用request或response指定响应结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">1、使用request转向页面，如下：</div><div class="line">request.getRequestDispatcher(&quot;页面路径&quot;).forward(request, response);</div><div class="line"></div><div class="line">2、也可以通过response页面重定向：</div><div class="line">response.sendRedirect(&quot;url&quot;)</div><div class="line"></div><div class="line">3、也可以通过response指定响应结果，例如响应json数据如下：</div><div class="line">response.setCharacterEncoding(&quot;utf-8&quot;);</div><div class="line">response.setContentType(&quot;application/json;charset=utf-8&quot;);</div><div class="line">response.getWriter().write(&quot;json串&quot;);</div></pre></td></tr></table></figure></p>
+<h1 id="12-参数绑定"><a href="#12-参数绑定" class="headerlink" title="12    参数绑定"></a>12    参数绑定</h1><h2 id="12-1-spring参数绑定过程"><a href="#12-1-spring参数绑定过程" class="headerlink" title="12.1    spring参数绑定过程"></a>12.1    spring参数绑定过程</h2><p>从客户端请求key/value数据，经过参数绑定，将key/value数据绑定到controller方法的形参上。</p>
+<p>springmvc中，接收页面提交的数据是通过方法形参来接收。而不是在controller类定义成员变量接收！！！！<br><img src="25.png" alt=""></p>
+<h2 id="12-2-默认支持的类型"><a href="#12-2-默认支持的类型" class="headerlink" title="12.2    默认支持的类型"></a>12.2    默认支持的类型</h2><p>直接在controller方法形参上定义下边类型的对象，就可以使用这些对象。在参数绑定过程中，如果遇到下边类型直接进行绑定。</p>
+<h4 id="1-2-1-1-HttpServletRequest"><a href="#1-2-1-1-HttpServletRequest" class="headerlink" title="1.2.1.1    HttpServletRequest"></a>1.2.1.1    HttpServletRequest</h4><p>通过request对象获取请求信息</p>
+<h4 id="1-2-1-2-HttpServletResponse"><a href="#1-2-1-2-HttpServletResponse" class="headerlink" title="1.2.1.2    HttpServletResponse"></a>1.2.1.2    HttpServletResponse</h4><p>通过response处理响应信息</p>
+<h4 id="1-2-1-3-HttpSession"><a href="#1-2-1-3-HttpSession" class="headerlink" title="1.2.1.3    HttpSession"></a>1.2.1.3    HttpSession</h4><p>通过session对象得到session中存放的对象</p>
+<h4 id="1-2-1-4-Model-ModelMap"><a href="#1-2-1-4-Model-ModelMap" class="headerlink" title="1.2.1.4    Model/ModelMap"></a>1.2.1.4    Model/ModelMap</h4><p>model是一个接口，modelMap是一个接口实现 。<br>作用：将model数据填充到request域。</p>
+<h2 id="12-3-简单类型"><a href="#12-3-简单类型" class="headerlink" title="12.3    简单类型"></a>12.3    简单类型</h2><p>通过@RequestParam对简单类型的参数进行绑定。<br>如果不使用@RequestParam，要求request传入参数名称和controller方法的形参名称一致，方可绑定成功。</p>
+<p>如果使用@RequestParam，不用限制request传入参数名称和controller方法的形参名称一致。</p>
+<p>通过required属性指定参数是否必须要传入，如果设置为true，没有传入参数，报下边错误：<br><img src="26.png" alt=""></p>
+<p><img src="27.png" alt=""></p>
+<p>参考教案 对其它简单类型绑定进行测试。</p>
+<h2 id="12-4-pojo绑定"><a href="#12-4-pojo绑定" class="headerlink" title="12.4    pojo绑定"></a>12.4    pojo绑定</h2><p>页面中input的name和controller的pojo形参中的属性名称一致，将页面中数据绑定到pojo。</p>
+<p>页面定义：<br><img src="28.png" alt=""></p>
+<p>controller的pojo形参的定义：<br><img src="29.png" alt=""></p>
+<h2 id="12-5-自定义参数绑定实现日期类型绑定"><a href="#12-5-自定义参数绑定实现日期类型绑定" class="headerlink" title="12.5    自定义参数绑定实现日期类型绑定"></a>12.5    自定义参数绑定实现日期类型绑定</h2><p>对于controller形参中pojo对象，如果属性中有日期类型，需要自定义参数绑定。<br>将请求日期数据串转成 日期类型，要转换的日期类型和pojo中日期属性的类型保持一致。<br><img src="30.png" alt=""></p>
+<p>所以自定义参数绑定将日期串转成java.util.Date类型。</p>
+<p>需要向处理器适配器中注入自定义的参数绑定组件。</p>
+<h3 id="12-5-1-自定义日期类型绑定"><a href="#12-5-1-自定义日期类型绑定" class="headerlink" title="12.5.1    自定义日期类型绑定"></a>12.5.1    自定义日期类型绑定</h3><p><img src="31.png" alt=""></p>
+<h3 id="12-5-2-配置方式"><a href="#12-5-2-配置方式" class="headerlink" title="12.5.2     配置方式"></a>12.5.2     配置方式</h3><p><img src="32.png" alt=""></p>
+<p><img src="33.png" alt=""></p>
+<h1 id="13-springmvc和struts2的区别"><a href="#13-springmvc和struts2的区别" class="headerlink" title="13    springmvc和struts2的区别"></a>13    springmvc和struts2的区别</h1><p>1、springmvc基于方法开发的，struts2基于类开发的。</p>
+<p>springmvc将url和controller方法映射。映射成功后springmvc生成一个Handler对象，对象中只包括了一个method。<br>方法执行结束，形参数据销毁。<br>springmvc的controller开发类似service开发。</p>
+<p>2、springmvc可以进行单例开发，并且建议使用单例开发，struts2通过类的成员变量接收参数，无法使用单例，只能使用多例。</p>
+<p>3、经过实际测试，struts2速度慢，在于使用struts标签，如果使用struts建议使用jstl。</p>
+<h1 id="14-问题"><a href="#14-问题" class="headerlink" title="14    问题"></a>14    问题</h1><h2 id="14-1-post乱码"><a href="#14-1-post乱码" class="headerlink" title="14.1    post乱码"></a>14.1    post乱码</h2><p>在web.xml添加post乱码filter</p>
+<p>在web.xml中加入：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">init-param</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">param-value</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>CharacterEncodingFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>以上可以解决post请求乱码问题。<br>对于get请求中文参数出现乱码解决方法有两个：</p>
+<p>修改tomcat配置文件添加编码与工程编码一致，如下：</p>
+<p><code>&lt;Connector URIEncoding=&quot;utf-8&quot; connectionTimeout=&quot;20000&quot; port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot; redirectPort=&quot;8443&quot;/&gt;</code></p>
+<p>另外一种方法对参数进行重新编码：<br><code>String userName new 
+String(request.getParamter(&quot;userName&quot;).getBytes(&quot;ISO8859-1&quot;),&quot;utf-8&quot;)</code></p>
+<p>ISO8859-1是tomcat默认编码，需要将tomcat编码后的内容按utf-8编码</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringMVC/" rel="tag"># SpringMVC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/04/JUnit/" rel="next" title="JUnit笔记">
+                <i class="fa fa-chevron-left"></i> JUnit笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcwOS84Mjcz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">曹灿</p>
+              <p class="site-description motion-element" itemprop="description">亦狂亦侠亦温文</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#8-springmvc和mybatis整合"><span class="nav-number">1.</span> <span class="nav-text">8    springmvc和mybatis整合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-1-需求"><span class="nav-number">1.1.</span> <span class="nav-text">8.1    需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-2-整合思路"><span class="nav-number">1.2.</span> <span class="nav-text">8.2    整合思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-3-准备环境"><span class="nav-number">1.3.</span> <span class="nav-text">8.3    准备环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-4-整合dao"><span class="nav-number">1.4.</span> <span class="nav-text">8.4    整合dao</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-1-sqlMapConfig-xml"><span class="nav-number">1.4.1.</span> <span class="nav-text">8.4.1    sqlMapConfig.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-2-applicationContext-dao-xml"><span class="nav-number">1.4.2.</span> <span class="nav-text">8.4.2    applicationContext-dao.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-3-逆向工程生成po类及mapper-单表增删改查"><span class="nav-number">1.4.3.</span> <span class="nav-text">8.4.3    逆向工程生成po类及mapper(单表增删改查)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-4-手动定义商品查询mapper"><span class="nav-number">1.4.4.</span> <span class="nav-text">8.4.4    手动定义商品查询mapper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-4-4-1-ItemsMapperCustom-xml"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">8.4.4.1    ItemsMapperCustom.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-4-4-2-ItemsMapperCustom-java"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">8.4.4.2    ItemsMapperCustom.java</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-5-整合service"><span class="nav-number">1.5.</span> <span class="nav-text">8.5    整合service</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-1-定义service接口"><span class="nav-number">1.5.1.</span> <span class="nav-text">8.5.1    定义service接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-2-在spring容器配置service-applicationContext-service-xml"><span class="nav-number">1.5.2.</span> <span class="nav-text">8.5.2    在spring容器配置service(applicationContext-service.xml)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-3-事务控制-applicationContext-transaction-xml"><span class="nav-number">1.5.3.</span> <span class="nav-text">8.5.3    事务控制(applicationContext-transaction.xml)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-6-整合springmvc"><span class="nav-number">1.6.</span> <span class="nav-text">8.6    整合springmvc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-1-springmvc-xml"><span class="nav-number">1.6.1.</span> <span class="nav-text">8.6.1    springmvc.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-2-配置前端控制器"><span class="nav-number">1.6.2.</span> <span class="nav-text">8.6.2    配置前端控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-3-编写Controller-就是Handler"><span class="nav-number">1.6.3.</span> <span class="nav-text">8.6.3    编写Controller(就是Handler)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-4-编写jsp"><span class="nav-number">1.6.4.</span> <span class="nav-text">8.6.4    编写jsp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-7-加载spring容器"><span class="nav-number">1.7.</span> <span class="nav-text">8.7    加载spring容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-商品修改功能开发"><span class="nav-number">2.</span> <span class="nav-text">9    商品修改功能开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1-需求"><span class="nav-number">2.1.</span> <span class="nav-text">9.1    需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-开发mapper"><span class="nav-number">2.2.</span> <span class="nav-text">9.2    开发mapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-开发service"><span class="nav-number">2.3.</span> <span class="nav-text">9.3    开发service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-4-开发controller"><span class="nav-number">2.4.</span> <span class="nav-text">9.4    开发controller</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-RequestMapping"><span class="nav-number">3.</span> <span class="nav-text">10    @RequestMapping</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-controller方法的返回值"><span class="nav-number">4.</span> <span class="nav-text">11    controller方法的返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-参数绑定"><span class="nav-number">5.</span> <span class="nav-text">12    参数绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-spring参数绑定过程"><span class="nav-number">5.1.</span> <span class="nav-text">12.1    spring参数绑定过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-2-默认支持的类型"><span class="nav-number">5.2.</span> <span class="nav-text">12.2    默认支持的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-1-HttpServletRequest"><span class="nav-number">5.2.0.1.</span> <span class="nav-text">1.2.1.1    HttpServletRequest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-2-HttpServletResponse"><span class="nav-number">5.2.0.2.</span> <span class="nav-text">1.2.1.2    HttpServletResponse</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-3-HttpSession"><span class="nav-number">5.2.0.3.</span> <span class="nav-text">1.2.1.3    HttpSession</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-4-Model-ModelMap"><span class="nav-number">5.2.0.4.</span> <span class="nav-text">1.2.1.4    Model/ModelMap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-简单类型"><span class="nav-number">5.3.</span> <span class="nav-text">12.3    简单类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-4-pojo绑定"><span class="nav-number">5.4.</span> <span class="nav-text">12.4    pojo绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-5-自定义参数绑定实现日期类型绑定"><span class="nav-number">5.5.</span> <span class="nav-text">12.5    自定义参数绑定实现日期类型绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-5-1-自定义日期类型绑定"><span class="nav-number">5.5.1.</span> <span class="nav-text">12.5.1    自定义日期类型绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-5-2-配置方式"><span class="nav-number">5.5.2.</span> <span class="nav-text">12.5.2     配置方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-springmvc和struts2的区别"><span class="nav-number">6.</span> <span class="nav-text">13    springmvc和struts2的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-问题"><span class="nav-number">7.</span> <span class="nav-text">14    问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#14-1-post乱码"><span class="nav-number">7.1.</span> <span class="nav-text">14.1    post乱码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">曹灿</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
