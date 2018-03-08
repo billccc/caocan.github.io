@@ -95,18 +95,18 @@
 <meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/6.png">
 <meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/7.png">
 <meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/8.png">
-<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/9.png">
-<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/10.png">
-<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/11.png">
-<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/12.png">
-<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/13.png">
-<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/14.png">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/9.PNG">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/10.PNG">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/11.PNG">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/12.PNG">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/13.PNG">
+<meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/14.PNG">
 <meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/15.png">
 <meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/16.png">
 <meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/17.png">
 <meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/18.png">
 <meta property="og:image" content="https://caocan.github.io/2017/12/21/Hibernate8/19.png">
-<meta property="og:updated_time" content="2017-12-21T08:53:07.703Z">
+<meta property="og:updated_time" content="2018-03-07T03:16:16.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hibernate笔记（八） Hibernate性能优化">
 <meta name="twitter:description" content="本文主要介绍Hibernate的性能优化方式，最后总结一下Hibernate。">
@@ -452,14 +452,14 @@
 <li>First In First Out 按顺序替换</li>
 </ol>
 <p>ii.    memoryStoreEvictionPolicy = “LRU” (ehcache.xml中配置) </p>
-<h2 id="第六十八课-事务隔离机制-悲观锁-乐观锁-1"><a href="#第六十八课-事务隔离机制-悲观锁-乐观锁-1" class="headerlink" title="第六十八课. 事务隔离机制-悲观锁-乐观锁-1"></a>第六十八课. 事务隔离机制-悲观锁-乐观锁-1</h2><p>事务并发处理(面试的意义更大)<br>a)    事务：ACID<br>i.    Atomic Consistency Itegrity Durability<br>b)    事务并发时可能出现的问题：<br>第一类丢失更新(Lost Update)<br><img src="9.png" alt=""></p>
+<h2 id="第六十八课-事务隔离机制-悲观锁-乐观锁-1"><a href="#第六十八课-事务隔离机制-悲观锁-乐观锁-1" class="headerlink" title="第六十八课. 事务隔离机制-悲观锁-乐观锁-1"></a>第六十八课. 事务隔离机制-悲观锁-乐观锁-1</h2><p>事务并发处理(面试的意义更大)<br>a)    事务：ACID<br>i.    Atomic Consistency Itegrity Durability<br>b)    事务并发时可能出现的问题：<br>第一类丢失更新(Lost Update)<br><img src="9.PNG" alt=""></p>
 <p>dirty read脏读(读到了另一个事务在处理中还未提交的数据)</p>
-<p><img src="10.png" alt=""></p>
-<p>non-repeatable read 不可重复读<br><img src="11.png" alt=""></p>
+<p><img src="10.PNG" alt=""></p>
+<p>non-repeatable read 不可重复读<br><img src="11.PNG" alt=""></p>
 <p>second lost update problem 第二类丢失更新(不可重复读的特殊情况)</p>
-<p><img src="12.png" alt=""></p>
+<p><img src="12.PNG" alt=""></p>
 <p>phantom read 幻读</p>
-<p><img src="13.png" alt=""></p>
+<p><img src="13.PNG" alt=""></p>
 <p>c)    数据库的事务隔离机制<br>i.    查看 java.sql.Connection 文档<br>ii.    1：read-uncommitted  2：read-committed  4：repeatable read  8：serializable（数字代表对应值）<br>为什么取值要使用 1 2 4 8 而不是 1 2 3 4<br>1=0001  2=0010 4=0100 8=1000(位移计算效率高)</p>
 <ol>
 <li>只要数据库支持事务,就不可能出现第一类丢失更新</li>
@@ -473,7 +473,7 @@
 <li>select … for update</li>
 <li>使用另一种load方法–load(xx.class , i , LockMode.Upgrade)<br>a)    LockMode.None无锁的机制，Transaction结束时，切换到此模式<br>b)    LockMode.read在査询的时候hibernate会自动获取锁<br>c)    LockMode.write insert  update hibernate 会自动获取锁<br>d)    以上3种锁的模式，是hibernate内部使用的(不需要设)<br>e)    LockMode.UPGRADE_NOWAIT是 ORACLE 支持的锁的方式<br>e)    Hibernate(JPA)乐观锁定(ReadCommitted)<br>(详见项目hibernate_3200_Hibernate_Concurrency_Optimistic_Lock)<br>实体类中增加version属性(数据库也会对应生成该字段,初始值为0)，并在其get方法前加<br>@Version注解，则在操作过程中没更新一次该行数据则version值加1，即可在事务提交前判断该数据是否被其他事务修改过.<br>@Version</li>
 </ol>
-<p><img src="14.png" alt=""></p>
+<p><img src="14.PNG" alt=""></p>
 <p>先看悲观锁的代码：<br>先执行testSchemaExport()来创建一个Account表，再执行一个testSave()，存取一个数据：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSave</span><span class="params">()</span> </span>&#123;</div><div class="line">   Session session = sf.openSession();</div><div class="line">   session.beginTransaction();</div><div class="line">   </div><div class="line">   Account a = <span class="keyword">new</span> Account();</div><div class="line">   a.setBalance(<span class="number">100</span>);</div><div class="line">   session.save(a);</div><div class="line">      </div><div class="line">   session.getTransaction().commit();</div><div class="line">   session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>查询数据库：<br><img src="15.png" alt=""></p>
 <p>成功插入一条数据。</p>
@@ -612,7 +612,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
